@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<machines>
+  <machine>
+    <name>- Desktop Computer</name>
+    <template>desktop.template</template>
+    <type>Local Computer</type>
+    <user />
+    <host />
+    <mem>850</mem>
+    <wall />
+    <pwd />
+    <dir>c:\results</dir>
+    <queue />
+    <server>true</server>
+  </machine>
+  <machine>
+    <name>CX1</name>
+    <template>cx1.template</template>
+    <type>SSH Server</type>
+    <user>wrh1</user>
+    <host>login.cx1.hpc.ic.ac.uk</host>
+    <mem>850</mem>
+    <wall>24:00:00</wall>
+    <pwd></pwd>
+    <dir>/work/wrh1</dir>
+    <queue>/usr/pbs/bin/qsub</queue>
+    <server>true</server>
+  </machine>
+</machines>

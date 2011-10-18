@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<chemical>
+  <name>Chlorophyll</name>
+  <archivename>Chlorophyll</archivename>
+  <pigment>true</pigment>
+  <spectrum>
+    <name>Chi</name>
+    <equation>
+      <name>Chi</name>
+      <eq>\graphvals{{0,0.0},{1,0.0},{2,0.112},{3,0.109},{4,0.095},{5,0.077},{6,0.061},{7,0.047},{8,0.041},{9,0.035},{10,0.035},{11,0.041},{12,0.045},{13,0.049},{14,0.034},{15,0.0},{16,0.0},{17,0.0},{18,0.0},{19,0.0},{20,0.0},{21,0.0},{22,0.0},{23,0.0},{24,0.0}}</eq>
+    </equation>
+  </spectrum>
+  <spectrum>
+    <name>e</name>
+    <equation>
+      <name>e</name>
+      <eq>\graphvals{{0,1},{1,1},{2,0.677},{3,0.702},{4,0.702},{5,0.703},{6,0.695},{7,0.673},{8,0.65},{9,0.618},{10,0.628},{11,0.65},{12,0.672},{13,0.687},{14,0.62},{15,1},{16,1},{17,1},{18,1},{19,1},{20,1},{21,1},{22,1},{23,1},{24,1}}</eq>
+    </equation>
+  </spectrum>
+  <source>C:\VEW\trunk\Data\Archive\Pigments\Chlorophyll.xml</source>
+  <author>VEW Research Group</author>
+  <date></date>
+  <comment>Generic text about plankton. Plankton is the aggregate community of weakly swimming but mostly drifting small organisms that inhabit the water column of the ocean, seas, and bodies of freshwater. The name comes from a Greek term meaning "wanderer" or "drifter". While some forms of plankton can move several hundreds of meters vertically in a single day (a behavior called diel vertical migration), their horizontal position is mostly determined by water movement (currents) in the body of water they inhabit. Larger organisms, such as squid, fish, and marine mammals that can control their horizontal movement and swim against the average flow of the water environment, are called nekton. The study of plankton is termed planktology. The smaller organisms in the plankton are termed nannoplankton (also as 'nanoplankton'): plankton organisms that are 2 to 63 $\mu m$ in diameter. The picoplankton are even smaller bacterial........</comment>
+</chemical>

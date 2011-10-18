@@ -1,0 +1,4 @@
+#!/bin/sh
+#PBS -l walltime=%walltime%,mem=%mem%
+module load java
+java %server% -Xmx%mem% -jar %dir%/VEW.jar /setpath:%dir%/
