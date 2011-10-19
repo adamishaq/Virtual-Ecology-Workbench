@@ -114,7 +114,7 @@ public class AddVarPage extends JDialog {
   public String getDesc() { return avwDesc.getText(); }
   public String getValue() { return avwVal.getText(); }
   public String getUnits() { return avwUnit; }
-  public String getType() { return (String) avwType.getSelectedItem(); }
+  public String getTypeItem() { return (String) avwType.getSelectedItem(); }
   public void setUnits(String s) { 
     avwUnit = s;
     avwEqPanel.setText("<html>dimensionless</html>");
