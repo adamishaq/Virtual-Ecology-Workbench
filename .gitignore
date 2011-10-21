@@ -1,3 +1,9 @@
 *.class
 *.jar
 *.exe
+bin/*
+ScenarioData/*
+jobs.xml
+results.xml
+vew.xml
+.classpath
