@@ -504,12 +504,16 @@ public class Planktonica extends JPanel {
       } else if (e.getSource() == editVar) {
         XMLTag theFunction;
         theFunction = getCurrentFunction();
+        
         varNameString = varList.getSelectedItem().toString();
         XMLTag group = getCurrentInstance();
         XMLTag theVar = theFunction.getTagWhere("*", "name", varNameString);
+        XMLTag theVarTemp = null;
         if (theVar == null) theVar = group.getTagWhere("*", "name", varNameString);
-        if (theVar == null) theVar = xmlFile.getTag("model/kernel").getTagWhere("*", "name", varNameString);
-        addVarPage.editThisVar(xmlFile.getTag("model"), theFunction, group, theVar, AddVarPage.ALL);
+        //if (theVar == null) theVar = xmlFile.getTag("model/kernel").getTagWhere("*", "name", varNameString);
+        if (theVar == null) theVarTemp = xmlFile.getTag("model/kernel");
+        if (theVarTemp != null) theVar = theVarTemp.getTagWhere("*", "name", varNameString);
+        if (theVar != null) addVarPage.editThisVar(xmlFile.getTag("model"), theFunction, group, theVar, AddVarPage.ALL);
         theVar = theFunction.getTagWhere("*", "name", varNameString);
         if (theVar == null) theVar = group.getTagWhere("*", "name", varNameString);
         detailsHTML.setText(VariableChooser.HTMLForVarHelper(varNameString,group, theVar, false));
