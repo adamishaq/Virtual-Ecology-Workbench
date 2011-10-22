@@ -1,6 +1,10 @@
 lexer grammar TestLexer;
 
-// Keywords and Variables
+// Rules
+RULENAME : ('"')(LETTER|DIGIT|'_'|IGNORE)*('"');	
+COLON    : (':')(NEWLINE);
+
+// Keywords
 // If statement:
 IF   : 'if';
 THEN : 'then';
@@ -19,7 +23,8 @@ INTEGRATE : 'integrate';
 CREATE 	: 'create';
 WITH 	: 'with';
 LSQUARE : '[';
-RSQUARE	: ']';	
+RSQUARE	: ']';
+COMMA 	: ',';
 
 // Mathematical Functions
 ABS    : 'abs';
@@ -75,12 +80,15 @@ OR	      : 'or';
 
 // Variable names
 protected LETTER : ('a'..'z'|'A'..'Z');	
-VAR  :	(LETTER|'_') (LETTER|DIGIT|'_')*;
+VAR : (LETTER)(LETTER|DIGIT|'_')*;
 
-// Whitespace Stuff
-NEWLINE : '\n';
-WS  :   ( ' '
-        | '\t'
-        | '\r'
-        ) {$channel=HIDDEN;};
+// Line Comments
+protected COMMENT : (('//')(.)*('/n')) {$channel=HIDDEN;};	
+
+// Whitespace
+NEWLINE : (('\n'|COMMENT)(IGNORE)*)*;
+IGNORE 	: (' '| '\t'|'\r') {$channel=HIDDEN;};
+
+// Unrecognised Symbol
+UNKNOWN	: (.);
 
