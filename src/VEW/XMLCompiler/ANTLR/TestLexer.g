@@ -1,25 +1,30 @@
-grammar TestLexer;
+lexer grammar TestLexer;
 
-// Keywords and Variables
+// Rules
+RULENAME : ('"')(LETTER|DIGIT|'_'|IGNORE)*('"');	
+COLON    : (':')(NEWLINE);
+
+// Keywords
 // If statement:
 IF   : 'if';
 THEN : 'then';
 ELSE : 'else';
 
 // Biological Functions:
-UPTAKE    : 'uptake';
-RELEASE   : 'release';
-INGEST 	  : 'ingest';
-CHANGE    : 'change';
-PCHANGE   : 'pchange';
-DIVIDE	  : 'divide';
-INTEGRATE : 'integrate';
+UPTAKE     : 'uptake';
+RELEASE    : 'release';
+INGEST     : 'ingest';
+CHANGE     : 'change';
+PCHANGE    : 'pchange';
+DIVIDE	   : 'divide';
+INTEGRATE  : 'integrate';
 
 // Creates Syntax
-CREATE 	: 'create';
-WITH 	: 'with';
+CREATE	: 'create';
+WITH	: 'with';
 LSQUARE : '[';
-RSQUARE	: ']';	
+RSQUARE	: ']';
+COMMA 	: ',';
 
 // Mathematical Functions
 ABS    : 'abs';
@@ -43,9 +48,9 @@ DEPTHFORFI  : 'depthForFI';
 DEPTHFORVI  : 'depthForVI';
 FULLIRRADAT : 'fullIrradAt';
 SALINITYAT  : 'salinityAt';
-TEMPAT	    : 'temperatureAt';
+TEMPAT      : 'temperatureAt';
 UVIRRADAT   : 'UVIrradAt';
-VARHIST	    : 'varhist';
+VARHIST     : 'varhist';
 
 // Numerical Expressions
 protected DIGIT : ('0'..'9');
@@ -55,7 +60,7 @@ FLOAT
     |   (DIGIT)+;
 
 // Arithmetic Operators
-EQUALS 	 : '=';
+EQUALS   : '=';
 PLUS     : '+' ;
 MINUS    : '-' ;
 MUL      : '*' ;
@@ -67,24 +72,25 @@ RBRACKET : ')';
 // Boolean Operators
 GREATEREQUALS : '>=';
 LESSEQUALS    : '<=';
-NEQUALS	      : '<>';		
+NEQUALS       : '<>';
 GREATERTHAN   : '>';
 LESSTHAN      : '<';
-AND	      :	'and';
-OR	      : 'or';			
-NOT	: 'not';
-
+AND           :  'and';
+OR            : 'or';
 
 // Variable names
-protected LETTER : ('a'..'z'|'A'..'Z');	
-VAR  :	(LETTER|'_') (LETTER|DIGIT|'_')*;
+protected LETTER : ('a'..'z'|'A'..'Z');   
+VAR : (LETTER)(LETTER|DIGIT|'_')*;
 
-// Whitespace Stuff
-NEWLINE : '\n';
-WS  :   ( ' '
-        | '\t'
-        | '\r'
-        ) {$channel=HIDDEN;};
+// Line Comments
+protected COMMENT : (('//')(.)*('/n')) {$channel=HIDDEN;};  
+
+// Whitespace
+NEWLINE : (('\n'|COMMENT)(IGNORE)*)*;
+IGNORE   : (' '| '\t'|'\r') {$channel=HIDDEN;};
+
+// Unrecognised Symbol
+UNKNOWN  : (.);
 
 
 
@@ -212,5 +218,3 @@ comparators
 	| GREATEREQUALS
 	| LESSEQUALS
 	;
-	
-	
