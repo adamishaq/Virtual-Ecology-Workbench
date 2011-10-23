@@ -11,17 +11,17 @@ THEN : 'then';
 ELSE : 'else';
 
 // Biological Functions:
-UPTAKE    : 'uptake';
-RELEASE   : 'release';
-INGEST 	  : 'ingest';
-CHANGE    : 'change';
-PCHANGE   : 'pchange';
-DIVIDE	  : 'divide';
-INTEGRATE : 'integrate';
+UPTAKE     : 'uptake';
+RELEASE    : 'release';
+INGEST     : 'ingest';
+CHANGE     : 'change';
+PCHANGE    : 'pchange';
+DIVIDE	   : 'divide';
+INTEGRATE  : 'integrate';
 
 // Creates Syntax
-CREATE 	: 'create';
-WITH 	: 'with';
+CREATE	: 'create';
+WITH	: 'with';
 LSQUARE : '[';
 RSQUARE	: ']';
 COMMA 	: ',';
@@ -48,9 +48,9 @@ DEPTHFORFI  : 'depthForFI';
 DEPTHFORVI  : 'depthForVI';
 FULLIRRADAT : 'fullIrradAt';
 SALINITYAT  : 'salinityAt';
-TEMPAT	    : 'temperatureAt';
+TEMPAT      : 'temperatureAt';
 UVIRRADAT   : 'UVIrradAt';
-VARHIST	    : 'varhist';
+VARHIST     : 'varhist';
 
 // Numerical Expressions
 protected DIGIT : ('0'..'9');
@@ -60,7 +60,7 @@ FLOAT
     |   (DIGIT)+;
 
 // Arithmetic Operators
-EQUALS 	 : '=';
+EQUALS   : '=';
 PLUS     : '+' ;
 MINUS    : '-' ;
 MUL      : '*' ;
@@ -72,23 +72,148 @@ RBRACKET : ')';
 // Boolean Operators
 GREATEREQUALS : '>=';
 LESSEQUALS    : '<=';
-NEQUALS	      : '<>';		
+NEQUALS       : '<>';
 GREATERTHAN   : '>';
 LESSTHAN      : '<';
-AND	      :	'and';
-OR	      : 'or';			
+AND           :  'and';
+OR            : 'or';
+NOT           : 'not';	      
+	
 
 // Variable names
-protected LETTER : ('a'..'z'|'A'..'Z');	
+protected LETTER : ('a'..'z'|'A'..'Z');   
 VAR : (LETTER)(LETTER|DIGIT|'_')*;
 
 // Line Comments
-protected COMMENT : (('//')(.)*('/n')) {$channel=HIDDEN;};	
+protected COMMENT : (('//')(.)*('/n')) {$channel=HIDDEN;};  
 
 // Whitespace
 NEWLINE : (('\n'|COMMENT)(IGNORE)*)*;
-IGNORE 	: (' '| '\t'|'\r') {$channel=HIDDEN;};
+IGNORE   : (' '| '\t'|'\r') {$channel=HIDDEN;};
 
 // Unrecognised Symbol
-UNKNOWN	: (.);
+UNKNOWN  : (.);
 
+
+
+/*********** PARSER CODE **************/
+rules
+	: (rule NEWLINE)+
+	; 
+	
+rule
+	: assign
+	| IF bExpr THEN rule
+	| UPTAKE LBRACKET VAR COMMA expr RBRACKET
+	| RELEASE LBRACKET VAR COMMA expr RBRACKET
+	| INGEST LBRACKET VAR COMMA expr RBRACKET
+	| CHANGE LBRACKET VAR COMMA RBRACKET
+	| PCHANGE LBRACKET VAR COMMA expr RBRACKET
+	| DIVIDE LBRACKET expr RBRACKET
+	| CREATE LBRACKET VAR COMMA expr RBRACKET 
+		(WITH LSQUARE assignList RSQUARE)?
+	;
+	
+assign
+	: VAR EQUALS expr
+	;
+	
+
+assignList
+	: assign (COMMA assign)*
+	;
+		
+expr
+	: expr2 (lowPrecMathOp expr2)*
+	;
+	
+expr2
+	: expr3 (medPrecMathOp  expr3)*
+	;
+	
+expr3
+	: expr4 (highPrecMathOp expr4)*
+	;
+	
+
+expr4
+ 	: LBRACKET expr RBRACKET
+	| unaryPrimitives LBRACKET expr RBRACKET
+	| FLOAT
+	| VAR
+	| IF bExpr THEN expr ELSE expr 'endif'
+	| binPrim LBRACKET expr COMMA expr RBRACKET
+	| VARHIST LBRACKET VAR COMMA expr RBRACKET
+	;
+
+	
+
+
+bExpr
+	: bExpr2 (lowPrecBoolOp bExpr)?
+	; 	
+
+bExpr2
+	: expr comparators expr
+	| NOT LBRACKET bExpr RBRACKET
+	| RBRACKET bExpr LBRACKET
+	;
+
+
+
+	
+unaryPrimitives
+	: ABS
+	| ACOS
+	| ASIN
+	| ATAN
+	| COS
+	| EXP
+	| LN
+	| LOGTEN
+	| RND
+	| SIN
+	| SQRT
+	| TAN
+	| DENSITYAT
+	| DEPTHFORFI
+	| DEPTHFORVI
+	| FULLIRRADAT
+	| SALINITYAT
+	| TEMPAT
+	| UVIRRADAT
+	| INTEGRATE
+	;
+	
+lowPrecMathOp
+	: PLUS
+	| MINUS
+	; 
+	
+medPrecMathOp
+	: MUL
+	| DIV
+	;
+	
+highPrecMathOp
+	: POW
+	;
+
+binPrim
+	: MIN
+	| MAX
+	;
+	
+lowPrecBoolOp
+	: AND
+	| OR
+	;
+
+comparators
+	: EQUALS
+	| NEQUALS
+	| GREATERTHAN
+	| LESSTHAN
+	| GREATEREQUALS
+	| LESSEQUALS
+	;
