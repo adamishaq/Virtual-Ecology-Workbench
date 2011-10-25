@@ -13,9 +13,10 @@ package VEW.XMLCompiler.ANTLR.output;
 package VEW.XMLCompiler.ANTLR.output;
 }
 
+
 // Rules
 RULENAME : ('"')(LETTER|DIGIT|'_'|IGNORE)*('"');	
-COLON    : (':')(NEWLINE);
+COLON    : (':')(IGNORE)*(NEWLINE)?;
 
 // Keywords
 // If statement:
@@ -66,7 +67,7 @@ UVIRRADAT   : 'UVIrradAt';
 VARHIST     : 'varhist';
 
 // Numerical Expressions
-protected DIGIT : ('0'..'9');
+fragment DIGIT : ('0'..'9');
 FLOAT
     :   (DIGIT)+ '.' (DIGIT)*
     |   '.' (DIGIT)+
@@ -92,21 +93,28 @@ AND           :  'and';
 OR            : 'or';
 NOT           : 'not';	      
 	
+	
+// Vector Functions
+ALL 	 : 'all';
+SOME	 : 'some';
+NONE	 : 'none';
+VAVERAGE : 'average';
+VPRODUCT : 'product';
+VSUM	 : 'sum';
 
 // Variable names
 protected LETTER : ('a'..'z'|'A'..'Z');   
 VAR : (LETTER)(LETTER|DIGIT|'_')*;
 
 // Line Comments
-protected COMMENT : (('//')(.)*('/n')) {$channel=HIDDEN;};  
+fragment COMMENT : ('//')(~'\n')*;	  
 
 // Whitespace
-NEWLINE : (('\n'|COMMENT)(IGNORE)*)*;
-IGNORE   : (' '| '\t'|'\r') {$channel=HIDDEN;};
+NEWLINE : (COMMENT|(('\n')(IGNORE)*))+;
+IGNORE 	: (' '| '\t'|'\r') {$channel=HIDDEN;};
 
 // Unrecognised Symbol
-UNKNOWN  : (.);
-
+UNKNOWN	: (.);
 
 
 /*********** PARSER CODE **************/
