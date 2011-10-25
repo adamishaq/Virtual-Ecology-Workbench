@@ -1,4 +1,17 @@
-lexer grammar TestLexer;
+grammar TestLexer;
+
+options {
+	backtrack=true;
+	memoize=true;
+}
+
+@header {
+package VEW.XMLCompiler.ANTLR.output;
+}
+
+@lexer::header {
+package VEW.XMLCompiler.ANTLR.output;
+}
 
 // Rules
 RULENAME : ('"')(LETTER|DIGIT|'_'|IGNORE)*('"');	
@@ -97,21 +110,29 @@ UNKNOWN  : (.);
 
 
 /*********** PARSER CODE **************/
+
+
 rules
-	: (rule NEWLINE)+
+	: rule NEWLINE
 	; 
+	
+ruleName
+	: RULENAME COLON (NEWLINE)?
+	| VAR COLON (NEWLINE)?
+	;
 	
 rule
 	: assign
 	| IF bExpr THEN rule
 	| UPTAKE LBRACKET VAR COMMA expr RBRACKET
 	| RELEASE LBRACKET VAR COMMA expr RBRACKET
-	| INGEST LBRACKET VAR COMMA expr RBRACKET
+	| INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET
 	| CHANGE LBRACKET VAR COMMA RBRACKET
 	| PCHANGE LBRACKET VAR COMMA expr RBRACKET
 	| DIVIDE LBRACKET expr RBRACKET
 	| CREATE LBRACKET VAR COMMA expr RBRACKET 
 		(WITH LSQUARE assignList RSQUARE)?
+	| LBRACKET rule RBRACKET
 	;
 	
 assign
@@ -141,22 +162,20 @@ expr4
 	| unaryPrimitives LBRACKET expr RBRACKET
 	| FLOAT
 	| VAR
-	| IF bExpr THEN expr ELSE expr 'endif'
+	| IF bExpr THEN expr ELSE LBRACKET expr RBRACKET
 	| binPrim LBRACKET expr COMMA expr RBRACKET
 	| VARHIST LBRACKET VAR COMMA expr RBRACKET
 	;
 
-	
-
 
 bExpr
-	: bExpr2 (lowPrecBoolOp bExpr)?
+	: bExpr2 (lowPrecBoolOp bExpr2)*
 	; 	
 
 bExpr2
 	: expr comparators expr
 	| NOT LBRACKET bExpr RBRACKET
-	| RBRACKET bExpr LBRACKET
+	| LBRACKET bExpr RBRACKET
 	;
 
 
