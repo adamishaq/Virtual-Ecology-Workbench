@@ -2,7 +2,7 @@ lexer grammar TestLexer;
 
 // Rules
 RULENAME : ('"')(LETTER|DIGIT|'_'|IGNORE)*('"');	
-COLON    : (':')(NEWLINE);
+COLON    : (':')(IGNORE)*(NEWLINE)?;
 
 // Keywords
 // If statement:
@@ -11,17 +11,17 @@ THEN : 'then';
 ELSE : 'else';
 
 // Biological Functions:
-UPTAKE     : 'uptake';
-RELEASE    : 'release';
-INGEST     : 'ingest';
-CHANGE     : 'change';
-PCHANGE    : 'pchange';
-DIVIDE	   : 'divide';
-INTEGRATE  : 'integrate';
+UPTAKE    : 'uptake';
+RELEASE   : 'release';
+INGEST 	  : 'ingest';
+CHANGE    : 'change';
+PCHANGE   : 'pchange';
+DIVIDE	  : 'divide';
+INTEGRATE : 'integrate';
 
 // Creates Syntax
-CREATE	: 'create';
-WITH	: 'with';
+CREATE 	: 'create';
+WITH 	: 'with';
 LSQUARE : '[';
 RSQUARE	: ']';
 COMMA 	: ',';
@@ -48,19 +48,19 @@ DEPTHFORFI  : 'depthForFI';
 DEPTHFORVI  : 'depthForVI';
 FULLIRRADAT : 'fullIrradAt';
 SALINITYAT  : 'salinityAt';
-TEMPAT      : 'temperatureAt';
+TEMPAT	    : 'temperatureAt';
 UVIRRADAT   : 'UVIrradAt';
-VARHIST     : 'varhist';
+VARHIST	    : 'varhist';
 
 // Numerical Expressions
-protected DIGIT : ('0'..'9');
+fragment DIGIT : ('0'..'9');
 FLOAT
     :   (DIGIT)+ '.' (DIGIT)*
     |   '.' (DIGIT)+
     |   (DIGIT)+;
 
 // Arithmetic Operators
-EQUALS   : '=';
+EQUALS 	 : '=';
 PLUS     : '+' ;
 MINUS    : '-' ;
 MUL      : '*' ;
@@ -72,28 +72,33 @@ RBRACKET : ')';
 // Boolean Operators
 GREATEREQUALS : '>=';
 LESSEQUALS    : '<=';
-NEQUALS       : '<>';
+NEQUALS	      : '<>';		
 GREATERTHAN   : '>';
 LESSTHAN      : '<';
-AND           :  'and';
-OR            : 'or';
-NOT           : 'not';	      
-	
+AND	      :	'and';
+OR	      : 'or';			
+
+// Vector Functions
+ALL 	 : 'all';
+SOME	 : 'some';
+NONE	 : 'none';
+VAVERAGE : 'average';
+VPRODUCT : 'product';
+VSUM	 : 'sum';
 
 // Variable names
-protected LETTER : ('a'..'z'|'A'..'Z');   
+fragment LETTER : ('a'..'z'|'A'..'Z');	
 VAR : (LETTER)(LETTER|DIGIT|'_')*;
 
 // Line Comments
-protected COMMENT : (('//')(.)*('/n')) {$channel=HIDDEN;};  
+fragment COMMENT : ('//')(~'\n')*;	
 
 // Whitespace
-NEWLINE : (('\n'|COMMENT)(IGNORE)*)*;
-IGNORE   : (' '| '\t'|'\r') {$channel=HIDDEN;};
+NEWLINE : (COMMENT|(('\n')(IGNORE)*))+;
+IGNORE 	: (' '| '\t'|'\r') {$channel=HIDDEN;};
 
 // Unrecognised Symbol
-UNKNOWN  : (.);
-
+UNKNOWN	: (.);
 
 
 /*********** PARSER CODE **************/
