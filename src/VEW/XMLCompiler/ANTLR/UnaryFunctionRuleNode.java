@@ -5,8 +5,8 @@ public class UnaryFunctionRuleNode extends ASTree implements RuleNode {
 	private UnaryRuleFunction funcName;
 	private IdNode idArg;
 	
-	public UnaryFunctionRuleNode (String funcName, IdNode idArg) {
-		this.funcName = UnaryRuleFunction.valueOf(funcName);
+	public UnaryFunctionRuleNode (UnaryRuleFunction funcName, IdNode idArg) {
+		this.funcName = funcName;
 		this.idArg = idArg;
 	}
 	

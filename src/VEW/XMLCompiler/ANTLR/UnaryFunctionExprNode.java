@@ -5,8 +5,8 @@ public class UnaryFunctionExprNode extends ASTree implements RuleNode {
 	private UnaryExprFunction function;
 	private ExprNode expArg;
 
-	public UnaryFunctionExprNode(String funcName, ExprNode expArg) {
-		this.function = UnaryExprFunction.valueOf(funcName);
+	public UnaryFunctionExprNode(UnaryExprFunction function, ExprNode expArg) {
+		this.function = function;
 		this.expArg = expArg;
 	}
 	

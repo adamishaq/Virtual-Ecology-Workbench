@@ -10,6 +10,8 @@ tokens {
 	ASSIGN;
 	RULE;
 	ASSIGNLIST;
+	EXPR;
+	BEXPR;
 }
 
 @header {
