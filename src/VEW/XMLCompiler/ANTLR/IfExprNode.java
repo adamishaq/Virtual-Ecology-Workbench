@@ -20,8 +20,8 @@ public class IfExprNode extends ASTree implements ExprNode {
 
 	@Override
 	public String generateXML() {
-		// TODO Auto-generated method stub
-		return null;
+		return "\\conditional{" + conditionExpr.generateXML() + "," + thenExpr.generateXML()
+		 + "," + elseExpr.generateXML() + "}";
 	}
 
 }

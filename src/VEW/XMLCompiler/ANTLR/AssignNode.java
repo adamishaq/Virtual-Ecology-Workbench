@@ -18,8 +18,7 @@ public class AssignNode extends ASTree implements RuleNode {
 
 	@Override
 	public String generateXML() {
-		// TODO Auto-generated method stub
-		return null;
+		return "\\assign{" + identifier.generateXML() + "," + expr.generateXML() + "}";
 	}
 
 }

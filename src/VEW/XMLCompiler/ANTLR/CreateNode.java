@@ -26,8 +26,13 @@ public class CreateNode extends ASTree implements RuleNode {
 
 	@Override
 	public String generateXML() {
-		// TODO Auto-generated method stub
-		return null;
+		if (assignList != null) {
+			return "\\create{" + identifier.generateXML() + "," 
+			 + expression.generateXML() + "," + assignList.generateXML() + "}";
+		} else {
+			return "\\create{" + identifier.generateXML() + "," 
+			 + expression.generateXML() + "}";
+		}
 	}
 
 }

@@ -16,8 +16,7 @@ public class IdNode extends ASTree implements ExprNode {
 
 	@Override
 	public String generateXML() {
-		// TODO Auto-generated method stub
-		return null;
+		return "\\var{" + name + "}";
 	}
 
 }

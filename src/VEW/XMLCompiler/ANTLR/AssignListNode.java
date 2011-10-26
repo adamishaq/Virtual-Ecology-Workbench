@@ -23,8 +23,10 @@ public class AssignListNode extends ASTree {
 
 	@Override
 	public String generateXML() {
-		// TODO Auto-generated method stub
-		return null;
+		if (nextAssign != null)
+		  return "\\set{" + assign.generateXML() + "}," + nextAssign.generateXML();
+		else
+		  return "\\set{" + assign.generateXML() + "}";
 	}
 
 }

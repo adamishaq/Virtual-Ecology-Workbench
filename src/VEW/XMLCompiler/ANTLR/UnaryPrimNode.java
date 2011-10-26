@@ -18,8 +18,30 @@ public class UnaryPrimNode extends ASTree implements ExprNode {
 
 	@Override
 	public String generateXML() {
-		// TODO Auto-generated method stub
-		return null;
+		String func = "";
+		switch (primitive) {
+		case ABS 		 : func = "abs"; break;
+		case ACOS 		 : func = "acos"; break;
+		case ASIN 		 : func = "asin"; break;
+		case ATAN 		 : func = "atan"; break;
+		case COS 		 : func = "cos"; break;
+		case EXP 		 : func = "exp"; break;
+		case LN 		 : func = "log"; break;
+		case LOGTEN 	 : func = "log10"; break;
+		case RND 		 : func = "rnd"; break;
+		case SIN 		 : func = "sin"; break;
+		case SQRT 		 : func = "sqrt"; break;
+		case TAN 		 : func = "tan"; break;
+		case DENSITYAT 	 : func = "densityAt"; break;
+		case DEPTHFORFI  : func = "depthForFI"; break;
+		case DEPTHFORVI  : func = "depthForVI"; break;
+		case FULLIRRADAT : func = "fullIrradAt"; break;
+		case SALINITYAT  : func = "salinityAt"; break;
+		case TEMPAT 	 : func = "temperatureAt"; break;
+		case UVIRRADAT 	 : func = "UVIrradAt"; break;
+		case INTEGRATE 	 : func = "integrate"; break;
+		}
+		return "\\" + func + "{" + argument.generateXML() + "}";
 	}
 
 }
