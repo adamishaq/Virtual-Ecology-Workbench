@@ -103,11 +103,11 @@ VPRODUCT : 'product';
 VSUM	 : 'sum';
 
 // Variable names
-protected LETTER : ('a'..'z'|'A'..'Z');   
+fragment LETTER : ('a'..'z'|'A'..'Z');   
 VAR : (LETTER)(LETTER|DIGIT|'_')*;
 
 // Line Comments
-fragment COMMENT : ('//')(~'\n')*;	  
+fragment COMMENT : ('//')(~'\n')*;  
 
 // Whitespace
 NEWLINE : (COMMENT|(('\n')(IGNORE)*))+;
@@ -121,7 +121,7 @@ UNKNOWN	: (.);
 
 
 rules
-	: rule NEWLINE
+	: ((ruleName)? rule NEWLINE)+
 	; 
 	
 ruleName
@@ -170,7 +170,7 @@ expr4
 	| unaryPrimitives LBRACKET expr RBRACKET
 	| FLOAT
 	| VAR
-	| IF bExpr THEN expr ELSE LBRACKET expr RBRACKET
+	| IF bExpr THEN expr ELSE expr
 	| binPrim LBRACKET expr COMMA expr RBRACKET
 	| VARHIST LBRACKET VAR COMMA expr RBRACKET
 	;
