@@ -20,8 +20,16 @@ public class BooleanComparitorNode extends ASTree implements BExprNode {
 
 	@Override
 	public String generateXML() {
-		// TODO Auto-generated method stub
-		return null;
+		String op = "";
+		switch (comparitor) {
+		case EQUALS        : op = "equal"; break; 
+		case NEQUALS       : op = "neq"; break; 
+		case GREATERTHAN   : op = "greater"; break; 
+		case LESSTHAN      : op = "less"; break; 
+		case GREATEREQUALS : op = "greaterequal"; break;
+		case LESSEQUALS    : op = "lessequal"; break; 
+		}
+		return "\\" + op + "{" + leftExpr.generateXML() + "," + rightExpr.generateXML() + "}";
 	}
 
 }

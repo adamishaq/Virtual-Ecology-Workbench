@@ -18,8 +18,11 @@ public class UnaryFunctionRuleNode extends ASTree implements RuleNode {
 
 	@Override
 	public String generateXML() {
-		// TODO Auto-generated method stub
-		return null;
+		String func = "";
+		switch (funcName) {
+		case CHANGE : func = "change"; break;
+		}
+		return "\\" + func + "{" + idArg.generateXML() + "}";
 	}
 
 }

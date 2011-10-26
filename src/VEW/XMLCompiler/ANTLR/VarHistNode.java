@@ -18,8 +18,7 @@ public class VarHistNode extends ASTree implements ExprNode {
 
 	@Override
 	public String generateXML() {
-		// TODO Auto-generated method stub
-		return null;
+		return "\\varhist{" + identifier.generateXML() + "," + expression.generateXML() + "}";
 	}
 
 }
