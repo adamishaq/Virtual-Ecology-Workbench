@@ -3,6 +3,13 @@ grammar TestLexer;
 options {
 	backtrack=true;
 	memoize=true;
+	output=AST;
+}
+
+tokens {
+	ASSIGN;
+	RULE;
+	ASSIGNLIST;
 }
 
 @header {
@@ -12,7 +19,6 @@ package VEW.XMLCompiler.ANTLR.output;
 @lexer::header {
 package VEW.XMLCompiler.ANTLR.output;
 }
-
 
 // Rules
 RULENAME : ('"')(LETTER|DIGIT|'_'|IGNORE)*('"');	
@@ -116,76 +122,83 @@ IGNORE 	: (' '| '\t'|'\r') {$channel=HIDDEN;};
 // Unrecognised Symbol
 UNKNOWN	: (.);
 
-
 /*********** PARSER CODE **************/
 
 
 rules
-	: ((ruleName)? rule NEWLINE)+
+	: (NEWLINE)? pair (NEWLINE pair)* (NEWLINE)? -> pair pair*
 	; 
 	
+pair
+	: ruleName rule2 -> ^(RULE ruleName rule2)
+	| rule
+	;
+	
 ruleName
-	: RULENAME COLON (NEWLINE)?
-	| VAR COLON (NEWLINE)?
+	: RULENAME COLON (NEWLINE)? -> RULENAME
+	| VAR COLON (NEWLINE)? -> VAR
 	;
-	
+
 rule
+	: rule2 -> ^(RULE rule2)
+	;
+
+rule2
 	: assign
-	| IF bExpr THEN rule
-	| UPTAKE LBRACKET VAR COMMA expr RBRACKET
-	| RELEASE LBRACKET VAR COMMA expr RBRACKET
-	| INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET
-	| CHANGE LBRACKET VAR COMMA RBRACKET
-	| PCHANGE LBRACKET VAR COMMA expr RBRACKET
-	| DIVIDE LBRACKET expr RBRACKET
+	| IF bExpr THEN rule -> ^(IF bExpr rule)
+	| UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^(UPTAKE VAR expr)
+	| RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^(RELEASE VAR expr)
+	| INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^(INGEST VAR expr expr)
+	| CHANGE LBRACKET VAR RBRACKET -> ^(CHANGE VAR)
+	| PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^(PCHANGE VAR expr)
+	| DIVIDE LBRACKET expr RBRACKET -> ^(DIVIDE expr)
 	| CREATE LBRACKET VAR COMMA expr RBRACKET 
-		(WITH LSQUARE assignList RSQUARE)?
-	| LBRACKET rule RBRACKET
+		(WITH LSQUARE assignList RSQUARE)? -> ^(CREATE VAR expr (assignList)?)
+	| LBRACKET rule RBRACKET -> rule
 	;
-	
+
 assign
-	: VAR EQUALS expr
+	: VAR EQUALS expr -> ^(ASSIGN VAR expr)
 	;
-	
 
 assignList
-	: assign (COMMA assign)*
+	: assign (COMMA assign)* -> ^(ASSIGNLIST assign (assign)*)
 	;
 		
 expr
-	: expr2 (lowPrecMathOp expr2)*
+	: expr2 (lowPrecMathOp^ expr2)*
 	;
 	
 expr2
-	: expr3 (medPrecMathOp  expr3)*
+	: expr3 (medPrecMathOp^  expr3)*
 	;
 	
 expr3
-	: expr4 (highPrecMathOp expr4)*
+	: expr4 (highPrecMathOp^ expr4)*
 	;
 	
 
 expr4
- 	: LBRACKET expr RBRACKET
-	| unaryPrimitives LBRACKET expr RBRACKET
+ 	: LBRACKET expr RBRACKET -> expr
+	| unaryPrimitives LBRACKET expr RBRACKET -> ^(unaryPrimitives expr)
 	| FLOAT
 	| VAR
-	| IF bExpr THEN expr ELSE expr
-	| binPrim LBRACKET expr COMMA expr RBRACKET
-	| VARHIST LBRACKET VAR COMMA expr RBRACKET
-	| vOp LBRACKET expr RBRACKET
+	| IF bExpr THEN expr ELSE expr -> ^(IF bExpr expr expr)
+	| binPrim LBRACKET expr COMMA expr RBRACKET -> ^(binPrim expr expr)
+	| VARHIST LBRACKET VAR COMMA expr RBRACKET -> ^(VARHIST VAR expr)
+	| vOp LBRACKET expr RBRACKET -> ^(vOp expr)
 	;
 
 
 bExpr
-	: bExpr2 (lowPrecBoolOp bExpr2)*
+	: bExpr2 (lowPrecBoolOp^ bExpr2)*
 	; 	
 
 bExpr2
-	: expr comparators expr
-	| NOT LBRACKET bExpr RBRACKET
-	| LBRACKET bExpr RBRACKET
-	| vBOp LBRACKET bExpr RBRACKET
+	: expr comparators^ expr
+	| NOT LBRACKET bExpr RBRACKET -> ^(NOT bExpr)
+	| LBRACKET bExpr RBRACKET -> bExpr
+	| vBOp LBRACKET bExpr RBRACKET -> ^(vBOp bExpr)
 	;
 
 
