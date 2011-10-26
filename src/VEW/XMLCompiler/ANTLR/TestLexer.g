@@ -173,6 +173,7 @@ expr4
 	| IF bExpr THEN expr ELSE expr
 	| binPrim LBRACKET expr COMMA expr RBRACKET
 	| VARHIST LBRACKET VAR COMMA expr RBRACKET
+	| vOp LBRACKET expr RBRACKET
 	;
 
 
@@ -184,6 +185,7 @@ bExpr2
 	: expr comparators expr
 	| NOT LBRACKET bExpr RBRACKET
 	| LBRACKET bExpr RBRACKET
+	| vBOp LBRACKET bExpr RBRACKET
 	;
 
 
@@ -243,4 +245,16 @@ comparators
 	| LESSTHAN
 	| GREATEREQUALS
 	| LESSEQUALS
+	;
+	
+vOp
+	: VSUM
+	| VPRODUCT
+	| VAVERAGE
+	;
+	
+vBOp
+	: ALL
+	| SOME
+	| NONE
 	;
