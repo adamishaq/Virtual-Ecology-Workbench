@@ -18,8 +18,7 @@ public class IfRuleNode extends ASTree implements RuleNode {
 
 	@Override
 	public String generateXML() {
-		// TODO Auto-generated method stub
-		return null;
+		return "\\ifthen{" + conditionExpr.generateXML() + "," + rule.generateXML() + "}";
 	}
 
 }

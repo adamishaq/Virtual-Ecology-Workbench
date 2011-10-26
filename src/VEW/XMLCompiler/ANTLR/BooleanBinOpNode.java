@@ -20,8 +20,12 @@ public class BooleanBinOpNode extends ASTree implements BExprNode {
 
 	@Override
 	public String generateXML() {
-		// TODO Auto-generated method stub
-		return null;
+		String op = "";
+		switch (booleanOp) {
+		case AND : op = "and"; break; 
+		case OR  : op = "or"; break;
+		}
+		return "\\" + op + "{" + leftBExpr.generateXML() + "," + rightBExpr.generateXML() + "}";
 	}
 
 }

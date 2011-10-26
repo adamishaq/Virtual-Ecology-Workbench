@@ -16,8 +16,7 @@ public class BooleanNotOpNode extends ASTree implements BExprNode {
 
 	@Override
 	public String generateXML() {
-		// TODO Auto-generated method stub
-		return null;
+		return "\\not{" + expression.generateXML() + "}";
 	}
 
 }
