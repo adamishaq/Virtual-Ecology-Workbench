@@ -1,4 +1,4 @@
-grammar TestLexer;
+grammar BACON;
 
 options {
 	backtrack=true;
