@@ -1,6 +1,6 @@
 package VEW.XMLCompiler.ANTLR.test;
 
-public class AssignTest extends GenericTest {
+public class AssignTest extends FilePassesParserTest {
 
 	private final String fileName = "assign test.txt";
 	
