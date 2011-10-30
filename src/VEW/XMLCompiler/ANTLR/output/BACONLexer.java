@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g 2011-10-30 18:55:14
+// $ANTLR 3.4 C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g 2011-10-30 20:23:16
 
 package VEW.XMLCompiler.ANTLR.output;
 
@@ -3289,4 +3289,5 @@ public class BACONLexer extends Lexer {
 
     }
  
+
 }
