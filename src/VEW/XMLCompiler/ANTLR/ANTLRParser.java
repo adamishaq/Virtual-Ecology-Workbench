@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.antlr.runtime.ANTLRFileStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.RecognizerSharedState;
 import org.antlr.runtime.tree.CommonTree;
 
 import VEW.XMLCompiler.ANTLR.output.BACONLexer;
@@ -33,11 +32,10 @@ public class ANTLRParser {
 	 *  
 	 * @return the root of an VEW.XML.Compiler.ANTLR AST
 	 * @throws RecognitionException thrown if the parser fails to parse the file.
+	 * @throws TreeWalkerException only occurs if the parser has let the incorrect input through
 	 */
-	public ASTree getAST () throws RecognitionException {
-		CommonTree t = getAntlrAST();
-		
-		return null;
+	public ASTree getAST () throws RecognitionException, TreeWalkerException {		
+		return new CommonTreeWalker(getAntlrAST()).constructASTree();
 	}
 	
 	/**
@@ -45,7 +43,7 @@ public class ANTLRParser {
 	 * 
 	 * @return
 	 */
-	public CommonTree getAntlrAST () throws RecognitionException {
+	protected CommonTree getAntlrAST () throws RecognitionException {
 		
 		return (CommonTree) runParserFromEntryPoint ().getTree();
 	}

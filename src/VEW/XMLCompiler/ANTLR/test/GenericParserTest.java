@@ -8,8 +8,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import VEW.XMLCompiler.ANTLR.ANTLRParser;
+import VEW.XMLCompiler.ANTLR.ASTree;
+import VEW.XMLCompiler.ANTLR.TreeWalkerException;
 
-public abstract class GenericTest {
+public abstract class GenericParserTest {
 	
 	private final String pathSep = System.getProperty("file.separator");
 	private final String pathName = "src" + pathSep + "VEW" + pathSep + "XMLCompiler" + pathSep + "ANTLR" + pathSep +  "test" + pathSep + "test files" + pathSep;
@@ -32,15 +34,7 @@ public abstract class GenericTest {
 	 */
 	protected abstract String getFileName();
 
-	/**
-	 * runs the parser and fails on break.
-	 * @throws RecognitionException fails if the parser fails to recognise a token.
-	 */
-	@Test
-	public void testParser () throws RecognitionException {
-		
-		p.getAntlrAST();
-		
-		
-	}
+	
+	
+	
 }
