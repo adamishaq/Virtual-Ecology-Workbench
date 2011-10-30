@@ -77,7 +77,7 @@ public class CommonTreeWalker {
 		switch (tokenType) {
 			case(BACONParser.IF) : {
 				BExprNode bexpr = constructBExprNode((CommonTree)tree.getChild(0));
-				RuleNode thenRule = constructRuleNode((CommonTree)tree.getChild(1));
+				RuleNode thenRule = constructSubRuleNode((CommonTree)tree.getChild(1));
 				rule = new IfRuleNode(bexpr, thenRule);
 				break;
 			}
@@ -112,6 +112,7 @@ public class CommonTreeWalker {
 				ExprNode thresholdExpr = constructExprNode((CommonTree)tree.getChild(1));
 				ExprNode rateExpr = constructExprNode((CommonTree)tree.getChild(2));
 				rule = new IngestNode(var, thresholdExpr, rateExpr);
+				break;
 			}
 			case(BACONParser.CREATE) : {
 				IdNode id = constructIdNode((CommonTree)tree.getChild(0));
@@ -126,6 +127,10 @@ public class CommonTreeWalker {
 									  
 		}
 		return rule;
+	}
+	
+	private RuleNode constructSubRuleNode(CommonTree tree) throws TreeWalkerException {
+		return constructRuleNode((CommonTree)tree.getChild(0));
 	}
 	
 	private AssignNode constructAssignNode(CommonTree tree) throws TreeWalkerException {
