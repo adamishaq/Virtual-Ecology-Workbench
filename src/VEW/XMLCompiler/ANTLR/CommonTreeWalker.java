@@ -101,9 +101,12 @@ public class CommonTreeWalker {
 				rule = constructBinFuncNode(BinaryFunction.PCHANGE, tree);
 				break;
 			}
-			
-			/* TODO: Add ingest case */
-			
+			case(SymbolSet.INGEST) : {
+				IdNode var = constructIdNode((CommonTree)tree.getChild(0));
+				ExprNode thresholdExpr = constructExprNode((CommonTree)tree.getChild(1));
+				ExprNode rateExpr = constructExprNode((CommonTree)tree.getChild(2));
+				rule = new IngestNode(var, thresholdExpr, rateExpr);
+			}
 			case(SymbolSet.CREATE) : {
 				IdNode id = constructIdNode((CommonTree)tree.getChild(0));
 				ExprNode expr = constructExprNode((CommonTree)tree.getChild(1));
@@ -135,6 +138,12 @@ public class CommonTreeWalker {
 			assigns.addAssign(constructAssignNode((CommonTree) child));
 		}
 		return assigns;
+	}
+	
+	private BinaryFunctionNode constructBinFuncNode(BinaryFunction binFunc, CommonTree tree) throws TreeWalkerException {
+		IdNode id = constructIdNode((CommonTree)tree.getChild(0));
+		ExprNode expr = constructExprNode((CommonTree)tree.getChild(1));
+		return new BinaryFunctionNode(binFunc, id, expr);
 	}
 
 	private BExprNode constructBExprNode(CommonTree tree) throws TreeWalkerException {
@@ -179,7 +188,18 @@ public class CommonTreeWalker {
 				bexpr = constructBooleanBinOpNode(BooleanBinOperator.OR, tree);
 				break;
 			}
-			// TODO VBops
+			case(SymbolSet.ALL) : {
+				bexpr = constructVBOpNode(VBoolOperator.ALL, tree);
+				break;
+			}
+			case(SymbolSet.NONE) : {
+				bexpr = constructVBOpNode(VBoolOperator.NONE, tree);
+				break;
+			}
+			case(SymbolSet.SOME) : {
+				bexpr = constructVBOpNode(VBoolOperator.SOME, tree);
+				break;
+			}
 			default : {
 				throw new TreeWalkerException("Unknown boolean operator found");
 			}
@@ -197,6 +217,11 @@ public class CommonTreeWalker {
 		BExprNode lBExpr = constructBExprNode((CommonTree)tree.getChild(0));
 		BExprNode rBExpr = constructBExprNode((CommonTree)tree.getChild(1));
 		return new BooleanBinOpNode(binOp, lBExpr, rBExpr);
+	}
+	
+	private VBOpNode constructVBOpNode(VBoolOperator vBOp, CommonTree tree) throws TreeWalkerException {
+		BExprNode bExpr = constructBExprNode((CommonTree)tree.getChild(0));
+		return new VBOpNode(vBOp, bExpr);
 	}
 
 	private ExprNode constructExprNode(CommonTree tree) throws TreeWalkerException {
@@ -260,7 +285,18 @@ public class CommonTreeWalker {
 				expr = new VarHistNode(id, histExpr);
 				break;
 			}
-			//TODO: VOps
+			case(SymbolSet.VAVERAGE) : {
+				expr = constructVBOpNode(VOperator.AVERAGE, tree);
+				break;
+			}
+			case(SymbolSet.VPRODUCT) : {
+				expr = constructVBOpNode(VOperator.PRODUCT, tree);
+				break;
+			}
+			case(SymbolSet.VSUM) : {
+				expr = constructVBOpNode(VOperator.SUM, tree);
+				break;
+			}
 			default : {
 				throw new TreeWalkerException("Unknown expression token in bagging area");
 			}
@@ -279,6 +315,11 @@ public class CommonTreeWalker {
 		ExprNode rExpr = constructExprNode((CommonTree)tree.getChild(1));
 		return new BinaryPrimitiveNode(prim, lExpr, rExpr);
 	}
+	
+	private VOpNode constructVBOpNode(VOperator vOp, CommonTree tree) throws TreeWalkerException {
+		ExprNode expr = constructExprNode((CommonTree)tree.getChild(0));
+		return new VOpNode(vOp, expr);
+	}
 
 	private IdNode constructIdNode(CommonTree tree) {
 		return new IdNode(tree.getToken().getText());
@@ -292,11 +333,5 @@ public class CommonTreeWalker {
 		catch (NumberFormatException n) {
 			throw new TreeWalkerException(n.getMessage());
 		}
-	}
-	
-	private BinaryFunctionNode constructBinFuncNode(BinaryFunction binFunc, CommonTree tree) throws TreeWalkerException {
-		IdNode id = constructIdNode((CommonTree)tree.getChild(0));
-		ExprNode expr = constructExprNode((CommonTree)tree.getChild(1));
-		return new BinaryFunctionNode(binFunc, id, expr);
 	}
 }
