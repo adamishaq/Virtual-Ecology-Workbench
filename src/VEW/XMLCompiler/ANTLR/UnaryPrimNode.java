@@ -5,8 +5,8 @@ public class UnaryPrimNode extends ASTree implements ExprNode {
 	private UnaryPrimitive primitive;
 	private ExprNode argument;
 	
-	public UnaryPrimNode(String primName, ExprNode argExpr) {
-		this.primitive = UnaryPrimitive.valueOf(primName);
+	public UnaryPrimNode(UnaryPrimitive primitive, ExprNode argExpr) {
+		this.primitive = primitive;
 		this.argument = argExpr;
 	}
 	
