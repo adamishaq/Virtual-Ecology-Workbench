@@ -9,6 +9,7 @@ public class RuleSequenceNode extends ASTree {
 	public RuleSequenceNode(RuleNode rNode) {
 		this.rule = rNode;
 		this.seq = null;
+		this.ruleName = null;
 	}
 	
 	public RuleSequenceNode(String ruleName, RuleNode rNode) {
@@ -19,6 +20,7 @@ public class RuleSequenceNode extends ASTree {
 	public RuleSequenceNode(RuleNode rNode, RuleSequenceNode seqNode) {
 		this.rule = rNode;
 		this.seq = seqNode;
+		this.ruleName = null;
 	}
 	
 	public RuleSequenceNode(String ruleName, RuleNode rNode, RuleSequenceNode seqNode) {
@@ -39,11 +41,15 @@ public class RuleSequenceNode extends ASTree {
 
 	@Override
 	public String generateXML() {
+		String name = "";
+		if (ruleName != null) {
+			name = ruleName;
+		}
 		if (seq != null) {
-			return "<equation><name>LOLRULE</name><eq>" + rule.generateXML() 
+			return "<equation><name>" + name + "</name><eq>" + rule.generateXML() 
 				+ "</eq></equation>" + seq.generateXML();
 		} else {
-			return "<equation><name>LOLRULE</name><eq>" + rule.generateXML() 
+			return "<equation><name>" + name + "</name><eq>" + rule.generateXML() 
 				+ "</eq></equation>";
 		}
 	}
