@@ -39,8 +39,13 @@ public class RuleSequenceNode extends ASTree {
 
 	@Override
 	public String generateXML() {
-		// TODO Auto-generated method stub
-		return null;
+		if (seq != null) {
+			return "<equation><name>LOLRULE</name><eq>" + rule.generateXML() 
+				+ "</eq></equation>" + seq.generateXML();
+		} else {
+			return "<equation><name>LOLRULE</name><eq>" + rule.generateXML() 
+				+ "</eq></equation>";
+		}
 	}
 
 }

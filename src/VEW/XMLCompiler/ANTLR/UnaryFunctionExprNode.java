@@ -18,8 +18,11 @@ public class UnaryFunctionExprNode extends ASTree implements RuleNode {
 
 	@Override
 	public String generateXML() {
-		// TODO Auto-generated method stub
-		return null;
+		String func = "";
+		switch (function) {
+		case DIVIDE : func = "divide"; break;
+		}
+		return "\\" + func + "{" + expArg.generateXML() + "}";
 	}
 
 }

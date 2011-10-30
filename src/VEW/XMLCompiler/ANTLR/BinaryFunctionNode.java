@@ -20,8 +20,13 @@ public class BinaryFunctionNode extends ASTree implements RuleNode {
 
 	@Override
 	public String generateXML() {
-		// TODO Auto-generated method stub
-		return null;
+		String func = "";
+		switch (binFunc) {
+		case UPTAKE  : func = "uptake"; break;
+		case RELEASE : func = "release"; break;
+		case PCHANGE : return "\\pchange{" + idArg.generateXML() + "," + expArg.generateXML() + "}";
+		}
+		return "\\" + func + "{" + expArg.generateXML() + "," + idArg.generateXML() + "}";
 	}
 
 }
