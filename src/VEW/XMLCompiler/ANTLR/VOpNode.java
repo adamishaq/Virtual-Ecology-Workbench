@@ -5,8 +5,8 @@ public class VOpNode  extends ASTree implements ExprNode {
 	private VOperator vop;
 	private ExprNode expression;
 	
-	public VOpNode(String _vop, ExprNode _expression) {
-		this.vop = VOperator.valueOf(_vop);
+	public VOpNode(VOperator _vop, ExprNode _expression) {
+		this.vop = _vop;
 		this.expression = _expression;
 	}
 	
