@@ -58,6 +58,10 @@ public class CommonTreeWalker {
 	 * Each of these are individual rules for constructing different types of ASTreeNodes 
 	 */
 	private RuleSequenceNode constructRuleSeqNode(CommonTree tree) throws TreeWalkerException {
+		if (tree.getChildCount() == 1) {
+			RuleNode rule = constructRuleNode((CommonTree) tree.getChild(0));
+			return new RuleSequenceNode(rule);
+		}
 		CommonTree ruleNameNode = (CommonTree) tree.getChild(0);
 		String ruleName = ruleNameNode.getToken().getText();
 		RuleNode rule = constructRuleNode((CommonTree) tree.getChild(1));
