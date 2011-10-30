@@ -1,15 +1,11 @@
 package VEW.XMLCompiler.ANTLR.test;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.antlr.runtime.RecognitionException;
 import org.junit.Before;
-import org.junit.Test;
-
 import VEW.XMLCompiler.ANTLR.ANTLRParser;
-import VEW.XMLCompiler.ANTLR.ASTree;
-import VEW.XMLCompiler.ANTLR.TreeWalkerException;
 
 public abstract class GenericParserTest {
 	
@@ -21,7 +17,7 @@ public abstract class GenericParserTest {
 	@Before
 	public void setUp() throws IOException {
 		try {
-			p = new ANTLRParser (pathName + getFileName());
+			p = new ANTLRParser (new File (pathName + getFileName()));
 		} catch (FileNotFoundException e) {
 			System.err.println("Could not found file at: " + pathName + fileName);
 			throw e;
