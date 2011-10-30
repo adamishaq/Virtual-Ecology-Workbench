@@ -1,18 +1,24 @@
 package VEW.XMLCompiler.ANTLR;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+
 public class AssignListNode extends ASTree {
 
-	private AssignNode assign;
-	private AssignListNode nextAssign;
+	private Collection<AssignNode> assignList;
 
-	public AssignListNode (AssignNode assign) {
-		this.assign = assign;
-		this.nextAssign = null;
+	
+	public AssignListNode() {
+		this.assignList = new ArrayList<AssignNode>();
 	}
 	
-	public AssignListNode (AssignNode assign, AssignListNode nextAssign) {
-		this.assign = assign;
-		this.nextAssign = nextAssign;
+	public AssignListNode(Collection<AssignNode> assignList) {
+		this.assignList = new ArrayList<AssignNode>(assignList);
+	}
+	
+	public void addAssign(AssignNode assign) {
+		assignList.add(assign);
 	}
 	
 	@Override
@@ -23,10 +29,11 @@ public class AssignListNode extends ASTree {
 
 	@Override
 	public String generateXML() {
-		if (nextAssign != null)
-		  return "\\set{" + assign.generateXML() + "}," + nextAssign.generateXML();
-		else
-		  return "\\set{" + assign.generateXML() + "}";
+		String genString = "";
+		for (AssignNode a : assignList) {
+			genString += "\\set{" + a.generateXML() + "},";
+		}
+		return genString;
 	}
 
 }

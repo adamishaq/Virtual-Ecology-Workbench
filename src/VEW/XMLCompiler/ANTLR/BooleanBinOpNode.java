@@ -6,8 +6,8 @@ public class BooleanBinOpNode extends ASTree implements BExprNode {
 	private BExprNode rightBExpr;
 	private BExprNode leftBExpr;
 	
-	public BooleanBinOpNode(String booleanOp, BExprNode rightBExpr, BExprNode leftBExpr) {
-		this.booleanOp = BooleanBinOperator.valueOf(booleanOp);
+	public BooleanBinOpNode(BooleanBinOperator booleanOp, BExprNode leftBExpr, BExprNode rightBExpr) {
+		this.booleanOp = booleanOp;
 		this.rightBExpr = rightBExpr;
 		this.leftBExpr = leftBExpr;
 	}

@@ -3,13 +3,13 @@ package VEW.XMLCompiler.ANTLR;
 public class BinOpNode extends ASTree implements ExprNode {
 	
 	private MathematicalOperator operator;
-	private ExprNode leftExpr;
-	private ExprNode rightExpr;
+	private ExprNode lExpr;
+	private ExprNode rExpr;
 	
-	public BinOpNode (String operator, ExprNode leftExpr, ExprNode rightExpr) {
-		this.operator = MathematicalOperator.valueOf(operator);
-		this.leftExpr = leftExpr;
-		this.rightExpr = rightExpr;
+	public BinOpNode (MathematicalOperator operator, ExprNode lExpr, ExprNode rExpr) {
+		this.operator = operator;
+		this.lExpr = lExpr;
+		this.rExpr = rExpr;
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class BinOpNode extends ASTree implements ExprNode {
 		case DIVIDE   : op = "div"; break; 
 		case POWER    : op = "pow"; break; 
 		}
-		return "\\" + op + "{" + leftExpr.generateXML() + "," + rightExpr.generateXML() + "}";
+		return "\\" + op + "{" + lExpr.generateXML() + "," + rExpr.generateXML() + "}";
 	}
 
 }

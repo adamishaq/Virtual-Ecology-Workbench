@@ -1,5 +1,16 @@
 package VEW.XMLCompiler.ANTLR;
 
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Contains all the ANTLR internal tokens as ints.
+ * 
+ * Has methods for efficiently accessing and grouping said internal tokens and returning them as our internal Enums
+ * 
+ * @author David
+ *
+ */
 public class SymbolSet {
 	public static final int EOF=-1;
     public static final int ABS=4;
@@ -76,4 +87,51 @@ public class SymbolSet {
     public static final int VPRODUCT=75;
     public static final int VSUM=76;
     public static final int WITH=77;
+    
+    private static Map<Integer, UnaryPrimitive> symbolToUPrimitiveMap = null;
+    
+    /**
+     * Creates all the maps that convert a given SymbolNumber into internal Enums.
+     * 
+     * These maps are static.
+     */
+    public static void initializeMaps() {
+    	symbolToUPrimitiveMap = new HashMap<Integer, UnaryPrimitive>();
+    	symbolToUPrimitiveMap.put(ABS, UnaryPrimitive.ABS);
+    	symbolToUPrimitiveMap.put(ACOS, UnaryPrimitive.ACOS);
+    	symbolToUPrimitiveMap.put(ASIN, UnaryPrimitive.ASIN);
+    	symbolToUPrimitiveMap.put(ATAN, UnaryPrimitive.ATAN);
+    	symbolToUPrimitiveMap.put(COS, UnaryPrimitive.COS);
+    	symbolToUPrimitiveMap.put(DENSITYAT, UnaryPrimitive.DENSITYAT);
+    	symbolToUPrimitiveMap.put(DEPTHFORFI, UnaryPrimitive.DEPTHFORFI);
+    	symbolToUPrimitiveMap.put(DEPTHFORVI, UnaryPrimitive.DEPTHFORVI);
+    	symbolToUPrimitiveMap.put(EXP, UnaryPrimitive.EXP);
+    	symbolToUPrimitiveMap.put(FULLIRRADAT, UnaryPrimitive.FULLIRRADAT);
+    	symbolToUPrimitiveMap.put(INTEGRATE, UnaryPrimitive.INTEGRATE);
+    	symbolToUPrimitiveMap.put(LN, UnaryPrimitive.LN);
+    	symbolToUPrimitiveMap.put(LOGTEN, UnaryPrimitive.LOGTEN);
+    	symbolToUPrimitiveMap.put(RND, UnaryPrimitive.RND);
+    	symbolToUPrimitiveMap.put(SALINITYAT, UnaryPrimitive.SALINITYAT);
+    	symbolToUPrimitiveMap.put(SIN, UnaryPrimitive.SIN);
+    	symbolToUPrimitiveMap.put(SQRT, UnaryPrimitive.SQRT);
+    	symbolToUPrimitiveMap.put(TAN, UnaryPrimitive.TAN);
+    	symbolToUPrimitiveMap.put(TEMPAT, UnaryPrimitive.TEMPAT);
+    	symbolToUPrimitiveMap.put(UVIRRADAT, UnaryPrimitive.UVIRRADAT);
+    }
+    
+    /**
+     * Given a corresponding symbol number to a UnaryPrimitive, this method returns the related UnaryPrimitive from the map.
+     * 
+     * If the given Symbol with number == symbolType is not a UnaryPrimitive or the number is not in the list of numbers, this
+     * function returns null.
+     * 
+     * @param symbolType the number corresponding to the type of symbol
+     * @return an equivalent UnaryPrimitive to the given symbolType
+     */
+    public static UnaryPrimitive getUnaryPrimitiveOp(int symbolType) {
+    	if (symbolToUPrimitiveMap == null) {
+    		initializeMaps();
+    	}
+    	return symbolToUPrimitiveMap.get(symbolType);
+    }
 }
