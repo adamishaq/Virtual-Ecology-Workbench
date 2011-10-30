@@ -11,6 +11,8 @@ tokens {
 	RULE;
 	RULES;
 	ASSIGNLIST;
+	EXPR;
+	BEXPR;
 }
 
 @header {
@@ -155,7 +157,7 @@ rule2
 	| DIVIDE LBRACKET expr RBRACKET -> ^(DIVIDE expr)
 	| CREATE LBRACKET VAR COMMA expr RBRACKET 
 		(WITH LSQUARE assignList RSQUARE)? -> ^(CREATE VAR expr (assignList)?)
-	| LBRACKET rule RBRACKET -> rule
+	| LBRACKET rule2 RBRACKET -> rule2
 	;
 
 assign

@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g 2011-10-30 18:55:14
+// $ANTLR 3.4 C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g 2011-10-30 20:23:16
 
 package VEW.XMLCompiler.ANTLR.output;
 
@@ -798,7 +798,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "rule2"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:149:1: rule2 : ( assign | IF bExpr THEN rule -> ^( IF bExpr rule ) | UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^( UPTAKE VAR expr ) | RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^( RELEASE VAR expr ) | INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^( INGEST VAR expr expr ) | CHANGE LBRACKET VAR RBRACKET -> ^( CHANGE VAR ) | PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^( PCHANGE VAR expr ) | DIVIDE LBRACKET expr RBRACKET -> ^( DIVIDE expr ) | CREATE LBRACKET VAR COMMA expr RBRACKET ( WITH LSQUARE assignList RSQUARE )? -> ^( CREATE VAR expr ( assignList )? ) | LBRACKET rule RBRACKET -> rule );
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:149:1: rule2 : ( assign | IF bExpr THEN rule -> ^( IF bExpr rule ) | UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^( UPTAKE VAR expr ) | RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^( RELEASE VAR expr ) | INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^( INGEST VAR expr expr ) | CHANGE LBRACKET VAR RBRACKET -> ^( CHANGE VAR ) | PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^( PCHANGE VAR expr ) | DIVIDE LBRACKET expr RBRACKET -> ^( DIVIDE expr ) | CREATE LBRACKET VAR COMMA expr RBRACKET ( WITH LSQUARE assignList RSQUARE )? -> ^( CREATE VAR expr ( assignList )? ) | LBRACKET rule2 RBRACKET -> rule2 );
     public final BACONParser.rule2_return rule2() throws RecognitionException {
         BACONParser.rule2_return retval = new BACONParser.rule2_return();
         retval.start = input.LT(1);
@@ -869,7 +869,7 @@ public TreeAdaptor getTreeAdaptor() {
 
         BACONParser.assignList_return assignList63 =null;
 
-        BACONParser.rule_return rule66 =null;
+        BACONParser.rule2_return rule266 =null;
 
 
         Object IF17_tree=null;
@@ -931,11 +931,12 @@ public TreeAdaptor getTreeAdaptor() {
         RewriteRuleSubtreeStream stream_bExpr=new RewriteRuleSubtreeStream(adaptor,"rule bExpr");
         RewriteRuleSubtreeStream stream_rule=new RewriteRuleSubtreeStream(adaptor,"rule rule");
         RewriteRuleSubtreeStream stream_expr=new RewriteRuleSubtreeStream(adaptor,"rule expr");
+        RewriteRuleSubtreeStream stream_rule2=new RewriteRuleSubtreeStream(adaptor,"rule rule2");
         RewriteRuleSubtreeStream stream_assignList=new RewriteRuleSubtreeStream(adaptor,"rule assignList");
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:150:2: ( assign | IF bExpr THEN rule -> ^( IF bExpr rule ) | UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^( UPTAKE VAR expr ) | RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^( RELEASE VAR expr ) | INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^( INGEST VAR expr expr ) | CHANGE LBRACKET VAR RBRACKET -> ^( CHANGE VAR ) | PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^( PCHANGE VAR expr ) | DIVIDE LBRACKET expr RBRACKET -> ^( DIVIDE expr ) | CREATE LBRACKET VAR COMMA expr RBRACKET ( WITH LSQUARE assignList RSQUARE )? -> ^( CREATE VAR expr ( assignList )? ) | LBRACKET rule RBRACKET -> rule )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:150:2: ( assign | IF bExpr THEN rule -> ^( IF bExpr rule ) | UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^( UPTAKE VAR expr ) | RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^( RELEASE VAR expr ) | INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^( INGEST VAR expr expr ) | CHANGE LBRACKET VAR RBRACKET -> ^( CHANGE VAR ) | PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^( PCHANGE VAR expr ) | DIVIDE LBRACKET expr RBRACKET -> ^( DIVIDE expr ) | CREATE LBRACKET VAR COMMA expr RBRACKET ( WITH LSQUARE assignList RSQUARE )? -> ^( CREATE VAR expr ( assignList )? ) | LBRACKET rule2 RBRACKET -> rule2 )
             int alt9=10;
             switch ( input.LA(1) ) {
             case VAR:
@@ -1039,7 +1040,7 @@ public TreeAdaptor getTreeAdaptor() {
                     if ( state.backtracking==0 ) stream_rule.add(rule20.getTree());
 
                     // AST REWRITE
-                    // elements: rule, bExpr, IF
+                    // elements: bExpr, IF, rule
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1106,7 +1107,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: expr, UPTAKE, VAR
+                    // elements: VAR, UPTAKE, expr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1175,7 +1176,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: expr, VAR, RELEASE
+                    // elements: VAR, RELEASE, expr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1255,7 +1256,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: INGEST, expr, VAR, expr
+                    // elements: INGEST, VAR, expr, expr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1382,7 +1383,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: expr, PCHANGE, VAR
+                    // elements: VAR, expr, PCHANGE
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1544,7 +1545,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: VAR, CREATE, assignList, expr
+                    // elements: expr, assignList, CREATE, VAR
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1590,25 +1591,25 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 10 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:160:4: LBRACKET rule RBRACKET
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:160:4: LBRACKET rule2 RBRACKET
                     {
                     LBRACKET65=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21242); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET65);
 
 
-                    pushFollow(FOLLOW_rule_in_rule21244);
-                    rule66=rule();
+                    pushFollow(FOLLOW_rule2_in_rule21244);
+                    rule266=rule2();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_rule.add(rule66.getTree());
+                    if ( state.backtracking==0 ) stream_rule2.add(rule266.getTree());
 
                     RBRACKET67=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21246); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET67);
 
 
                     // AST REWRITE
-                    // elements: rule
+                    // elements: rule2
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1620,9 +1621,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 160:27: -> rule
+                    // 160:28: -> rule2
                     {
-                        adaptor.addChild(root_0, stream_rule.nextTree());
+                        adaptor.addChild(root_0, stream_rule2.nextTree());
 
                     }
 
@@ -1708,7 +1709,7 @@ public TreeAdaptor getTreeAdaptor() {
             if ( state.backtracking==0 ) stream_expr.add(expr70.getTree());
 
             // AST REWRITE
-            // elements: expr, VAR
+            // elements: VAR, expr
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -2589,7 +2590,7 @@ public TreeAdaptor getTreeAdaptor() {
                     if ( state.backtracking==0 ) stream_expr.add(expr97.getTree());
 
                     // AST REWRITE
-                    // elements: expr, bExpr, IF, expr
+                    // elements: expr, bExpr, expr, IF
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2664,7 +2665,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: expr, binPrim, expr
+                    // elements: binPrim, expr, expr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3142,7 +3143,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: NOT, bExpr
+                    // elements: bExpr, NOT
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3245,7 +3246,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: vBOp, bExpr
+                    // elements: bExpr, vBOp
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4216,7 +4217,7 @@ public TreeAdaptor getTreeAdaptor() {
     public static final BitSet FOLLOW_assignList_in_rule21218 = new BitSet(new long[]{0x0800000000000000L});
     public static final BitSet FOLLOW_RSQUARE_in_rule21220 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_LBRACKET_in_rule21242 = new BitSet(new long[]{0x0220002A01042000L,0x0000000000000280L});
-    public static final BitSet FOLLOW_rule_in_rule21244 = new BitSet(new long[]{0x0100000000000000L});
+    public static final BitSet FOLLOW_rule2_in_rule21244 = new BitSet(new long[]{0x0100000000000000L});
     public static final BitSet FOLLOW_RBRACKET_in_rule21246 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_VAR_in_assign1261 = new BitSet(new long[]{0x0000000004000000L});
     public static final BitSet FOLLOW_EQUALS_in_assign1263 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
@@ -4294,6 +4295,5 @@ public TreeAdaptor getTreeAdaptor() {
     public static final BitSet FOLLOW_LBRACKET_in_synpred32_BACON1577 = new BitSet(new long[]{0x840C3632683A0970L,0x0000000000003F1FL});
     public static final BitSet FOLLOW_bExpr_in_synpred32_BACON1579 = new BitSet(new long[]{0x0100000000000000L});
     public static final BitSet FOLLOW_RBRACKET_in_synpred32_BACON1581 = new BitSet(new long[]{0x0000000000000002L});
-
 
 }
