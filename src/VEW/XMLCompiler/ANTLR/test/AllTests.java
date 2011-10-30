@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ AssignTest.class, SimpleParserLexer.class})
+@SuiteClasses({ AssignTest.class, SimpleParserLexer.class, CreateTest.class })
 public class AllTests {
 
 }

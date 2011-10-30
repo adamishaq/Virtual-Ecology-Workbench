@@ -25,6 +25,8 @@ public abstract class FilePassesParserTest extends GenericParserTest {
 		
 		p.getAST();
 		
+		assert(true);
+		
 	}
 	
 }
