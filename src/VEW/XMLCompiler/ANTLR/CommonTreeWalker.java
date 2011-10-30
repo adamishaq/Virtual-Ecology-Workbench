@@ -79,8 +79,18 @@ public class CommonTreeWalker {
 				break;
 			}
 			case(SymbolSet.UPTAKE) : {
-				
+				rule = constructBinFuncNode(BinaryFunction.UPTAKE, tree);
+				break;
 			}
+			case(SymbolSet.RELEASE) : {
+				rule = constructBinFuncNode(BinaryFunction.RELEASE, tree);
+				break;
+			}
+			case(SymbolSet.PCHANGE) : {
+				rule = constructBinFuncNode(BinaryFunction.PCHANGE, tree);
+				break;
+			}
+			
 									  
 		}
 		return null;
@@ -98,5 +108,11 @@ public class CommonTreeWalker {
 
 	private IdNode constructIdNode(CommonTree firstItem) {
 		return new IdNode(firstItem.getToken().getText());
+	}
+	
+	private BinaryFunctionNode constructBinFuncNode(BinaryFunction binFunc, CommonTree tree) {
+		IdNode id = constructIdNode((CommonTree)tree.getChild(0));
+		ExprNode expr = constructExprNode((CommonTree)tree.getChild(1));
+		return new BinaryFunctionNode(binFunc, id, expr);
 	}
 }
