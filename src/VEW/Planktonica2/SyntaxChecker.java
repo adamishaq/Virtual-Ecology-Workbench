@@ -57,9 +57,13 @@ public class SyntaxChecker extends JDialog {
   
   public static int getFunction(StringBuffer buf, int index) {
     int startFunc=index;
-    while (buf.charAt(startFunc)!='&') startFunc--;
+    while (buf.charAt(startFunc)!='&') {
+    	startFunc--;
+    }
     int endFunc=startFunc;
-    while (buf.charAt(endFunc)!='?') endFunc++;
+    while (buf.charAt(endFunc)!='?') {
+    	endFunc++;
+    }
     startFunc++;
     return Integer.parseInt(buf.substring(startFunc,endFunc));
   }
@@ -69,10 +73,18 @@ public class SyntaxChecker extends JDialog {
     XMLTag[] eqs = function.getTags("equation");
     for (int eqNo=0; eqNo<eqs.length; eqNo++) {
       StringBuffer eq = new StringBuffer(eqs[eqNo].getValue("eq"));
-      while (eq.indexOf("\\set{\\var{")>=0) eq.setCharAt(eq.indexOf("\\set{\\var{")+8,'q');
-      while (eq.indexOf("\\assign{\\var{")>=0) rw.append(">"+getVarFrom("\\assign{\\var{",eq)+"?");
-      while (eq.indexOf("\\assigndiff{\\var{")>=0) rw.append(">"+getVarFrom("\\assigndiff{\\var{",eq)+"?");
-      while (eq.indexOf("\\var{")>=0) rw.append("<"+getVarFrom("\\var{",eq)+"?");
+      while (eq.indexOf("\\set{\\var{")>=0) {
+    	  eq.setCharAt(eq.indexOf("\\set{\\var{")+8,'q');
+      }
+      while (eq.indexOf("\\assign{\\var{")>=0) {
+    	  rw.append(">"+getVarFrom("\\assign{\\var{",eq)+"?");
+      }
+      while (eq.indexOf("\\assigndiff{\\var{")>=0) {
+    	  rw.append(">"+getVarFrom("\\assigndiff{\\var{",eq)+"?");
+      }
+      while (eq.indexOf("\\var{")>=0) { 
+    	  rw.append("<"+getVarFrom("\\var{",eq)+"?");
+      }
     }
     return rw;
   }
@@ -86,7 +98,7 @@ public class SyntaxChecker extends JDialog {
       String theVar = uses.substring(pos+1,uses.indexOf("?",pos));
       if (uses.indexOf(">"+theVar+"?",pos+1)>=0) {
         String func1 = funcList[getFunction(uses,pos)].getValue("name");
-        String func2 =funcList[getFunction(uses,uses.indexOf(">"+theVar+"?",pos+1))].getValue("name");
+        String func2 = funcList[getFunction(uses,uses.indexOf(">"+theVar+"?",pos+1))].getValue("name");
         details.append("ERROR - "+stage+" "+fg.getValue("name")+", "+theVar+" duplicate writes in "+func1+" and "+func2+". \n");
         update(getGraphics());
       } 
@@ -159,8 +171,12 @@ public class SyntaxChecker extends JDialog {
                 abort=true;
                 int fgFunc1=0;
                 int fgFunc2=0;
-                while (fg.getTags("function")[fgFunc1]!=funcList[f1]) fgFunc1++;
-                while (fg.getTags("function")[fgFunc2]!=funcList[f2]) fgFunc2++;
+                while (fg.getTags("function")[fgFunc1]!=funcList[f1]) {
+                	fgFunc1++;
+                }
+                while (fg.getTags("function")[fgFunc2]!=funcList[f2]) { 
+                	fgFunc2++;
+                }
                 //swapTag(fg,"function",fgFunc1,fgFunc2);
               }
               spare.setCharAt(posRead,'+');
@@ -233,11 +249,18 @@ public class SyntaxChecker extends JDialog {
     if (didSomething) {
       vc2.unsaved(true);
     }
-    if (details.getText().length()<5) {
+    
+    String text = details.getText();
+    if (details.getText().length()<1) {
       details.append("Model checked ok!");
       update(getGraphics());
+      return true;
     }
-    return didSomething;
+    else {
+    	details.append("Some issues have occured!");
+    	update(getGraphics());
+    	return false; 
+    }
   }
   
   class EventHandler implements ActionListener, WindowListener {

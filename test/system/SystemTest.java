@@ -46,8 +46,6 @@ public class SystemTest {
 		}
 	}
 	
-	//ABSTRACT OUT THE IDEA OF COMPILING THE XML, AND HAVE PLANK AND NEW IMPL USE THIS INTERFACE
-	
 	/*A test which simply checks to ensure the XML file is not written to by Planktonica, since no commands have
 	* been issued
 	*/
@@ -60,7 +58,7 @@ public class SystemTest {
 		VEWController2 vc = new VEWController2(tp, testXmlFile);
 		Planktonica plk = new Planktonica(vc, testXmlFile);
 		SyntaxChecker sc = new SyntaxChecker(vc, testXmlFile);
-		//assertTrue(sc.checkModel()); //THE SYNTAX CHECKER IS BROKEN, WILL ALWAYS RETURN FALSE
+		assertTrue(sc.checkModel()); //THE SYNTAX CHECKER IS BROKEN, WILL ALWAYS RETURN FALSE
 		
 		
 		String[] origValues = origXmlFile.getValues();
