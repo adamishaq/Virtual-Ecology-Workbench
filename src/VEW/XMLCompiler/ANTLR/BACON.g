@@ -9,12 +9,13 @@ options {
 tokens {
 	ASSIGN;
 	RULE;
+	RULES;
 	ASSIGNLIST;
 	EXPR;
 	BEXPR;
 }
 
-@parser::header {
+@header {
 package VEW.XMLCompiler.ANTLR.output;
 }
 
@@ -128,7 +129,7 @@ UNKNOWN	: (.);
 
 
 rules
-	: (NEWLINE)? pair (NEWLINE pair)* (NEWLINE)? -> pair pair*
+	: (NEWLINE)? pair (NEWLINE pair)* (NEWLINE)? -> ^(RULES pair pair*)
 	; 
 	
 pair
@@ -166,7 +167,7 @@ assign
 assignList
 	: assign (COMMA assign)* -> ^(ASSIGNLIST assign (assign)*)
 	;
-
+		
 expr
 	: expr2 (lowPrecMathOp^ expr2)*
 	;
