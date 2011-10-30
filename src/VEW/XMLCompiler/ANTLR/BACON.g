@@ -13,7 +13,7 @@ tokens {
 	ASSIGNLIST;
 }
 
-@parser::header {
+@header {
 package VEW.XMLCompiler.ANTLR.output;
 }
 
@@ -165,7 +165,7 @@ assign
 assignList
 	: assign (COMMA assign)* -> ^(ASSIGNLIST assign (assign)*)
 	;
-
+		
 expr
 	: expr2 (lowPrecMathOp^ expr2)*
 	;
