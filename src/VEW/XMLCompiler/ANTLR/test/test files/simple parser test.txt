@@ -1,0 +1,12 @@
+
+WHY:
+a = 5 * 2 + 2 + 3^2 * 3
+
+
+HELLO:
+b = 2 + 2
+
+b = if (2 > 2) then 5 else 3
+
+HERROW:
+if (2 < 2) then create (a, 1 + 1) with [b = 1, c = 2, d = 3, e = 4, f = 5]

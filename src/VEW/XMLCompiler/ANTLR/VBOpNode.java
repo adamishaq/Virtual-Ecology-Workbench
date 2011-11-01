@@ -5,8 +5,8 @@ public class VBOpNode extends ASTree implements BExprNode {
 	private VBoolOperator vop;
 	private BExprNode expression;
 	
-	public VBOpNode(String _vop, BExprNode _expression) {
-		this.vop = VBoolOperator.valueOf(_vop);
+	public VBOpNode(VBoolOperator _vop, BExprNode _expression) {
+		this.vop = _vop;
 		this.expression = _expression;
 	}
 	

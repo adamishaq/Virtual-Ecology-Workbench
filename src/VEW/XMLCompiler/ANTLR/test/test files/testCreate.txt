@@ -1,0 +1,2 @@
+hello : create (hello, 5) with [a = 9, b = 2]
+goaway : a = 5

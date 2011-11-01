@@ -6,8 +6,8 @@ public class BinaryFunctionNode extends ASTree implements RuleNode {
 	private IdNode idArg;
 	private ExprNode expArg;
 	
-	public BinaryFunctionNode(String funcName, IdNode idArg, ExprNode expArg) {
-		this.binFunc = BinaryFunction.valueOf(funcName);
+	public BinaryFunctionNode(BinaryFunction function, IdNode idArg, ExprNode expArg) {
+		this.binFunc = function;
 		this.idArg = idArg;
 		this.expArg = expArg;
 	}

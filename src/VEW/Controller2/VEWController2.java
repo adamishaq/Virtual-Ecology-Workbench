@@ -113,6 +113,78 @@ public class VEWController2 extends JDialog {
     setIconStatus(lastPage,yellowLight);
   }
   
+  public VEWController2(JFrame parent, XMLFile xmlFile) {
+	  super(parent,"VEW Controller",true);
+	  theModel = xmlFile;
+	  p = new Planktonica(this, theModel);
+	  sb2 = new SpeciesBuilder2(this, theModel);
+	  ftd = new FoodTypeDialog(this, theModel);
+	  pi = new ParticleInitialiser(this, theModel);  
+	  pm = new ParticleManager2(this, theModel);
+	  od2 = new OutputDialog2(this, theModel);
+	  icp = new InitialConditionsPanel(this, theModel);
+	  rp = new RunPanel(this, theModel);
+	  ep = new EventPanel(this, theModel);
+	  sp2 = new ScenarioPanel2(this, theModel);
+	  cr = new ChemicalConservationDialog(this, theModel);
+	  cd = new ClosureEditor(this, theModel);
+	  sc = new SyntaxChecker(this, theModel);
+	  if (NOC_Mode) vdd = new VerticalDiffusionDialog(this, theModel);
+
+
+
+	  getContentPane().setLayout(new BorderLayout());
+	  mainPanel.setLayout(new BorderLayout());
+	  mainPanel.setBorder(new LineBorder(Color.gray));
+	  getContentPane().add(mainPanel,BorderLayout.CENTER);
+	  JPanel controls = new JPanel(new BorderLayout());
+	  JPanel lightsPanel = new JPanel(new GridLayout(1,13));
+	  modelLight = createLabel("Edit<br>Model",greyLight, lightsPanel);
+	  speciesLight = createLabel("Edit<br>Species",greyLight, lightsPanel);
+	  foodLight = createLabel("Edit<br>Food-sets", greyLight, lightsPanel);
+	  trackLight = createLabel("Create<br>Track", greyLight, lightsPanel);
+	  pmLight = createLabel("Particle<br>Manager", greyLight, lightsPanel);
+	  colInitLight = createLabel("Init<br>Column", greyLight, lightsPanel);
+	  initLight = createLabel("Init<br>Plankton", greyLight, lightsPanel);
+	  closureLight = createLabel("Trophic<br>Closure", greyLight, lightsPanel);
+	  chemRecycleLight = createLabel("Chemical<br>Recycling", greyLight, lightsPanel);
+	  if (NOC_Mode) vddLight = createLabel("Vertical<br>Diffusion",greyLight, lightsPanel);
+	  eventsLight = createLabel("Set<br>Events", greyLight, lightsPanel);
+	  outputLight = createLabel("Set<br>Logging", greyLight, lightsPanel);
+	  runLight = createLabel("Job<br>Builder", greyLight, lightsPanel);
+	  controls.add(lightsPanel,BorderLayout.NORTH);
+	  JPanel saveButtons = new JPanel(new FlowLayout());
+	  saveButtons.add(saveChanges);
+	  saveButtons.add(exitButton);
+	  JPanel messagePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+	  messagePanel.add(messageLabel);
+	  messagePanel.setBackground(Color.LIGHT_GRAY);
+	  controls.add(messagePanel,BorderLayout.CENTER);
+	  controls.add(saveButtons,BorderLayout.SOUTH);
+	  getContentPane().add(controls,BorderLayout.SOUTH);
+	  mainPanel.setPreferredSize(new Dimension(800,600));
+	  exitButton.addActionListener(eh);
+	  saveChanges.addActionListener(eh);
+	  modelLight.addMouseListener(eh);
+	  speciesLight.addMouseListener(eh);
+	  foodLight.addMouseListener(eh);
+	  initLight.addMouseListener(eh);
+	  pmLight.addMouseListener(eh);
+	  trackLight.addMouseListener(eh);
+	  colInitLight.addMouseListener(eh);
+	  closureLight.addMouseListener(eh);
+	  chemRecycleLight.addMouseListener(eh);
+	  if (NOC_Mode) vddLight.addMouseListener(eh);
+	  eventsLight.addMouseListener(eh);
+	  outputLight.addMouseListener(eh);
+	  runLight.addMouseListener(eh);
+	  saveChanges.setEnabled(false);
+	  updateLights();
+
+
+	  pack();
+  }
+  
   public VEWController2(JFrame parent, String modelFile) {
     super(parent,"VEW Controller",true);
     modelPath = modelFile;

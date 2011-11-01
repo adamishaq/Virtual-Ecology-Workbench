@@ -6,8 +6,8 @@ public class BooleanComparitorNode extends ASTree implements BExprNode {
 	private ExprNode rightExpr;
 	private ExprNode leftExpr;
 	
-	public BooleanComparitorNode (String comparitor, ExprNode rightExpr, ExprNode leftExpr) {
-		this.comparitor = ComparisonOperator.valueOf(comparitor);
+	public BooleanComparitorNode (ComparisonOperator comparitor, ExprNode leftExpr, ExprNode rightExpr) {
+		this.comparitor = comparitor;
 		this.rightExpr = rightExpr;
 		this.leftExpr = leftExpr;
 	}
