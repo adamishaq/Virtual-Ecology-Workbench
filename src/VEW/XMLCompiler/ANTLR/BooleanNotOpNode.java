@@ -18,5 +18,9 @@ public class BooleanNotOpNode extends ASTree implements BExprNode {
 	public String generateXML() {
 		return "\\not{" + expression.generateXML() + "}";
 	}
+	
+	public String generateLatex() {
+		return " \\sim " + expression.generateLatex();
+	}
 
 }

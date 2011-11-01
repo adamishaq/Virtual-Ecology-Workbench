@@ -21,4 +21,8 @@ public class IfRuleNode extends ASTree implements RuleNode {
 		return "\\ifthen{" + conditionExpr.generateXML() + "," + rule.generateXML() + "}";
 	}
 
+	public String generateLatex() {
+		return "if\\;(" + conditionExpr.generateLatex() + ")\\;then\\;(" + rule.generateLatex() + ")";
+	}
+	
 }

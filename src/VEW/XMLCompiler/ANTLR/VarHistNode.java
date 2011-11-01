@@ -20,5 +20,10 @@ public class VarHistNode extends ASTree implements ExprNode {
 	public String generateXML() {
 		return "\\varhist{" + identifier.generateXML() + "," + expression.generateXML() + "}";
 	}
+	
+	@Override
+	public String generateLatex() {
+		return "varhist( " + identifier.generateLatex() + " , " + expression.generateLatex() + " )";
+	}
 
 }

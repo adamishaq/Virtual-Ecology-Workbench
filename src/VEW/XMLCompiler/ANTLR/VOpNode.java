@@ -27,5 +27,16 @@ public class VOpNode  extends ASTree implements ExprNode {
 		}
 		return "\\" + func + "{" + expression.generateXML() + "}";
 	}
+	
+	@Override
+	public String generateLatex() {
+		String func = "";
+		switch (vop) {
+		case AVERAGE : func = " average ";
+		case PRODUCT : func = " \\prod ";
+		case SUM 	 : func = " \\sum ";
+		}
+		return func + "(" + expression.generateLatex() + ")";
+	}
 
 }

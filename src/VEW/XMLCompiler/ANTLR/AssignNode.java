@@ -20,5 +20,10 @@ public class AssignNode extends ASTree implements RuleNode {
 	public String generateXML() {
 		return "\\assign{" + identifier.generateXML() + "," + expr.generateXML() + "}";
 	}
+	
+	@Override
+	public String generateLatex() {
+		return identifier.generateLatex() + " = " + expr.generateLatex();
+	}
 
 }

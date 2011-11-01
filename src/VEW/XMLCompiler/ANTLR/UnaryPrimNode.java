@@ -43,5 +43,32 @@ public class UnaryPrimNode extends ASTree implements ExprNode {
 		}
 		return "\\" + func + "{" + argument.generateXML() + "}";
 	}
+	
+	public String generateLatex() {
+		String func = "";
+		switch (primitive) {
+		case ABS 		 : return " | " + argument.generateLatex() + " | ";
+		case ACOS 		 : func = " \\cos ^ {-1} "; break;
+		case ASIN 		 : func = " \\sin ^ {-1} "; break;
+		case ATAN 		 : func = " \\tan ^ {-1} "; break;
+		case COS 		 : func = " \\cos "; break;
+		case EXP 		 : return " e ^ {" + argument.generateLatex() + "}";
+		case LN 		 : func = " \\ln "; break;
+		case LOGTEN 	 : func = " log_{10} "; break;
+		case RND 		 : func = " rnd "; break;
+		case SIN 		 : func = " \\sin "; break;
+		case SQRT 		 : return " \\sqrt{" + argument.generateLatex() + "}";
+		case TAN 		 : func = " \\tan "; break;
+		case DENSITYAT 	 : func = " densityAt "; break;
+		case DEPTHFORFI  : func = " depthForFI "; break;
+		case DEPTHFORVI  : func = " depthForVI "; break;
+		case FULLIRRADAT : func = " fullIrradAt "; break;
+		case SALINITYAT  : func = " salinityAt "; break;
+		case TEMPAT 	 : func = " temperatureAt "; break;
+		case UVIRRADAT 	 : func = " UVIrradAt "; break;
+		case INTEGRATE 	 : func = " integrate "; break;
+		}
+		return func + "(" + argument.generateLatex() + ")";
+	}
 
 }

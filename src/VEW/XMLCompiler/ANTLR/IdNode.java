@@ -18,5 +18,11 @@ public class IdNode extends ASTree implements ExprNode {
 	public String generateXML() {
 		return "\\var{" + name + "}";
 	}
+	
+	public String generateLatex() {
+		String latex_name = name.replaceFirst("_", "_{");
+		latex_name += "}";
+		return latex_name;
+	}
 
 }

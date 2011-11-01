@@ -24,5 +24,13 @@ public class UnaryFunctionRuleNode extends ASTree implements RuleNode {
 		}
 		return "\\" + func + "{" + idArg.generateXML() + "}";
 	}
+	
+	public String generateLatex() {
+		String func = "";
+		switch (funcName) {
+		case CHANGE : func = " change "; break;
+		}
+		return func + "(" + idArg.generateLatex() + ")";
+	}
 
 }

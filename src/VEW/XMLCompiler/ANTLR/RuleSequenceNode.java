@@ -10,6 +10,11 @@ public class RuleSequenceNode extends ASTree {
 		seq = seqNode;
 	}
 	
+	public RuleSequenceNode(RuleNode rNode) {
+		rule = rNode;
+		seq = null;
+	}
+	
 	@Override
 	public void check() {
 		// TODO Auto-generated method stub
@@ -26,5 +31,14 @@ public class RuleSequenceNode extends ASTree {
 				+ "</eq></equation>";
 		}
 	}
+	public String generateLatex() {
+		if (seq != null) {
+			return rule.generateLatex() 
+				+ "\\\\ \\\\ " + seq.generateLatex();
+		} else {
+			return rule.generateLatex();
+		}
+	}
+	
 
 }

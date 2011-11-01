@@ -26,4 +26,15 @@ public class VBOpNode extends ASTree implements BExprNode {
 		}
 		return "\\" + func + "{" + expression.generateXML() + "}";
 	}
+	
+	@Override
+	public String generateLatex() {
+		String func = "";
+		switch (vop) {
+		case ALL  : func = " all ";
+		case NONE : func = " no ";
+		case SOME : func = " some ";
+		}
+		return func + "(" + expression.generateLatex() + ")";
+	}
 }

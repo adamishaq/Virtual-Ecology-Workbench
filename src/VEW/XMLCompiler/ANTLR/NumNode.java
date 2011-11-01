@@ -18,5 +18,9 @@ public class NumNode extends ASTree implements ExprNode {
 	public String generateXML() {
 		return "\\val{\\sival{" + value + ",0},\\unit{0,0,0}}";
 	}
+	
+	public String generateLatex() {
+		return " " + value + " ";
+	}
 
 }

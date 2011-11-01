@@ -29,4 +29,12 @@ public class AssignListNode extends ASTree {
 		  return "\\set{" + assign.generateXML() + "}";
 	}
 
+	@Override
+	public String generateLatex() {
+		if (nextAssign != null)
+		  return assign.generateXML() + "," + nextAssign.generateXML();
+		else
+		  return assign.generateXML();
+	}
+	
 }

@@ -31,5 +31,18 @@ public class BooleanComparitorNode extends ASTree implements BExprNode {
 		}
 		return "\\" + op + "{" + leftExpr.generateXML() + "," + rightExpr.generateXML() + "}";
 	}
+	
+	public String generateLatex() {
+		String op = "";
+		switch (comparitor) {
+		case EQUALS        : op = " = "; break; 
+		case NEQUALS       : op = " \\neq" ; break; 
+		case GREATERTHAN   : op = " > "; break; 
+		case LESSTHAN      : op = " < "; break; 
+		case GREATEREQUALS : op = " \\geq "; break;
+		case LESSEQUALS    : op = " \\leq "; break; 
+		}
+		return leftExpr.generateLatex() + op + rightExpr.generateLatex();
+	}
 
 }

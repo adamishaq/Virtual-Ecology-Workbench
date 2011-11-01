@@ -23,5 +23,10 @@ public class IngestNode extends ASTree implements RuleNode {
 		return "\\ingest{" + identifier.generateXML() + "," + threshold.generateXML() + ","
 		  	+ rate.generateXML() + "}";
 	}
+	
+	public String generateLatex() {
+		return " ingest(" + identifier.generateLatex() + "," + threshold.generateLatex() + " , "
+	  	+ rate.generateLatex() + ")";
+	}
 
 }

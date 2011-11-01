@@ -28,5 +28,16 @@ public class BinaryFunctionNode extends ASTree implements RuleNode {
 		}
 		return "\\" + func + "{" + expArg.generateXML() + "," + idArg.generateXML() + "}";
 	}
+	
+	@Override
+	public String generateLatex() {
+		String func = "";
+		switch (binFunc) {
+		case UPTAKE  : func = "uptake"; break;
+		case RELEASE : func = "release"; break;
+		case PCHANGE : return "pchange(" + idArg.generateLatex() + "," + expArg.generateLatex() + ")";
+		}
+		return func + "(" + expArg.generateXML() + "," + idArg.generateXML() + ")";
+	}
 
 }

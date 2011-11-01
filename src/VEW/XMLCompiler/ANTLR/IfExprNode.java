@@ -23,5 +23,10 @@ public class IfExprNode extends ASTree implements ExprNode {
 		return "\\conditional{" + conditionExpr.generateXML() + "," + thenExpr.generateXML()
 		 + "," + elseExpr.generateXML() + "}";
 	}
+	
+	public String generateLatex() {
+		return "if\\;(" + conditionExpr.generateLatex() + ")\\;then\\;(" + thenExpr.generateLatex()
+		 + ")\\;else\\;(" + elseExpr.generateLatex() + ")";
+	}
 
 }

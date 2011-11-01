@@ -27,5 +27,14 @@ public class BooleanBinOpNode extends ASTree implements BExprNode {
 		}
 		return "\\" + op + "{" + leftBExpr.generateXML() + "," + rightBExpr.generateXML() + "}";
 	}
+	
+	public String generateLatex() {
+		String op = "";
+		switch (booleanOp) {
+		case AND : op = "and"; break; 
+		case OR  : op = "or"; break;
+		}
+		return leftBExpr.generateLatex() + "\\;" + op + "\\;" + rightBExpr.generateLatex();
+	}
 
 }

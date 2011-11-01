@@ -31,4 +31,15 @@ public class BinOpNode extends ASTree implements ExprNode {
 		return "\\" + op + "{" + leftExpr.generateXML() + "," + rightExpr.generateXML() + "}";
 	}
 
+	public String generateLatex() {
+		String func = "";
+		switch (operator) {
+		case PLUS     : func  = "+";
+		case MINUS    : func  = "-";
+		case MULTIPLY : func  = "*";
+		case DIVIDE   : return "\frac {" + leftExpr.generateLatex() + "} {" + rightExpr.generateLatex() + "}";
+		case POWER    : func  = "^";
+		}
+		return leftExpr.generateLatex() + func + rightExpr.generateLatex();
+	}
 }
