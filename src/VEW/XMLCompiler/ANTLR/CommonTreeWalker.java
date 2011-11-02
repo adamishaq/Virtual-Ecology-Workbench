@@ -2,6 +2,7 @@ package VEW.XMLCompiler.ANTLR;
 
 import java.util.List;
 
+import org.antlr.runtime.tree.CommonErrorNode;
 import org.antlr.runtime.tree.CommonTree;
 
 import org.antlr.runtime.Token;
@@ -40,6 +41,7 @@ public class CommonTreeWalker {
 		RuleSequenceNode currentSeq = null;
 		for (Object c : childRules) {
 			CommonTree child = (CommonTree) c;
+			checkNode(child);
 			Token childToken = child.getToken();
 			if (childToken.getType() != BACONParser.RULE) {
 				throw new TreeWalkerException("Expected a rule token");
@@ -47,6 +49,7 @@ public class CommonTreeWalker {
 			RuleSequenceNode ruleSeq = constructRuleSeqNode(child);
 			if (currentSeq != null) {
 				currentSeq.setRuleSequence(ruleSeq);
+				currentSeq = ruleSeq;
 			}
 			else {
 				currentSeq = ruleSeq;
@@ -60,6 +63,7 @@ public class CommonTreeWalker {
 	 * Each of these are individual rules for constructing different types of ASTreeNodes 
 	 */
 	private RuleSequenceNode constructRuleSeqNode(CommonTree tree) throws TreeWalkerException {
+		checkNode(tree);
 		if (tree.getChildCount() == 1) {
 			RuleNode rule = constructRuleNode((CommonTree) tree.getChild(0));
 			return new RuleSequenceNode(rule);
@@ -71,6 +75,7 @@ public class CommonTreeWalker {
 	}
 	
 	private RuleNode constructRuleNode(CommonTree tree) throws TreeWalkerException {
+		checkNode(tree);
 		Token token = tree.getToken();
 		RuleNode rule = null;
 		int tokenType = token.getType();
@@ -130,16 +135,19 @@ public class CommonTreeWalker {
 	}
 	
 	private RuleNode constructSubRuleNode(CommonTree tree) throws TreeWalkerException {
+		checkNode(tree);
 		return constructRuleNode((CommonTree)tree.getChild(0));
 	}
 	
 	private AssignNode constructAssignNode(CommonTree tree) throws TreeWalkerException {
+		checkNode(tree);
 		IdNode id = constructIdNode((CommonTree)tree.getChild(0));
 		ExprNode expr = constructExprNode((CommonTree)tree.getChild(1));
 		return new AssignNode(id, expr);
 	}
 
 	private AssignListNode constructAssignListNode(CommonTree tree) throws TreeWalkerException {
+		checkNode(tree);
 		if (tree == null) {
 			return null;
 		}
@@ -152,12 +160,14 @@ public class CommonTreeWalker {
 	}
 	
 	private BinaryFunctionNode constructBinFuncNode(BinaryFunction binFunc, CommonTree tree) throws TreeWalkerException {
+		checkNode(tree);
 		IdNode id = constructIdNode((CommonTree)tree.getChild(0));
 		ExprNode expr = constructExprNode((CommonTree)tree.getChild(1));
 		return new BinaryFunctionNode(binFunc, id, expr);
 	}
 
 	private BExprNode constructBExprNode(CommonTree tree) throws TreeWalkerException {
+		checkNode(tree);
 		Token token = tree.getToken();
 		BExprNode bexpr = null;
 		int tokenType = token.getType();
@@ -219,23 +229,27 @@ public class CommonTreeWalker {
 	}
 	
 	private BooleanComparitorNode constructBooleanCompNode(ComparisonOperator comp, CommonTree tree) throws TreeWalkerException {
+		checkNode(tree);
 		ExprNode lExpr = constructExprNode((CommonTree)tree.getChild(0));
 		ExprNode rExpr = constructExprNode((CommonTree)tree.getChild(1));
 		return new BooleanComparitorNode(comp, lExpr, rExpr);
 	}
 	
 	private BooleanBinOpNode constructBooleanBinOpNode(BooleanBinOperator binOp, CommonTree tree) throws TreeWalkerException {
+		checkNode(tree);
 		BExprNode lBExpr = constructBExprNode((CommonTree)tree.getChild(0));
 		BExprNode rBExpr = constructBExprNode((CommonTree)tree.getChild(1));
 		return new BooleanBinOpNode(binOp, lBExpr, rBExpr);
 	}
 	
 	private VBOpNode constructVBOpNode(VBoolOperator vBOp, CommonTree tree) throws TreeWalkerException {
+		checkNode(tree);
 		BExprNode bExpr = constructBExprNode((CommonTree)tree.getChild(0));
 		return new VBOpNode(vBOp, bExpr);
 	}
 
 	private ExprNode constructExprNode(CommonTree tree) throws TreeWalkerException {
+		checkNode(tree);
 		Token token = tree.getToken();
 		ExprNode expr = null;
 		int tokenType = token.getType();
@@ -316,33 +330,44 @@ public class CommonTreeWalker {
 	}
 	
 	private BinOpNode constructBinOpNode(MathematicalOperator op, CommonTree tree) throws TreeWalkerException {
+		checkNode(tree);
 		ExprNode lExpr = constructExprNode((CommonTree)tree.getChild(0));
 		ExprNode rExpr = constructExprNode((CommonTree)tree.getChild(1));
 		return new BinOpNode(op, lExpr, rExpr);
 	}
 	
 	private BinaryPrimitiveNode constructBinPrimNode(BinaryPrimitive prim, CommonTree tree) throws TreeWalkerException {
+		checkNode(tree);
 		ExprNode lExpr = constructExprNode((CommonTree)tree.getChild(0));
 		ExprNode rExpr = constructExprNode((CommonTree)tree.getChild(1));
 		return new BinaryPrimitiveNode(prim, lExpr, rExpr);
 	}
 	
 	private VOpNode constructVBOpNode(VOperator vOp, CommonTree tree) throws TreeWalkerException {
+		checkNode(tree);
 		ExprNode expr = constructExprNode((CommonTree)tree.getChild(0));
 		return new VOpNode(vOp, expr);
 	}
 
-	private IdNode constructIdNode(CommonTree tree) {
+	private IdNode constructIdNode(CommonTree tree) throws TreeWalkerException {
+		checkNode(tree);
 		return new IdNode(tree.getToken().getText());
 	}
 	
 	private NumNode constructNumNode(CommonTree tree) throws TreeWalkerException {
+		checkNode(tree);
 		String numString = tree.getToken().getText();
 		try {
 			return new NumNode(Float.parseFloat(numString));
 		}
 		catch (NumberFormatException n) {
 			throw new TreeWalkerException(n.getMessage());
+		}
+	}
+	
+	private void checkNode(CommonTree node) throws TreeWalkerException {
+		if (node instanceof CommonErrorNode) {
+			throw new TreeWalkerException(((CommonErrorNode)node).trappedException.getMessage());
 		}
 	}
 }
