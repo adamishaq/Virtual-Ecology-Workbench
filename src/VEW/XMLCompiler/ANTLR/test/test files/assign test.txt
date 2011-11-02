@@ -1,1 +1,2 @@
-a = 2
+a = ham * 5
+cheese = 1
