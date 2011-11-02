@@ -1,4 +1,4 @@
-package VEW.XMLCompiler.ANTLR;
+package VEW.XMLCompiler.ASTNodes;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.antlr.runtime.tree.CommonTree;
 
 import org.antlr.runtime.Token;
 
-import VEW.XMLCompiler.ANTLR.output.BACONParser;
+import VEW.XMLCompiler.ANTLR.BACONParser;
 
 //Or CommonEnt... At least according to Mike
 /**

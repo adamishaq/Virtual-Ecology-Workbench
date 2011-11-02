@@ -1,6 +1,6 @@
-package VEW.XMLCompiler.ANTLR;
+package VEW.XMLCompiler.ASTNodes;
 
-public class BooleanNotOpNode extends ASTree implements BExprNode {
+public class BooleanNotOpNode extends BExprNode {
 
 	private BExprNode expression;
 
@@ -9,7 +9,7 @@ public class BooleanNotOpNode extends ASTree implements BExprNode {
 	}
 	
 	@Override
-	public void check() {
+	public void check() throws SemanticCheckException {
 		// TODO Auto-generated method stub
 
 	}

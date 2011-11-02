@@ -1,4 +1,4 @@
-package VEW.XMLCompiler.ANTLR;
+package VEW.XMLCompiler.ASTNodes;
 
 public enum UnaryPrimitive {
 	ABS, ACOS, ASIN, ATAN, COS, EXP, LN, LOGTEN, RND, SIN,

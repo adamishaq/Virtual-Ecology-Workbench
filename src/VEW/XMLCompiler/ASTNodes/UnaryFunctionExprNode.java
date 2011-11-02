@@ -1,6 +1,6 @@
-package VEW.XMLCompiler.ANTLR;
+package VEW.XMLCompiler.ASTNodes;
 
-public class UnaryFunctionExprNode extends ASTree implements RuleNode {
+public class UnaryFunctionExprNode extends RuleNode {
 
 	private UnaryExprFunction function;
 	private ExprNode expArg;
@@ -11,7 +11,7 @@ public class UnaryFunctionExprNode extends ASTree implements RuleNode {
 	}
 	
 	@Override
-	public void check() {
+	public void check() throws SemanticCheckException {
 		// TODO Auto-generated method stub
 
 	}

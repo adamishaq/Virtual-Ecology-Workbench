@@ -1,6 +1,6 @@
-package VEW.XMLCompiler.ANTLR;
+package VEW.XMLCompiler.ASTNodes;
 
-public class IfRuleNode extends ASTree implements RuleNode {
+public class IfRuleNode extends RuleNode {
 	
 	private BExprNode conditionExpr;
 	private RuleNode rule;
@@ -11,9 +11,9 @@ public class IfRuleNode extends ASTree implements RuleNode {
 	}
 	
 	@Override
-	public void check() {
-		// TODO Auto-generated method stub
-
+	public void check() throws SemanticCheckException {
+		conditionExpr.check();
+		rule.check();
 	}
 
 	@Override

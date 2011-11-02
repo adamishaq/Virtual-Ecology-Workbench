@@ -1,4 +1,4 @@
-package VEW.XMLCompiler.ANTLR;
+package VEW.XMLCompiler.ASTNodes;
 
 public class RuleSequenceNode extends ASTree {
 	
@@ -39,9 +39,11 @@ public class RuleSequenceNode extends ASTree {
 	}
 	
 	@Override
-	public void check() {
-		// TODO Auto-generated method stub
-
+	public void check() throws SemanticCheckException {
+		rule.check();
+		if (seq != null) {
+			seq.check();
+		}
 	}
 
 	@Override

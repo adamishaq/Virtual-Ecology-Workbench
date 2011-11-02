@@ -1,6 +1,6 @@
-package VEW.XMLCompiler.ANTLR;
+package VEW.XMLCompiler.ASTNodes;
 
-public class BinOpNode extends ASTree implements ExprNode {
+public class BinOpNode extends ExprNode {
 	
 	private MathematicalOperator operator;
 	private ExprNode lExpr;
@@ -13,7 +13,7 @@ public class BinOpNode extends ASTree implements ExprNode {
 	}
 
 	@Override
-	public void check() {
+	public void check() throws SemanticCheckException {
 		// TODO Auto-generated method stub
 
 	}

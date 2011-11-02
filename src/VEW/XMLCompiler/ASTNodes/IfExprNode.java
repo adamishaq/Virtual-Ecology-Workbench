@@ -1,6 +1,6 @@
-package VEW.XMLCompiler.ANTLR;
+package VEW.XMLCompiler.ASTNodes;
 
-public class IfExprNode extends ASTree implements ExprNode {
+public class IfExprNode extends ExprNode {
 
 	private BExprNode conditionExpr;
 	private ExprNode thenExpr;
@@ -13,8 +13,10 @@ public class IfExprNode extends ASTree implements ExprNode {
 	}
 	
 	@Override
-	public void check() {
-		// TODO Auto-generated method stub
+	public void check() throws SemanticCheckException {
+		conditionExpr.check();
+		thenExpr.check();
+		elseExpr.check();
 
 	}
 

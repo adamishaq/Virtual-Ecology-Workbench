@@ -1,6 +1,6 @@
-package VEW.XMLCompiler.ANTLR;
+package VEW.XMLCompiler.ASTNodes;
 
-public class NumNode extends ASTree implements ExprNode {
+public class NumNode extends ExprNode {
 
 	private float value;
 	
@@ -9,9 +9,9 @@ public class NumNode extends ASTree implements ExprNode {
 	}
 	
 	@Override
-	public void check() {
-		// TODO Auto-generated method stub
-
+	public void check() throws SemanticCheckException {
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		setExprType((Type)tables.checkTypeTable("$float"));
 	}
 
 	@Override

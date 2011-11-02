@@ -1,4 +1,4 @@
-package VEW.XMLCompiler.ANTLR;
+package VEW.XMLCompiler.ASTNodes;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,9 +22,10 @@ public class AssignListNode extends ASTree {
 	}
 	
 	@Override
-	public void check() {
-		// TODO Auto-generated method stub
-
+	public void check() throws SemanticCheckException {
+		for (AssignNode assign : assignList) {
+			assign.check();
+		}
 	}
 
 	@Override

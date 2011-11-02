@@ -1,6 +1,6 @@
-package VEW.XMLCompiler.ANTLR;
+package VEW.XMLCompiler.ASTNodes;
 
-public class BinaryFunctionNode extends ASTree implements RuleNode {
+public class BinaryFunctionNode extends RuleNode {
 
 	private BinaryFunction binFunc;
 	private IdNode idArg;
@@ -13,8 +13,8 @@ public class BinaryFunctionNode extends ASTree implements RuleNode {
 	}
 	
 	@Override
-	public void check() {
-		// TODO Auto-generated method stub
+	public void check() throws SemanticCheckException {
+		
 
 	}
 

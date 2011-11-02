@@ -1,6 +1,6 @@
-package VEW.XMLCompiler.ANTLR;
+package VEW.XMLCompiler.ASTNodes;
 
-public class CreateNode extends ASTree implements RuleNode {
+public class CreateNode extends RuleNode {
 
 	private IdNode identifier;
 	private ExprNode expression;
@@ -19,7 +19,7 @@ public class CreateNode extends ASTree implements RuleNode {
 	}
 	
 	@Override
-	public void check() {
+	public void check() throws SemanticCheckException {
 		// TODO Auto-generated method stub
 
 	}
