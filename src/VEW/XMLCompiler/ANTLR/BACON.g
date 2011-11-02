@@ -1,7 +1,6 @@
 grammar BACON;
 
 options {
-	backtrack=true;
 	memoize=true;
 	output=AST;
 }
@@ -169,15 +168,15 @@ assignList
 	;
 		
 expr
-	: expr2 (lowPrecMathOp^ expr2)*
+	: expr2 (options {greedy = true;} : lowPrecMathOp^ expr2)*
 	;
 	
 expr2
-	: expr3 (medPrecMathOp^  expr3)*
+	: expr3 (options {greedy = true;} : medPrecMathOp^  expr3)*
 	;
 	
 expr3
-	: expr4 (highPrecMathOp^ expr4)*
+	: expr4 (options {greedy = true;} : highPrecMathOp^ expr4)*
 	;
 	
 
@@ -198,7 +197,7 @@ bExpr
 	; 	
 
 bExpr2
-	: expr comparators^ expr
+	: (expr comparators) =>  expr comparators^ expr
 	| NOT LBRACKET bExpr RBRACKET -> ^(NOT bExpr)
 	| LBRACKET bExpr RBRACKET -> bExpr
 	| vBOp LBRACKET bExpr RBRACKET -> ^(vBOp bExpr)
