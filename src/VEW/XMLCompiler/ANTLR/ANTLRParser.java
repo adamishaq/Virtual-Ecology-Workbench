@@ -9,9 +9,10 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
 
-import VEW.XMLCompiler.ANTLR.output.BACONLexer;
-import VEW.XMLCompiler.ANTLR.output.BACONParser;
-import VEW.XMLCompiler.ANTLR.output.BACONParser.rules_return;
+import VEW.XMLCompiler.ANTLR.BACONLexer;
+import VEW.XMLCompiler.ANTLR.BACONParser;
+import VEW.XMLCompiler.ANTLR.BACONParser.rules_return;
+import VEW.XMLCompiler.ASTNodes.*;
 
 /**
  * A façade infront of an ANTLR compiler that generates ASTree Nodes.
@@ -61,8 +62,9 @@ public class ANTLRParser {
 	 * @return the XML given by the given Input
 	 * @throws RecognitionException thrown if the parser fails to parse the file.
 	 * @throws TreeWalkerException thrown if the ASTree nodes are generated incorrectly.
+	 * @throws SemanticCheckException 
 	 */
-	public String generateXML () throws RecognitionException, TreeWalkerException {
+	public String generateXML () throws RecognitionException, TreeWalkerException, SemanticCheckException {
 		ASTree t = getAST();
 		t.check();
 		return t.generateXML();
