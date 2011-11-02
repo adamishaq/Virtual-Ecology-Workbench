@@ -14,6 +14,7 @@ public class createVariableTest {
 	@Test
 	public void makeFloat() {
 		SymbolTable topSymTable = new SymbolTable();
+		topSymTable.put("$float", new Type("float"));
 		Type floatType = (Type) topSymTable.get("$float");
 		Variable var = new Variable("TestVar", floatType);
 		SymbolTable table = new SymbolTable(topSymTable);
@@ -26,6 +27,7 @@ public class createVariableTest {
 	@Test
 	public void makeFoodSet() {
 		SymbolTable topSymTable = new SymbolTable();
+		topSymTable.put("$foodSet", new Type("foodSet"));
 		Type floatType = (Type) topSymTable.get("$foodSet");
 		Variable var = new Variable("TestSet", floatType);
 		SymbolTable table = new SymbolTable(topSymTable);
@@ -38,6 +40,7 @@ public class createVariableTest {
 	@Test
 	public void makeVector() {
 		SymbolTable topSymTable = new SymbolTable();
+		topSymTable.put("$vector", new Type("vector"));
 		Type floatType = (Type) topSymTable.get("$vector");
 		Variable var = new Variable("Vector", floatType);
 		SymbolTable table = new SymbolTable(topSymTable);
