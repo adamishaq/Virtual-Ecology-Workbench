@@ -31,8 +31,8 @@ public class BooleanBinOpNode extends BExprNode {
 	public String generateLatex() {
 		String op = "";
 		switch (booleanOp) {
-		case AND : op = "and"; break; 
-		case OR  : op = "or"; break;
+		case AND : op = " \\cap "; break; 
+		case OR  : op = " \\cup "; break;
 		}
 		return leftBExpr.generateLatex() + "\\;" + op + "\\;" + rightBExpr.generateLatex();
 	}

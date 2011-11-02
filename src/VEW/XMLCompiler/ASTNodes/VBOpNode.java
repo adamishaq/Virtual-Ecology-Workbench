@@ -20,9 +20,9 @@ public class VBOpNode extends BExprNode {
 	public String generateXML() {
 		String func = "";
 		switch (vop) {
-		case ALL  : func = "allVariety";
-		case NONE : func = "noVariety";
-		case SOME : func = "someVariety";
+		case ALL  : func = "allVariety"; break;
+		case NONE : func = "noVariety"; break;
+		case SOME : func = "someVariety"; break;
 		}
 		return "\\" + func + "{" + expression.generateXML() + "}";
 	}
@@ -31,9 +31,9 @@ public class VBOpNode extends BExprNode {
 	public String generateLatex() {
 		String func = "";
 		switch (vop) {
-		case ALL  : func = " all ";
-		case NONE : func = " no ";
-		case SOME : func = " some ";
+		case ALL  : func = " all "; break;
+		case NONE : func = " no "; break;
+		case SOME : func = " some "; break;
 		}
 		return func + "(" + expression.generateLatex() + ")";
 	}

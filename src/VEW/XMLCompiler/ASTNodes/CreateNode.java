@@ -38,7 +38,7 @@ public class CreateNode extends RuleNode {
 	public String generateLatex() {
 		if (assignList != null) {
 			return "create(" + identifier.generateLatex() + "," 
-			 + expression.generateXML() + ")\\;with\\;[" + assignList.generateLatex() + "]";
+			 + expression.generateLatex() + ")\\;with\\;[" + assignList.generateLatex() + "]";
 		} else {
 			return "create(" + identifier.generateLatex() + "," 
 			 + expression.generateLatex() + ")";

@@ -39,10 +39,13 @@ public class AssignListNode extends ASTree {
 
 	@Override
 	public String generateLatex() {
-		if (nextAssign != null)
-		  return assign.generateXML() + "," + nextAssign.generateXML();
-		else
-		  return assign.generateXML();
+		String genString = "";
+		for (AssignNode a : assignList) {
+			genString += a.generateLatex() + ",";
+		}
+		// Trim off the last comma
+		genString = genString.substring(0, genString.length() - 1);
+		return genString;
 	}
 	
 }

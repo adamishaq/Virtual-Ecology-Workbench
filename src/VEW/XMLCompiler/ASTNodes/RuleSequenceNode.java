@@ -33,11 +33,6 @@ public class RuleSequenceNode extends ASTree {
 		this.seq = seq;
 	}
 	
-	public RuleSequenceNode(RuleNode rNode) {
-		rule = rNode;
-		seq = null;
-	}
-	
 	@Override
 	public void check() throws SemanticCheckException {
 		rule.check();
@@ -60,12 +55,13 @@ public class RuleSequenceNode extends ASTree {
 				+ "</eq></equation>";
 		}
 	}
+	
 	public String generateLatex() {
 		if (seq != null) {
-			return rule.generateLatex() 
-				+ "\\\\ \\\\ " + seq.generateLatex();
+			return "\\\\ \\\\ \\;" + rule.generateLatex() 
+				+ seq.generateLatex();
 		} else {
-			return rule.generateLatex();
+			return "\\\\ \\\\ \\;" + rule.generateLatex();
 		}
 	}
 	

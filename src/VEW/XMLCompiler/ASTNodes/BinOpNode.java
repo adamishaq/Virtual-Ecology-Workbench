@@ -34,12 +34,12 @@ public class BinOpNode extends ExprNode {
 	public String generateLatex() {
 		String func = "";
 		switch (operator) {
-		case PLUS     : func  = "+";
-		case MINUS    : func  = "-";
-		case MULTIPLY : func  = "*";
-		case DIVIDE   : return "\frac {" + leftExpr.generateLatex() + "} {" + rightExpr.generateLatex() + "}";
-		case POWER    : func  = "^";
+		case PLUS     : func  = "+"; break;
+		case MINUS    : func  = "-"; break;
+		case MULTIPLY : func  = "*"; break;
+		case DIVIDE   : return "\\frac {" + lExpr.generateLatex() + "} {" + rExpr.generateLatex() + "}";
+		case POWER    : return lExpr.generateLatex() + "^ {" + rExpr.generateLatex() + "}";
 		}
-		return leftExpr.generateLatex() + func + rightExpr.generateLatex();
+		return lExpr.generateLatex() + func + rExpr.generateLatex();
 	}
 }

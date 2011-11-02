@@ -37,7 +37,7 @@ public class BinaryFunctionNode extends RuleNode {
 		case RELEASE : func = "release"; break;
 		case PCHANGE : return "pchange(" + idArg.generateLatex() + "," + expArg.generateLatex() + ")";
 		}
-		return func + "(" + expArg.generateXML() + "," + idArg.generateXML() + ")";
+		return func + "(" + expArg.generateLatex() + "," + idArg.generateLatex() + ")";
 	}
 
 }
