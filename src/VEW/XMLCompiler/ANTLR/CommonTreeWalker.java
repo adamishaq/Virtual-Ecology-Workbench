@@ -49,6 +49,7 @@ public class CommonTreeWalker {
 			RuleSequenceNode ruleSeq = constructRuleSeqNode(child);
 			if (currentSeq != null) {
 				currentSeq.setRuleSequence(ruleSeq);
+				currentSeq = ruleSeq;
 			}
 			else {
 				currentSeq = ruleSeq;
