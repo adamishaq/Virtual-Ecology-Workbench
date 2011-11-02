@@ -1,4 +1,4 @@
-package VEW.XMLCompiler.ANTLR;
+package VEW.XMLCompiler.ASTNodes;
 
 public enum UnaryExprFunction {
 	DIVIDE

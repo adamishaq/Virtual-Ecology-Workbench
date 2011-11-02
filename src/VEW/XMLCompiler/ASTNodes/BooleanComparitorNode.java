@@ -1,6 +1,6 @@
-package VEW.XMLCompiler.ANTLR;
+package VEW.XMLCompiler.ASTNodes;
 
-public class BooleanComparitorNode extends ASTree implements BExprNode {
+public class BooleanComparitorNode extends BExprNode {
 	
 	private ComparisonOperator comparitor;
 	private ExprNode rightExpr;
@@ -13,7 +13,7 @@ public class BooleanComparitorNode extends ASTree implements BExprNode {
 	}
 
 	@Override
-	public void check() {
+	public void check() throws SemanticCheckException {
 		// TODO Auto-generated method stub
 
 	}

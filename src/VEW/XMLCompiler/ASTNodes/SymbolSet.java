@@ -1,9 +1,9 @@
-package VEW.XMLCompiler.ANTLR;
+package VEW.XMLCompiler.ASTNodes;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import VEW.XMLCompiler.ANTLR.output.BACONParser;
+import VEW.XMLCompiler.ANTLR.BACONParser;
 
 /**
  * Contains all the ANTLR internal tokens as ints.

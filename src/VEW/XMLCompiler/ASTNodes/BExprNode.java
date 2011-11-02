@@ -1,7 +1,5 @@
-package VEW.XMLCompiler.ANTLR;
+package VEW.XMLCompiler.ASTNodes;
 
-public interface BExprNode {
-	
-	public abstract String generateXML();
+public abstract class BExprNode extends ASTree{
 
 }

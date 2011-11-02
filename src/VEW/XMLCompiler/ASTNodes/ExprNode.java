@@ -1,7 +1,13 @@
-package VEW.XMLCompiler.ANTLR;
+package VEW.XMLCompiler.ASTNodes;
 
-public interface ExprNode {
+public abstract class ExprNode extends ASTree{
+	protected Type exprType;
 	
-	public abstract String generateXML();
-
+	public void setExprType(Type _exprType) {
+		exprType = _exprType;
+	}
+	
+	public Type getExprType() {
+		return exprType;
+	}
 }

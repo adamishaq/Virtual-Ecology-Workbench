@@ -1,6 +1,6 @@
-package VEW.XMLCompiler.ANTLR;
+package VEW.XMLCompiler.ASTNodes;
 
-public class VBOpNode extends ASTree implements BExprNode {
+public class VBOpNode extends BExprNode {
 	
 	private VBoolOperator vop;
 	private BExprNode expression;
@@ -11,7 +11,7 @@ public class VBOpNode extends ASTree implements BExprNode {
 	}
 	
 	@Override
-	public void check() {
+	public void check() throws SemanticCheckException {
 		// TODO Auto-generated method stub
 
 	}

@@ -1,9 +1,10 @@
-package VEW.XMLCompiler.ANTLR;
+package VEW.XMLCompiler.ASTNodes;
 
-public class AssignNode extends ASTree implements RuleNode {
+public class AssignNode extends RuleNode {
 
 	private IdNode identifier;
 	private ExprNode expr;
+	private Variable assignVar;
 	
 	public AssignNode(IdNode identifier, ExprNode expr) {
 		this.identifier = identifier;
@@ -11,9 +12,20 @@ public class AssignNode extends ASTree implements RuleNode {
 	}
 	
 	@Override
-	public void check() {
-		// TODO Auto-generated method stub
-
+	public void check() throws SemanticCheckException {
+		String idName = identifier.getName();
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		Object obj = tables.checkAllTables(idName);
+		if (obj != null) {
+			throw new SemanticCheckException(idName + " cannot be assigned to");
+		}
+		//TODO check and retrieve variable from table
+		expr.check();
+		if (expr.getExprType() != assignVar.getVarType()) {
+			//TODO check if its ok
+			throw new SemanticCheckException("Assign mismatch, my be ok actually");
+		}
+		
 	}
 
 	@Override
