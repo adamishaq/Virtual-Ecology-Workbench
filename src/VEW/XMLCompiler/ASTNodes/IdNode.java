@@ -30,8 +30,11 @@ public class IdNode extends ExprNode {
 	}
 	
 	public String generateLatex() {
-		String latex_name = name.replaceFirst("_", "_{");
-		latex_name += "}";
+		String latex_name = name;
+		if (name.contains("_")) {
+			latex_name = name.replaceFirst("_", "_{");
+			latex_name += "}";
+		}
 		return latex_name;
 	}
 	
