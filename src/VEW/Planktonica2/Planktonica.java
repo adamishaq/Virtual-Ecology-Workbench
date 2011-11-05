@@ -57,7 +57,7 @@ public class Planktonica extends JPanel {
   public PigmentPanel pigPanel;
   public Compiler c  = new Compiler(); 
   public JScrollPane eqsScroller = new JScrollPane();
-  public JEditorPane detailsHTML = new JEditorPane();
+  //public JEditorPane detailsHTML = new JEditorPane();
   public JPanel EqPigCard = new JPanel(new CardLayout());
   //public JPanel equationPreview = new InputPreviewPanel(new Dimension(750, 300));
   public VEWController2 vc2;
@@ -228,38 +228,38 @@ public class Planktonica extends JPanel {
     instances.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     functions.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-    final JPanel varPanel = new JPanel(new BorderLayout());
+    //final JPanel varPanel = new JPanel(new BorderLayout());
     // varPanel.setPreferredSize(new Dimension(600,150));
-    final JPanel varDetails = new JPanel(new BorderLayout());
+    //final JPanel varDetails = new JPanel(new BorderLayout());
 
-    varDetails.add(detailsHTML, BorderLayout.SOUTH);
-    detailsHTML.setContentType("text/html");
-    detailsHTML.setText("<html><body></body></html>");
-    detailsHTML.setEditable(false);
-    detailsHTML.setPreferredSize(new Dimension(300, 100));
-    varList.setPreferredSize(new Dimension(200, 20));
-    varList.addItemListener(eh);
-    editVar.setPreferredSize(new Dimension(80, 20));
-    editVar.addActionListener(eh);
-    JPanel varListPanel = new JPanel(new BorderLayout());
-    varListPanel.add(varList, BorderLayout.WEST);
-    varListPanel.add(editVar, BorderLayout.EAST);
-    editVar.setEnabled(false);
-    varDetails.add(varListPanel, BorderLayout.NORTH);
-    varPanel.add(varDetails, BorderLayout.WEST);
-    final JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-    buttonPanel.add(stageEditor);
-    miniStageTableModel.setColumnCount(2);
-    miniStageTableModel.setColumnIdentifiers(new String[] {"Stage","Selected"});
-    varPanel.add(buttonPanel, BorderLayout.CENTER);
+//    varDetails.add(detailsHTML, BorderLayout.SOUTH);
+//    detailsHTML.setContentType("text/html");
+//    detailsHTML.setText("<html><body></body></html>");
+//    detailsHTML.setEditable(false);
+//    detailsHTML.setPreferredSize(new Dimension(300, 100));
+//    varList.setPreferredSize(new Dimension(200, 20));
+//    varList.addItemListener(eh);
+//    editVar.setPreferredSize(new Dimension(80, 20));
+//    editVar.addActionListener(eh);
+//    JPanel varListPanel = new JPanel(new BorderLayout());
+//    varListPanel.add(varList, BorderLayout.WEST);
+//    varListPanel.add(editVar, BorderLayout.EAST);
+//    editVar.setEnabled(false);
+    //varDetails.add(varListPanel, BorderLayout.NORTH);
+    //varPanel.add(varDetails, BorderLayout.WEST);
+//    final JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+//    buttonPanel.add(stageEditor);
+//    miniStageTableModel.setColumnCount(2);
+//    miniStageTableModel.setColumnIdentifiers(new String[] {"Stage","Selected"});
+    //varPanel.add(buttonPanel, BorderLayout.CENTER);
     
-    eqsScroller.setPreferredSize(new Dimension(750, 300));
-    eqsScroller.setOpaque(false);
-    eqsScroller.setBorder(BorderFactory.createLoweredBevelBorder());
+//    eqsScroller.setPreferredSize(new Dimension(750, 300));
+//    eqsScroller.setOpaque(false);
+//    eqsScroller.setBorder(BorderFactory.createLoweredBevelBorder());
 
     /* Centre and south of main page */
 
-    add(varPanel, BorderLayout.CENTER);
+    //add(varPanel, BorderLayout.CENTER);
 
     Box boxPanel = Box.createVerticalBox();
     EqPigCard.add(compilerButtons, EQUATIONPANEL);
@@ -269,7 +269,7 @@ public class Planktonica extends JPanel {
     EqPigCard.setPreferredSize(new Dimension(696, 300));
     eqsScroller.setPreferredSize(new Dimension(696, 300));
     boxPanel.add(EqPigCard);
-    add(boxPanel, BorderLayout.SOUTH);
+    add(boxPanel);
     copyFunction.setEnabled(false);
     editFunction.setEnabled(false);
     addInstance.setEnabled(false);
@@ -389,7 +389,7 @@ public class Planktonica extends JPanel {
           XMLTag theVar = theFunction.getTagWhere("*", "name", varNameString);
           XMLTag group = getCurrentInstance();
           if (theVar == null) theVar = group.getTagWhere("*", "name", varNameString);
-          detailsHTML.setText(VariableChooser.HTMLForVarHelper(varNameString,group, theVar, false));
+          //detailsHTML.setText(VariableChooser.HTMLForVarHelper(varNameString,group, theVar, false));
           editVar.setEnabled(true);
           parent.pack();
         } else
@@ -527,7 +527,7 @@ public class Planktonica extends JPanel {
         if (theVar != null) addVarPage.editThisVar(xmlFile.getTag("model"), theFunction, group, theVar, AddVarPage.ALL);
         theVar = theFunction.getTagWhere("*", "name", varNameString);
         if (theVar == null) theVar = group.getTagWhere("*", "name", varNameString);
-        detailsHTML.setText(VariableChooser.HTMLForVarHelper(varNameString,group, theVar, false));
+        //detailsHTML.setText(VariableChooser.HTMLForVarHelper(varNameString,group, theVar, false));
         vc2.unsaved(false);
         parent.pack();
 
@@ -756,7 +756,7 @@ public class Planktonica extends JPanel {
 
         // Reset the variable list.
         varList.removeAllItems();
-        detailsHTML.setText("<html></html>");
+        //detailsHTML.setText("<html></html>");
 
         String[] Strings;
         functionListModel.removeAllElements();
@@ -784,7 +784,7 @@ public class Planktonica extends JPanel {
         functionListModel.removeAllElements();
         //functions.setEnabled(false);
         varList.removeAllItems();
-        detailsHTML.setText("<html></html>");
+        //detailsHTML.setText("<html></html>");
         upFG.setEnabled(false);
         downFG.setEnabled(false);
         removeInstance.setEnabled(false);
@@ -826,7 +826,7 @@ public class Planktonica extends JPanel {
         copyFunction.setToolTipText("Make copy of " + FunctionName + ".");
 
         varList.removeAllItems();
-        detailsHTML.setText("<html></html>");
+        //detailsHTML.setText("<html></html>");
         XMLTag[] tags = SelectedFunction.getTags();
         Vector params = new Vector();
 

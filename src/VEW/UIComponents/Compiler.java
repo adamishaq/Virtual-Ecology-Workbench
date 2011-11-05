@@ -43,12 +43,12 @@ public class Compiler {
 		final JPanel no_wrap_syntax = new JPanel(new BorderLayout());
 		no_wrap_syntax.add(syntax);
 		JScrollPane scroll_pane_syntax = new JScrollPane(no_wrap_syntax);
-		scroll_pane_syntax.setPreferredSize(new Dimension(400,400));
+		scroll_pane_syntax.setPreferredSize(new Dimension(350,350));
 		
 		final JPanel no_wrap_preview = new JPanel(new BorderLayout());
 		no_wrap_preview.add(preview,BorderLayout.NORTH);
 		JScrollPane scroll_pane_preview = new JScrollPane(no_wrap_preview);
-		scroll_pane_preview.setPreferredSize(new Dimension(400,400));
+		scroll_pane_preview.setPreferredSize(new Dimension(350,350));
 		
 		file_path.setPreferredSize(new Dimension(300,25));
 		lpanel.add(file_path);
@@ -72,7 +72,7 @@ public class Compiler {
 		syntax.setText("<html><PRE></PRE></html>");
 		lpanel.add(scroll_pane_syntax);
 		lpanel.add(scroll_pane_preview);
-		lpanel.setSize((850), (500));
+		lpanel.setSize((696), (300));
 		lpanel.setVisible(true);
 //		frame.add(lpanel);
 //		frame.setSize((850), (500));
