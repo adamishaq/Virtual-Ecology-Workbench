@@ -100,6 +100,7 @@ public class SyntaxHighlighter {
 		for (int i = 0; i < keywords.length; i++) {
 			text = text.replaceAll(keywords[i], 
 					"<font color=#" + keyword_colour + ">" + keywords[i] + "</font>");
+			//text = replace_word_only(keywords[i]);
 		}
 		// Highlight all function names
 		for (int i = 0; i < functions.length; i++) {
@@ -163,6 +164,14 @@ public class SyntaxHighlighter {
 		final_text = remove_inner_tags(final_text);
 		return("<html><head></head><PRE>\n" + final_text + "</PRE></html>");
 	}
+	
+	// Replace a word in a string only if it is not part of another word
+	private String replace_word_only(String text) {
+		text = text.replaceAll("[' ']" + text + "[' ']", 
+				"<font color=#" + keyword_colour + "> " + text + " </font>");
+		return text;
+	}
+	
 	
 	// Flags a line of text containing an error
 	private String highlight_error(int line, String text) {
