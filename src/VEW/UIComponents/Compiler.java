@@ -22,6 +22,7 @@ public class Compiler {
 	
 	// Test folder @ C:\Users\Andy\Imperial\Planktonika\Test Cases\Source.txt
 	
+	private static final long serialVersionUID = 1L;
 	private final static JButton open = new JButton("Open");
 	private final static JButton pre = new JButton("Preview");
 	private final static JButton compile = new JButton("Compile");
@@ -29,6 +30,10 @@ public class Compiler {
 	private static JTextPane syntax = new JTextPane();
 	private static LatexPreview preview = new LatexPreview();
 	private final static SyntaxHighlighter syntax_highlighter = new SyntaxHighlighter();
+	
+	public Compiler() {
+		main(new String[0]);
+	}
 	
 	public static void main(String[] args) {
 	

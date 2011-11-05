@@ -36,6 +36,7 @@ import VEW.Common.StringTools;
 import VEW.Common.XML.XMLFile;
 import VEW.Common.XML.XMLTag;
 import VEW.Controller2.VEWController2;
+import VEW.UIComponents.Compiler;
 
 public class Planktonica extends JPanel {
 
@@ -51,9 +52,10 @@ public class Planktonica extends JPanel {
   public JButton stageEditor = new JButton("Edit Stages");
   public MiniStageTableModel miniStageTableModel = new MiniStageTableModel();
   public JTable miniStageTable = new JTable(miniStageTableModel);
-  public EquationPanel eqPanel = new EquationPanel("");
+  //public EquationPanel eqPanel = new EquationPanel("");
   public PigmentPanel pigPanel;
-  public JScrollPane eqsScroller = new JScrollPane(eqPanel);
+  public Compiler c  = new Compiler(); 
+  public JScrollPane eqsScroller = new JScrollPane();
   public JEditorPane detailsHTML = new JEditorPane();
   public JPanel EqPigCard = new JPanel(new CardLayout());
   public VEWController2 vc2;
@@ -172,15 +174,15 @@ public class Planktonica extends JPanel {
     jsp1.setPreferredSize(new Dimension(120, 100));
     final JScrollPane jsp2 = new JScrollPane(instances);
     jsp2.setPreferredSize(new Dimension(195, 100));
-    final JScrollPane jsp3 = new JScrollPane(functions);
-    jsp3.setPreferredSize(new Dimension(295, 100));
+    //final JScrollPane jsp3 = new JScrollPane(functions);
+    //jsp3.setPreferredSize(new Dimension(295, 100));
     p1.add(jsp1, BorderLayout.CENTER);
     p1.add(new JLabel("Catagories"), BorderLayout.NORTH);
     p1.add(predCheckBox, BorderLayout.SOUTH);
     p2.add(jsp2, BorderLayout.CENTER);
     p2.add(new JLabel("Items"), BorderLayout.NORTH);
-    p3.add(jsp3, BorderLayout.CENTER);
-    p3.add(new JLabel("Functions"), BorderLayout.NORTH);
+    //p3.add(jsp3, BorderLayout.CENTER);
+    //p3.add(new JLabel("Functions"), BorderLayout.NORTH);
     predCheckBox.setEnabled(false);
     predCheckBox.addActionListener(eh);
 
@@ -201,13 +203,13 @@ public class Planktonica extends JPanel {
     ar2.add(renameInstance);
     ar2.add(removeInstance);
     ar2.add(copyInstance);
-    ar3.add(upFunc);
-    ar3.add(downFunc);
-    ar3.add(addFunction);
-    ar3.add(renameFunction);
-    ar3.add(editFunction);
-    ar3.add(removeFunction);
-    ar3.add(copyFunction);
+    //ar3.add(upFunc);
+    //ar3.add(downFunc);
+    //ar3.add(addFunction);
+    //ar3.add(renameFunction);
+    //ar3.add(editFunction);
+    //ar3.add(removeFunction);
+    //ar3.add(copyFunction);
     p2.add(ar2, BorderLayout.SOUTH);
     p3.add(ar3, BorderLayout.SOUTH);
     topBoxes.add(p1);
@@ -219,7 +221,7 @@ public class Planktonica extends JPanel {
     // Ensure only one item can be selected at a time from the lists.
     groups.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     instances.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    functions.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    //functions.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
     final JPanel varPanel = new JPanel(new BorderLayout());
     // varPanel.setPreferredSize(new Dimension(600,150));
@@ -279,7 +281,7 @@ public class Planktonica extends JPanel {
     downFunc.setEnabled(false);
     groups.getSelectionModel().addListSelectionListener(eh);
     instances.getSelectionModel().addListSelectionListener(eh);
-    functions.getSelectionModel().addListSelectionListener(eh);
+    //functions.getSelectionModel().addListSelectionListener(eh);
     editFunction.addActionListener(eh);
     removeFunction.addActionListener(eh);
     addFunction.addActionListener(eh);
@@ -313,7 +315,7 @@ public class Planktonica extends JPanel {
     importPage = new Importer(parent, this);
     addVarPage = new AddVarPage(parent);
     CardLayout CL = (CardLayout) EqPigCard.getLayout();
-    eqPanel.setEquation("");
+    //eqPanel.setEquation("");
     CL.show(EqPigCard, PIGMENTEDITOR);
     CL.show(EqPigCard, EQUATIONPANEL);
   }
@@ -333,10 +335,12 @@ public class Planktonica extends JPanel {
       return "";
   }
 
+  
   public XMLTag getCurrentFunction() {
     return getCurrentInstance().getTagWhere("function", "name",
         (String) functions.getSelectedValue());
   }
+  
 
   public XMLTag getCurrentInstance() {
     return xmlFile.getTag("model").getTagWhere(lookupBaseType(), "name",
@@ -364,8 +368,10 @@ public class Planktonica extends JPanel {
           groupListHandler();
         else if (e.getSource() == instances.getSelectionModel())
           instanceListHandler();
+        /*
         else if (e.getSource() == functions.getSelectionModel())
           functionListHandler();
+        */
       }
     }
 
@@ -567,8 +573,8 @@ public class Planktonica extends JPanel {
             }
           }
           vc2.unsaved(true);
-          eqPanel.setEquation("");
-          eqPanel.repaint();
+          //eqPanel.setEquation("");
+          //eqPanel.repaint();
           eqsScroller.repaint();
         }
 
@@ -590,8 +596,8 @@ public class Planktonica extends JPanel {
         for (i = 0; i < tags.length; i++)
           if (tags[i].getName().equals("equation"))
             eqlist += tags[i].getValue("eq") + "\\newline";
-        eqPanel.setEquation(eqlist);
-        eqPanel.repaint();
+        //eqPanel.setEquation(eqlist);
+        //eqPanel.repaint();
         eqsScroller.repaint();
         parent.pack();
         functionListHandler();
@@ -607,8 +613,8 @@ public class Planktonica extends JPanel {
           renameFunction.setEnabled(false);
           editFunction.setEnabled(false);
           vc2.unsaved(true);
-          eqPanel.setEquation("");
-          eqPanel.repaint();
+          //eqPanel.setEquation("");
+          //eqPanel.repaint();
           eqsScroller.repaint();
         }
 
@@ -705,8 +711,8 @@ public class Planktonica extends JPanel {
         instances.setEnabled(true);
 
         // Clear the equation panel and redraw everything.
-        eqPanel.setEquation("");
-        eqPanel.repaint();
+        //eqPanel.setEquation("");
+        //eqPanel.repaint();
         eqsScroller.repaint();
       } else {
         SelectedGroup = null;
@@ -755,7 +761,7 @@ public class Planktonica extends JPanel {
         for (int i = 0; i < Strings.length; i++)
           functionListModel.addElement(Strings[i]);
 
-        functions.setEnabled(true);
+        //functions.setEnabled(true);
 
 
         if (SelectedGroup.equals("chemical")) {
@@ -765,13 +771,13 @@ public class Planktonica extends JPanel {
         }
 
         // Clear the equation panel then redraw everything.
-        eqPanel.setEquation("");
-        eqPanel.repaint();
+        //eqPanel.setEquation("");
+        //eqPanel.repaint();
         eqsScroller.repaint();
       } else {
         SelectedInstance = null;
         functionListModel.removeAllElements();
-        functions.setEnabled(false);
+        //functions.setEnabled(false);
         varList.removeAllItems();
         detailsHTML.setText("<html></html>");
         upFG.setEnabled(false);
@@ -850,10 +856,10 @@ public class Planktonica extends JPanel {
         for (int i = 0; i < tags.length; i++)
           if (tags[i].getName().equals("equation"))
             eqlist += tags[i].getValue("eq") + "\\newline";
-        eqPanel.setEquation(eqlist);
+        //eqPanel.setEquation(eqlist);
 
         // Ensure everything is redrawn.
-        eqPanel.repaint();
+        //eqPanel.repaint();
         eqsScroller.repaint();
         varList.repaint();
         parent.pack();
