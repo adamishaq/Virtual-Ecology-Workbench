@@ -37,6 +37,7 @@ import VEW.Common.XML.XMLFile;
 import VEW.Common.XML.XMLTag;
 import VEW.Controller2.VEWController2;
 import VEW.UIComponents.Compiler;
+import VEW.UIComponents.InputPreviewPanel;
 
 public class Planktonica extends JPanel {
 
@@ -58,6 +59,7 @@ public class Planktonica extends JPanel {
   public JScrollPane eqsScroller = new JScrollPane();
   public JEditorPane detailsHTML = new JEditorPane();
   public JPanel EqPigCard = new JPanel(new CardLayout());
+  //public JPanel equationPreview = new InputPreviewPanel(new Dimension(750, 300));
   public VEWController2 vc2;
 
   public XMLFile xmlFile;
@@ -174,15 +176,15 @@ public class Planktonica extends JPanel {
     jsp1.setPreferredSize(new Dimension(120, 100));
     final JScrollPane jsp2 = new JScrollPane(instances);
     jsp2.setPreferredSize(new Dimension(195, 100));
-    //final JScrollPane jsp3 = new JScrollPane(functions);
-    //jsp3.setPreferredSize(new Dimension(295, 100));
+    final JScrollPane jsp3 = new JScrollPane(functions);
+    jsp3.setPreferredSize(new Dimension(295, 100));
     p1.add(jsp1, BorderLayout.CENTER);
     p1.add(new JLabel("Catagories"), BorderLayout.NORTH);
     p1.add(predCheckBox, BorderLayout.SOUTH);
     p2.add(jsp2, BorderLayout.CENTER);
     p2.add(new JLabel("Items"), BorderLayout.NORTH);
-    //p3.add(jsp3, BorderLayout.CENTER);
-    //p3.add(new JLabel("Functions"), BorderLayout.NORTH);
+    p3.add(jsp3, BorderLayout.CENTER);
+    p3.add(new JLabel("Functions"), BorderLayout.NORTH);
     predCheckBox.setEnabled(false);
     predCheckBox.addActionListener(eh);
 
@@ -192,6 +194,9 @@ public class Planktonica extends JPanel {
     ar2.setPreferredSize(new Dimension(195, 30));
     ar3.setPreferredSize(new Dimension(195, 30));
     ar4.setPreferredSize(new Dimension(195, 30));
+    
+    final JPanel compilerButtons = Compiler.getLpanel();
+    
     
 
 
@@ -203,13 +208,13 @@ public class Planktonica extends JPanel {
     ar2.add(renameInstance);
     ar2.add(removeInstance);
     ar2.add(copyInstance);
-    //ar3.add(upFunc);
-    //ar3.add(downFunc);
-    //ar3.add(addFunction);
-    //ar3.add(renameFunction);
-    //ar3.add(editFunction);
-    //ar3.add(removeFunction);
-    //ar3.add(copyFunction);
+    ar3.add(upFunc);
+    ar3.add(downFunc);
+    ar3.add(addFunction);
+    ar3.add(renameFunction);
+    ar3.add(editFunction);
+    ar3.add(removeFunction);
+    ar3.add(copyFunction);
     p2.add(ar2, BorderLayout.SOUTH);
     p3.add(ar3, BorderLayout.SOUTH);
     topBoxes.add(p1);
@@ -221,7 +226,7 @@ public class Planktonica extends JPanel {
     // Ensure only one item can be selected at a time from the lists.
     groups.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     instances.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    //functions.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    functions.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
     final JPanel varPanel = new JPanel(new BorderLayout());
     // varPanel.setPreferredSize(new Dimension(600,150));
@@ -257,7 +262,7 @@ public class Planktonica extends JPanel {
     add(varPanel, BorderLayout.CENTER);
 
     Box boxPanel = Box.createVerticalBox();
-    EqPigCard.add(eqsScroller, EQUATIONPANEL);
+    EqPigCard.add(compilerButtons, EQUATIONPANEL);
     EqPigCard.add(pigPanel, PIGMENTEDITOR);
 
     boxPanel.setPreferredSize(new Dimension(696, 300));
@@ -281,7 +286,7 @@ public class Planktonica extends JPanel {
     downFunc.setEnabled(false);
     groups.getSelectionModel().addListSelectionListener(eh);
     instances.getSelectionModel().addListSelectionListener(eh);
-    //functions.getSelectionModel().addListSelectionListener(eh);
+    functions.getSelectionModel().addListSelectionListener(eh);
     editFunction.addActionListener(eh);
     removeFunction.addActionListener(eh);
     addFunction.addActionListener(eh);

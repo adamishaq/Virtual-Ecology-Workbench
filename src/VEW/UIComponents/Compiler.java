@@ -30,6 +30,7 @@ public class Compiler {
 	private static JTextPane syntax = new JTextPane();
 	private static LatexPreview preview = new LatexPreview();
 	private final static SyntaxHighlighter syntax_highlighter = new SyntaxHighlighter();
+	private final static JPanel lpanel = new JPanel();
 	
 	public Compiler() {
 		main(new String[0]);
@@ -37,8 +38,7 @@ public class Compiler {
 	
 	public static void main(String[] args) {
 	
-		final JFrame frame = new JFrame("BACON Compiler");
-		final JPanel lpanel = new JPanel();
+		//final JFrame frame = new JFrame("BACON Compiler");
 
 		final JPanel no_wrap_syntax = new JPanel(new BorderLayout());
 		no_wrap_syntax.add(syntax);
@@ -74,11 +74,11 @@ public class Compiler {
 		lpanel.add(scroll_pane_preview);
 		lpanel.setSize((850), (500));
 		lpanel.setVisible(true);
-		frame.add(lpanel);
-		frame.setSize((850), (500));
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		frame.setVisible(true);
+//		frame.add(lpanel);
+//		frame.setSize((850), (500));
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.setResizable(false);
+//		frame.setVisible(true);
 		
 		preview.update_preview("pre");
 		preview.setVisible(false);
@@ -182,6 +182,10 @@ static class TypingListener implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {}
 	
+}
+
+public static JPanel getLpanel() {
+	return lpanel;
 }
 
 }

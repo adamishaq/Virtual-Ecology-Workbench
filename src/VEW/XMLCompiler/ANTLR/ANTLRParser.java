@@ -66,7 +66,7 @@ public class ANTLRParser {
 	 */
 	public String generateXML () throws RecognitionException, TreeWalkerException, SemanticCheckException {
 		ASTree t = getAST();
-		t.check();
+		//t.check();
 		return t.generateXML();
 	}
 	
