@@ -373,10 +373,12 @@ public class Planktonica extends JPanel {
           groupListHandler();
         else if (e.getSource() == instances.getSelectionModel())
           instanceListHandler();
-        /*
-        else if (e.getSource() == functions.getSelectionModel())
-          functionListHandler();
-        */
+        else if (e.getSource() == functions.getSelectionModel()) {
+        	System.out.println("Selected group called");
+        	CardLayout CL = (CardLayout) EqPigCard.getLayout();
+        	CL.show(EqPigCard, EQUATIONPANEL);
+        	pigPanel.show(SelectedInstance, xmlFile);
+        }
       }
     }
 
@@ -690,6 +692,14 @@ public class Planktonica extends JPanel {
           } else NewName = JOptionPane.showInputDialog("Sorry " + NewName+ " is already taken.\nPlease enter a different name");
         }
       }
+      else if (e.getSource() == functions) {
+          if (SelectedGroup.equals("function")) {
+          	System.out.println("Selected group called");
+              CardLayout CL = (CardLayout) EqPigCard.getLayout();
+              CL.show(EqPigCard, EQUATIONPANEL);
+              pigPanel.show(SelectedInstance, xmlFile);
+          }
+      }
     }
 
     public void focusGained(FocusEvent e) {
@@ -773,8 +783,8 @@ public class Planktonica extends JPanel {
           CardLayout CL = (CardLayout) EqPigCard.getLayout();
           CL.show(EqPigCard, PIGMENTEDITOR);
           pigPanel.show(SelectedInstance, xmlFile);
-        }
-
+        } 
+        
         // Clear the equation panel then redraw everything.
         //eqPanel.setEquation("");
         //eqPanel.repaint();
@@ -806,12 +816,20 @@ public class Planktonica extends JPanel {
       if (SelectedIndex != -1) {
 
         // Enable the relevant function buttons.
+    	System.out.print("Function list handler called");
         upFunc.setEnabled(SelectedIndex > 0);
         downFunc.setEnabled(SelectedIndex < functionListModel.size() - 1);
         editFunction.setEnabled(true);
         removeFunction.setEnabled(true);
         copyFunction.setEnabled(true);
         renameFunction.setEnabled(true);
+        
+        if (SelectedGroup.equals("function")) {
+        	System.out.println("Selected group called");
+            CardLayout CL = (CardLayout) EqPigCard.getLayout();
+            CL.show(EqPigCard, EQUATIONPANEL);
+            pigPanel.show(SelectedInstance, xmlFile);
+        }
 
         // Find out what's been selected
         SelectedFunction = SelectedInstance.getTagWhere("function", "name",
