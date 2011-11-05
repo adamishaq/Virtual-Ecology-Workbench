@@ -75,6 +75,9 @@ public class Compiler {
 		frame.setResizable(false);
 		frame.setVisible(true);
 		
+		preview.update_preview("pre");
+		preview.setVisible(false);
+		
 	}
 	
 static class CompileListener implements ActionListener {
@@ -127,6 +130,7 @@ static class PreviewListener implements ActionListener {
 	
 	public void actionPerformed(ActionEvent event) {
 		//System.out.println(syntax_highlighter.getPlainText(syntax.getText()));
+		preview.setVisible(true);
 		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
 		//System.out.println(syntax_highlighter.getPlainText(syntax.getText()));
 		try {
