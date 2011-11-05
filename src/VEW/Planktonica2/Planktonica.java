@@ -2,18 +2,13 @@ package VEW.Planktonica2;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
 import java.util.Vector;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,14 +16,12 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -51,9 +44,8 @@ public class Planktonica extends JPanel {
 	protected final JTabbedPane catTab = new JTabbedPane();
 	
 	/* Display panes for the tabpane... its Func-y */
-	protected Display funcView = new FunctionalDisplay();
-	protected Display chemView = new ChemicalDisplay();
-	
+	protected Display funcView;
+	protected Display chemView;
 	/**
 	 * Constructor for starting the Planktonica class
 	 * @param jd - reference to the VEWController2 parent
@@ -63,13 +55,19 @@ public class Planktonica extends JPanel {
 		vc2 = jd;
 	    parent = jd;
 	    ee = new EquationEditor(vc2);
-	    initialiseGUI();
-	    this.xmlFile = xmlFile;
+	    VEWController controller = new XMLController(xmlFile);
+	    funcView = new FunctionalDisplay(controller, catTab.getSize());
+	    chemView = new ChemicalDisplay(controller, catTab.getSize());
+	    initialiseGUI(controller);
 	    parent.pack();
 	}
-	private void initialiseGUI() {
+	
+	private void initialiseGUI(VEWController controller) {
+		setLayout(new BorderLayout(2, 2));
+		
 		catTab.addTab("Functional Groups", funcView);
 		catTab.addTab("Chemicals", chemView);
+		
 		add(catTab);
 	}
 
