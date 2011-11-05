@@ -26,7 +26,6 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -37,41 +36,8 @@ import VEW.Common.StringTools;
 import VEW.Common.XML.XMLFile;
 import VEW.Common.XML.XMLTag;
 import VEW.Controller2.VEWController2;
-/**
- * VEW Planktonica display for editing functional groups and chemicals, based on MVC OO design principle
- * 
- * @author Michael Hinstridge & Chris Bates
- *
- */
-public class Planktonica extends JPanel {
-	
-	private static final long serialVersionUID = 5356091519865535067L;
 
-	/* Categories tab */
-	protected final JTabbedPane catTab = new JTabbedPane();
-	
-	/* Display panes for the tabpane... its Func-y */
-	protected Display funcView = new FunctionalDisplay();
-	protected Display chemView = new ChemicalDisplay();
-	
-	/**
-	 * Constructor for starting the Planktonica class
-	 * @param jd - reference to the VEWController2 parent
-	 * @param xmlFile - reference to the XMLFile of the model
-	 */
-	public Planktonica (VEWController2 jd, XMLFile xmlFile) {
-		vc2 = jd;
-	    parent = jd;
-	    ee = new EquationEditor(vc2);
-	    initialiseGUI();
-	    this.xmlFile = xmlFile;
-	    parent.pack();
-	}
-	private void initialiseGUI() {
-		catTab.addTab("Functional Groups", funcView);
-		catTab.addTab("Chemicals", chemView);
-		add(catTab);
-	}
+public class Planktonica extends JPanel {
 
   /* The frames */
 
@@ -132,15 +98,6 @@ public class Planktonica extends JPanel {
   private XMLTag SelectedFunction = null;
   private JDialog parent;
 
-  /*public Planktonica(JDialog jd, XMLFile xmlfile) {
-	    vc2 = (VEWController2) jd;
-	    parent = jd;
-	    ee = new EquationEditor(vc2);
-	    initialiseGUI();
-	    xmlFile = xmlfile;
-	    parent.pack();
-	  }*/
-  
   public boolean greenLight(boolean fix) {
     if (xmlFile.getTag("kernel")!=null) xmlFile.getTag("kernel").removeFromParent();
     
@@ -203,7 +160,7 @@ public class Planktonica extends JPanel {
     }
     return true;
   }
-/*
+
   private void initialiseGUI() {
     setLayout(new BorderLayout(2, 2));
     pigPanel = new PigmentPanel(this);
@@ -294,7 +251,7 @@ public class Planktonica extends JPanel {
     eqsScroller.setBorder(BorderFactory.createLoweredBevelBorder());
 
     /* Centre and south of main page */
-/*
+
     add(varPanel, BorderLayout.CENTER);
 
     Box boxPanel = Box.createVerticalBox();
@@ -360,7 +317,7 @@ public class Planktonica extends JPanel {
     CL.show(EqPigCard, PIGMENTEDITOR);
     CL.show(EqPigCard, EQUATIONPANEL);
   }
-*/
+
   /*
    * Initialise the main screen with the boxes for FG/Chem/Pigment, Instances,
    * Functions and Subs.
@@ -386,8 +343,20 @@ public class Planktonica extends JPanel {
         (String) instances.getSelectedValue());
   }
 
+  public Planktonica(JDialog jd, XMLFile xmlfile) {
+    vc2 = (VEWController2) jd;
+    parent = jd;
+    ee = new EquationEditor(vc2);
+    initialiseGUI();
+    xmlFile = xmlfile;
+    parent.pack();
+  }
+
   public class EventHandler implements ActionListener, ItemListener,
       ListSelectionListener {
+
+    public EventHandler() {
+    }
 
     public void valueChanged(ListSelectionEvent e) {
       if (!e.getValueIsAdjusting()) {
@@ -712,6 +681,8 @@ public class Planktonica extends JPanel {
       }
     }
 
+    public void focusGained(FocusEvent e) {
+    }
 
 
     public void groupListHandler() {
