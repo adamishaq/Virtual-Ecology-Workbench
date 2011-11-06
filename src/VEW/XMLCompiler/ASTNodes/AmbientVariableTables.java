@@ -20,6 +20,7 @@ public class AmbientVariableTables {
 		typeTable.put("$float", new Type("float"));
 		typeTable.put("$foodSet", new Type("foodSet"));
 		typeTable.put("$vector", new Type("vector"));
+		typeTable.put("$boolean", new Type("boolean"));
 		
 	}
 

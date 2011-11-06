@@ -14,8 +14,23 @@ public class BinOpNode extends ExprNode {
 
 	@Override
 	public void check() throws SemanticCheckException {
-		// TODO Auto-generated method stub
+		lExpr.check();
+		rExpr.check();
+		Type lType = lExpr.getExprType();
+		Type rType = rExpr.getExprType();
+		setExprType(checkCompatibility(lType, rType));
 
+	}
+
+	private Type checkCompatibility(Type lType, Type rType) {
+		//TODO Some sort of tracking of the origins of food based sets
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		Type floatType = (Type) tables.checkTypeTable("$float");
+		if (lType instanceof Variety || rType instanceof Variety) {
+			return new Variety("float", floatType);
+		}
+		return floatType;
+		
 	}
 
 	@Override

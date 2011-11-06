@@ -3,19 +3,33 @@ package VEW.XMLCompiler.ASTNodes;
 public class BooleanComparitorNode extends BExprNode {
 	
 	private ComparisonOperator comparitor;
-	private ExprNode rightExpr;
-	private ExprNode leftExpr;
+	private ExprNode rExpr;
+	private ExprNode lExpr;
 	
-	public BooleanComparitorNode (ComparisonOperator comparitor, ExprNode leftExpr, ExprNode rightExpr) {
+	public BooleanComparitorNode (ComparisonOperator comparitor, ExprNode lExpr, ExprNode rExpr) {
 		this.comparitor = comparitor;
-		this.rightExpr = rightExpr;
-		this.leftExpr = leftExpr;
+		this.rExpr = rExpr;
+		this.lExpr = lExpr;
 	}
 
 	@Override
 	public void check() throws SemanticCheckException {
-		// TODO Auto-generated method stub
+		rExpr.check();
+		lExpr.check();
+		Type rExprType = rExpr.getExprType();
+		Type lExprType = lExpr.getExprType();
+		setBExprType(checkTypeCompatible(rExprType, lExprType));
 
+	}
+
+	private Type checkTypeCompatible(Type rExprType, Type lExprType) {
+		//TODO some sort of tracking of origins of food sets
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		Type boolType = (Type) tables.checkTypeTable("$boolean");
+		if (rExprType instanceof Variety || lExprType instanceof Variety) {
+			return new Variety("boolean", boolType);
+		}
+		return boolType;
 	}
 
 	@Override
@@ -29,7 +43,7 @@ public class BooleanComparitorNode extends BExprNode {
 		case GREATEREQUALS : op = "greaterequal"; break;
 		case LESSEQUALS    : op = "lessequal"; break; 
 		}
-		return "\\" + op + "{" + leftExpr.generateXML() + "," + rightExpr.generateXML() + "}";
+		return "\\" + op + "{" + lExpr.generateXML() + "," + rExpr.generateXML() + "}";
 	}
 
 }

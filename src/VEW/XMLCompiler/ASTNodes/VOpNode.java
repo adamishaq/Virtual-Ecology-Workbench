@@ -12,8 +12,18 @@ public class VOpNode  extends ExprNode {
 	
 	@Override
 	public void check() throws SemanticCheckException {
-		// TODO Auto-generated method stub
-
+		expression.check();
+		Type exprType = expression.getExprType();
+		if (!(exprType instanceof Variety)) {
+			throw new SemanticCheckException("The expression must be a vector");
+		}
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		Type floatType = (Type) tables.checkTypeTable("$float");
+		Variety varType = (Variety) exprType;
+		if (varType.getElementType() == floatType) {
+			throw new SemanticCheckException("The input for VBOp must be a vector of booleans");
+		}
+		setExprType(floatType);
 	}
 
 	@Override

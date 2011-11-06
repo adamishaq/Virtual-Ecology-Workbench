@@ -12,7 +12,9 @@ public class UnaryFunctionRuleNode extends RuleNode {
 	
 	@Override
 	public void check() throws SemanticCheckException {
-		// TODO Auto-generated method stub
+		//May change this into a change node
+		//TODO check that the id refers to a stage, and perhaps stage semantic attribute
+		//TODO some sort of warning system if multiple non conditional changes appear
 
 	}
 

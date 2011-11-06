@@ -14,7 +14,18 @@ public class BinaryPrimitiveNode extends ExprNode {
 	
 	@Override
 	public void check() throws SemanticCheckException {
-		// TODO Auto-generated method stub
+		//TODO this might be able to take variety arguments, :/
+		lExpr.check();
+		rExpr.check();
+		AmbientVariableTables varTables = AmbientVariableTables.getTables();
+		Type floatType = (Type) varTables.checkTypeTable("$float");
+		if (lExpr.getExprType() != floatType) {
+			throw new SemanticCheckException("First argument does not evaluate to a float");
+		}
+		if (rExpr.getExprType() != floatType) {
+			throw new SemanticCheckException("Second argument does not evalute to a float");
+		}
+		setExprType(floatType);
 
 	}
 

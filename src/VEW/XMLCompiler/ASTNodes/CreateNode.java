@@ -20,7 +20,14 @@ public class CreateNode extends RuleNode {
 	
 	@Override
 	public void check() throws SemanticCheckException {
-		// TODO Auto-generated method stub
+		//TODO check identifier for valid state, perhaps semantic attribute for this
+		expression.check();
+		Type numExprType = expression.getExprType();
+		if (numExprType instanceof Variety) {
+			throw new SemanticCheckException("The expression for number of offspring must evaluate to a scalar");
+		}
+		//TODO assign list checking may need to be more complex, not sure yet
+		assignList.check();
 
 	}
 

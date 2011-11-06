@@ -12,7 +12,13 @@ public class UnaryFunctionExprNode extends RuleNode {
 	
 	@Override
 	public void check() throws SemanticCheckException {
-		// TODO Auto-generated method stub
+		//This may need to change if any more unaryFunctions with expr args are added
+		//Im considering changing this into a Divide node
+		expArg.check();
+		Type expType = expArg.getExprType();
+		if (expType instanceof Variety) {
+			throw new SemanticCheckException("The expression for the number to divide to must be scalar");
+		}
 
 	}
 

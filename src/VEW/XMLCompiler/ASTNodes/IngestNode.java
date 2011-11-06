@@ -14,7 +14,10 @@ public class IngestNode extends RuleNode {
 	
 	@Override
 	public void check() throws SemanticCheckException {
-		// TODO Auto-generated method stub
+		//TODO: Check identifier links to a food set
+		threshold.check();
+		rate.check();
+		//TODO: Check that if things are varieties that they link back to appropriate food set
 
 	}
 

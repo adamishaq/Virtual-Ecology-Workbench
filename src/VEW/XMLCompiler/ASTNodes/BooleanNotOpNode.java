@@ -10,8 +10,8 @@ public class BooleanNotOpNode extends BExprNode {
 	
 	@Override
 	public void check() throws SemanticCheckException {
-		// TODO Auto-generated method stub
-
+		expression.check();
+		setBExprType(expression.getBExprType());
 	}
 
 	@Override

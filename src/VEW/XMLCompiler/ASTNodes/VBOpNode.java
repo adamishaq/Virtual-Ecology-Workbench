@@ -12,8 +12,18 @@ public class VBOpNode extends BExprNode {
 	
 	@Override
 	public void check() throws SemanticCheckException {
-		// TODO Auto-generated method stub
-
+		expression.check();
+		Type exprType = expression.getBExprType();
+		if (!(exprType instanceof Variety)) {
+			throw new SemanticCheckException("The expression must be a vector");
+		}
+		Variety varType = (Variety) exprType;
+		Type boolType = (Type) AmbientVariableTables.getTables().checkTypeTable("$boolean");
+		if (varType.getElementType() != boolType) {
+			throw new SemanticCheckException("The input for VBOp must be a vector of booleans");
+		}
+		setBExprType(boolType);
+		
 	}
 
 	@Override
