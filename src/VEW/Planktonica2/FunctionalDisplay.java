@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
+import VEW.Planktonica2.ControllerStructure.VEWController;
+
 public class FunctionalDisplay extends Display {
 
 	private static final long serialVersionUID = -6094339463447273188L;

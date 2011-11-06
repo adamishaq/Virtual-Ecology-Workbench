@@ -20,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
+import VEW.Planktonica2.ControllerStructure.VEWController;
+
 public abstract class Display extends JPanel {
 
 	private static final long serialVersionUID = -3961634639923671255L;

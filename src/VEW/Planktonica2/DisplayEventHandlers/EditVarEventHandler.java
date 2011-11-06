@@ -6,7 +6,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 
-import VEW.Planktonica2.VEWController;
+import VEW.Planktonica2.ControllerStructure.VEWController;
 
 public class EditVarEventHandler implements MouseListener {
 

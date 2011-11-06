@@ -1,13 +1,23 @@
-package VEW.Planktonica2;
+package VEW.Planktonica2.ControllerStructure;
 
 import java.util.Observable;
+import java.util.prefs.BackingStoreException;
+
+import VEW.Planktonica2.ControllerStructure.Variable;
+
+
 public abstract class VEWController extends Observable {
 	
-	public VEWController () {
-		readInData();
+	
+	
+	/**
+	 * 
+	 * @throws BackingStoreException when the XMLFile does not have the required tags in it.
+	 */
+	public VEWController () throws BackingStoreException {
 	}
 	
-	protected abstract void readInData();
+	protected abstract void readInData() throws BackingStoreException;
 
 	/**
 	 * Get a variable by name.
@@ -22,6 +32,8 @@ public abstract class VEWController extends Observable {
 		if (getSelectedItem() == null || getSelectedFunction () == null) {
 			return null;
 		}
+		
+		
 		
 		// TODO: get variable.
 		

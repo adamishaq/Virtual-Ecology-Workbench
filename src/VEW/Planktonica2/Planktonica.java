@@ -8,6 +8,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
 import java.util.Vector;
+import java.util.prefs.BackingStoreException;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -30,6 +31,8 @@ import VEW.Common.StringTools;
 import VEW.Common.XML.XMLFile;
 import VEW.Common.XML.XMLTag;
 import VEW.Controller2.VEWController2;
+import VEW.Planktonica2.ControllerStructure.VEWController;
+import VEW.Planktonica2.ControllerStructure.XMLController;
 /**
  * VEW Planktonica display for editing functional groups and chemicals, based on MVC OO design principle
  * 
@@ -55,7 +58,12 @@ public class Planktonica extends JPanel {
 		vc2 = jd;
 	    parent = jd;
 	    ee = new EquationEditor(vc2);
-	    VEWController controller = new XMLController(xmlFile);
+	    VEWController controller = null;
+		try {
+			controller = new XMLController(xmlFile);
+		} catch (BackingStoreException e) {
+			new JDialog(jd, "XMLFile: " + xmlFile.getName() + " failed to load.");
+		}
 	    funcView = new FunctionalDisplay(controller, catTab.getSize());
 	    chemView = new ChemicalDisplay(controller, catTab.getSize());
 	    initialiseGUI(controller);

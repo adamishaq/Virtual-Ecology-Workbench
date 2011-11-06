@@ -5,8 +5,8 @@ import java.awt.event.ItemListener;
 
 import javax.swing.JComboBox;
 
-import VEW.Planktonica2.VEWController;
-import VEW.Planktonica2.Variable;
+import VEW.Planktonica2.ControllerStructure.VEWController;
+import VEW.Planktonica2.ControllerStructure.Variable;
 
 public class VariableSelectionEventHandler implements ItemListener {
 

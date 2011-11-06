@@ -3,6 +3,8 @@ package VEW.Planktonica2;
 import java.util.Observable;
 import java.util.Observer;
 
+import VEW.Planktonica2.ControllerStructure.VEWController;
+
 public abstract class Model implements Observer {
 
 	VEWController controller;
