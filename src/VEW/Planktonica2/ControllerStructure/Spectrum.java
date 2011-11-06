@@ -27,42 +27,24 @@ public class Spectrum implements BuildFromXML {
 				if (s.startsWith(GRAPH_VALUES)) {
 					// removes surrounding "\graphvals{values}", leaving just values
 					String values = s.substring(s.indexOf("{")+1, s.lastIndexOf("}")-1);
-					// splits values around "," so of form ["{0, v1}", "{1, v2}", ...]
+					
+					values = values.replaceAll("({)", "");
+					
+					values = values.replaceAll("(})", "");					
+					
+					// splits values around "," so of form ["0", "v1", "1", "v2", ...]
 					String [] valueArray = values.split(",");
 					
-					// passes into get values
-					this.equations = getSpectraValues (valueArray);
-					
+					this.equations = new ArrayList<Float> ();
+					for (int i = 1; i < valueArray.length; i+=2) {
+						equations.add(Float.valueOf(valueArray[i]));
+					}					
 				}
 			}
 		}
 		
 		return this;
 	}
-
-	/**
-	 * Gets an array of the form ["{0, v1}", "{1, v2}", ...] and returns the values
-	 * 
-	 * @param valueArray array of form ["{0, v1}", "{1, v2}", ...]
-	 * @return an ArrayList<Float> == [v1, v2, v3, ...]
-	 */
-	private ArrayList<Float> getSpectraValues(String [] valueArray) {
-		
-		ArrayList<Float> returnArray = new ArrayList<Float>(valueArray.length);
-		
-		for (String s : valueArray) {
-			String values = s.substring(s.indexOf("{")+1, s.lastIndexOf("}")-1);
-			String [] array = values.split(",");
-			if (array.length >= 2) {
-				returnArray.add(Float.valueOf(array[1]));
-			}
-		}
-		
-		return returnArray;
-		
-		
-	}
-
 	
 	
 	public String getName() {
