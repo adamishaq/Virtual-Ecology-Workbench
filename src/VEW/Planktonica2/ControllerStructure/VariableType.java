@@ -55,7 +55,7 @@ public abstract class VariableType implements BuildFromXML {
 		}
 		
 		units = new ArrayList<Unit> ();
-		XMLTag units = tag.getTag("unit");
+		XMLTag units = tag.getTag(XMLTagEnum.UNIT.xmlTag());
 		if (units != null) {
 			String unitString = units.getValue();
 			if (unitString != null) {
@@ -66,14 +66,18 @@ public abstract class VariableType implements BuildFromXML {
 					String [] unit = new String [3];
 					int offset = 0;
 					for (int i = 0; i < individualUnits.length ; i++) {
-						if (offset >= 3) {
+						
+						unit[offset] = individualUnits[i];
+						
+						if (offset >= 2) {
 							Unit u = new Unit (Integer.valueOf(unit[0]), unit[1], Integer.valueOf(unit[2]));
 							this.units.add(u);
 							offset = 0;
 							unit = new String [3];
 						}
-						unit[offset] = individualUnits[i];		
-					}					
+						
+						offset++;
+					}				
 				}
 			}
 		}
