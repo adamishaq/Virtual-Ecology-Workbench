@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import VEW.Common.XML.XMLTag;
 
-public class Chemical implements BuildFromXML {
+public class Chemical extends Catagory implements BuildFromXML {
 
 	private String name;
 	private String value;
@@ -14,9 +14,15 @@ public class Chemical implements BuildFromXML {
 	private Collection<Spectrum> spectrum;
 	
 	private Collection<Function> functions;
-	private Collection<Variable> variables;
+	private Collection<StateVariable> variables;
 	private Collection<Parameter> parameters;
 	private Collection<Local> locals;
+	
+
+	
+	public Chemical() {
+		super();
+	}
 	
 	@Override
 	public BuildFromXML build(XMLTag tag) {
@@ -67,9 +73,9 @@ public class Chemical implements BuildFromXML {
 		this.parameters = new ArrayList<Parameter> (tags.length);
 
 		for (XMLTag t : tags) {
-			Parameter p = new Parameter();
+			Parameter p = new Parameter(this);
 			p.build(t);
-			parameters.add(p);
+			paramTable.put(p.getName(), p);
 		}
 
 		// local
@@ -77,19 +83,19 @@ public class Chemical implements BuildFromXML {
 		this.locals = new ArrayList<Local> (tags.length);
 
 		for (XMLTag t : tags) {
-			Local l = new Local();
+			Local l = new Local(this);
 			l.build(t);
-			locals.add(l);
+			localVarTable.put(l.getName(), l);
 		}
 
 		// variables
 		tags = tag.getTags(XMLTagEnum.VARIABLE.xmlTag());
-		this.variables = new ArrayList<Variable> (tags.length);
+		this.variables = new ArrayList<StateVariable> (tags.length);
 
 		for (XMLTag t : tags) {
-			Variable v = new Variable();
+			StateVariable v = new StateVariable(this);
 			v.build(t);
-			variables.add(v);
+			stateVarTable.put(v.getName(), v);
 		}
 
 
@@ -138,11 +144,11 @@ public class Chemical implements BuildFromXML {
 		this.functions = functions;
 	}
 
-	public Collection<Variable> getVariables() {
+	public Collection<StateVariable> getVariables() {
 		return variables;
 	}
 
-	public void setVariables(Collection<Variable> variables) {
+	public void setVariables(Collection<StateVariable> variables) {
 		this.variables = variables;
 	}
 

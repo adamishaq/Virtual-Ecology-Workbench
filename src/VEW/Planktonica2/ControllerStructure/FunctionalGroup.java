@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import VEW.Common.XML.XMLTag;
+import VEW.XMLCompiler.ASTNodes.SymbolTable;
 
-public class FunctionalGroup implements BuildFromXML {
+public class FunctionalGroup extends Catagory implements BuildFromXML {
 	
 	private String name;
 	private boolean invisible;
@@ -14,14 +15,27 @@ public class FunctionalGroup implements BuildFromXML {
 	
 	private Collection <Parameter> parameters;
 	private Collection <Local> locals;
-	private Collection <Variable> variables;
+	private Collection <StateVariable> variables;
 	
 	private Collection <VarietyConcentration> varietyConcentrations;
 	private Collection <VarietyParameter> varietyParameters;
 	private Collection <VarietyVariable> varietyVariables;
 	private Collection <VarietyLocal> varietyLocals;
 	
+	
+	private SymbolTable stageTable;
+	
 	private Collection <Stage> stages;
+
+	public FunctionalGroup() {
+		super();
+		initialiseFuncTables();
+	}
+	
+	private void initialiseFuncTables() {
+		stageTable = new SymbolTable();
+		
+	}
 
 	@Override
 	public BuildFromXML build(XMLTag xmlTag) {
@@ -45,7 +59,7 @@ public class FunctionalGroup implements BuildFromXML {
 		for (XMLTag t : tags) {
 			Stage s = new Stage ();
 			s.build(t);
-			stages.add(s);
+			stageTable.put(s.getName(), s);
 		}
 		
 		// functions
@@ -63,9 +77,9 @@ public class FunctionalGroup implements BuildFromXML {
 		this.parameters = new ArrayList<Parameter> (tags.length);
 		
 		for (XMLTag t : tags) {
-			Parameter p = new Parameter();
+			Parameter p = new Parameter(this);
 			p.build(t);
-			parameters.add(p);
+			paramTable.put(p.getName(), p);
 		}
 		
 		// local
@@ -73,19 +87,19 @@ public class FunctionalGroup implements BuildFromXML {
 		this.locals = new ArrayList<Local> (tags.length);
 		
 		for (XMLTag t : tags) {
-			Local l = new Local();
+			Local l = new Local(this);
 			l.build(t);
-			locals.add(l);
+			localVarTable.put(l.getName(), l);
 		}
 		
 		// variables
 		tags = xmlTag.getTags(XMLTagEnum.VARIABLE.xmlTag());
-		this.variables = new ArrayList<Variable> (tags.length);
+		this.variables = new ArrayList<StateVariable> (tags.length);
 		
 		for (XMLTag t : tags) {
-			Variable v = new Variable();
+			StateVariable v = new StateVariable(this);
 			v.build(t);
-			variables.add(v);
+			stateVarTable.put(v.getName(), v);
 		}
 		
 		// variety concentration
@@ -93,9 +107,9 @@ public class FunctionalGroup implements BuildFromXML {
 		this.varietyConcentrations = new ArrayList<VarietyConcentration> (tags.length);
 		
 		for (XMLTag t : tags) {
-			VarietyConcentration vc = new VarietyConcentration();
+			VarietyConcentration vc = new VarietyConcentration(this);
 			vc.build(t);
-			varietyConcentrations.add(vc);
+			varietyConcTable.put(vc.getName(), vc);
 		}
 		
 		// variety variable
@@ -103,9 +117,9 @@ public class FunctionalGroup implements BuildFromXML {
 		this.varietyVariables = new ArrayList<VarietyVariable> (tags.length);
 		
 		for (XMLTag t : tags) {
-			VarietyVariable vv = new VarietyVariable(this.varietyConcentrations);
+			VarietyVariable vv = new VarietyVariable(this);
 			vv.build(t);
-			varietyVariables.add(vv);
+			varietyStateTable.put(vv.getName(), vv);
 		}
 		
 		// variety locals
@@ -113,9 +127,9 @@ public class FunctionalGroup implements BuildFromXML {
 		this.varietyLocals = new ArrayList<VarietyLocal> (tags.length);
 		
 		for (XMLTag t : tags) {
-			VarietyLocal vl = new VarietyLocal(this.varietyConcentrations);
+			VarietyLocal vl = new VarietyLocal(this);
 			vl.build(t);
-			varietyLocals.add(vl);
+			varietyLocalTable.put(vl.getName(), vl);
 		}
 		
 		// variety parameter
@@ -123,9 +137,9 @@ public class FunctionalGroup implements BuildFromXML {
 		this.varietyParameters = new ArrayList<VarietyParameter> (tags.length);
 		
 		for (XMLTag t : tags) {
-			VarietyParameter vp = new VarietyParameter(this.varietyConcentrations);
+			VarietyParameter vp = new VarietyParameter(this);
 			vp.build(t);
-			varietyParameters.add(vp);
+			varietyParamTable.put(vp.getName(), vp);
 		}
 		
 		
@@ -174,11 +188,11 @@ public class FunctionalGroup implements BuildFromXML {
 		this.locals = locals;
 	}
 
-	public Collection<Variable> getVariables() {
+	public Collection<StateVariable> getVariables() {
 		return variables;
 	}
 
-	public void setVariables(Collection<Variable> variables) {
+	public void setVariables(Collection<StateVariable> variables) {
 		this.variables = variables;
 	}
 
@@ -223,4 +237,12 @@ public class FunctionalGroup implements BuildFromXML {
 		this.stages = stages;
 	}
 	
+	
+	public void addToStageTable(Stage stage) {
+		stageTable.put(stage.getName(), stage);
+	}
+	
+	public Stage checkStageTable(String stageName) {
+		return (Stage) stageTable.get(stageName);
+	}
 }

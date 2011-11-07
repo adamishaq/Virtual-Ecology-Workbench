@@ -8,11 +8,16 @@ import VEW.Common.XML.XMLTag;
 
 public abstract class VariableType implements BuildFromXML {
 
+	protected Catagory parentCatagory;
 	private String name;
 	private String desc;
 	private int value;
 	private int hist;
 	private Collection<Unit> units;
+	
+	public VariableType(Catagory parentCatagory) {
+		this.parentCatagory = parentCatagory;
+	}
 	
 	@Override
 	public BuildFromXML build (XMLTag tag) {
@@ -33,7 +38,6 @@ public abstract class VariableType implements BuildFromXML {
 		if (descTag != null) {
 			this.desc = descTag.getValue();
 		}
-		
 		
 		XMLTag valueTag = tag.getTag(XMLTagEnum.VALUE.xmlTag());
 		if (valueTag != null) {

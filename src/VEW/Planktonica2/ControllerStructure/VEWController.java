@@ -3,7 +3,7 @@ package VEW.Planktonica2.ControllerStructure;
 import java.util.Observable;
 import java.util.prefs.BackingStoreException;
 
-import VEW.Planktonica2.ControllerStructure.Variable;
+import VEW.Planktonica2.ControllerStructure.StateVariable;
 
 
 public abstract class VEWController extends Observable {
@@ -27,7 +27,7 @@ public abstract class VEWController extends Observable {
 	 * @param selectedVariable
 	 * @return a Variable with name == selected Variable
 	 */
-	public Variable getVariable(String selectedVariable) {
+	public StateVariable getVariable(String selectedVariable) {
 		
 		if (getSelectedItem() == null || getSelectedFunction () == null) {
 			return null;
