@@ -23,7 +23,7 @@ public class Variety extends VariableType {
 		String link = tag.getAttribute(XMLTagEnum.VARIETY_LINK.xmlTag());
 		
 		this.linkConcentration = getConcentrationFromList(link);
-				
+		
 		return this;
 		
 	}

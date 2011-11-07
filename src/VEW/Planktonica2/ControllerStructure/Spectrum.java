@@ -19,18 +19,19 @@ public class Spectrum implements BuildFromXML {
 		
 		
 		// comes in the form \graphvals{{0, v1}, {1, v2}, ...}
-		XMLTag spectraTag = tag.getTag(XMLTagEnum.GRAPH_VAL.xmlTag());
+		XMLTag equationTag = tag.getTag(XMLTagEnum.EQUATION.xmlTag());
+		XMLTag spectraTag = equationTag.getTag(XMLTagEnum.GRAPH_VAL.xmlTag());
 		if (spectraTag != null) {
 			String s = spectraTag.getValue();
 			if (s != null) {
 				// checks that the string starts with string == GRAPH_VALUES
 				if (s.startsWith(GRAPH_VALUES)) {
 					// removes surrounding "\graphvals{values}", leaving just values
-					String values = s.substring(s.indexOf("{")+1, s.lastIndexOf("}")-1);
+					String values = s.substring(s.indexOf("{")+1, s.lastIndexOf("}"));
 					
-					values = values.replaceAll("({)", "");
+					values = values.replaceAll("(\\{)", "");
 					
-					values = values.replaceAll("(})", "");					
+					values = values.replaceAll("(\\})", "");					
 					
 					// splits values around "," so of form ["0", "v1", "1", "v2", ...]
 					String [] valueArray = values.split(",");

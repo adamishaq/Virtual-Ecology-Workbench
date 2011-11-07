@@ -114,7 +114,7 @@ public class Chemical implements BuildFromXML {
 		this.value = value;
 	}
 
-	public boolean isPigment() {
+	public boolean hasPigment() {
 		return pigment;
 	}
 
