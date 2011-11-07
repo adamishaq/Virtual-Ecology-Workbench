@@ -120,7 +120,7 @@ public class Chemical extends Catagory implements BuildFromXML {
 		this.value = value;
 	}
 
-	public boolean isPigment() {
+	public boolean hasPigment() {
 		return pigment;
 	}
 
