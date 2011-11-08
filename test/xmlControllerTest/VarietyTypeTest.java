@@ -2,14 +2,12 @@ package xmlControllerTest;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
+import VEW.Planktonica2.ControllerStructure.FunctionalGroup;
 import VEW.Planktonica2.ControllerStructure.Unit;
 import VEW.Planktonica2.ControllerStructure.VarietyConcentration;
 import VEW.Planktonica2.ControllerStructure.VarietyLocal;
@@ -94,20 +92,18 @@ public class VarietyTypeTest {
 	
 	@Test
 	public void test() {
-		
-		VarietyConcentration conc = new VarietyConcentration();
+		FunctionalGroup func = new FunctionalGroup();
+		VarietyConcentration conc = new VarietyConcentration(func);
 		conc.build(vc);
+		func.addToVarietyConcTable(conc);
 		
-		Collection<VarietyConcentration> concentration = new ArrayList<VarietyConcentration> ();
-		concentration.add(conc);
-		
-		VarietyParameter p = new VarietyParameter(concentration);
+		VarietyParameter p = new VarietyParameter(func);
 		p.build(p1);
 		
-		VarietyLocal l = new VarietyLocal(concentration);
+		VarietyLocal l = new VarietyLocal(func);
 		l.build(l1);
 		
-		VarietyVariable v = new VarietyVariable(concentration);
+		VarietyVariable v = new VarietyVariable(func);
 		v.build(v1);
 		
 		

@@ -7,10 +7,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
+import VEW.Planktonica2.ControllerStructure.FunctionalGroup;
 import VEW.Planktonica2.ControllerStructure.Local;
 import VEW.Planktonica2.ControllerStructure.Parameter;
+import VEW.Planktonica2.ControllerStructure.StateVariable;
 import VEW.Planktonica2.ControllerStructure.Unit;
-import VEW.Planktonica2.ControllerStructure.Variable;
 import VEW.Planktonica2.ControllerStructure.XMLTagEnum;
 
 public class VariableTypeTest {
@@ -71,14 +72,14 @@ public class VariableTypeTest {
 
 	@Test
 	public void test() {
-		
-		Parameter p = new Parameter();
+		FunctionalGroup func = new FunctionalGroup();
+		Parameter p = new Parameter(func);
 		p.build(p1);
 		
-		Local l = new Local();
+		Local l = new Local(func);
 		l.build(l1);
 		
-		Variable v = new Variable();
+		StateVariable v = new StateVariable(func);
 		v.build(v1);
 		
 		

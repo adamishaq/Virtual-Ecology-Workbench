@@ -186,9 +186,9 @@ public class ChemicalTest {
 		assertNotNull(c.getSpectrum());
 		assertNotNull(c.getFunctions());
 		
-		assertEquals(2, c.getParameters().size());
-		assertEquals(2, c.getLocals().size());
-		assertEquals(3, c.getVariables().size());
+		assertEquals(2, c.getParamTable().size());
+		assertEquals(2, c.getLocalVarTable().size());
+		assertEquals(3, c.getStateVarTable().size());
 		
 		
 	}

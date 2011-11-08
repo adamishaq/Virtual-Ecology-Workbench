@@ -95,4 +95,62 @@ public abstract class Catagory {
 	public VarietyLocal checkVarietyLocalTable(String localName) {
 		return (VarietyLocal) varietyLocalTable.get(localName);
 	}
+
+	
+	
+	public SymbolTable getStateVarTable() {
+		return stateVarTable;
+	}
+
+	public void setStateVarTable(SymbolTable stateVarTable) {
+		this.stateVarTable = stateVarTable;
+	}
+
+	public SymbolTable getParamTable() {
+		return paramTable;
+	}
+
+	public void setParamTable(SymbolTable paramTable) {
+		this.paramTable = paramTable;
+	}
+
+	public SymbolTable getLocalVarTable() {
+		return localVarTable;
+	}
+
+	public void setLocalVarTable(SymbolTable localVarTable) {
+		this.localVarTable = localVarTable;
+	}
+
+	public SymbolTable getVarietyStateTable() {
+		return varietyStateTable;
+	}
+
+	public void setVarietyStateTable(SymbolTable varietyStateTable) {
+		this.varietyStateTable = varietyStateTable;
+	}
+
+	public SymbolTable getVarietyParamTable() {
+		return varietyParamTable;
+	}
+
+	public void setVarietyParamTable(SymbolTable varietyParamTable) {
+		this.varietyParamTable = varietyParamTable;
+	}
+
+	public SymbolTable getVarietyConcTable() {
+		return varietyConcTable;
+	}
+
+	public void setVarietyConcTable(SymbolTable varietyConcTable) {
+		this.varietyConcTable = varietyConcTable;
+	}
+
+	public SymbolTable getVarietyLocalTable() {
+		return varietyLocalTable;
+	}
+
+	public void setVarietyLocalTable(SymbolTable varietyLocalTable) {
+		this.varietyLocalTable = varietyLocalTable;
+	}
 }

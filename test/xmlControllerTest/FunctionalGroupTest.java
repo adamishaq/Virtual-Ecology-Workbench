@@ -200,17 +200,17 @@ public class FunctionalGroupTest {
 		
 		assertNotNull(f.getName());
 		assertNotNull(f.getLocals());
-		assertNotNull(f.getParameters());
+		assertNotNull(f.getParamTable());
 		assertNotNull(f.getVariables());
 		assertNotNull(f.getFunctions());
 		
-		assertEquals(2, f.getParameters().size());
-		assertEquals(2, f.getLocals().size());
-		assertEquals(3, f.getVariables().size());
+		assertEquals(2, f.getParamTable().size());
+		assertEquals(2, f.getLocalVarTable().size());
+		assertEquals(3, f.getStateVarTable().size());
 		
-		assertEquals(1, f.getVarietyLocals().size());
-		assertEquals(1, f.getVarietyParameters().size());
-		assertEquals(1, f.getVarietyVariables().size());
+		assertEquals(1, f.getVarietyLocalTable().size());
+		assertEquals(1, f.getVarietyParamTable().size());
+		assertEquals(1, f.getVarietyStateTable().size());
 	}
 
 }
