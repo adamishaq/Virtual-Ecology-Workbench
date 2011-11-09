@@ -1,6 +1,8 @@
 package VEW.UIComponents;
 
 import java.util.ArrayList;
+import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
+import VEW.XMLCompiler.ASTNodes.TreeWalkerException;
 
 public class SyntaxHighlighter {
 
@@ -8,14 +10,16 @@ public class SyntaxHighlighter {
 	 * Comments ("green") = 33CC00
 	 * Keywords ("blue") = 3333FF
 	 * Incorrect Syntax ("red") = FF0000
-	 * Functions ("purple") = 660066
+	 * Functions ("light purple") = 660066
 	 * Rule Names ("light blue") = 3399CC
+	 * Variables ("purple") = 660099
 	 * */
 	
 	// An array of all keywords to be recognised
 	private String[] keywords;
 	private String[] functions;
-	private ArrayList<Integer> flagged_lines;
+	private String[] variables;
+	private ArrayList<TreeWalkerException> exceptions;
 	
 	// The colours to be used for syntax highlighting is hex form
 	private String keyword_colour = "3333FF";
@@ -23,12 +27,13 @@ public class SyntaxHighlighter {
 	private String incorrect_colour = "FF0000";
 	private String function_colour = "660066";
 	private String rule_colour = "3399CC";
+	private String variable_colour = "660099";
 	
 	public SyntaxHighlighter(String [] _keywords,String[] _functions) {
 		// Set up a new SyntaxPane given a list of keywords and functions
 		this.keywords = _keywords;
 		this.functions = _functions;
-		this.flagged_lines = new ArrayList<Integer>();
+		this.exceptions = new ArrayList<TreeWalkerException>();
 	}
 	
 	public SyntaxHighlighter() {
@@ -39,7 +44,8 @@ public class SyntaxHighlighter {
 				"create","densityAt","depthForFI","depthForVI","fullIrradAt","salinityAt",
 				"temperatureAt","UVIrradAt","varhist"};
 		this.functions = funs;
-		this.flagged_lines = new ArrayList<Integer>();
+		this.variables = AmbientVariableTables.getTables().getAllVariableNames();
+		this.exceptions = new ArrayList<TreeWalkerException>();
 	}
 	
 	public String getKeywordColour() {
@@ -100,12 +106,16 @@ public class SyntaxHighlighter {
 		for (int i = 0; i < keywords.length; i++) {
 			text = text.replaceAll(keywords[i], 
 					"<font color=#" + keyword_colour + ">" + keywords[i] + "</font>");
-			//text = replace_word_only(keywords[i]);
 		}
 		// Highlight all function names
 		for (int i = 0; i < functions.length; i++) {
 			text = text.replaceAll(functions[i], 
 					"<font color=#" + function_colour + ">" + functions[i] + "</font>");
+		}
+		// Highlight all variable names
+		for (int i = 0; i < variables.length; i++) {
+			text = text.replaceAll(variables[i], 
+					"<font color=#" + variable_colour + ">" + variables[i] + "</font>");
 		}
 		// Highlight all rule names
 		text = text.replaceAll(":", "</font>:");
@@ -141,6 +151,9 @@ public class SyntaxHighlighter {
 				partial_text += chars[i];
 			}
 		}*/
+		
+		partial_text = remove_non_word_tags(partial_text);
+		
 		chars = partial_text.toCharArray();
 		String final_text = "";
 		// Highlight all comments
@@ -158,43 +171,38 @@ public class SyntaxHighlighter {
 			}
 		}
 		// Flag all error lines
-		for(int flag : flagged_lines) {
-			final_text = highlight_error(flag,final_text);
+		for(TreeWalkerException e : exceptions) {
+			final_text = highlight_error(e.getLine(),e.getChar_pos(),final_text);
 		}
 		final_text = remove_inner_tags(final_text);
 		return("<html><head></head><PRE>\n" + final_text + "</PRE></html>");
 	}
 	
-	// Replace a word in a string only if it is not part of another word
-	private String replace_word_only(String text) {
-		text = text.replaceAll("[' ']" + text + "[' ']", 
-				"<font color=#" + keyword_colour + "> " + text + " </font>");
-		return text;
-	}
-	
-	
 	// Flags a line of text containing an error
-	private String highlight_error(int line, String text) {
-		if (line <= 0) {
-			return text;
-		}
-		String flagged_text = "";
-		line--;
-		boolean in_pre = false;
+	private String highlight_error(int line, int char_pos, String text) {
+		String flagged_text = getPreText(text);
+		boolean ignore = false;
+		boolean error_found = false;
 		char[] chars = text.toCharArray();
 		for (int i = 0; i < chars.length; i++) {
-			if ((i < chars.length - 5) && chars[i] == '<' && chars[i+1] == 'p'
-				&& chars[i+2] == 'r' && chars[i+3] == 'e' && chars[i+4] == '>') {
-				in_pre = true;
-				i += 5;
-				flagged_text += "<pre>";
-			} else if (in_pre && line == -1 && chars[i] == '\n') {
-				in_pre = false;
+			if (line == 0 && (chars[i] == '\n' || chars[i] == ' ' || chars[i] == '\t')) {
 				flagged_text += "</font>";
-			} else if (in_pre && line == 0) {
+				line--;
+			} else if (!ignore && line == 1 && chars[i] == '<') {
+				ignore = true;
+			} else if (!ignore && line == 1 && chars[i] == '&') {
+				// This is an &quot; tag or something
+				ignore = true;
+				char_pos--;
+			} else if (ignore && (chars[i] == '>' || chars[i] == ';')) {
+				ignore = false;
+			} else if (!ignore && line == 1 && char_pos > 0) {
+				char_pos--;
+			} else if (!ignore && line == 1 && char_pos == 0) {
+				error_found = true;
 				flagged_text += "<font color=#" + incorrect_colour + ">";
 				line--;
-			} else if (in_pre && chars[i] == '\n') {
+			} else if (chars[i] == '\n') {
 				line--;
 			}
 			flagged_text += chars[i];
@@ -203,13 +211,72 @@ public class SyntaxHighlighter {
 	}
 	
 	// Add a flag to the list of error lines
-	public void flag_line(int i) {
-		this.flagged_lines.add(i);
+	public void flag_line(TreeWalkerException t) {
+		this.exceptions.add(t);
 	}
 	
 	// Clear the flag list
 	public void clear_flags() {
-		this.flagged_lines.clear();
+		this.exceptions.clear();
+	}
+	
+	// Remove all highlighted words which are part of other words (must be called
+	// before comments are highlighted)
+	private String remove_non_word_tags(String tag_text) {
+		tag_text = remove_nwt_forward(tag_text);
+		tag_text = remove_nwt_backward(tag_text);
+		return tag_text;
+	}
+
+	private String remove_nwt_forward(String tag_text) {
+		String final_text = "";
+		char[] chars = tag_text.toCharArray();
+		boolean ignore = false;
+		boolean in_tag = false;
+		for (int i = 0; i < chars.length; i++) {
+			if ((i < chars.length - 3) && Character.isLetterOrDigit(chars[i]) && chars[i+1] == '<'
+				  && chars[i+2] == 'f') {
+				// This is the start of a '<font>' tag
+				ignore = true;
+				in_tag = true;
+				final_text += chars[i];
+			} else if (ignore && chars[i] == '>') {
+				ignore = false;
+			} else if (in_tag && (i < chars.length - 3) && chars[i] == '<' && chars[i+1] == '/') {
+				// Skip over the font tag
+				in_tag = false;
+				ignore = true;
+			} else if (!ignore) {
+				final_text += chars[i];
+			}
+		}
+		return final_text;
+	}
+	
+	private String remove_nwt_backward(String tag_text) {
+		String final_text = "";
+		char[] chars = tag_text.toCharArray();
+		boolean ignore = false;
+		boolean in_tag = false;
+		for (int i = chars.length - 1; i >= 0; i--) {
+			if ((i > 2) && Character.isLetterOrDigit(chars[i]) && chars[i-1] == '>'
+				  && chars[i-2] == 't') {
+				// This is the end of a '<font>' tag
+				ignore = true;
+				in_tag = true;
+				final_text += chars[i];
+			} else if (ignore && chars[i] == '<') {
+				ignore = false;
+			} else if (in_tag && (i > 2) && chars[i] == '>' && chars[i-1] != 't') {
+				// Skip over the font tag
+				in_tag = false;
+				ignore = true;
+			} else if (!ignore) {
+				final_text += chars[i];
+			}
+		}
+		// The text is the wrong way round, so reverse it
+		return new StringBuffer(final_text).reverse().toString();
 	}
 	
 	// Remove all <font> tags inside other <font> tags

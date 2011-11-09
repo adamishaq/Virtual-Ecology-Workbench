@@ -13,6 +13,7 @@ import org.antlr.runtime.*;
 
 import VEW.XMLCompiler.ANTLR.ANTLRParser;
 import VEW.XMLCompiler.ASTNodes.ASTree;
+import VEW.XMLCompiler.ASTNodes.ConstructedASTree;
 import VEW.XMLCompiler.ASTNodes.SemanticCheckException;
 import VEW.XMLCompiler.ASTNodes.TreeWalkerException;
 
@@ -25,10 +26,11 @@ public class Compiler {
 	private final static JButton open = new JButton("Open");
 	private final static JButton pre = new JButton("Preview");
 	private final static JButton compile = new JButton("Compile");
-	private final static JTextField file_path = new JTextField();
+	private final static JTextField file_path = new JTextField("C:\\Users\\Andy\\Imperial\\Planktonika\\Test Cases\\Source.txt");
 	private static JTextPane syntax = new JTextPane();
 	private static LatexPreview preview = new LatexPreview();
 	private final static SyntaxHighlighter syntax_highlighter = new SyntaxHighlighter();
+	private final static JTextPane error_log = new JTextPane();
 	
 	public static void main(String[] args) {
 	
@@ -44,6 +46,9 @@ public class Compiler {
 		no_wrap_preview.add(preview,BorderLayout.NORTH);
 		JScrollPane scroll_pane_preview = new JScrollPane(no_wrap_preview);
 		scroll_pane_preview.setPreferredSize(new Dimension(400,400));
+		
+		JScrollPane scroll_pane_errors = new JScrollPane(error_log);
+		scroll_pane_errors.setPreferredSize(new Dimension(808,100));
 		
 		file_path.setPreferredSize(new Dimension(300,25));
 		lpanel.add(file_path);
@@ -65,12 +70,15 @@ public class Compiler {
 		syntax.setFont(font);
 		syntax.setContentType("text/html");
 		syntax.setText("<html><PRE></PRE></html>");
+		
+		//error_log.setEnabled(false);
 		lpanel.add(scroll_pane_syntax);
 		lpanel.add(scroll_pane_preview);
-		lpanel.setSize((850), (500));
+		lpanel.add(scroll_pane_errors);
+		lpanel.setSize((850), (600));
 		lpanel.setVisible(true);
 		frame.add(lpanel);
-		frame.setSize((850), (500));
+		frame.setSize((850), (600));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setVisible(true);
@@ -80,20 +88,38 @@ public class Compiler {
 		
 	}
 	
+	private static void highlight_syntax() {
+		int pos = syntax.getCaret().getDot();
+		syntax.setText(syntax_highlighter.highlight(syntax.getText()));
+		syntax.getCaret().setDot(pos);
+	}
+	
 static class CompileListener implements ActionListener {
 		
 	public void actionPerformed(ActionEvent event) {
+		syntax_highlighter.clear_flags();
 		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
 		try {
-			System.out.println(p.generateXML());
+			ConstructedASTree ct = p.getAST();
+			if (ct.getExceptions().isEmpty()) {
+				String latex = "\\begin{array}{lr}";
+				latex += ct.getTree().generateLatex();
+				latex += "\\end{array}";
+				preview.setVisible(true);
+				preview.update_preview(latex);
+				System.out.println(ct.getTree().generateXML());
+			} else {
+				String errors = "Compilation errors occurred:\n";
+				for (TreeWalkerException t : ct.getExceptions()) {
+					syntax_highlighter.flag_line(t);
+					errors += t.getError() + "\n";
+				}
+				errors += "Compilation aborted";
+				highlight_syntax();
+				error_log.setText(errors);
+			}
 		} catch (RecognitionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TreeWalkerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SemanticCheckException e) {
-			// TODO Auto-generated catch block
+			System.out.println("RECOGNITION EXCEPTION");
 			e.printStackTrace();
 		}
 	}
@@ -115,9 +141,7 @@ static class OpenListener implements ActionListener {
 			in.close();
 			file += "</PRE></html>";
 			syntax.setText(file);
-			int pos = syntax.getCaret().getDot();
-			syntax.setText(syntax_highlighter.highlight(syntax.getText()));
-			syntax.getCaret().setDot(pos);
+			highlight_syntax();
 		} catch (Exception e) {
 			syntax.setText("Could not find the file!");
 		}
@@ -129,25 +153,31 @@ static class OpenListener implements ActionListener {
 static class PreviewListener implements ActionListener {
 	
 	public void actionPerformed(ActionEvent event) {
-		//System.out.println(syntax_highlighter.getPlainText(syntax.getText()));
-		preview.setVisible(true);
+		// Clear all error lines
+		syntax_highlighter.clear_flags();
 		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
 		//System.out.println(syntax_highlighter.getPlainText(syntax.getText()));
 		try {
-			ASTree ast = p.getAST();
-			//System.out.println(ast.generateLatex());
-			//System.out.println(ast.generateXML());
-			String latex = "\\begin{array}{lr}";
-			latex += ast.generateLatex();
-			latex += "\\end{array}";
-			preview.update_preview(latex);
+			ConstructedASTree ct = p.getAST();
+			if (ct.getExceptions().isEmpty()) {
+				String latex = "\\begin{array}{lr}";
+				latex += ct.getTree().generateLatex();
+				latex += "\\end{array}";
+				preview.setVisible(true);
+				preview.update_preview(latex);
+			} else {
+				String errors = "Compilation errors occurred:\n";
+				for (TreeWalkerException t : ct.getExceptions()) {
+					syntax_highlighter.flag_line(t);
+					errors += t.getError() + "\n";
+				}
+				errors += "Preview aborted";
+				highlight_syntax();
+				error_log.setText(errors);
+			}
 		} catch (RecognitionException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Something is wrong!");
-			e.printStackTrace();
-		} catch (TreeWalkerException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Something is wrong!");
+			System.out.println("RECOGNITION EXCEPTION");
 			e.printStackTrace();
 		}
 	}
@@ -168,9 +198,7 @@ static class TypingListener implements KeyListener {
 				&& e.getKeyCode() != KeyEvent.VK_LEFT) {
 			// Update the syntax pane with highlighting, ensuring caret
 			// position remains the same
-			int pos = syntax.getCaret().getDot();
-			syntax.setText(syntax_highlighter.highlight(syntax.getText()));
-			syntax.getCaret().setDot(pos);
+			highlight_syntax();
 		}
 	}
 

@@ -17,6 +17,7 @@ public class AmbientVariableTables {
 	}
 
 	private void initialiseTypeTable() {
+		typeTable = new SymbolTable();
 		typeTable.put("$float", new Type("float"));
 		typeTable.put("$foodSet", new Type("foodSet"));
 		typeTable.put("$vector", new Type("vector"));
@@ -24,6 +25,7 @@ public class AmbientVariableTables {
 	}
 
 	private void initialiseSystemVarTable() {
+		systemVarTable = new SymbolTable();
 		Type floatType = (Type) typeTable.get("$float"); 
 		systemVarTable.put("d_leap", 
 				new Variable( "d_leap", floatType, "Extra days due to leap year (1 or 0)"));
@@ -36,6 +38,7 @@ public class AmbientVariableTables {
 	}
 
 	private void initialiseWaterColumnVarTable() {
+		waterColumnVarTable = new SymbolTable();
 		Type floatType = (Type) typeTable.get("$float");
 		waterColumnVarTable.put("Turbocline",
 				new Variable("Turbocline", floatType, "Turbocline"));
@@ -43,6 +46,7 @@ public class AmbientVariableTables {
 	}
 
 	private void initialisePhysicsVarTable() {
+		physicsVarTable = new SymbolTable();
 		Type floatType = (Type) typeTable.get("$float");
 		physicsVarTable.put("Density",
 				new Variable("Density", floatType, "Density"));
@@ -92,6 +96,28 @@ public class AmbientVariableTables {
 			tables = new AmbientVariableTables();
 		}
 		return tables;
+	}
+	
+	public String[] getAllVariableNames() {
+		Object[] sys_vars = systemVarTable.keySet().toArray();
+		Object[] water_vars = waterColumnVarTable.keySet().toArray();
+		Object[] phys_vars = physicsVarTable.keySet().toArray();
+		String [] all_vars = new String[(sys_vars.length 
+				+ water_vars.length + phys_vars.length)];
+		int pos = 0;
+		for (int i = 0; i < sys_vars.length; i++) {
+			all_vars[pos] = (String) sys_vars[i];
+			pos++;
+		}
+		for (int i = 0; i < water_vars.length; i++) {
+			all_vars[pos] = (String) water_vars[i];
+			pos++;
+		}
+		for (int i = 0; i < phys_vars.length; i++) {
+			all_vars[pos] = (String) phys_vars[i];
+			pos++;
+		}
+		return all_vars;
 	}
 	
 	
