@@ -2,6 +2,7 @@ package VEW.Planktonica2.ControllerStructure;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.prefs.BackingStoreException;
 
 import VEW.Common.XML.XMLTag;
 
@@ -10,7 +11,7 @@ public abstract class VariableType implements BuildFromXML {
 
 	private String name;
 	private String desc;
-	private int value;
+	private float value;
 	private int hist;
 	private Collection<Unit> units;
 	
@@ -40,7 +41,7 @@ public abstract class VariableType implements BuildFromXML {
 			String v = valueTag.getValue();
 			
 			if (v != null) {
-				this.value = Integer.valueOf(v);
+				this.value = Float.valueOf(v);
 			}
 		}
 		
@@ -70,13 +71,24 @@ public abstract class VariableType implements BuildFromXML {
 						unit[offset] = individualUnits[i];
 						
 						if (offset >= 2) {
+							/*
+							 * Checks for null on broken models, because some units seem to have
+							 * a null size value and possibly a null exponent value.
+							 */
+							if (unit[0].equals("null")) {
+								unit[0] = "0";
+							} else if (unit[2].equals("null")) {
+								unit[2] = "0";
+							}
 							Unit u = new Unit (Integer.valueOf(unit[0]), unit[1], Integer.valueOf(unit[2]));
 							this.units.add(u);
 							offset = 0;
 							unit = new String [3];
+							
+						} else {
+							offset++;
 						}
 						
-						offset++;
 					}				
 				}
 			}
@@ -102,11 +114,11 @@ public abstract class VariableType implements BuildFromXML {
 		this.desc = desc;
 	}
 
-	public int getValue() {
+	public float getValue() {
 		return value;
 	}
 
-	public void setValue(int value) {
+	public void setValue(float value) {
 		this.value = value;
 	}
 

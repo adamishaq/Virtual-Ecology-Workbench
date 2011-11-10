@@ -62,7 +62,9 @@ public class Planktonica extends JPanel {
 		try {
 			controller = new XMLController(xmlFile);
 		} catch (BackingStoreException e) {
+			System.err.println(e);
 			new JDialog(jd, "XMLFile: " + xmlFile.getName() + " failed to load.");
+			jd.dispose();
 		}
 	    funcView = new FunctionalDisplay(controller, catTab.getSize());
 	    chemView = new ChemicalDisplay(controller, catTab.getSize());
@@ -148,6 +150,9 @@ public class Planktonica extends JPanel {
 	  }*/
   
   public boolean greenLight(boolean fix) {
+	  
+	return true;
+	 /*
     if (xmlFile.getTag("kernel")!=null) xmlFile.getTag("kernel").removeFromParent();
     
     XMLTag[] fgs = xmlFile.getTags("functionalgroup");
@@ -208,6 +213,7 @@ public class Planktonica extends JPanel {
       eh.groupListHandler();
     }
     return true;
+    */
   }
 /*
   private void initialiseGUI() {

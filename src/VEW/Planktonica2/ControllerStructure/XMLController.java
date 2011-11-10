@@ -1,5 +1,6 @@
 package VEW.Planktonica2.ControllerStructure;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.prefs.BackingStoreException;
 
@@ -8,12 +9,19 @@ import VEW.Common.XML.XMLTag;
 
 public class XMLController extends VEWController {
 
-	public XMLFile xmlFile;
-	public Collection <FunctionalGroup> functionalGroups;
-	public Collection <Chemical> chemicals;
+	private XMLFile xmlFile;
+	private Collection <FunctionalGroup> functionalGroups;
+	private Collection <Chemical> chemicals;
+	
+	private FunctionalGroup currentFG; 
 	
 	public XMLController(XMLFile xmlFile) throws BackingStoreException {
+		super();
 		this.xmlFile = xmlFile;
+		
+		functionalGroups = new ArrayList<FunctionalGroup> ();
+		chemicals = new ArrayList<Chemical> ();
+		
 		readInData();
 		
 	}
@@ -38,9 +46,74 @@ public class XMLController extends VEWController {
 				chemicals.add(c);
 			}
 		} catch (NullPointerException n) {
-			throw new BackingStoreException (n.getMessage()); 
+			throw new BackingStoreException (n); 
+		} catch (NumberFormatException f) {
+			throw new BackingStoreException (f);
 		}
 		
 	}
 
+	@Override
+	public Stage getStageAtIndex (int stageNo) {
+		return this.getSelectedFunctionalGroup().getStageAtIndex(stageNo);
+	}
+	
+	@Override
+	public Function getFunctionAtIndex (int functionNo) {
+		return this.getSelectedFunctionalGroup().getFunctionAtIndex(functionNo);
+	}
+	
+	@Override
+	public FunctionalGroup getSelectedFunctionalGroup () {
+		return this.currentFG;
+	}
+	
+	@Override
+	public void setSelectedFunctionalGroup (FunctionalGroup f) {
+		
+		if (functionalGroups.contains(f)) {
+			this.currentFG = f;
+			return;
+		}
+		
+		FunctionalGroup curr = matchFGOnName(f);
+		if (curr != null) {
+			this.currentFG = curr;
+		}
+		
+	}
+
+	private FunctionalGroup matchFGOnName(FunctionalGroup toMatch) {
+		for (FunctionalGroup f : functionalGroups) {
+			if (f.getName().equals(toMatch.getName())) {
+				return f;
+			}
+		}
+		return null;
+	}
+
+	
+	@Override
+	public int getNoStages() {
+		FunctionalGroup g = this.getSelectedFunctionalGroup();
+		if (g == null) {
+			return 0;
+		} else {
+			return g.getNoStages();
+		}
+	}
+	
+
+	@Override
+	public int getNoFunctions() {
+		FunctionalGroup g = this.getSelectedFunctionalGroup();
+		if (g == null) {
+			return 0;
+		} else {
+			return g.getNoFunctions();
+		}
+	}
+	
+	
+	
 }

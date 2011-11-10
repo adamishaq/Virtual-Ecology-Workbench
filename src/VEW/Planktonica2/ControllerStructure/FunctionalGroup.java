@@ -10,7 +10,7 @@ public class FunctionalGroup implements BuildFromXML {
 	private String name;
 	private boolean invisible;
 	
-	private Collection <Function> functions;
+	private ArrayList <Function> functions;
 	
 	private Collection <Parameter> parameters;
 	private Collection <Local> locals;
@@ -21,8 +21,25 @@ public class FunctionalGroup implements BuildFromXML {
 	private Collection <VarietyVariable> varietyVariables;
 	private Collection <VarietyLocal> varietyLocals;
 	
-	private Collection <Stage> stages;
+	private ArrayList <Stage> stages;
 
+	public FunctionalGroup () {
+		invisible = true;
+		functions  = new ArrayList<Function> ();
+		stages = new ArrayList<Stage> ();
+
+		parameters = new ArrayList<Parameter> ();
+		locals = new ArrayList<Local> ();
+		variables = new ArrayList<Variable> ();
+		
+		varietyConcentrations = new ArrayList<VarietyConcentration> ();
+		varietyParameters = new ArrayList<VarietyParameter> ();
+		varietyVariables = new ArrayList<VarietyVariable> ();
+		varietyLocals = new ArrayList<VarietyLocal> ();
+		
+	}
+	
+	
 	@Override
 	public BuildFromXML build(XMLTag xmlTag) {
 		
@@ -40,7 +57,6 @@ public class FunctionalGroup implements BuildFromXML {
 		
 		// stages
 		XMLTag [] tags = xmlTag.getTags(XMLTagEnum.STAGE.xmlTag());
-		this.stages = new ArrayList<Stage>(tags.length);
 		
 		for (XMLTag t : tags) {
 			Stage s = new Stage ();
@@ -50,7 +66,6 @@ public class FunctionalGroup implements BuildFromXML {
 		
 		// functions
 		tags = xmlTag.getTags(XMLTagEnum.FUNCTION.xmlTag());
-		this.functions = new ArrayList<Function> (tags.length);
 		
 		for (XMLTag t : tags) {
 			Function f = new Function (stages);
@@ -60,7 +75,6 @@ public class FunctionalGroup implements BuildFromXML {
 		
 		// parameters
 		tags = xmlTag.getTags(XMLTagEnum.PARAMETER.xmlTag());
-		this.parameters = new ArrayList<Parameter> (tags.length);
 		
 		for (XMLTag t : tags) {
 			Parameter p = new Parameter();
@@ -70,7 +84,6 @@ public class FunctionalGroup implements BuildFromXML {
 		
 		// local
 		tags = xmlTag.getTags(XMLTagEnum.LOCAL.xmlTag());
-		this.locals = new ArrayList<Local> (tags.length);
 		
 		for (XMLTag t : tags) {
 			Local l = new Local();
@@ -80,7 +93,6 @@ public class FunctionalGroup implements BuildFromXML {
 		
 		// variables
 		tags = xmlTag.getTags(XMLTagEnum.VARIABLE.xmlTag());
-		this.variables = new ArrayList<Variable> (tags.length);
 		
 		for (XMLTag t : tags) {
 			Variable v = new Variable();
@@ -90,7 +102,6 @@ public class FunctionalGroup implements BuildFromXML {
 		
 		// variety concentration
 		tags = xmlTag.getTags(XMLTagEnum.VARIETY_CONCENTRATION.xmlTag());
-		this.varietyConcentrations = new ArrayList<VarietyConcentration> (tags.length);
 		
 		for (XMLTag t : tags) {
 			VarietyConcentration vc = new VarietyConcentration();
@@ -100,7 +111,6 @@ public class FunctionalGroup implements BuildFromXML {
 		
 		// variety variable
 		tags = xmlTag.getTags(XMLTagEnum.VARIETY_VARIABLE.xmlTag());
-		this.varietyVariables = new ArrayList<VarietyVariable> (tags.length);
 		
 		for (XMLTag t : tags) {
 			VarietyVariable vv = new VarietyVariable(this.varietyConcentrations);
@@ -110,7 +120,6 @@ public class FunctionalGroup implements BuildFromXML {
 		
 		// variety locals
 		tags = xmlTag.getTags(XMLTagEnum.VARIETY_LOCAL.xmlTag());
-		this.varietyLocals = new ArrayList<VarietyLocal> (tags.length);
 		
 		for (XMLTag t : tags) {
 			VarietyLocal vl = new VarietyLocal(this.varietyConcentrations);
@@ -120,7 +129,6 @@ public class FunctionalGroup implements BuildFromXML {
 		
 		// variety parameter
 		tags = xmlTag.getTags(XMLTagEnum.VARIETY_PARAM.xmlTag());
-		this.varietyParameters = new ArrayList<VarietyParameter> (tags.length);
 		
 		for (XMLTag t : tags) {
 			VarietyParameter vp = new VarietyParameter(this.varietyConcentrations);
@@ -150,11 +158,11 @@ public class FunctionalGroup implements BuildFromXML {
 		this.invisible = invisible;
 	}
 
-	public Collection<Function> getFunctions() {
+	public ArrayList<Function> getFunctions() {
 		return functions;
 	}
 
-	public void setFunctions(Collection<Function> functions) {
+	public void setFunctions(ArrayList<Function> functions) {
 		this.functions = functions;
 	}
 
@@ -215,12 +223,37 @@ public class FunctionalGroup implements BuildFromXML {
 		this.varietyLocals = varietyLocals;
 	}
 
-	public Collection<Stage> getStages() {
+	public ArrayList<Stage> getStages() {
 		return stages;
 	}
 
-	public void setStages(Collection<Stage> stages) {
+	public void setStages(ArrayList<Stage> stages) {
 		this.stages = stages;
+	}
+
+
+
+	
+	public Function getFunctionAtIndex(int functionNo) {
+		return functions.get(functionNo);
+	}
+
+
+
+	
+	public Stage getStageAtIndex(int stageNo) {
+		return this.stages.get(stageNo);
+	}
+
+
+
+	
+	public int getNoStages() {
+		return stages.size();
+	}
+	
+	public int getNoFunctions() {
+		return functions.size();
 	}
 	
 }

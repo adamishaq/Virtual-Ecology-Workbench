@@ -8,8 +8,6 @@ import VEW.Planktonica2.ControllerStructure.Variable;
 
 public abstract class VEWController extends Observable {
 	
-	
-	
 	/**
 	 * 
 	 * @throws BackingStoreException when the XMLFile does not have the required tags in it.
@@ -50,5 +48,17 @@ public abstract class VEWController extends Observable {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	
+	public abstract FunctionalGroup getSelectedFunctionalGroup ();
+	public abstract void setSelectedFunctionalGroup (FunctionalGroup f);
+
+	public abstract Stage getStageAtIndex(int stageNo);
+
+	public abstract Function getFunctionAtIndex(int functionNo);
+	
+	public abstract int getNoStages();
+	public abstract int getNoFunctions();
 	
 }

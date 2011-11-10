@@ -96,8 +96,49 @@ public class Function implements BuildFromXML {
 		
 	}
 
+	/**
+	 * Determines whether the given stage has been calledIn the current function
+	 * 
+	 * @param called
+	 * @return true if stage found
+	 */
+	public boolean isCalledIn (Stage called) {
+		for (Stage s : calledIn) {
+			if (s.equals(called)) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
+	/**
+	 * Determines whether the given stage has been calledIn the current function
+	 * 
+	 * @param name name of stage to be found
+	 * @return Stage where Stage.getName == name
+	 */
+	public Stage isCalledIn (String name) {
+		for (Stage s : calledIn) {
+			if (s.getName().equals(name)) {
+				return s;
+			}
+		}
+		
+		return null;
+	}
 	
+	public void addToCalledIn(Stage selected) {
+		if (!isCalledIn(selected)) {
+			calledIn.add(selected);
+		}
+		
+	}
+	
+	public void removeFromCalledIn(Stage selected) {
+		
+		calledIn.remove(selected);
+		
+	}
 	
 	public String getName() {
 		return name;
@@ -146,5 +187,10 @@ public class Function implements BuildFromXML {
 	public void setEquations(Collection<Equation> equations) {
 		this.equations = equations;
 	}
+
+	
+
+	
+	
 	
 }

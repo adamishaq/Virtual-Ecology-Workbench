@@ -35,6 +35,11 @@ public class Stage implements BuildFromXML {
 		return this;
 	}
 
+	@Override
+	public boolean equals (Object o) {
+		return (o instanceof Stage && ((Stage) o).getName().equals(this.getName()));
+		
+	}
 	
 	
 	public boolean isLog() {
