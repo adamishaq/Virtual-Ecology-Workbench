@@ -256,4 +256,9 @@ public class FunctionalGroup implements BuildFromXML {
 		return functions.size();
 	}
 	
+	
+	@Override
+	public String toString() {
+		return this.getName();
+	}
 }

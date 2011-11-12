@@ -3,11 +3,16 @@ package VEW.Planktonica2;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
+import java.util.Collection;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.MutableTreeNode;
 
+import VEW.Planktonica2.ControllerStructure.Chemical;
+import VEW.Planktonica2.ControllerStructure.FunctionalGroup;
 import VEW.Planktonica2.ControllerStructure.VEWController;
 
 public class FunctionalDisplay extends Display {
@@ -55,6 +60,26 @@ public class FunctionalDisplay extends Display {
 		JCheckBox predBox = new JCheckBox ("Mark as top predator");
 		
 		this.buttonPane.add(predBox);
+		
+	}
+
+
+
+	
+	@Override
+	protected void fillFunctionTree() {
+		
+		this.rootNode.removeAllChildren();
+		
+		Collection<FunctionalGroup> functionalGroups = controller.getFunctionalGroups();
+		
+		for (FunctionalGroup g : functionalGroups) {
+			MutableTreeNode t = new DefaultMutableTreeNode (g);
+			this.rootNode.add(t);
+		}
+		
+		this.tree.expandRow(0);
+		this.tree.setRootVisible(false);
 		
 	}
 	

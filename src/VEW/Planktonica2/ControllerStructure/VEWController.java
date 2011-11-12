@@ -1,12 +1,16 @@
 package VEW.Planktonica2.ControllerStructure;
 
+import java.util.Collection;
 import java.util.Observable;
 import java.util.prefs.BackingStoreException;
+
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import VEW.Planktonica2.ControllerStructure.Variable;
 
 
 public abstract class VEWController extends Observable {
+	
 	
 	/**
 	 * 
@@ -54,11 +58,20 @@ public abstract class VEWController extends Observable {
 	public abstract FunctionalGroup getSelectedFunctionalGroup ();
 	public abstract void setSelectedFunctionalGroup (FunctionalGroup f);
 
+	public abstract Chemical getSelectedChemical();
+	public abstract void setSelectedChemical (Chemical c);	
+	
+	 
+	
 	public abstract Stage getStageAtIndex(int stageNo);
 
 	public abstract Function getFunctionAtIndex(int functionNo);
 	
 	public abstract int getNoStages();
 	public abstract int getNoFunctions();
+
+	public abstract Collection<FunctionalGroup> getFunctionalGroups();
+	public abstract Collection<Chemical> getChemicals();
+
 	
 }

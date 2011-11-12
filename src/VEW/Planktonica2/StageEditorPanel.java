@@ -11,8 +11,6 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
-
 import VEW.Planktonica2.ControllerStructure.Function;
 import VEW.Planktonica2.ControllerStructure.FunctionalGroup;
 import VEW.Planktonica2.ControllerStructure.Stage;

@@ -162,6 +162,9 @@ public class Chemical implements BuildFromXML {
 		this.locals = locals;
 	}
 
-	
+	@Override
+	public String toString() {
+		return this.getName();
+	}
 	
 }

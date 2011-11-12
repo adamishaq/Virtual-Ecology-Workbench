@@ -1,7 +1,6 @@
 package VEW.Planktonica2;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -9,12 +8,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.io.File;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -22,6 +18,8 @@ import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import VEW.Planktonica2.ControllerStructure.VEWController;
@@ -69,7 +67,7 @@ public abstract class Display extends JSplitPane {
 	protected JButton editFunction;
 	protected JButton copyFunction;
 
-	private DefaultMutableTreeNode rootNode;
+	protected DefaultMutableTreeNode rootNode;
 	private DefaultListModel varList;
 	private final int visibleListRows = 5;
 
@@ -77,11 +75,17 @@ public abstract class Display extends JSplitPane {
 
 	final protected JPanel buttonPane = new JPanel ();
 
+	protected JTree tree;
+	
 	protected Display(VEWController controller, Dimension initialSize) {
 		super(JSplitPane.HORIZONTAL_SPLIT);
 		this.controller = controller;
 		initialiseGUI(initialSize);
+		
+		fillGUI();
 	}
+
+
 
 
 	protected abstract String getCategoryName();
@@ -144,13 +148,13 @@ public abstract class Display extends JSplitPane {
 		
 		
 		// sets up the functional group/chemical tree
-		this.rootNode = new DefaultMutableTreeNode ("default"); 
+		this.rootNode = new DefaultMutableTreeNode ("root"); 
 		
-		JTree tree = new JTree(this.rootNode);
+		tree = new JTree(this.rootNode);
 		
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		
-		tree.addTreeSelectionListener(new LeftPanelTreeSelectionListener ());
+		tree.addTreeSelectionListener(new LeftPanelTreeSelectionListener (this.controller));
 		
 		JScrollPane treeVeiwPane = new JScrollPane(tree);
 		
@@ -324,6 +328,19 @@ public abstract class Display extends JSplitPane {
 		
 	}
 	
+	
+	
+
+	private void fillGUI() {
+		// TODO Auto-generated method stub
+		fillFunctionTree();
+	}
+	
+	protected abstract void fillFunctionTree();
+
+
+
+
 	/*
 	private void populateItemPanel(JPanel topBoxes) {
 		
@@ -441,9 +458,5 @@ public abstract class Display extends JSplitPane {
 		editFunction.setEnabled(false);
 		copyFunction.setEnabled(false);
 	}
-
-
-	
-	
 
 }

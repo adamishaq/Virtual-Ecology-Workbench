@@ -14,6 +14,7 @@ public class XMLController extends VEWController {
 	private Collection <Chemical> chemicals;
 	
 	private FunctionalGroup currentFG; 
+	private Chemical currentChemical;
 	
 	public XMLController(XMLFile xmlFile) throws BackingStoreException {
 		super();
@@ -112,6 +113,27 @@ public class XMLController extends VEWController {
 		} else {
 			return g.getNoFunctions();
 		}
+	}
+
+	
+	@Override
+	public Collection<FunctionalGroup> getFunctionalGroups() {
+		return this.functionalGroups;
+	}
+
+	@Override
+	public Collection<Chemical> getChemicals() {
+		return this.chemicals;
+	}
+
+	@Override
+	public Chemical getSelectedChemical() {
+		return this.currentChemical;
+	}
+
+	@Override
+	public void setSelectedChemical(Chemical c) {
+		this.currentChemical = c;		
 	}
 	
 	
