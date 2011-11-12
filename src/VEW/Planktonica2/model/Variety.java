@@ -1,4 +1,4 @@
-package VEW.Planktonica2.ControllerStructure;
+package VEW.Planktonica2.model;
 
 import java.util.Collection;
 

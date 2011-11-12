@@ -1,6 +1,7 @@
 package xmlControllerTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,10 +11,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.ControllerStructure.Equation;
-import VEW.Planktonica2.ControllerStructure.Function;
-import VEW.Planktonica2.ControllerStructure.Stage;
-import VEW.Planktonica2.ControllerStructure.XMLTagEnum;
+import VEW.Planktonica2.model.Equation;
+import VEW.Planktonica2.model.Function;
+import VEW.Planktonica2.model.Stage;
+import VEW.Planktonica2.model.XMLTagEnum;
 
 public class FunctionsTest {
 

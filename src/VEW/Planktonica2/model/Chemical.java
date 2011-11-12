@@ -1,11 +1,12 @@
-package VEW.Planktonica2.ControllerStructure;
+package VEW.Planktonica2.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 import VEW.Common.XML.XMLTag;
+import VEW.Planktonica2.ControllerStructure.SelectableItem;
 
-public class Chemical implements BuildFromXML {
+public class Chemical implements BuildFromXML, SelectableItem {
 
 	private String name;
 	private String value;
@@ -13,7 +14,7 @@ public class Chemical implements BuildFromXML {
 	private boolean pigment;
 	private Collection<Spectrum> spectrum;
 	
-	private Collection<Function> functions;
+	private ArrayList<Function> functions;
 	private Collection<Variable> variables;
 	private Collection<Parameter> parameters;
 	private Collection<Local> locals;
@@ -96,7 +97,15 @@ public class Chemical implements BuildFromXML {
 		return this;
 	}
 
-	
+	@Override
+	public Function getFunctionAtIndex(int functionNo) {
+		return this.functions.get(functionNo);
+	}
+	@Override
+	public int getNoFunctions() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	public String getName() {
 		return name;
@@ -134,7 +143,7 @@ public class Chemical implements BuildFromXML {
 		return functions;
 	}
 
-	public void setFunctions(Collection<Function> functions) {
+	public void setFunctions(ArrayList<Function> functions) {
 		this.functions = functions;
 	}
 
@@ -166,5 +175,12 @@ public class Chemical implements BuildFromXML {
 	public String toString() {
 		return this.getName();
 	}
+
+	
+
+
+
+	
+	
 	
 }

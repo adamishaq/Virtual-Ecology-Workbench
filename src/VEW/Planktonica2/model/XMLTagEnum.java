@@ -1,4 +1,4 @@
-package VEW.Planktonica2.ControllerStructure;
+package VEW.Planktonica2.model;
 
 public enum XMLTagEnum {
 	FUNCTIONAL_GROUP("functionalgroup"), CHEMICAL("chemical"), NAME("name"), INVISIBLE("invisible"),

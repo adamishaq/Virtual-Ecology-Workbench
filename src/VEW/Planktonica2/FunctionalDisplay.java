@@ -1,19 +1,14 @@
 package VEW.Planktonica2;
 
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridLayout;
 import java.util.Collection;
 
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 
-import VEW.Planktonica2.ControllerStructure.Chemical;
-import VEW.Planktonica2.ControllerStructure.FunctionalGroup;
-import VEW.Planktonica2.ControllerStructure.VEWController;
+import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
+import VEW.Planktonica2.model.FunctionalGroup;
 
 public class FunctionalDisplay extends Display {
 
@@ -22,9 +17,12 @@ public class FunctionalDisplay extends Display {
 	private VariablePanel variablePanel;
 	private StageEditorPanel stageEditor;
 	
+	private FunctionalGroupController funcController;
 
-	public FunctionalDisplay(VEWController controller, Dimension initialSize) {
+	public FunctionalDisplay(FunctionalGroupController controller, Dimension initialSize) {
 		super(controller, initialSize);
+		
+		this.funcController = controller;
 		
 	}
 	
@@ -46,7 +44,14 @@ public class FunctionalDisplay extends Display {
 		// variable tab
 		this.addTabToAncilary("Variable", variablePanel = new VariablePanel ());
 		// edit stages
-		this.addTabToAncilary("Edit Stages", stageEditor = new StageEditorPanel (this.controller));
+		stageEditor = null;
+		if (funcController == null) {
+			stageEditor = new StageEditorPanel((FunctionalGroupController) this.controller);
+		} else {
+			stageEditor = new StageEditorPanel(funcController);
+		}
+		
+		this.addTabToAncilary("Edit Stages", stageEditor);
 		
 	}
 
@@ -64,24 +69,6 @@ public class FunctionalDisplay extends Display {
 	}
 
 
-
-	
-	@Override
-	protected void fillFunctionTree() {
-		
-		this.rootNode.removeAllChildren();
-		
-		Collection<FunctionalGroup> functionalGroups = controller.getFunctionalGroups();
-		
-		for (FunctionalGroup g : functionalGroups) {
-			MutableTreeNode t = new DefaultMutableTreeNode (g);
-			this.rootNode.add(t);
-		}
-		
-		this.tree.expandRow(0);
-		this.tree.setRootVisible(false);
-		
-	}
 	
 	
 	

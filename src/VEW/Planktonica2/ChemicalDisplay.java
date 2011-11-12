@@ -3,12 +3,10 @@ package VEW.Planktonica2;
 import java.awt.Dimension;
 import java.util.Collection;
 
-import javax.swing.JTree.DynamicUtilTreeNode;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.MutableTreeNode;
 
-import VEW.Planktonica2.ControllerStructure.Chemical;
-import VEW.Planktonica2.ControllerStructure.VEWController;
+import VEW.Planktonica2.ControllerStructure.ChemicalController;
+import VEW.Planktonica2.model.Chemical;
 
 public class ChemicalDisplay extends Display {
 
@@ -16,10 +14,14 @@ public class ChemicalDisplay extends Display {
 	private EditorPanel editorPanel;
 	private VariablePanel variablePanel;
 	private PigmentPanel pigPanel;
+	
+	private ChemicalController chemController;
 
 
-	protected ChemicalDisplay(VEWController controller, Dimension initialSize) {
+	protected ChemicalDisplay(ChemicalController controller, Dimension initialSize) {
 		super(controller, initialSize);
+		
+		this.chemController = controller;
 	}
 
 	@Override
@@ -50,21 +52,6 @@ public class ChemicalDisplay extends Display {
 	}
 
 	
-	@Override
-	protected void fillFunctionTree() {
-
-		this.rootNode.removeAllChildren();
-		
-		Collection<Chemical> chemicals = controller.getChemicals();
-
-		for (Chemical c : chemicals) {
-			DefaultMutableTreeNode t = new DefaultMutableTreeNode(c);
-			this.rootNode.add(t);
-		}
-		
-		this.tree.expandRow(0);
-		this.tree.setRootVisible(false);
-	}
 
 	
 

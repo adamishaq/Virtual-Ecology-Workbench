@@ -1,30 +1,32 @@
 package VEW.Planktonica2;
 
+import java.awt.Dimension;
 import java.util.Collection;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.LookAndFeel;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
-import VEW.Planktonica2.ControllerStructure.Function;
-import VEW.Planktonica2.ControllerStructure.FunctionalGroup;
-import VEW.Planktonica2.ControllerStructure.Stage;
-import VEW.Planktonica2.ControllerStructure.VEWController;
+import javax.swing.table.TableModel;
+
+import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
+import VEW.Planktonica2.model.Function;
+import VEW.Planktonica2.model.FunctionalGroup;
+import VEW.Planktonica2.model.Stage;
 
 public class StageEditorPanel extends JPanel {
 
 	private static final long serialVersionUID = -4354313346035286536L;
 	
-	private VEWController controller;
+	private FunctionalGroupController controller;
 
-	private ColumnModel cols;
 	
-	public StageEditorPanel (VEWController controller) {
+	public StageEditorPanel (FunctionalGroupController controller) {
 		super();
 		this.controller = controller;
 		
@@ -34,37 +36,103 @@ public class StageEditorPanel extends JPanel {
 	}
 
 	private void initializeGUI() {
-		// JTable
-		StageEditorTable tableModel = new StageEditorTable (this.controller);
+		TableModel headerData = new RowModel(this.controller);
+        TableModel data = new StageTableModel(this.controller);
+
+        JTable table = new JTable(data);
+        table.setColumnModel(new ColumnModel(this.controller));
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        
+        JTable rowHeader = new JTable(headerData);
+        rowHeader.setColumnModel(new EmptyColumns());
+
+        LookAndFeel.installColorsAndFont
+            (rowHeader, "TableHeader.background", 
+            "TableHeader.foreground", "TableHeader.font");
+
+        
+        rowHeader.setIntercellSpacing(new Dimension(0, 0));
+        Dimension d = rowHeader.getPreferredScrollableViewportSize();
+        d.width = rowHeader.getPreferredSize().width;
+        rowHeader.setPreferredScrollableViewportSize(d);
+        rowHeader.setRowHeight(table.getRowHeight());
+        rowHeader.setDefaultRenderer(Object.class, new RowHeaderRenderer());
+        
+        JScrollPane scrollPane = new JScrollPane(table);
+        
+        scrollPane.setRowHeaderView(rowHeader);
+        
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+        JTableHeader corner = rowHeader.getTableHeader();
+        corner.setReorderingAllowed(false);
+        corner.setResizingAllowed(false);
+
+        scrollPane.setCorner(JScrollPane.UPPER_LEFT_CORNER, corner);
+
+        new JScrollPaneAdjuster(scrollPane);
+
+        new JTableRowHeaderResizer(scrollPane).setEnabled(true);
+        
+        new RowHeaderResizer(scrollPane).setEnabled(true);
+
+        this.add(scrollPane);
+	}
+	
+	private class RowModel extends AbstractTableModel implements Observer {
+
+		private static final long serialVersionUID = 731778953897127991L;
+
+		private FunctionalGroupController controller;
+		
+		public RowModel(FunctionalGroupController controller) {
+			super();
+			this.controller = controller;
+			controller.addObserver(this);
+		}
+
+		@Override
+		public int getColumnCount() {
+			return 1;
+		}
+
+		@Override
+		public int getRowCount() {
+			return controller.getNoFunctions();
+		}
+
+		@Override
+		public Object getValueAt(int x, int y) {
+			Function f = controller.getFunctionAtIndex(x);
+			if (f == null) {
+				return "";
+			} else {
+				return f.getName();
+			}
+		}
+
+		
+		@Override
+		public void update(Observable obs, Object arg) {
+			if (obs == controller && arg instanceof FunctionalGroup) {
+				
+				this.fireTableDataChanged();
+				
+			}
+			
+		}
 		
 		
-		
-		
-		JTable table = new JTable (tableModel);
-		
-		this.cols = new ColumnModel(controller);
-		
-		table.setTableHeader(new JTableHeader(cols));
-		table.setFillsViewportHeight(true);
-		
-		JScrollPane scroller = new JScrollPane (table);
-		
-		
-		
-		this.add(scroller);
-		
-		// 3 button
 		
 	}
-
 	
 	private class ColumnModel extends DefaultTableColumnModel implements Observer {
 
 		private static final long serialVersionUID = -1025098191670924655L;
 		
-		private VEWController controller;
+		private FunctionalGroupController controller;
 		
-		public ColumnModel(VEWController controller) {
+		public ColumnModel(FunctionalGroupController controller) {
 			super();
 			this.controller = controller;
 			controller.addObserver(this);
@@ -74,10 +142,8 @@ public class StageEditorPanel extends JPanel {
 		private void fillColumns() {
 			
 			// remove all columns.
-			for (TableColumn c : this.tableColumns) {
-				this.removeColumn(c);
-			}
-			
+			this.tableColumns.removeAllElements();
+
 			
 			FunctionalGroup g = controller.getSelectedFunctionalGroup();
 			
@@ -99,7 +165,7 @@ public class StageEditorPanel extends JPanel {
 		@Override
 		public void update(Observable obs, Object arg) {
 			
-			if (obs == controller) {
+			if (obs == controller && arg instanceof FunctionalGroup) {
 				
 				fillColumns();
 				
@@ -111,25 +177,40 @@ public class StageEditorPanel extends JPanel {
 		
 	}
 	
-	private class StageEditorTable extends AbstractTableModel {
+	private class EmptyColumns extends DefaultTableColumnModel {
+		
+		private static final long serialVersionUID = -1294065712418743957L;
+
+		public EmptyColumns () {
+			super();
+			this.tableColumns.removeAllElements();
+			TableColumn c = new TableColumn();
+			c.setHeaderValue("");
+			this.addColumn(c);
+		}
+		
+	}
+	
+	private class StageTableModel extends AbstractTableModel {
 
 		private static final long serialVersionUID = 9005405339776933763L;
-		private VEWController controller;
+		private FunctionalGroupController controller;
 		
-		public StageEditorTable (VEWController controller) {
+		public StageTableModel (FunctionalGroupController controller) {
 			this.controller = controller;
 		}
 		
 		@Override
 		public int getColumnCount() {
-			int colCount = this.controller.getNoStages() + 1; 
-			return (colCount < 2) ? 2 : colCount;
+			int i = this.controller.getNoStages(); 
+			return i;
+			
 		}
 
 		@Override
 		public int getRowCount() {
-			int rowCount = this.controller.getNoFunctions(); 
-			return (rowCount < 1) ? 1 : rowCount;
+			int i = this.controller.getNoFunctions(); 
+			return i;
 		}
 
 		
@@ -149,17 +230,11 @@ public class StageEditorPanel extends JPanel {
 			
 			if (controller.getSelectedFunctionalGroup() == null) {
 				
-				return "fail";
-				
-			} else if (x < 2) {
-				
-				Function selected = this.controller.getFunctionAtIndex(y);
-				
-				return selected.getName();
+				return "No Selected Functional Group.";
 				
 			} else {
 				
-				Stage selected = this.controller.getStageAtIndex(x - 1);
+				Stage selected = this.controller.getStageAtIndex(x);
 				Function f = this.controller.getFunctionAtIndex(y);
 				
 				// called in holds a referrence to the origional stage
@@ -192,15 +267,11 @@ public class StageEditorPanel extends JPanel {
 		
 		@Override
 		public Class<?> getColumnClass(int column) {
-			return (column > 1) ? Boolean.class : String.class;
-		}
-		
-		public boolean isCellEditable(int row, int col) {
-			
-			return col > 1;
-			
+			return Boolean.class;
 		}
 		
 	}
+
+	
 	
 }

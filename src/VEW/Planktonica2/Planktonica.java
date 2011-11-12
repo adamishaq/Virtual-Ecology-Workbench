@@ -31,8 +31,10 @@ import VEW.Common.StringTools;
 import VEW.Common.XML.XMLFile;
 import VEW.Common.XML.XMLTag;
 import VEW.Controller2.VEWController2;
+import VEW.Planktonica2.ControllerStructure.ChemicalController;
 import VEW.Planktonica2.ControllerStructure.VEWController;
-import VEW.Planktonica2.ControllerStructure.XMLController;
+import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
+import VEW.Planktonica2.model.Model;
 /**
  * VEW Planktonica display for editing functional groups and chemicals, based on MVC OO design principle
  * 
@@ -58,21 +60,22 @@ public class Planktonica extends JPanel {
 		vc2 = jd;
 	    parent = jd;
 	    ee = new EquationEditor(vc2);
-	    VEWController controller = null;
+	    Model m = new Model(xmlFile);
 		try {
-			controller = new XMLController(xmlFile);
+			m.buildFromFile();
 		} catch (BackingStoreException e) {
 			System.err.println(e);
 			new JDialog(jd, "XMLFile: " + xmlFile.getName() + " failed to load.");
 			jd.dispose();
 		}
-	    funcView = new FunctionalDisplay(controller, catTab.getSize());
-	    chemView = new ChemicalDisplay(controller, catTab.getSize());
-	    initialiseGUI(controller);
+		
+	    funcView = new FunctionalDisplay(new FunctionalGroupController(m), catTab.getSize());
+	    chemView = new ChemicalDisplay(new ChemicalController(m), catTab.getSize());
+	    initialiseGUI();
 	    parent.pack();
 	}
 	
-	private void initialiseGUI(VEWController controller) {
+	private void initialiseGUI() {
 		setLayout(new BorderLayout(2, 2));
 		
 		catTab.addTab("Functional Groups", funcView);

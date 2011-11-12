@@ -1,17 +1,18 @@
 package xmlControllerTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.ControllerStructure.Local;
-import VEW.Planktonica2.ControllerStructure.Parameter;
-import VEW.Planktonica2.ControllerStructure.Unit;
-import VEW.Planktonica2.ControllerStructure.Variable;
-import VEW.Planktonica2.ControllerStructure.XMLTagEnum;
+import VEW.Planktonica2.model.Local;
+import VEW.Planktonica2.model.Parameter;
+import VEW.Planktonica2.model.Unit;
+import VEW.Planktonica2.model.Variable;
+import VEW.Planktonica2.model.XMLTagEnum;
 
 public class VariableTypeTest {
 
@@ -92,7 +93,7 @@ public class VariableTypeTest {
 		assertEquals(l.getName(), "l1");
 		
 		assertNotNull(v.getValue());
-		assertEquals(v.getValue(), 2);
+		assertEquals(v.getValue(), 2, 0.1);
 		
 		// checks l units
 		assertNotNull(l.getUnits());

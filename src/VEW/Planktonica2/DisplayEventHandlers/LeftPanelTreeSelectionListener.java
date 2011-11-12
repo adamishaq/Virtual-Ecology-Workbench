@@ -3,10 +3,7 @@ package VEW.Planktonica2.DisplayEventHandlers;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreePath;
-
-import VEW.Planktonica2.ControllerStructure.Chemical;
-import VEW.Planktonica2.ControllerStructure.FunctionalGroup;
+import VEW.Planktonica2.ControllerStructure.SelectableItem;
 import VEW.Planktonica2.ControllerStructure.VEWController;
 
 public class LeftPanelTreeSelectionListener implements TreeSelectionListener {
@@ -24,14 +21,8 @@ public class LeftPanelTreeSelectionListener implements TreeSelectionListener {
 
 		DefaultMutableTreeNode n = (DefaultMutableTreeNode) selection.getPath().getLastPathComponent();
 		
-		if (n.getUserObject() instanceof Chemical) {
-			
-			controller.setSelectedChemical((Chemical) n.getUserObject());
-			
-		} else if (n.getUserObject() instanceof FunctionalGroup) {
-			
-			controller.setSelectedFunctionalGroup((FunctionalGroup) n.getUserObject());
-			
+		if (n != null && n.getUserObject() != null) {
+			controller.setSelectedItem((SelectableItem) n.getUserObject());
 		}
 		
 		

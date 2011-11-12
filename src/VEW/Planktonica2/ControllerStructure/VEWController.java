@@ -6,20 +6,24 @@ import java.util.prefs.BackingStoreException;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import VEW.Planktonica2.ControllerStructure.Variable;
+import VEW.Planktonica2.model.Function;
+import VEW.Planktonica2.model.Model;
+import VEW.Planktonica2.model.Variable;
 
 
 public abstract class VEWController extends Observable {
 	
+	Model model;
 	
 	/**
 	 * 
+	 * @param m the class based model of the current VEW project
 	 * @throws BackingStoreException when the XMLFile does not have the required tags in it.
 	 */
-	public VEWController () throws BackingStoreException {
+	public VEWController (Model m) {
+		super();
+		model = m;
 	}
-	
-	protected abstract void readInData() throws BackingStoreException;
 
 	/**
 	 * Get a variable by name.
@@ -43,35 +47,59 @@ public abstract class VEWController extends Observable {
 		
 	}
 
+	public void populateFunctionTree(DefaultMutableTreeNode rootNode) {
+		
+		rootNode.removeAllChildren();
+		
+		Collection<SelectableItem> selectables = this.getSelectables();
+		
+		for (SelectableItem s : selectables) {
+			rootNode.add(new DefaultMutableTreeNode(s));
+		}
+		
+	}
+	
 	private String getSelectedFunction() {
 		
 		return null;
 	}
+	
+	public Function getFunctionAtIndex(int functionNo) {
+		return getSelectedItem().getFunctionAtIndex(functionNo);
+	}
 
-	private Object getSelectedItem() {
-		// TODO Auto-generated method stub
-		return null;
+	public int getNoFunctions() {
+		return (getSelectedItem() == null) ? 0 : getSelectedItem().getNoFunctions();
 	}
 	
+	public abstract SelectableItem getSelectedItem();
 	
+	/**
+	 * Sets the currently selected item (FunctionalGroup/Chemical) and
+	 * fires an event telling listeners that the selection has changed.
+	 * @param i
+	 */
+	public void setSelectedItem (SelectableItem i) {
+		
+		if (setInternalSelectedItem(i)) {
+			this.setChanged();
+			this.notifyObservers(i);
+		}
+		
+	}
 	
-	public abstract FunctionalGroup getSelectedFunctionalGroup ();
-	public abstract void setSelectedFunctionalGroup (FunctionalGroup f);
-
-	public abstract Chemical getSelectedChemical();
-	public abstract void setSelectedChemical (Chemical c);	
-	
+	/**
+	 * Called by setSelectedItem to set the internal reference to the appropriate SelectableItem
+	 * @param i the item that has just been selected
+	 * @return whether the selection was a success or not
+	 */
+	protected abstract boolean setInternalSelectedItem(SelectableItem i);
 	 
-	
-	public abstract Stage getStageAtIndex(int stageNo);
+	public abstract Collection<SelectableItem> getSelectables();
 
-	public abstract Function getFunctionAtIndex(int functionNo);
 	
-	public abstract int getNoStages();
-	public abstract int getNoFunctions();
 
-	public abstract Collection<FunctionalGroup> getFunctionalGroups();
-	public abstract Collection<Chemical> getChemicals();
+	
 
 	
 }

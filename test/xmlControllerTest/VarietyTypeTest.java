@@ -1,6 +1,7 @@
 package xmlControllerTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,12 +11,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.ControllerStructure.Unit;
-import VEW.Planktonica2.ControllerStructure.VarietyConcentration;
-import VEW.Planktonica2.ControllerStructure.VarietyLocal;
-import VEW.Planktonica2.ControllerStructure.VarietyParameter;
-import VEW.Planktonica2.ControllerStructure.VarietyVariable;
-import VEW.Planktonica2.ControllerStructure.XMLTagEnum;
+import VEW.Planktonica2.model.Unit;
+import VEW.Planktonica2.model.VarietyConcentration;
+import VEW.Planktonica2.model.VarietyLocal;
+import VEW.Planktonica2.model.VarietyParameter;
+import VEW.Planktonica2.model.VarietyVariable;
+import VEW.Planktonica2.model.XMLTagEnum;
 
 public class VarietyTypeTest {
 

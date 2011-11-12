@@ -1,11 +1,12 @@
-package VEW.Planktonica2.ControllerStructure;
+package VEW.Planktonica2.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 import VEW.Common.XML.XMLTag;
+import VEW.Planktonica2.ControllerStructure.SelectableItem;
 
-public class FunctionalGroup implements BuildFromXML {
+public class FunctionalGroup implements BuildFromXML, SelectableItem {
 	
 	private String name;
 	private boolean invisible;
@@ -242,7 +243,11 @@ public class FunctionalGroup implements BuildFromXML {
 
 	
 	public Stage getStageAtIndex(int stageNo) {
-		return this.stages.get(stageNo);
+		try {
+			return this.stages.get(stageNo);
+		} catch (IndexOutOfBoundsException i) {
+			return null;
+		}
 	}
 
 

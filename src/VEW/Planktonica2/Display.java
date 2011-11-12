@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.io.File;
+import java.util.Collection;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -19,12 +20,15 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+import VEW.Planktonica2.ControllerStructure.SelectableItem;
 import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
 import VEW.Planktonica2.DisplayEventHandlers.VariableSelectionEventHandler;
+import VEW.Planktonica2.model.FunctionalGroup;
 
 public abstract class Display extends JSplitPane {
 
@@ -336,7 +340,14 @@ public abstract class Display extends JSplitPane {
 		fillFunctionTree();
 	}
 	
-	protected abstract void fillFunctionTree();
+	protected void fillFunctionTree() {
+		
+		controller.populateFunctionTree(rootNode);
+		
+		this.tree.expandRow(0);
+		this.tree.setRootVisible(false);
+		
+	}
 
 
 
