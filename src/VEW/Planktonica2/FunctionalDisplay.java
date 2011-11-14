@@ -1,14 +1,8 @@
 package VEW.Planktonica2;
 
 import java.awt.Dimension;
-import java.util.Collection;
-
 import javax.swing.JCheckBox;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.MutableTreeNode;
-
 import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
-import VEW.Planktonica2.model.FunctionalGroup;
 
 public class FunctionalDisplay extends Display {
 

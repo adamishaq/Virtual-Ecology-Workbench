@@ -1,0 +1,47 @@
+package VEW.XMLCompiler.ASTNodes;
+
+import VEW.Planktonica2.model.Type;
+
+public class CreateNode extends RuleNode {
+
+	private IdNode identifier;
+	private ExprNode expression;
+	private AssignListNode assignList;
+
+	public CreateNode (IdNode identifier, ExprNode expression) {
+		this.identifier = identifier;
+		this.expression = expression;
+		this.assignList = null;
+	}
+	
+	public CreateNode (IdNode identifier, ExprNode expression, AssignListNode assignList) {
+		this.identifier = identifier;
+		this.expression = expression;
+		this.assignList = assignList;
+	}
+	
+	@Override
+	public void check() throws SemanticCheckException {
+		//TODO check identifier for valid state, perhaps semantic attribute for this
+		expression.check();
+		Type numExprType = expression.getExprType();
+		if (numExprType instanceof Variety) {
+			throw new SemanticCheckException("The expression for number of offspring must evaluate to a scalar");
+		}
+		//TODO assign list checking may need to be more complex, not sure yet
+		assignList.check();
+
+	}
+
+	@Override
+	public String generateXML() {
+		if (assignList != null) {
+			return "\\create{" + identifier.generateXML() + "," 
+			 + expression.generateXML() + "," + assignList.generateXML() + "}";
+		} else {
+			return "\\create{" + identifier.generateXML() + "," 
+			 + expression.generateXML() + "}";
+		}
+	}
+
+}

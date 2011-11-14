@@ -1,7 +1,7 @@
 package xmlControllerTest;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -183,6 +183,7 @@ public class FunctionalGroupTest {
 		functionalGroup.addTag(param2);
 		functionalGroup.addTag(local1);
 		functionalGroup.addTag(local2);
+		functionalGroup.addTag(vc);
 		functionalGroup.addTag(p1);
 		functionalGroup.addTag(l1);
 		functionalGroup.addTag(v1);
@@ -200,18 +201,25 @@ public class FunctionalGroupTest {
 		f.build(functionalGroup);
 		
 		assertNotNull(f.getName());
-		assertNotNull(f.getLocals());
-		assertNotNull(f.getParameters());
-		assertNotNull(f.getVariables());
+		assertNotNull(f.checkLocalVarTable("local1"));
+		assertNotNull(f.checkParameterTable("param1"));
+		assertNotNull(f.checkStateVariableTable("variable1"));
+		
+	
+		assertNotNull(f.checkLocalVarTable("local2"));
+		assertNotNull(f.checkParameterTable("param2"));
+		assertNotNull(f.checkStateVariableTable("variable2"));
+		
+		assertNotNull(f.checkStateVariableTable("variable3"));
+		
+		assertNotNull(f.checkVarietyConcTable("vc"));
+		assertNotNull(f.checkVarietyLocalTable("l1"));
+		assertNotNull(f.checkVarietyParamTable("p1"));
+		assertNotNull(f.checkVarietyStateTable("v1"));
+		
 		assertNotNull(f.getFunctions());
+		assertTrue(f.getFunctions().size() == 1);
 		
-		assertEquals(2, f.getParameters().size());
-		assertEquals(2, f.getLocals().size());
-		assertEquals(3, f.getVariables().size());
-		
-		assertEquals(1, f.getVarietyLocals().size());
-		assertEquals(1, f.getVarietyParameters().size());
-		assertEquals(1, f.getVarietyVariables().size());
 	}
 
 }

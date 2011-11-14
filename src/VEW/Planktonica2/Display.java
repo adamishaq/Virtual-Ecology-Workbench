@@ -7,8 +7,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.io.File;
-import java.util.Collection;
-
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,16 +17,11 @@ import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.MutableTreeNode;
-import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-import VEW.Planktonica2.ControllerStructure.SelectableItem;
 import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
 import VEW.Planktonica2.DisplayEventHandlers.VariableSelectionEventHandler;
-import VEW.Planktonica2.model.FunctionalGroup;
 
 public abstract class Display extends JSplitPane {
 
@@ -40,13 +33,7 @@ public abstract class Display extends JSplitPane {
 	protected int numRowsOfTopDisplay = 3;
 	protected final String topPanelEmptySlot = "EmptyPanel"; 
 	
-	protected ModelDisplay modelDisplay;
 	protected final JPanel variableSelection = new JPanel (new GridLayout(2, 2));
-	
-	//protected final DefaultListModel itemList = new DefaultListModel();
-	//protected final DefaultListModel functionList = new DefaultListModel();
-	//protected JList items;
-	//protected JList functions;
 	
 	private static final String IconRoot = "Data"+File.separator+"Graphics"+File.separator+"icons"+File.separator;
 	protected final Dimension STANDARD_BUTTON_SIZE = new Dimension(24, 24);
@@ -350,107 +337,6 @@ public abstract class Display extends JSplitPane {
 	}
 
 
-
-
-	/*
-	private void populateItemPanel(JPanel topBoxes) {
-		
-		final JPanel itemListPanel = new JPanel(new BorderLayout());
-		itemListPanel.setPreferredSize(STANDARD_GROUP_SIZE);
-		
-		itemListPanel.add(new JLabel("Items"), BorderLayout.NORTH);
-		
-		// set up list of items
-		this.items = new JList(itemList);
-		items.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-		final JScrollPane scrollPane = new JScrollPane(this.items);
-		scrollPane.setPreferredSize(new Dimension(120,100));
-		itemListPanel.add(scrollPane, BorderLayout.CENTER);
-		
-		final JPanel itemButtons = new JPanel(new FlowLayout());
-		addItemButtons(itemButtons);
-		itemListPanel.add(itemButtons, BorderLayout.SOUTH);
-		
-		topBoxes.add(itemListPanel, BorderLayout.CENTER);
-	}
-
-	private void populateFunctionPanel(JPanel topBoxes) {
-		
-		final JPanel funcListPanel = new JPanel(new BorderLayout());
-		funcListPanel.setPreferredSize(STANDARD_GROUP_SIZE);
-		
-		funcListPanel.add(new JLabel("Functions"), BorderLayout.NORTH);
-
-		functions = new JList(functionList);
-		functions.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-		final JScrollPane scrollPane = new JScrollPane(this.functions);
-		scrollPane.setPreferredSize(new Dimension(120,100));
-		funcListPanel.add(scrollPane, BorderLayout.CENTER);
-		
-		final JPanel funcButtons = new JPanel(new FlowLayout());
-		addFunctionButtons(funcButtons);
-		funcListPanel.add(funcButtons, BorderLayout.SOUTH);
-		
-		topBoxes.add(funcListPanel, BorderLayout.WEST);
-	}
-	
-	private void populateVariablePanel() {
-		
-		varList = new JComboBox();
-		varList.setPreferredSize(new Dimension(200, 20));
-		
-		variableSelection.add(varList);
-		variableSelection.add(editVar);
-		variableSelection.add(new JPanel ());
-		variableSelection.add(new JPanel ());
-		
-		
-		
-		detailsHTML = new JEditorPane();
-		detailsHTML.setContentType("text/html");
-		detailsHTML.setText("<html><body>Variables go here!</body></html>");
-		detailsHTML.setEditable(false);
-		detailsHTML.setPreferredSize(new Dimension(300,100));
-		
-		final JPanel variableDetails = new JPanel(new BorderLayout());
-		variableDetails.add(detailsHTML);
-		
-		// add variableSelection and variableDetails to topDisplay
-		GridBagConstraints constraints = new GridBagConstraints ();
-		constraints.anchor = GridBagConstraints.FIRST_LINE_START;
-		constraints.fill = GridBagConstraints.BOTH;
-		constraints.gridx = 0;
-		constraints.gridy = 2;
-		constraints.gridwidth = 1;
-		constraints.gridheight = 1;
-		constraints.weightx = 1;
-		constraints.weighty = 0;
-		
-		topDisplay.add(variableSelection, constraints);
-		
-		constraints.fill = GridBagConstraints.BOTH;
-		constraints.gridx = 1;
-		constraints.gridy = 2;
-		constraints.gridheight = 2;
-		constraints.gridwidth = 1;
-		
-		
-		topDisplay.add(variableDetails, constraints);
-		
-		
-	}
-	
-	/**
-	 * adds the correct buttons onto the itemPanel
-	 * 
-	 * @param itemPanel
-	 */
-	
-	
-	
-	
 	
 	protected void resetButtons() {
 		

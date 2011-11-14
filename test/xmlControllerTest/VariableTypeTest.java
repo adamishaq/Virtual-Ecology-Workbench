@@ -1,17 +1,18 @@
+
 package xmlControllerTest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
+import VEW.Planktonica2.model.FunctionalGroup;
 import VEW.Planktonica2.model.Local;
 import VEW.Planktonica2.model.Parameter;
+import VEW.Planktonica2.model.StateVariable;
 import VEW.Planktonica2.model.Unit;
-import VEW.Planktonica2.model.Variable;
 import VEW.Planktonica2.model.XMLTagEnum;
 
 public class VariableTypeTest {
@@ -72,14 +73,14 @@ public class VariableTypeTest {
 
 	@Test
 	public void test() {
-		
-		Parameter p = new Parameter();
+		FunctionalGroup func = new FunctionalGroup();
+		Parameter p = new Parameter(func);
 		p.build(p1);
 		
-		Local l = new Local();
+		Local l = new Local(func);
 		l.build(l1);
 		
-		Variable v = new Variable();
+		StateVariable v = new StateVariable(func);
 		v.build(v1);
 		
 		
@@ -93,7 +94,7 @@ public class VariableTypeTest {
 		assertEquals(l.getName(), "l1");
 		
 		assertNotNull(v.getValue());
-		assertEquals(v.getValue(), 2, 0.1);
+		assertTrue(v.getValue() == 2);
 		
 		// checks l units
 		assertNotNull(l.getUnits());

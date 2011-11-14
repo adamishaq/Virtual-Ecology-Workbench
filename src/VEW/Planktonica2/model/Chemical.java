@@ -4,20 +4,21 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.ControllerStructure.SelectableItem;
 
-public class Chemical implements BuildFromXML, SelectableItem {
+public class Chemical extends Catagory {
 
-	private String name;
 	private String value;
 	
 	private boolean pigment;
 	private Collection<Spectrum> spectrum;
 	
 	private ArrayList<Function> functions;
-	private Collection<Variable> variables;
-	private Collection<Parameter> parameters;
-	private Collection<Local> locals;
+	
+
+	
+	public Chemical() {
+		super();
+	}
 	
 	@Override
 	public BuildFromXML build(XMLTag tag) {
@@ -65,56 +66,36 @@ public class Chemical implements BuildFromXML, SelectableItem {
 
 		// parameters
 		tags = tag.getTags(XMLTagEnum.PARAMETER.xmlTag());
-		this.parameters = new ArrayList<Parameter> (tags.length);
 
 		for (XMLTag t : tags) {
-			Parameter p = new Parameter();
+			Parameter p = new Parameter(this);
 			p.build(t);
-			parameters.add(p);
+			paramTable.put(p.getName(), p);
 		}
 
 		// local
 		tags = tag.getTags(XMLTagEnum.LOCAL.xmlTag());
-		this.locals = new ArrayList<Local> (tags.length);
 
 		for (XMLTag t : tags) {
-			Local l = new Local();
+			Local l = new Local(this);
 			l.build(t);
-			locals.add(l);
+			localVarTable.put(l.getName(), l);
 		}
 
 		// variables
 		tags = tag.getTags(XMLTagEnum.VARIABLE.xmlTag());
-		this.variables = new ArrayList<Variable> (tags.length);
 
 		for (XMLTag t : tags) {
-			Variable v = new Variable();
+			StateVariable v = new StateVariable(this);
 			v.build(t);
-			variables.add(v);
+			stateVarTable.put(v.getName(), v);
 		}
 
 
 		return this;
 	}
 
-	@Override
-	public Function getFunctionAtIndex(int functionNo) {
-		return this.functions.get(functionNo);
-	}
-	@Override
-	public int getNoFunctions() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
+		
 	public String getValue() {
 		return value;
 	}
@@ -139,48 +120,4 @@ public class Chemical implements BuildFromXML, SelectableItem {
 		this.spectrum = spectrum;
 	}
 
-	public Collection<Function> getFunctions() {
-		return functions;
-	}
-
-	public void setFunctions(ArrayList<Function> functions) {
-		this.functions = functions;
-	}
-
-	public Collection<Variable> getVariables() {
-		return variables;
-	}
-
-	public void setVariables(Collection<Variable> variables) {
-		this.variables = variables;
-	}
-
-	public Collection<Parameter> getParameters() {
-		return parameters;
-	}
-
-	public void setParameters(Collection<Parameter> parameters) {
-		this.parameters = parameters;
-	}
-
-	public Collection<Local> getLocals() {
-		return locals;
-	}
-
-	public void setLocals(Collection<Local> locals) {
-		this.locals = locals;
-	}
-
-	@Override
-	public String toString() {
-		return this.getName();
-	}
-
-	
-
-
-
-	
-	
-	
 }

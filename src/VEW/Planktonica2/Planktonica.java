@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
@@ -22,17 +23,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
-
 import VEW.Common.StringTools;
 import VEW.Common.XML.XMLFile;
 import VEW.Common.XML.XMLTag;
 import VEW.Controller2.VEWController2;
+//<<<<<<< HEAD
 import VEW.Planktonica2.ControllerStructure.ChemicalController;
-import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
 import VEW.Planktonica2.model.Model;
 /**
@@ -97,6 +95,10 @@ public class Planktonica extends JPanel {
 		
 		add(catTab);
 	}
+/*=======
+
+public class Planktonica extends JPanel {
+>>>>>>> e73b0823aeb3f8174a28e818a9e717e35ff5ee57*/
 
   /* The frames */
 
@@ -108,8 +110,8 @@ public class Planktonica extends JPanel {
   public final DefaultListModel functionListModel = new DefaultListModel();
   public final JList functions = new JList(functionListModel);
   public JButton stageEditor = new JButton("Edit Stages");
-  public MiniStageTableModel miniStageTableModel = new MiniStageTableModel();
-  public JTable miniStageTable = new JTable(miniStageTableModel);
+  //public MiniStageTableModel miniStageTableModel = new MiniStageTableModel();
+  //public JTable miniStageTable = new JTable(miniStageTableModel);
   public EquationPanel eqPanel = new EquationPanel("");
   public PigmentPanel pigPanel;
   public JScrollPane eqsScroller = new JScrollPane(eqPanel);
@@ -148,7 +150,7 @@ public class Planktonica extends JPanel {
   private final static String PIGMENTEDITOR = "Pigment Editor";
   private static String varNameString = "";
   
-  private EventHandler eh = new EventHandler();
+  //private EventHandler eh = new EventHandler();
 
   private final JComboBox varList = new JComboBox();
   
@@ -157,15 +159,6 @@ public class Planktonica extends JPanel {
   private XMLTag SelectedFunction = null;
   private JDialog parent;
 
-  /*public Planktonica(JDialog jd, XMLFile xmlfile) {
-	    vc2 = (VEWController2) jd;
-	    parent = jd;
-	    ee = new EquationEditor(vc2);
-	    initialiseGUI();
-	    xmlFile = xmlfile;
-	    parent.pack();
-	  }*/
-  
   public boolean greenLight(boolean fix) {
 	  
 	return true;
@@ -232,7 +225,8 @@ public class Planktonica extends JPanel {
     return true;
     */
   }
-/*
+
+  /*
   private void initialiseGUI() {
     setLayout(new BorderLayout(2, 2));
     pigPanel = new PigmentPanel(this);
@@ -323,7 +317,7 @@ public class Planktonica extends JPanel {
     eqsScroller.setBorder(BorderFactory.createLoweredBevelBorder());
 
     /* Centre and south of main page */
-/*
+  /*
     add(varPanel, BorderLayout.CENTER);
 
     Box boxPanel = Box.createVerticalBox();
@@ -389,7 +383,7 @@ public class Planktonica extends JPanel {
     CL.show(EqPigCard, PIGMENTEDITOR);
     CL.show(EqPigCard, EQUATIONPANEL);
   }
-*/
+
   /*
    * Initialise the main screen with the boxes for FG/Chem/Pigment, Instances,
    * Functions and Subs.
@@ -415,8 +409,20 @@ public class Planktonica extends JPanel {
         (String) instances.getSelectedValue());
   }
 
+  public Planktonica(JDialog jd, XMLFile xmlfile) {
+    vc2 = (VEWController2) jd;
+    parent = jd;
+    ee = new EquationEditor(vc2);
+    initialiseGUI();
+    xmlFile = xmlfile;
+    parent.pack();
+  }
+
   public class EventHandler implements ActionListener, ItemListener,
       ListSelectionListener {
+
+    public EventHandler() {
+    }
 
     public void valueChanged(ListSelectionEvent e) {
       if (!e.getValueIsAdjusting()) {
@@ -741,6 +747,8 @@ public class Planktonica extends JPanel {
       }
     }
 
+    public void focusGained(FocusEvent e) {
+    }
 
 
     public void groupListHandler() {
@@ -875,7 +883,7 @@ public class Planktonica extends JPanel {
         varList.removeAllItems();
         detailsHTML.setText("<html></html>");
         XMLTag[] tags = SelectedFunction.getTags();
-        Vector params = new Vector();
+        Vector<?> params = new Vector<Object>();
 
         for (int i = 0; i < tags.length; i++)
           if (StringTools.memberOf(tags[i].getName(), varOptions))
@@ -937,11 +945,13 @@ public class Planktonica extends JPanel {
     }
   }
   
+  /*
   class MiniStageTableModel extends DefaultTableModel {
     public Class getColumnClass(int column) {
       if (column==1) return Boolean.class;
       else return String.class;
     }
   }
+  */
 
 }

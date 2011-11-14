@@ -1,0 +1,59 @@
+package VEW.XMLCompiler.ASTNodes;
+
+public class RuleSequenceNode extends ASTree {
+	
+	private String ruleName;
+	private RuleNode rule;
+	private RuleSequenceNode seq;
+
+	public RuleSequenceNode(RuleNode rNode) {
+		this.rule = rNode;
+		this.seq = null;
+		this.ruleName = null;
+	}
+	
+	public RuleSequenceNode(String ruleName, RuleNode rNode) {
+		this.ruleName = ruleName;
+		this.rule = rNode;
+	}
+	
+	public RuleSequenceNode(RuleNode rNode, RuleSequenceNode seqNode) {
+		this.rule = rNode;
+		this.seq = seqNode;
+		this.ruleName = null;
+	}
+	
+	public RuleSequenceNode(String ruleName, RuleNode rNode, RuleSequenceNode seqNode) {
+		this.ruleName = ruleName;
+		this.rule = rNode;
+		this.seq = seqNode;
+	}
+	
+	public void setRuleSequence(RuleSequenceNode seq) {
+		this.seq = seq;
+	}
+	
+	@Override
+	public void check() throws SemanticCheckException {
+		rule.check();
+		if (seq != null) {
+			seq.check();
+		}
+	}
+
+	@Override
+	public String generateXML() {
+		String name = "LOLNAME";
+		if (ruleName != null) {
+			name = ruleName;
+		}
+		if (seq != null) {
+			return "<equation><name>" + name + "</name><eq>" + rule.generateXML() 
+				+ "</eq></equation>" + seq.generateXML();
+		} else {
+			return "<equation><name>" + name + "</name><eq>" + rule.generateXML() 
+				+ "</eq></equation>";
+		}
+	}
+
+}

@@ -1,12 +1,7 @@
 package VEW.Planktonica2;
 
 import java.awt.Dimension;
-import java.util.Collection;
-
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import VEW.Planktonica2.ControllerStructure.ChemicalController;
-import VEW.Planktonica2.model.Chemical;
 
 public class ChemicalDisplay extends Display {
 

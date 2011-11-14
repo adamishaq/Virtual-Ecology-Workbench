@@ -37,8 +37,8 @@ public class FunctionalGroupController extends VEWController {
 		
 	}
 	
-	public Stage getStageAtIndex (int stageNo) {
-		return this.getSelectedFunctionalGroup().getStageAtIndex(stageNo);
+	public Stage getStage(String stageName) {
+		return getSelectedFunctionalGroup().checkStageTable(stageName);
 	}
 	
 	public FunctionalGroup getSelectedFunctionalGroup () {
@@ -90,6 +90,8 @@ public class FunctionalGroupController extends VEWController {
 		}
 		return c;
 	}
+
+	
 
 	
 	

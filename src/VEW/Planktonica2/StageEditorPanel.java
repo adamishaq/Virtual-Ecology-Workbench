@@ -149,12 +149,12 @@ public class StageEditorPanel extends JPanel {
 			
 			if (g != null) {
 			
-				Collection<Stage> stages = g.getStages();
+				Collection<String> stages = g.getStageNames();
 				int modelIndex = 1;
 
-				for (Stage s : stages) {
+				for (String s : stages) {
 					TableColumn c = new TableColumn(modelIndex);
-					c.setHeaderValue(s.getName());
+					c.setHeaderValue(s);
 					this.addColumn(c);
 					modelIndex++;
 				}
@@ -234,7 +234,9 @@ public class StageEditorPanel extends JPanel {
 				
 			} else {
 				
-				Stage selected = this.controller.getStageAtIndex(x);
+				String stageName = this.getColumnName(x);
+				
+				Stage selected = this.controller.getStage(stageName);
 				Function f = this.controller.getFunctionAtIndex(y);
 				
 				// called in holds a referrence to the origional stage
@@ -247,8 +249,9 @@ public class StageEditorPanel extends JPanel {
 			if (aValue instanceof Boolean) {
 				boolean isCalled = (Boolean) aValue;
 				
+				String stageName = this.getColumnName(x);
 				
-				Stage selected = controller.getStageAtIndex(x);
+				Stage selected = this.controller.getStage(stageName);
 				Function f = controller.getFunctionAtIndex(y);
 				
 				if (isCalled) {

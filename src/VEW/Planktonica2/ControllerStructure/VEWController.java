@@ -8,7 +8,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import VEW.Planktonica2.model.Function;
 import VEW.Planktonica2.model.Model;
-import VEW.Planktonica2.model.Variable;
+import VEW.Planktonica2.model.StateVariable;
 
 
 public abstract class VEWController extends Observable {
@@ -33,7 +33,7 @@ public abstract class VEWController extends Observable {
 	 * @param selectedVariable
 	 * @return a Variable with name == selected Variable
 	 */
-	public Variable getVariable(String selectedVariable) {
+	public StateVariable getVariable(String selectedVariable) {
 		
 		if (getSelectedItem() == null || getSelectedFunction () == null) {
 			return null;
