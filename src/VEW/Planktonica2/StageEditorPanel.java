@@ -12,6 +12,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
 import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
@@ -36,11 +37,14 @@ public class StageEditorPanel extends JPanel {
 	}
 
 	private void initializeGUI() {
+		
+		ColumnModel m = new ColumnModel(this.controller);
+		
 		TableModel headerData = new RowModel(this.controller);
-        TableModel data = new StageTableModel(this.controller);
+        TableModel data = new StageTableModel(this.controller, m);
 
         JTable table = new JTable(data);
-        table.setColumnModel(new ColumnModel(this.controller));
+        table.setColumnModel(m);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         
         JTable rowHeader = new JTable(headerData);
@@ -173,8 +177,6 @@ public class StageEditorPanel extends JPanel {
 			
 		}
 		
-		
-		
 	}
 	
 	private class EmptyColumns extends DefaultTableColumnModel {
@@ -195,9 +197,12 @@ public class StageEditorPanel extends JPanel {
 
 		private static final long serialVersionUID = 9005405339776933763L;
 		private FunctionalGroupController controller;
+		private TableColumnModel columnModel;
 		
-		public StageTableModel (FunctionalGroupController controller) {
+		public StageTableModel (FunctionalGroupController controller, TableColumnModel columnModel) {
+			super();
 			this.controller = controller;
+			this.columnModel = columnModel;
 		}
 		
 		@Override
@@ -273,6 +278,15 @@ public class StageEditorPanel extends JPanel {
 			return Boolean.class;
 		}
 		
+		@Override
+		public String getColumnName(int index) {
+			if (index < columnModel.getColumnCount()) {
+				return this.columnModel.getColumn(index).getHeaderValue().toString();
+			} else {
+				return "";
+			}
+			
+		}
 	}
 
 	
