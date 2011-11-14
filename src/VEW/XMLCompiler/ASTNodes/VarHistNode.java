@@ -12,7 +12,13 @@ public class VarHistNode extends ExprNode {
 	
 	@Override
 	public void check() throws SemanticCheckException {
-		// TODO Auto-generated method stub
+		expression.check();
+		//TODO checking identifier is in scope and construct var
+		if (expression instanceof NumNode) {
+			//TODO some checking for variables out of history ranges
+		}
+		//TODO find out if expressions in varhist is valid
+		setExprType(expression.getExprType());
 
 	}
 

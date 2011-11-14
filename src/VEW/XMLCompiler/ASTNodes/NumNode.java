@@ -18,7 +18,8 @@ public class NumNode extends ExprNode {
 	public String generateXML() {
 		return "\\val{\\sival{" + value + ",0},\\unit{0,0,0}}";
 	}
-	
+
+	@Override
 	public String generateLatex() {
 		return " " + value + " ";
 	}

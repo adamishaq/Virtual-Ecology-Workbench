@@ -10,8 +10,8 @@ public class BooleanNotOpNode extends BExprNode {
 	
 	@Override
 	public void check() throws SemanticCheckException {
-		// TODO Auto-generated method stub
-
+		expression.check();
+		setBExprType(expression.getBExprType());
 	}
 
 	@Override
@@ -19,11 +19,11 @@ public class BooleanNotOpNode extends BExprNode {
 		return "\\not{" + expression.generateXML() + "}";
 	}
 	
+	@Override
 	public String generateLatex() {
 		if (expression != null)
 			return " \\sim " + expression.generateLatex();
 		else
 			return " \\sim ???";
 	}
-
 }

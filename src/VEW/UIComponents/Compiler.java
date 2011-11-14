@@ -12,7 +12,6 @@ import javax.swing.*;
 import org.antlr.runtime.*;
 
 import VEW.XMLCompiler.ANTLR.ANTLRParser;
-import VEW.XMLCompiler.ASTNodes.ASTree;
 import VEW.XMLCompiler.ASTNodes.ConstructedASTree;
 import VEW.XMLCompiler.ASTNodes.SemanticCheckException;
 import VEW.XMLCompiler.ASTNodes.TreeWalkerException;

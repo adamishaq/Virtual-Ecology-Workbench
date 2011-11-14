@@ -36,7 +36,7 @@ public class AssignListNode extends ASTree {
 		}
 		return genString;
 	}
-
+	
 	@Override
 	public String generateLatex() {
 		String genString = "";
@@ -50,5 +50,5 @@ public class AssignListNode extends ASTree {
 		genString = genString.substring(0, genString.length() - 1);
 		return genString;
 	}
-	
+
 }

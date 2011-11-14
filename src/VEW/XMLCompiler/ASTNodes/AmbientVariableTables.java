@@ -21,7 +21,7 @@ public class AmbientVariableTables {
 		typeTable.put("$float", new Type("float"));
 		typeTable.put("$foodSet", new Type("foodSet"));
 		typeTable.put("$vector", new Type("vector"));
-		
+		typeTable.put("$boolean", new Type("boolean"));		
 	}
 
 	private void initialiseSystemVarTable() {
@@ -42,7 +42,6 @@ public class AmbientVariableTables {
 		Type floatType = (Type) typeTable.get("$float");
 		waterColumnVarTable.put("Turbocline",
 				new Variable("Turbocline", floatType, "Turbocline"));
-		
 	}
 
 	private void initialisePhysicsVarTable() {
@@ -119,6 +118,5 @@ public class AmbientVariableTables {
 		}
 		return all_vars;
 	}
-	
 	
 }

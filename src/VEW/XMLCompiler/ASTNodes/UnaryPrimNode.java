@@ -12,8 +12,19 @@ public class UnaryPrimNode extends ExprNode {
 	
 	@Override
 	public void check() throws SemanticCheckException {
-		// TODO Auto-generated method stub
+		argument.check();
+		Type argType = argument.getExprType();
+		setExprType(checkCompatibility(argType));
 
+	}
+
+	private Type checkCompatibility(Type argType) {
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		Type floatType = (Type) tables.checkTypeTable("$float");
+		if (argType instanceof Variety) {
+			return new Variety("float", floatType);
+		}
+		return floatType;
 	}
 
 	@Override
@@ -44,6 +55,7 @@ public class UnaryPrimNode extends ExprNode {
 		return "\\" + func + "{" + argument.generateXML() + "}";
 	}
 	
+	@Override
 	public String generateLatex() {
 		String func = "???";
 		String arg = "???";
@@ -73,5 +85,6 @@ public class UnaryPrimNode extends ExprNode {
 		}
 		return func + "(" + arg + ")";
 	}
+
 
 }

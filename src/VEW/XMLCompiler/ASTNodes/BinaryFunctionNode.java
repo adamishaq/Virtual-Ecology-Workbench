@@ -14,8 +14,23 @@ public class BinaryFunctionNode extends RuleNode {
 	
 	@Override
 	public void check() throws SemanticCheckException {
+		//Considering splitting this into three nodes
+		expArg.check();
+		Type expArgType = expArg.getExprType();
+		switch (binFunc) {
+			case UPTAKE : 
+			case RELEASE : {
+				//TODO Check id is a chemical
+				break;
+			}
+			case PCHANGE : {
+				//TODO Check id is a stage
+			}
+		}
+		if (expArgType instanceof Variety) {
+			throw new SemanticCheckException("The expression must evaluate to a scalar value");
+		}
 		
-
 	}
 
 	@Override
@@ -28,7 +43,7 @@ public class BinaryFunctionNode extends RuleNode {
 		}
 		return "\\" + func + "{" + expArg.generateXML() + "," + idArg.generateXML() + "}";
 	}
-	
+
 	@Override
 	public String generateLatex() {
 		String func = "???";
@@ -45,5 +60,5 @@ public class BinaryFunctionNode extends RuleNode {
 		}
 		return func + "(" + exp + "," + id + ")";
 	}
-
+	
 }

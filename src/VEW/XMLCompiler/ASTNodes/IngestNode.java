@@ -14,7 +14,10 @@ public class IngestNode extends RuleNode {
 	
 	@Override
 	public void check() throws SemanticCheckException {
-		// TODO Auto-generated method stub
+		//TODO: Check identifier links to a food set
+		threshold.check();
+		rate.check();
+		//TODO: Check that if things are varieties that they link back to appropriate food set
 
 	}
 
@@ -23,7 +26,8 @@ public class IngestNode extends RuleNode {
 		return "\\ingest{" + identifier.generateXML() + "," + threshold.generateXML() + ","
 		  	+ rate.generateXML() + "}";
 	}
-	
+
+	@Override
 	public String generateLatex() {
 		String id = "???";
 		if (identifier != null)
@@ -36,5 +40,5 @@ public class IngestNode extends RuleNode {
 			rp = rate.generateLatex();
 		return " ingest(" + id + "," + thresh + " , " + rp + ")";
 	}
-
+	
 }

@@ -333,6 +333,7 @@ public class SyntaxHighlighter {
 		return text;
 	}
 	
+	/*
 	private String remove_all_tags(String tag_text) {
 		String text = "";
 		char[] chars = tag_text.toCharArray();
@@ -351,6 +352,7 @@ public class SyntaxHighlighter {
 		}	
 		return text;
 	}
+	*/
 	
 	// Return the text without any HTML tags (for parsing, etc.)
 	public String getPlainText(String text) {

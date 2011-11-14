@@ -32,7 +32,7 @@ public class AssignNode extends RuleNode {
 	public String generateXML() {
 		return "\\assign{" + identifier.generateXML() + "," + expr.generateXML() + "}";
 	}
-	
+
 	@Override
 	public String generateLatex() {
 		String id = "???";

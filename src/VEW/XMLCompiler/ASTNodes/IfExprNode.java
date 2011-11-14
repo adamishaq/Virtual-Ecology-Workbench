@@ -15,6 +15,10 @@ public class IfExprNode extends ExprNode {
 	@Override
 	public void check() throws SemanticCheckException {
 		conditionExpr.check();
+		Type condType = conditionExpr.getBExprType();
+		if (condType instanceof Variety) {
+			throw new SemanticCheckException("The condition must evaluate to a boolean");
+		}
 		thenExpr.check();
 		elseExpr.check();
 
@@ -26,6 +30,7 @@ public class IfExprNode extends ExprNode {
 		 + "," + elseExpr.generateXML() + "}";
 	}
 	
+	@Override
 	public String generateLatex() {
 		String cond = "???";
 		if (conditionExpr != null)

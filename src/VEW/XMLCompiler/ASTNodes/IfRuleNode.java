@@ -13,6 +13,10 @@ public class IfRuleNode extends RuleNode {
 	@Override
 	public void check() throws SemanticCheckException {
 		conditionExpr.check();
+		Type condType = conditionExpr.getBExprType();
+		if (condType instanceof Variety) {
+			throw new SemanticCheckException("The condition must evaluate to a boolean");
+		}
 		rule.check();
 	}
 
@@ -21,6 +25,7 @@ public class IfRuleNode extends RuleNode {
 		return "\\ifthen{" + conditionExpr.generateXML() + "," + rule.generateXML() + "}";
 	}
 
+	@Override
 	public String generateLatex() {
 		String condition = "???";
 		if (conditionExpr != null)

@@ -29,6 +29,7 @@ public class IdNode extends ExprNode {
 		return "\\var{" + name + "}";
 	}
 	
+	@Override
 	public String generateLatex() {
 		String latex_name = name;
 		if (name.contains("_")) {
