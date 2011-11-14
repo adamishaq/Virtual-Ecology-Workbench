@@ -75,6 +75,20 @@ public class Planktonica extends JPanel {
 	    parent.pack();
 	}
 	
+	public Planktonica (XMLFile xmlFile) {
+		ee = new EquationEditor(vc2);
+	    Model m = new Model(xmlFile);
+		try {
+			m.buildFromFile();
+		} catch (BackingStoreException e) {
+			System.err.println(e);
+		}
+		
+	    funcView = new FunctionalDisplay(new FunctionalGroupController(m), catTab.getSize());
+	    chemView = new ChemicalDisplay(new ChemicalController(m), catTab.getSize());
+	    initialiseGUI();
+	}
+	
 	private void initialiseGUI() {
 		setLayout(new BorderLayout(2, 2));
 		
