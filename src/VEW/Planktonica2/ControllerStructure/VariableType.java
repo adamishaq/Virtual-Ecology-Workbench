@@ -11,13 +11,33 @@ public abstract class VariableType implements BuildFromXML {
 	protected Catagory parentCatagory;
 	private String name;
 	private String desc;
+	private Type type;
 	private int value;
 	private int hist;
 	private Collection<Unit> units;
+	private boolean assignedTo;
+	private boolean readFrom;
+	
+	public VariableType(Catagory parentCatagory, Type type) {
+		this.parentCatagory = parentCatagory;
+		this.type = type;
+		this.assignedTo = false;
+		this.readFrom = false;
+	}
 	
 	public VariableType(Catagory parentCatagory) {
 		this.parentCatagory = parentCatagory;
+		this.assignedTo = false;
+		this.readFrom = false;
 	}
+	
+	public VariableType(String name, String desc, Type type, Collection<Unit> units) {
+		this.name = name;
+		this.desc = desc;
+		this.type = type;
+		this.units = units;
+	}
+	
 	
 	@Override
 	public BuildFromXML build (XMLTag tag) {
@@ -128,6 +148,30 @@ public abstract class VariableType implements BuildFromXML {
 
 	public void setUnits(Collection<Unit> units) {
 		this.units = units;
+	}
+	
+	public Type getVarType() {
+		return type;
+	}
+	
+	public void setVarType(Type type) {
+		this.type = type;
+	}
+	
+	public boolean isAssignedTo() {
+		return assignedTo;
+	}
+	
+	public void setAssigned(boolean assigned) {
+		assignedTo = assigned;
+	}
+	
+	public boolean isReadFrom() {
+		return readFrom;
+	}
+	
+	public void setRead(boolean read) {
+		readFrom = read;
 	}
 	
 	

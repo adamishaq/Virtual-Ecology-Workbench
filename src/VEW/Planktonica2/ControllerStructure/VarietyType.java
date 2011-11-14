@@ -1,10 +1,11 @@
-package VEW.XMLCompiler.ASTNodes;
+package VEW.Planktonica2.ControllerStructure;
 
-public class Variety extends Type {
+
+public class VarietyType extends Type {
 	
 	private Type elementType;
 	
-	public Variety(String _name, Type _elementType) {
+	public VarietyType(String _name, Type _elementType) {
 		super(_name);
 		elementType = _elementType;
 		

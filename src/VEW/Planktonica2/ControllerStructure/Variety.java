@@ -10,6 +10,7 @@ public class Variety extends VariableType {
 	public Variety (Catagory catagory) {
 		super(catagory);
 	}
+
 	
 	@Override
 	public BuildFromXML build (XMLTag tag) {

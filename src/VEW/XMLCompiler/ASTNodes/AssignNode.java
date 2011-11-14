@@ -1,10 +1,12 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.ControllerStructure.*;
+
 public class AssignNode extends RuleNode {
 
 	private IdNode identifier;
 	private ExprNode expr;
-	private Variable assignVar;
+	private VariableType assignVar;
 	
 	public AssignNode(IdNode identifier, ExprNode expr) {
 		this.identifier = identifier;
@@ -14,23 +16,34 @@ public class AssignNode extends RuleNode {
 	@Override
 	public void check() throws SemanticCheckException {
 		String idName = identifier.getName();
-		AmbientVariableTables tables = AmbientVariableTables.getTables();
-		Object obj = tables.checkAllTables(idName);
-		if (obj != null) {
-			throw new SemanticCheckException(idName + " cannot be assigned to");
+		VariableType var = getCatagory().checkAssignableVariableTables(identifier.getName());
+		if (var == null) {
+			throw new SemanticCheckException(idName + " is not a assignable variable");
 		}
-		//TODO check and retrieve variable from table
+		if ((var instanceof VarietyLocal || var instanceof Local) && var.isAssignedTo()) {
+			throw new SemanticCheckException(idName + " has already been assigned to in a previous rule");
+		}
 		expr.check();
-		if (expr.getExprType() != assignVar.getVarType()) {
-			//TODO check if its ok
-			throw new SemanticCheckException("Assign mismatch, my be ok actually");
-		}
+		checkTypeCompatibility(var.getVarType());
+		assignVar = var;
+		assignVar.setAssigned(true);
 		
+	}
+	
+	private void checkTypeCompatibility(Type varType) throws SemanticCheckException{
+		Type exprType = expr.getExprType();
+		if (varType instanceof VarietyType && !(exprType instanceof VarietyType)) {
+			throw new SemanticCheckException("Cannot assign a variety value to a scalar value");
+		}
 	}
 
 	@Override
 	public String generateXML() {
 		return "\\assign{" + identifier.generateXML() + "," + expr.generateXML() + "}";
+	}
+
+	public VariableType getAssignVar() {
+		return assignVar;
 	}
 
 }

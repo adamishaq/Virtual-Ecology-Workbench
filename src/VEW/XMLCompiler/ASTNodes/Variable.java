@@ -1,5 +1,7 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.ControllerStructure.Type;
+/*
 public class Variable {
 	
 	private String name;
@@ -30,4 +32,4 @@ public class Variable {
 	public String getDescription() {
 		return description;
 	}
-}
+}*/

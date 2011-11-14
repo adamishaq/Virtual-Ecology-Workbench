@@ -1,5 +1,7 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.ControllerStructure.*;
+
 public class BinaryFunctionNode extends RuleNode {
 
 	private BinaryFunction binFunc;
@@ -15,6 +17,11 @@ public class BinaryFunctionNode extends RuleNode {
 	@Override
 	public void check() throws SemanticCheckException {
 		//Considering splitting this into three nodes
+		Catagory cata = getCatagory();
+		if (cata instanceof Chemical) {
+			throw new SemanticCheckException("Special functions cannot be called within chemical equations");
+		}
+		FunctionalGroup group = (FunctionalGroup) cata;
 		expArg.check();
 		Type expArgType = expArg.getExprType();
 		switch (binFunc) {
@@ -24,10 +31,13 @@ public class BinaryFunctionNode extends RuleNode {
 				break;
 			}
 			case PCHANGE : {
-				//TODO Check id is a stage
+				Stage st = group.checkStageTable(idArg.getName());
+				if (st == null) {
+					throw new SemanticCheckException(idArg.getName() + " is not a stage");
+				}
 			}
 		}
-		if (expArgType instanceof Variety) {
+		if (expArgType instanceof VarietyType) {
 			throw new SemanticCheckException("The expression must evaluate to a scalar value");
 		}
 		
