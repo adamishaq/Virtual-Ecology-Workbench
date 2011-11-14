@@ -3,7 +3,7 @@ package VEW.XMLCompiler.ANTLR.test;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
-import VEW.XMLCompiler.ANTLR.TreeWalkerException;
+import VEW.XMLCompiler.ASTNodes.TreeWalkerException;
 
 /**
  * Only passes the test when the file parses correctly.

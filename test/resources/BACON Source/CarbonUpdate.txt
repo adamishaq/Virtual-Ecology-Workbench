@@ -1,0 +1,23 @@
+// The "Carbon Update" function from VEW 
+
+"Convert to Kelvin" : 
+TK = (Temp + 273.16)
+
+TK_100 = TK / 100
+
+Lg_SL = log10(Salinity)
+
+Ln_TK = ln(TK)
+
+K0 = (1000 * exp((9345.17 / TK - 60.2409) + (23.3585 * ln(TK_100)) + (0.023656 * TK_100 - 0.023656) + (0.0047036 * TK_100 ^ 2)))
+
+EK = sqrt(K1/K2)
+
+G3 = sqrt(K1 * K2)
+
+G1 = G3 / Kb
+
+G2 = Kw / G3
+
+
+
