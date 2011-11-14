@@ -1,6 +1,7 @@
 package VEW.XMLCompiler.ASTNodes;
 
 import VEW.Planktonica2.model.Type;
+import VEW.Planktonica2.model.VarietyType;
 
 public class UnaryPrimNode extends ExprNode {
 
@@ -23,8 +24,8 @@ public class UnaryPrimNode extends ExprNode {
 	private Type checkCompatibility(Type argType) {
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
-		if (argType instanceof Variety) {
-			return new Variety("float", floatType);
+		if (argType instanceof VarietyType) {
+			return new VarietyType("float", floatType);
 		}
 		return floatType;
 	}

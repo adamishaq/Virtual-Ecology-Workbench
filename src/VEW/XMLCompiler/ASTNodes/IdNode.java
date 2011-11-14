@@ -1,9 +1,13 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.model.Local;
+import VEW.Planktonica2.model.VariableType;
+import VEW.Planktonica2.model.VarietyLocal;
+
 public class IdNode extends ExprNode {
 	
 	private String name;
-	private Variable var;
+	private VariableType var;
 	
 	public IdNode(String name) {
 		this.name = name;
@@ -11,16 +15,14 @@ public class IdNode extends ExprNode {
 
 	@Override
 	public void check() throws SemanticCheckException {
-		AmbientVariableTables tables = AmbientVariableTables.getTables();
-		Object obj = tables.checkAllTables(name);
-		//TODO check other tables, like state vars etc
-		if (obj == null) {
+		VariableType v = getCatagory().checkAccessableVariableTable(name);
+		if (v == null) {
 			throw new SemanticCheckException("Unrecognized variable " + name);
 		}
-		if (!(obj instanceof Variable)) {
-			throw new SemanticCheckException(name + " is not a variable");
+		if ((v instanceof Local || v instanceof VarietyLocal) && !v.isAssignedTo()) {
+			throw new SemanticCheckException("Local variable " + name + " has not been assigned to before reading");
 		}
-		var = (Variable) obj;
+		var = (VariableType) v;
 		exprType = var.getVarType();
 	}
 

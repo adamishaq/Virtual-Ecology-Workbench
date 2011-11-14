@@ -1,6 +1,9 @@
 package VEW.XMLCompiler.ASTNodes;
 
 import VEW.Planktonica2.model.Type;
+import VEW.Planktonica2.model.VarietyType;
+
+
 
 public class BooleanComparitorNode extends BExprNode {
 	
@@ -28,8 +31,8 @@ public class BooleanComparitorNode extends BExprNode {
 		//TODO some sort of tracking of origins of food sets
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type boolType = (Type) tables.checkTypeTable("$boolean");
-		if (rExprType instanceof Variety || lExprType instanceof Variety) {
-			return new Variety("boolean", boolType);
+		if (rExprType instanceof VarietyType || lExprType instanceof VarietyType) {
+			return new VarietyType("boolean", boolType);
 		}
 		return boolType;
 	}

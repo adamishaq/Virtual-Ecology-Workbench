@@ -1,6 +1,8 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.model.Chemical;
 import VEW.Planktonica2.model.Type;
+import VEW.Planktonica2.model.VarietyType;
 
 public class VOpNode  extends ExprNode {
 
@@ -14,14 +16,17 @@ public class VOpNode  extends ExprNode {
 	
 	@Override
 	public void check() throws SemanticCheckException {
+		if (getCatagory() instanceof Chemical) {
+			throw new SemanticCheckException("Variety operations cannot be called within chemical equations");
+		}
 		expression.check();
 		Type exprType = expression.getExprType();
-		if (!(exprType instanceof Variety)) {
+		if (!(exprType instanceof VarietyType)) {
 			throw new SemanticCheckException("The expression must be a vector");
 		}
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
-		Variety varType = (Variety) exprType;
+		VarietyType varType = (VarietyType) exprType;
 		if (varType.getElementType() == floatType) {
 			throw new SemanticCheckException("The input for VBOp must be a vector of booleans");
 		}

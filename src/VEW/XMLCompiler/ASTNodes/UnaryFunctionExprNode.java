@@ -1,6 +1,8 @@
 package VEW.XMLCompiler.ASTNodes;
 
 import VEW.Planktonica2.model.Type;
+import VEW.Planktonica2.model.VarietyType;
+
 
 public class UnaryFunctionExprNode extends RuleNode {
 
@@ -18,7 +20,7 @@ public class UnaryFunctionExprNode extends RuleNode {
 		//Im considering changing this into a Divide node
 		expArg.check();
 		Type expType = expArg.getExprType();
-		if (expType instanceof Variety) {
+		if (expType instanceof VarietyType) {
 			throw new SemanticCheckException("The expression for the number to divide to must be scalar");
 		}
 

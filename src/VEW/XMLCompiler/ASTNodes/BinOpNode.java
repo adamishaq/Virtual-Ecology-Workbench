@@ -1,6 +1,9 @@
 package VEW.XMLCompiler.ASTNodes;
 
 import VEW.Planktonica2.model.Type;
+import VEW.Planktonica2.model.VarietyType;
+
+
 
 public class BinOpNode extends ExprNode {
 	
@@ -28,8 +31,8 @@ public class BinOpNode extends ExprNode {
 		//TODO Some sort of tracking of the origins of food based sets
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
-		if (lType instanceof Variety || rType instanceof Variety) {
-			return new Variety("float", floatType);
+		if (lType instanceof VarietyType || rType instanceof VarietyType) {
+			return new VarietyType("float", floatType);
 		}
 		return floatType;
 		

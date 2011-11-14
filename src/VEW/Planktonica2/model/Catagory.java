@@ -3,6 +3,7 @@ package VEW.Planktonica2.model;
 import java.util.ArrayList;
 
 import VEW.Planktonica2.ControllerStructure.SelectableItem;
+import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 import VEW.XMLCompiler.ASTNodes.SymbolTable;
 
 public abstract class Catagory implements SelectableItem, BuildFromXML {
@@ -36,6 +37,28 @@ public abstract class Catagory implements SelectableItem, BuildFromXML {
 		varietyLocalTable = new SymbolTable<VarietyLocal>();
 		
 	}
+	
+	public VariableType checkAssignableVariableTables(String variableName) {
+		StateVariable sVar = checkStateVariableTable(variableName);
+		if (sVar != null) return sVar;
+		Local localVar = checkLocalVarTable(variableName);
+		if (localVar != null) return localVar;
+		VarietyLocal varLocal = checkVarietyLocalTable(variableName);
+		if (varLocal != null) return varLocal;
+		VarietyVariable varState = checkVarietyStateTable(variableName);
+		return varState;
+	}
+	
+	public VariableType checkAccessableVariableTable(String variableName) {
+		VariableType var = checkAssignableVariableTables(variableName);
+		if (var != null) return var;
+		VarietyConcentration conc = checkVarietyConcTable(variableName);
+		if (conc != null) return conc;
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		var = tables.checkGlobalVariableTables(variableName);
+		return var;
+	}
+	
 	
 	public String getName() {
 		return name;

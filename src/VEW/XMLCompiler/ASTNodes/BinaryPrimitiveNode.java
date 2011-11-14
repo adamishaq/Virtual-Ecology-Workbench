@@ -2,6 +2,7 @@ package VEW.XMLCompiler.ASTNodes;
 
 import VEW.Planktonica2.model.Type;
 
+
 public class BinaryPrimitiveNode extends ExprNode {
 
 	private BinaryPrimitive prim;

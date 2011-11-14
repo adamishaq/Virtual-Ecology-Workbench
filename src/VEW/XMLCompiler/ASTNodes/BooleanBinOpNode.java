@@ -1,6 +1,9 @@
 package VEW.XMLCompiler.ASTNodes;
 
 import VEW.Planktonica2.model.Type;
+import VEW.Planktonica2.model.VarietyType;
+
+
 
 public class BooleanBinOpNode extends BExprNode {
 
@@ -27,8 +30,8 @@ public class BooleanBinOpNode extends BExprNode {
 	private Type checkTypeCompatible(Type rBExprType, Type lBExprType) {
 		AmbientVariableTables varTables = AmbientVariableTables.getTables();
 		Type boolType = (Type) varTables.checkTypeTable("$boolean");
-		if (rBExprType instanceof Variety || lBExprType instanceof Variety) {
-			return new Variety("boolean", boolType);
+		if (rBExprType instanceof VarietyType || lBExprType instanceof VarietyType) {
+			return new VarietyType("boolean", boolType);
 		}
 		return boolType;
 		

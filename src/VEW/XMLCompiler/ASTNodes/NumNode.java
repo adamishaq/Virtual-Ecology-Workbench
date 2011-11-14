@@ -1,5 +1,6 @@
 package VEW.XMLCompiler.ASTNodes;
 
+
 public class NumNode extends ExprNode {
 
 	private float value;
