@@ -1,4 +1,4 @@
-package VEW.XMLCompiler.ASTNodes;
+package VEW.Planktonica2.ControllerStructure;
 
 public class Type {
 	private String name;

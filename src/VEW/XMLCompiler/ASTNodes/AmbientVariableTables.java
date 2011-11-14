@@ -1,5 +1,12 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import VEW.Planktonica2.ControllerStructure.GlobalVariable;
+import VEW.Planktonica2.ControllerStructure.Type;
+import VEW.Planktonica2.ControllerStructure.Unit;
+
 public class AmbientVariableTables {
 	
 	private static AmbientVariableTables tables;
@@ -27,36 +34,62 @@ public class AmbientVariableTables {
 	private void initialiseSystemVarTable() {
 		systemVarTable = new SymbolTable();
 		Type floatType = (Type) typeTable.get("$float"); 
+		systemVarTable = new SymbolTable();
+		Collection<Unit> units = new ArrayList<Unit>();
+		units.add(new Unit(0, "d", 1));
 		systemVarTable.put("d_leap", 
-				new Variable( "d_leap", floatType, "Extra days due to leap year (1 or 0)"));
+				new GlobalVariable( "d_leap", "Extra days due to leap year (1 or 0)", floatType, units));
+		units = new ArrayList<Unit>();
+		units.add(new Unit(0, "d", 1));
 		systemVarTable.put("d_year",
-				new Variable("d_year", floatType, "Days this year since 1st January"));
+				new GlobalVariable("d_year", "Days this year since 1st January", floatType, units));
+		units = new ArrayList<Unit>();
+		units.add(new Unit(0, "0", 0));
 		systemVarTable.put("PI",
-				new Variable( "PI", floatType, "PI"));
+				new GlobalVariable( "PI", "PI", floatType, units));
+		units = new ArrayList<Unit>();
+		units.add(new Unit(0, "h", 1));
 		systemVarTable.put("TimeStep",
-				new Variable( "TimeStep", floatType, "Time step size"));
+				new GlobalVariable( "TimeStep", "Time step size", floatType, units));
 	}
 
 	private void initialiseWaterColumnVarTable() {
 		waterColumnVarTable = new SymbolTable();
 		Type floatType = (Type) typeTable.get("$float");
+		waterColumnVarTable = new SymbolTable();
+		Collection<Unit> units = new ArrayList<Unit>();
+		units.add(new Unit(0, "m", 1));
 		waterColumnVarTable.put("Turbocline",
-				new Variable("Turbocline", floatType, "Turbocline"));
+				new GlobalVariable("Turbocline", "Turbocline", floatType, units));
 	}
 
 	private void initialisePhysicsVarTable() {
 		physicsVarTable = new SymbolTable();
 		Type floatType = (Type) typeTable.get("$float");
+		physicsVarTable = new SymbolTable();
+		Collection<Unit> units = new ArrayList<Unit>();
+		units.add(new Unit(0, "kg", -3));
+		units.add(new Unit(0, "m", -3));
 		physicsVarTable.put("Density",
-				new Variable("Density", floatType, "Density"));
+				new GlobalVariable("Density", "Density", floatType, units));
+		units = new ArrayList<Unit>();
+		units.add(new Unit(0, "W", 1));
+		units.add(new Unit(0, "m", -2));
 		physicsVarTable.put("Full Irradiance",
-				new Variable("Full Irradiance", floatType, "Full Irradiance"));
+				new GlobalVariable("Full Irradiance", "Full Irradiance", floatType, units));
+		units = new ArrayList<Unit>();
+		units.add(new Unit(0, "0", 0));
 		physicsVarTable.put("Salinity",
-				new Variable("Salinity", floatType, "Salinity"));
+				new GlobalVariable("Salinity", "Salinity", floatType, units));
+		units = new ArrayList<Unit>();
+		units.add(new Unit(0, "C", 1));
 		physicsVarTable.put("Temperature",
-				new Variable("Temperature", floatType, "Salinity"));
+				new GlobalVariable("Temperature", "Temperature", floatType, units));
+		units = new ArrayList<Unit>();
+		units.add(new Unit(0, "W", 1));
+		units.add(new Unit(0, "m", -2));
 		physicsVarTable.put("Visible Irradiance",
-				new Variable("Visible Irradiance", floatType, "Visible Irradiance"));		
+				new GlobalVariable("Visible Irradiance", "Visible Irradiance", floatType, units));		
 	}
 	
 	
@@ -64,7 +97,12 @@ public class AmbientVariableTables {
 		Object obj = checkTypeTable(key);
 		if (obj != null)
 			return obj;
-		obj = checkPhysicsTable(key);
+		obj = checkGlobalVariableTables(key);
+		return obj;
+	}
+	
+	public GlobalVariable checkGlobalVariableTables(String key) {
+		GlobalVariable obj = checkPhysicsTable(key);
 		if (obj != null)
 			return obj;
 		obj = checkWaterColumnTable(key);
@@ -74,20 +112,20 @@ public class AmbientVariableTables {
 		return obj;
 	}
 	
-	public Object checkTypeTable(String key) {
-		return typeTable.get(key);
+	public Type checkTypeTable(String key) {
+		return (Type) typeTable.get(key);
 	}
 	
-	public Object checkSystemTable(String key) {
-		return systemVarTable.get(key);
+	public GlobalVariable checkSystemTable(String key) {
+		return (GlobalVariable) systemVarTable.get(key);
 	}
 
-	public Object checkWaterColumnTable(String key) {
-		return waterColumnVarTable.get(key);
+	public GlobalVariable checkWaterColumnTable(String key) {
+		return (GlobalVariable) waterColumnVarTable.get(key);
 	}
 
-	public Object checkPhysicsTable(String key) {
-		return physicsVarTable.get(key);
+	public GlobalVariable checkPhysicsTable(String key) {
+		return (GlobalVariable) physicsVarTable.get(key);
 	}
 
 	public static AmbientVariableTables getTables() {

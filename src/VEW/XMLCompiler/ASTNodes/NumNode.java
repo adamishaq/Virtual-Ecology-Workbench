@@ -1,5 +1,7 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.ControllerStructure.Type;
+
 public class NumNode extends ExprNode {
 
 	private float value;

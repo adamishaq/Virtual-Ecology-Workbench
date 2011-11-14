@@ -1,5 +1,8 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.ControllerStructure.Type;
+import VEW.Planktonica2.ControllerStructure.VarietyType;
+
 public class BinOpNode extends ExprNode {
 	
 	private MathematicalOperator operator;
@@ -25,8 +28,8 @@ public class BinOpNode extends ExprNode {
 		//TODO Some sort of tracking of the origins of food based sets
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
-		if (lType instanceof Variety || rType instanceof Variety) {
-			return new Variety("float", floatType);
+		if (lType instanceof VarietyType || rType instanceof VarietyType) {
+			return new VarietyType("float", floatType);
 		}
 		return floatType;
 		

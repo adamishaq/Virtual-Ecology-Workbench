@@ -8,12 +8,13 @@ public class VarHistNode extends ExprNode {
 	public VarHistNode (IdNode identifier, ExprNode expression) {
 		this.identifier = identifier;
 		this.expression = expression;
+		
 	}
 	
 	@Override
 	public void check() throws SemanticCheckException {
+		identifier.check();
 		expression.check();
-		//TODO checking identifier is in scope and construct var
 		if (expression instanceof NumNode) {
 			//TODO some checking for variables out of history ranges
 		}

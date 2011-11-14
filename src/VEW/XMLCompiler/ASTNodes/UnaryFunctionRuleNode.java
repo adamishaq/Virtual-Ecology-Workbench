@@ -1,5 +1,7 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.ControllerStructure.*;
+
 public class UnaryFunctionRuleNode extends RuleNode {
 
 	private UnaryRuleFunction funcName;
@@ -13,7 +15,15 @@ public class UnaryFunctionRuleNode extends RuleNode {
 	@Override
 	public void check() throws SemanticCheckException {
 		//May change this into a change node
-		//TODO check that the id refers to a stage, and perhaps stage semantic attribute
+		Catagory cata = getCatagory();
+		if (cata instanceof Chemical) {
+			throw new SemanticCheckException("Special functions cannot be called within chemical equations");
+		}
+		FunctionalGroup group = (FunctionalGroup) cata;
+		Stage stg = group.checkStageTable(idArg.getName());
+		if (stg == null) {
+			throw new SemanticCheckException(idArg.getName() + " is not a known stage");
+		}
 		//TODO some sort of warning system if multiple non conditional changes appear
 
 	}

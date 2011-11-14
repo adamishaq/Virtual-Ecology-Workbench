@@ -1,5 +1,7 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.ControllerStructure.Type;
+
 public class BinaryPrimitiveNode extends ExprNode {
 
 	private BinaryPrimitive prim;

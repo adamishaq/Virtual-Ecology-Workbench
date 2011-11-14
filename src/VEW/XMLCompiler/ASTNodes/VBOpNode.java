@@ -1,5 +1,9 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.ControllerStructure.Chemical;
+import VEW.Planktonica2.ControllerStructure.Type;
+import VEW.Planktonica2.ControllerStructure.VarietyType;
+
 public class VBOpNode extends BExprNode {
 	
 	private VBoolOperator vop;
@@ -12,12 +16,15 @@ public class VBOpNode extends BExprNode {
 	
 	@Override
 	public void check() throws SemanticCheckException {
+		if (getCatagory() instanceof Chemical) {
+			throw new SemanticCheckException("Variety operations cannot be called within chemical equations");
+		}
 		expression.check();
 		Type exprType = expression.getBExprType();
-		if (!(exprType instanceof Variety)) {
+		if (!(exprType instanceof VarietyType)) {
 			throw new SemanticCheckException("The expression must be a vector");
 		}
-		Variety varType = (Variety) exprType;
+		VarietyType varType = (VarietyType) exprType;
 		Type boolType = (Type) AmbientVariableTables.getTables().checkTypeTable("$boolean");
 		if (varType.getElementType() != boolType) {
 			throw new SemanticCheckException("The input for VBOp must be a vector of booleans");

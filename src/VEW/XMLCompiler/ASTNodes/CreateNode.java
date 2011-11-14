@@ -1,5 +1,7 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.ControllerStructure.*;
+
 public class CreateNode extends RuleNode {
 
 	private IdNode identifier;
@@ -20,10 +22,18 @@ public class CreateNode extends RuleNode {
 	
 	@Override
 	public void check() throws SemanticCheckException {
-		//TODO check identifier for valid state, perhaps semantic attribute for this
+		Catagory cata = getCatagory();
+		if (cata instanceof Chemical) {
+			throw new SemanticCheckException("Special functions cannot be called within chemical equations");
+		}
+		FunctionalGroup group = (FunctionalGroup) cata;
+		Stage stage = group.checkStageTable(identifier.getName());
+		if (stage == null) {
+			throw new SemanticCheckException(identifier.getName() + " is not a valid stage");
+		}
 		expression.check();
 		Type numExprType = expression.getExprType();
-		if (numExprType instanceof Variety) {
+		if (numExprType instanceof VarietyType) {
 			throw new SemanticCheckException("The expression for number of offspring must evaluate to a scalar");
 		}
 		//TODO assign list checking may need to be more complex, not sure yet

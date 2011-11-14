@@ -1,5 +1,6 @@
 package VEW.Planktonica2.ControllerStructure;
 
+import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 import VEW.XMLCompiler.ASTNodes.SymbolTable;
 
 public abstract class Catagory {
@@ -25,6 +26,28 @@ public abstract class Catagory {
 		varietyLocalTable = new SymbolTable();
 		varietyStateTable = new SymbolTable();
 	}
+	
+	public VariableType checkAssignableVariableTables(String variableName) {
+		StateVariable sVar = checkStateVariableTable(variableName);
+		if (sVar != null) return sVar;
+		Local localVar = checkLocalVarTable(variableName);
+		if (localVar != null) return localVar;
+		VarietyLocal varLocal = checkVarietyLocalTable(variableName);
+		if (varLocal != null) return varLocal;
+		VarietyVariable varState = checkVarietyStateTable(variableName);
+		return varState;
+	}
+	
+	public VariableType checkAccessableVariableTable(String variableName) {
+		VariableType var = checkAssignableVariableTables(variableName);
+		if (var != null) return var;
+		VarietyConcentration conc = checkVarietyConcTable(variableName);
+		if (conc != null) return conc;
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		var = (VariableType) tables.checkGlobalVariableTables(variableName);
+		return var;
+	}
+	
 	
 	
 	
@@ -52,8 +75,8 @@ public abstract class Catagory {
 		paramTable.put(param.getName(), param);
 	}
 	
-	public StateVariable checkParameterTable(String paramName) {
-		return (StateVariable) paramTable.get(paramName);
+	public Parameter checkParameterTable(String paramName) {
+		return (Parameter) paramTable.get(paramName);
 	}
 	
 	

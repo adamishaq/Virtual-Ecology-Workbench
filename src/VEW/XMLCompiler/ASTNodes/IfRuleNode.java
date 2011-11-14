@@ -1,5 +1,8 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.ControllerStructure.Type;
+import VEW.Planktonica2.ControllerStructure.VarietyType;
+
 public class IfRuleNode extends RuleNode {
 	
 	private BExprNode conditionExpr;
@@ -14,9 +17,10 @@ public class IfRuleNode extends RuleNode {
 	public void check() throws SemanticCheckException {
 		conditionExpr.check();
 		Type condType = conditionExpr.getBExprType();
-		if (condType instanceof Variety) {
+		if (condType instanceof VarietyType) {
 			throw new SemanticCheckException("The condition must evaluate to a boolean");
 		}
+		rule.setInsideConditional(true);
 		rule.check();
 	}
 

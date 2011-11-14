@@ -4,10 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
+import VEW.Planktonica2.ControllerStructure.GlobalVariable;
+import VEW.Planktonica2.ControllerStructure.Type;
 import VEW.XMLCompiler.ASTNodes.SymbolTable;
-import VEW.XMLCompiler.ASTNodes.Type;
-import VEW.XMLCompiler.ASTNodes.Variable;
 
 public class createVariableTest {
 
@@ -16,10 +15,10 @@ public class createVariableTest {
 		SymbolTable topSymTable = new SymbolTable();
 		topSymTable.put("$float", new Type("float"));
 		Type floatType = (Type) topSymTable.get("$float");
-		Variable var = new Variable("TestVar", floatType);
+		GlobalVariable var = new GlobalVariable("TestVar", "desc", floatType, null);
 		SymbolTable table = new SymbolTable(topSymTable);
 		table.put("TestVar", var);
-		Variable retrievedVar = (Variable) table.get("TestVar");
+		GlobalVariable retrievedVar = (GlobalVariable) table.get("TestVar");
 		Type type = retrievedVar.getVarType();
 		assertTrue(type.getName().equals("float"));
 	}
@@ -29,10 +28,10 @@ public class createVariableTest {
 		SymbolTable topSymTable = new SymbolTable();
 		topSymTable.put("$foodSet", new Type("foodSet"));
 		Type floatType = (Type) topSymTable.get("$foodSet");
-		Variable var = new Variable("TestSet", floatType);
+		GlobalVariable var = new GlobalVariable("TestSet", "desc", floatType, null);
 		SymbolTable table = new SymbolTable(topSymTable);
 		table.put("TestSet", var);
-		Variable retrievedVar = (Variable) table.get("TestSet");
+		GlobalVariable retrievedVar = (GlobalVariable) table.get("TestSet");
 		Type type = retrievedVar.getVarType();
 		assertTrue(type.getName().equals("foodSet"));
 	}
@@ -42,10 +41,10 @@ public class createVariableTest {
 		SymbolTable topSymTable = new SymbolTable();
 		topSymTable.put("$vector", new Type("vector"));
 		Type floatType = (Type) topSymTable.get("$vector");
-		Variable var = new Variable("Vector", floatType);
+		GlobalVariable var = new GlobalVariable("Vector", "desc", floatType, null);
 		SymbolTable table = new SymbolTable(topSymTable);
 		table.put("Vector", var);
-		Variable retrievedVar = (Variable) table.get("Vector");
+		GlobalVariable retrievedVar = (GlobalVariable) table.get("Vector");
 		Type type = retrievedVar.getVarType();
 		assertTrue(type.getName().equals("vector"));
 	}
