@@ -7,6 +7,9 @@ import java.util.List;
 import org.antlr.runtime.tree.CommonErrorNode;
 import org.antlr.runtime.tree.CommonTree;
 
+import org.antlr.runtime.CommonToken;
+import org.antlr.runtime.MismatchedTokenException;
+import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.Token;
 
 import VEW.XMLCompiler.ANTLR.BACONParser;
@@ -406,23 +409,41 @@ public class CommonTreeWalker {
 	private boolean checkNode(CommonTree node) {
 		if (node instanceof CommonErrorNode) {
 			CommonErrorNode cen = (CommonErrorNode) node;
-			String error_token = "";
-			char[] chars = cen.toString().toCharArray();
-			boolean found = false;
-			boolean done = false;
-			for (int i = 0; i < chars.length && !done; i++) {
-				if (chars[i] == '=' && !found) {
-					found = true;
-				} else if (found && chars[i] == ',' && chars[i+1] == '<') {
-					done = true;
-				} else if (found) {
-					error_token += chars[i];
+			if (cen.trappedException instanceof MismatchedTokenException) {
+				MismatchedTokenException m = (MismatchedTokenException) cen.trappedException;
+				String expecting = BACONParser.getTokenFromType(m.expecting);
+				String error_message = "";
+				if (m.token.getText().equals("<EOF>"))
+					error_message = "Unexpected end of input on line " + cen.trappedException.line + 
+					". Expecting " + expecting + ".";
+				else if (m.token.getText().contains("\n")) {
+					error_message = "Unexpected newline on line " + cen.trappedException.line + 
+					". Expecting " + expecting + ".";
 				}
-			}
-			exceptions.add(
-				new TreeWalkerException("Unexpected " 
-						+ error_token + " found on line " + cen.trappedException.line,
-						cen.trappedException.line,cen.trappedException.charPositionInLine));
+				else
+					error_message = "Unexpected '" + m.token.getText() + "' on line " +
+					cen.trappedException.line + ". Expecting " + expecting + ".";
+				exceptions.add(
+					new TreeWalkerException(error_message,
+							cen.trappedException.line,cen.trappedException.charPositionInLine));
+			} else if (cen.trappedException instanceof NoViableAltException) {
+				NoViableAltException m = (NoViableAltException) cen.trappedException;
+					String error_message = "";
+					if (m.token.getText().equals("<EOF>"))
+						error_message = "Unexpected end of input on line " + cen.trappedException.line + ".";
+					else if (m.token.getText().contains("\n")) {
+						error_message = "Unexpected newline on line " + cen.trappedException.line + ".";
+					}
+					else
+						error_message = "Unexpected '" + m.token.getText() + "' found on line " +
+						cen.trappedException.line + ".";
+					exceptions.add(
+						new TreeWalkerException(error_message,
+								cen.trappedException.line,cen.trappedException.charPositionInLine));
+			} else {
+				exceptions.add(
+						new TreeWalkerException("Unexpected error encountered",0,0));
+			}		
 			return false;
 		}
 		return true;

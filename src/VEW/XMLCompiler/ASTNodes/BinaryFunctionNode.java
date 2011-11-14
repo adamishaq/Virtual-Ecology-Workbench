@@ -31,13 +31,19 @@ public class BinaryFunctionNode extends RuleNode {
 	
 	@Override
 	public String generateLatex() {
-		String func = "";
+		String func = "???";
+		String id = "???";
+		if (idArg != null)
+			id = idArg.generateLatex();
+		String exp = "???";
+		if (expArg != null)
+			exp = expArg.generateLatex();
 		switch (binFunc) {
 		case UPTAKE  : func = "uptake"; break;
 		case RELEASE : func = "release"; break;
-		case PCHANGE : return "pchange(" + idArg.generateLatex() + "," + expArg.generateLatex() + ")";
+		case PCHANGE : return "pchange(" + id + "," + exp + ")";
 		}
-		return func + "(" + expArg.generateLatex() + "," + idArg.generateLatex() + ")";
+		return func + "(" + exp + "," + id + ")";
 	}
 
 }

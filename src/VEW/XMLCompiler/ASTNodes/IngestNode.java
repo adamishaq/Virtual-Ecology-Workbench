@@ -25,8 +25,16 @@ public class IngestNode extends RuleNode {
 	}
 	
 	public String generateLatex() {
-		return " ingest(" + identifier.generateLatex() + "," + threshold.generateLatex() + " , "
-	  	+ rate.generateLatex() + ")";
+		String id = "???";
+		if (identifier != null)
+			id = identifier.generateLatex();
+		String thresh = "???";
+		if (threshold != null)
+			thresh = threshold.generateLatex();
+		String rp = "???";
+		if (rate != null)
+			rp = rate.generateLatex();
+		return " ingest(" + id + "," + thresh + " , " + rp + ")";
 	}
 
 }

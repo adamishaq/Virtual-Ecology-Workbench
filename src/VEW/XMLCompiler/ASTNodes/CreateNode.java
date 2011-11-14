@@ -36,12 +36,18 @@ public class CreateNode extends RuleNode {
 	}
 	
 	public String generateLatex() {
+		String id = "???";
+		if (identifier != null)
+			id = identifier.generateLatex();
+		String exp = "???";
+		if (expression != null)
+			exp = expression.generateLatex();
 		if (assignList != null) {
-			return "create(" + identifier.generateLatex() + "," 
-			 + expression.generateLatex() + ")\\;with\\;[" + assignList.generateLatex() + "]";
+			return "create(" + id + "," 
+			 + exp + ")\\;with\\;[" + assignList.generateLatex() + "]";
 		} else {
-			return "create(" + identifier.generateLatex() + "," 
-			 + expression.generateLatex() + ")";
+			return "create(" + id + "," 
+			 + exp + ")";
 		}
 	}
 

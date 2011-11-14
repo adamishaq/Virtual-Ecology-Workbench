@@ -23,7 +23,13 @@ public class VarHistNode extends ExprNode {
 	
 	@Override
 	public String generateLatex() {
-		return "varhist( " + identifier.generateLatex() + " , " + expression.generateLatex() + " )";
+		String id = "???";
+		if (identifier != null)
+			id = identifier.generateLatex();
+		String exp = "???";
+		if (expression != null)
+			exp = expression.generateLatex();
+		return "varhist( " + id + " , " + exp + " )";
 	}
 
 }

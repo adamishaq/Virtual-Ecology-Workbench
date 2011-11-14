@@ -26,11 +26,13 @@ public class UnaryFunctionRuleNode extends RuleNode {
 	}
 	
 	public String generateLatex() {
-		String func = "";
+		String func = "???";
 		switch (funcName) {
 		case CHANGE : func = " change "; break;
 		}
-		return func + "(" + idArg.generateLatex() + ")";
+		if (idArg != null)
+			return func + "(" + idArg.generateLatex() + ")";
+		return func + "(???)";
 	}
 
 }

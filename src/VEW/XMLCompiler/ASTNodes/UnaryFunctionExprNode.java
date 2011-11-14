@@ -26,11 +26,13 @@ public class UnaryFunctionExprNode extends RuleNode {
 	}
 	
 	public String generateLatex() {
-		String func = "";
+		String func = "???";
 		switch (function) {
 		case DIVIDE : func = " divide "; break;
 		}
-		return func + "(" + expArg.generateLatex() + ")";
+		if (expArg != null)
+			return func + "(" + expArg.generateLatex() + ")";
+		return func + "(???)";
 	}
 
 }

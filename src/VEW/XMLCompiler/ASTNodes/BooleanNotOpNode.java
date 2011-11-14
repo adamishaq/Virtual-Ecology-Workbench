@@ -20,7 +20,10 @@ public class BooleanNotOpNode extends BExprNode {
 	}
 	
 	public String generateLatex() {
-		return " \\sim " + expression.generateLatex();
+		if (expression != null)
+			return " \\sim " + expression.generateLatex();
+		else
+			return " \\sim ???";
 	}
 
 }

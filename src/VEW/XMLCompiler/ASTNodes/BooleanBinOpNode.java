@@ -3,13 +3,13 @@ package VEW.XMLCompiler.ASTNodes;
 public class BooleanBinOpNode extends BExprNode {
 
 	private BooleanBinOperator booleanOp;
-	private BExprNode rightBExpr;
-	private BExprNode leftBExpr;
+	private BExprNode rBExpr;
+	private BExprNode lBExpr;
 	
 	public BooleanBinOpNode(BooleanBinOperator booleanOp, BExprNode leftBExpr, BExprNode rightBExpr) {
 		this.booleanOp = booleanOp;
-		this.rightBExpr = rightBExpr;
-		this.leftBExpr = leftBExpr;
+		this.rBExpr = rightBExpr;
+		this.lBExpr = leftBExpr;
 	}
 	
 	@Override
@@ -25,16 +25,22 @@ public class BooleanBinOpNode extends BExprNode {
 		case AND : op = "and"; break; 
 		case OR  : op = "or"; break;
 		}
-		return "\\" + op + "{" + leftBExpr.generateXML() + "," + rightBExpr.generateXML() + "}";
+		return "\\" + op + "{" + lBExpr.generateXML() + "," + rBExpr.generateXML() + "}";
 	}
 	
 	public String generateLatex() {
-		String op = "";
+		String op = "???";
+		String left = "???";
+		if (lBExpr != null)
+			left = lBExpr.generateLatex();
+		String right = "???";
+		if (rBExpr != null)
+			right = rBExpr.generateLatex();
 		switch (booleanOp) {
 		case AND : op = " \\cap "; break; 
 		case OR  : op = " \\cup "; break;
 		}
-		return leftBExpr.generateLatex() + "\\;" + op + "\\;" + rightBExpr.generateLatex();
+		return  left + "\\;" + op + "\\;" + right;
 	}
 
 }

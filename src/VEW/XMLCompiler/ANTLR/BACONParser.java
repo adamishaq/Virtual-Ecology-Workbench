@@ -96,6 +96,8 @@ public class BACONParser extends Parser {
     public static final int VSUM=77;
     public static final int WITH=78;
 
+    private static Map<Integer,String> naturalNames;
+    
     // delegates
     public Parser[] getDelegates() {
         return new Parser[] {};
@@ -104,6 +106,30 @@ public class BACONParser extends Parser {
     // delegators
 
 
+    public static String getTokenFromType(int ttype) {
+    	if (naturalNames == null)
+    		populateNaturalNames();
+    	return naturalNames.get(ttype);
+    }
+    
+    private static void populateNaturalNames() {
+    	naturalNames = new HashMap<Integer,String>();
+    	naturalNames.put(COLON, "':'");
+    	naturalNames.put(COMMA, "','");
+    	naturalNames.put(RBRACKET, "')'");
+    	naturalNames.put(LBRACKET, "'('");
+    	naturalNames.put(EOF, "end of file");
+    	naturalNames.put(EQUALS, "'='");
+    	naturalNames.put(FLOAT, "number");
+    	naturalNames.put(ELSE, "else");
+    	naturalNames.put(THEN, "then");
+    	naturalNames.put(IF, "if");
+    	naturalNames.put(WITH, "with");
+    	naturalNames.put(LSQUARE, "'['");
+    	naturalNames.put(RSQUARE, "']'");
+    	naturalNames.put(VAR, "variable");
+    }
+    
     public BACONParser(TokenStream input) {
         this(input, new RecognizerSharedState());
     }
@@ -125,7 +151,12 @@ public TreeAdaptor getTreeAdaptor() {
     public String[] getTokenNames() { return BACONParser.tokenNames; }
     public String getGrammarFileName() { return "C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g"; }
 
-
+    protected Object recoverFromMismatchedToken(IntStream input, int ttype, BitSet follow) throws RecognitionException {
+    	RecognitionException e = null;
+    	e = new MismatchedTokenException(ttype,input);
+    	throw e;
+    }
+    
     public static class rules_return extends ParserRuleReturnScope {
         Object tree;
         public Object getTree() { return tree; }

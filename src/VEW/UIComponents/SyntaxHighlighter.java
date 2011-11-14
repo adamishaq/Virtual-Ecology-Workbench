@@ -22,12 +22,12 @@ public class SyntaxHighlighter {
 	private ArrayList<TreeWalkerException> exceptions;
 	
 	// The colours to be used for syntax highlighting is hex form
-	private String keyword_colour = "3333FF";
-	private String comment_colour = "33CC00";
+	private String keyword_colour = "8B1C62";//"3333FF";
+	private String comment_colour = "3F7F5F";//"33CC00";
 	private String incorrect_colour = "FF0000";
-	private String function_colour = "660066";
-	private String rule_colour = "3399CC";
-	private String variable_colour = "660099";
+	private String function_colour = "8B1C62";//"660066";
+	private String rule_colour = "0000C0";//"3399CC";
+	private String variable_colour = "0000C0";//"660099";
 	
 	public SyntaxHighlighter(String [] _keywords,String[] _functions) {
 		// Set up a new SyntaxPane given a list of keywords and functions
@@ -105,12 +105,12 @@ public class SyntaxHighlighter {
 		// Highlight all keywords
 		for (int i = 0; i < keywords.length; i++) {
 			text = text.replaceAll(keywords[i], 
-					"<font color=#" + keyword_colour + ">" + keywords[i] + "</font>");
+					"<font color=#" + keyword_colour + "><b>" + keywords[i] + "</b></font>");
 		}
 		// Highlight all function names
 		for (int i = 0; i < functions.length; i++) {
 			text = text.replaceAll(functions[i], 
-					"<font color=#" + function_colour + ">" + functions[i] + "</font>");
+					"<font color=#" + function_colour + "><b>" + functions[i] + "</b></font>");
 		}
 		// Highlight all variable names
 		for (int i = 0; i < variables.length; i++) {
@@ -118,64 +118,53 @@ public class SyntaxHighlighter {
 					"<font color=#" + variable_colour + ">" + variables[i] + "</font>");
 		}
 		// Highlight all rule names
-		text = text.replaceAll(":", "</font>:");
-		char[] chars = text.toCharArray();
-		String partial_text = "";
-		boolean colon_found = false;
-		for (int i = chars.length - 1; i >= 0; i--) {
-			if (chars[i] == ':') {
-				colon_found = true;
-			} else if (colon_found && chars[i] == '\n') {
-				colon_found = false;
-				partial_text += "%";
+		if (text.contains(":")) {
+			text = text.replaceAll(":", "</font>:");
+			char[] chars = text.toCharArray();
+			text = "";
+			boolean colon_found = false;
+			for (int i = chars.length - 1; i >= 0; i--) {
+				if (chars[i] == ':') {
+					colon_found = true;
+				} else if (colon_found && chars[i] == '\n') {
+					colon_found = false;
+					text += "%";
+				}
+				text += chars[i];
 			}
-			partial_text += chars[i];
-		}
-		if (colon_found) {
-			partial_text += "%";
-		}
-		partial_text = new StringBuffer(partial_text).reverse().toString();
-		partial_text = partial_text.replaceAll("%","<font color=#" + rule_colour + ">");
-		/*
-		boolean in_quotes = false;
-		for (int i = 0; i < chars.length; i++) {
-			if (!in_quotes && (i < chars.length - 2) && chars[i] == '&' && chars[i+1] == 'q') {
-				in_quotes = true;
-				partial_text += "<font color=#" + rule_colour + ">\"";
-				i += 5;
-			} else if (in_quotes && (i < chars.length - 2) && chars[i] == '&' && chars[i+1] == 'q') {
-				in_quotes = false;
-				partial_text += "\"</font>";
-				i += 5;
-			} else {
-				partial_text += chars[i];
+			if (colon_found) {
+				text += "%";
 			}
-		}*/
-		
-		partial_text = remove_non_word_tags(partial_text);
-		
-		chars = partial_text.toCharArray();
-		String final_text = "";
+			text = new StringBuffer(text).reverse().toString();
+			text = text.replaceAll("%","<font color=#" + rule_colour + ">");
+		}
+		text = remove_non_word_tags(text);
 		// Highlight all comments
-		//String final_text = "";
-		boolean in_comment = false;
-		for (int i = 0; i < chars.length; i++) {
-			if (i < (chars.length - 1) && chars[i] == '/' && chars[i+1] == '/') {
-				in_comment = true;
-				final_text += "<font color=#" + comment_colour + ">/";
-			} else if (in_comment && chars[i] == '\n') {
-				in_comment = false;
-				final_text += "</font>\n";
-			} else {
-				final_text += chars[i];
+		if (text.contains("//")) {
+			char[] chars = text.toCharArray();
+			text = "";
+			boolean in_comment = false;
+			for (int i = 0; i < chars.length; i++) {
+				if (i < (chars.length - 1) && chars[i] == '/' && chars[i+1] == '/') {
+					in_comment = true;
+					text += "<font color=#" + comment_colour + ">/";
+				} else if (in_comment && chars[i] == '\n') {
+					in_comment = false;
+					text += "</font>\n";
+				} else {
+					text += chars[i];
+				}
 			}
 		}
 		// Flag all error lines
 		for(TreeWalkerException e : exceptions) {
-			final_text = highlight_error(e.getLine(),e.getChar_pos(),final_text);
+			text = highlight_error(e.getLine(),e.getChar_pos(),text);
 		}
-		final_text = remove_inner_tags(final_text);
-		return("<html><head></head><PRE>\n" + final_text + "</PRE></html>");
+		text = remove_inner_tags(text);
+		// Incorrect keywords should be highlighted
+		text = text.replaceAll("<%>", "<font color=#" + incorrect_colour + ">");
+		text = text.replaceAll("</%>", "</font>");
+		return("<html><head></head><PRE>\n" + text + "</PRE></html>");
 	}
 	
 	// Flags a line of text containing an error
@@ -184,10 +173,12 @@ public class SyntaxHighlighter {
 		boolean ignore = false;
 		boolean error_found = false;
 		char[] chars = text.toCharArray();
+		// This uses '%', which is later replaced with the actual font tag
 		for (int i = 0; i < chars.length; i++) {
-			if (line == 0 && (chars[i] == '\n' || chars[i] == ' ' || chars[i] == '\t')) {
-				flagged_text += "</font>";
-				line--;
+			if (error_found && (chars[i] == '\n' || chars[i] == ' ' || chars[i] == '\t'
+				             || chars[i] == ')' || chars[i] == '(')) {
+				flagged_text += "</%>";
+				error_found = false;
 			} else if (!ignore && line == 1 && chars[i] == '<') {
 				ignore = true;
 			} else if (!ignore && line == 1 && chars[i] == '&') {
@@ -199,8 +190,11 @@ public class SyntaxHighlighter {
 			} else if (!ignore && line == 1 && char_pos > 0) {
 				char_pos--;
 			} else if (!ignore && line == 1 && char_pos == 0) {
-				error_found = true;
-				flagged_text += "<font color=#" + incorrect_colour + ">";
+				if (!(chars[i] == ' ' || chars[i] == '\n' || chars[i] == '\t')) {
+					// Highlight the error if it s an actual token
+					error_found = true;
+					flagged_text += "<%>";
+				}
 				line--;
 			} else if (chars[i] == '\n') {
 				line--;
@@ -234,8 +228,9 @@ public class SyntaxHighlighter {
 		boolean ignore = false;
 		boolean in_tag = false;
 		for (int i = 0; i < chars.length; i++) {
-			if ((i < chars.length - 3) && Character.isLetterOrDigit(chars[i]) && chars[i+1] == '<'
-				  && chars[i+2] == 'f') {
+			if ((i < chars.length - 3) 
+					&& (Character.isLetterOrDigit(chars[i]) || chars[i] == '<' ||  chars[i] == '>')
+					&& chars[i+1] == '<' && chars[i+2] == 'f') {
 				// This is the start of a '<font>' tag
 				ignore = true;
 				in_tag = true;
@@ -259,8 +254,9 @@ public class SyntaxHighlighter {
 		boolean ignore = false;
 		boolean in_tag = false;
 		for (int i = chars.length - 1; i >= 0; i--) {
-			if ((i > 2) && Character.isLetterOrDigit(chars[i]) && chars[i-1] == '>'
-				  && chars[i-2] == 't') {
+			if ((i > 2) 
+				  && (Character.isLetterOrDigit(chars[i]) || chars[i] == '<' || chars[i] == '>') 
+				  && chars[i-1] == '>' && chars[i-2] == 't') {
 				// This is the end of a '<font>' tag
 				ignore = true;
 				in_tag = true;
@@ -322,8 +318,8 @@ public class SyntaxHighlighter {
 		char[] chars = tag_text.toCharArray();
 		boolean in_tag = false;
 		for (int i = 0; i < chars.length; i++) {
-			if ((i < chars.length - 2) && chars[i] == '<' && (chars[i+1] == 'f'
-				 || chars[i+1] == '/' && chars[i+2] == 'f')) {
+			if ((i < chars.length - 2) && chars[i] == '<' /*&& (chars[i+1] == 'f'
+				 || chars[i+1] == '/' && chars[i+2] == 'f')*/) {
 				// This is the start of a '<font>' or '</font>' tag, so remove it
 				in_tag = true;
 			} else if (!in_tag) {

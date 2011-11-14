@@ -27,8 +27,17 @@ public class IfExprNode extends ExprNode {
 	}
 	
 	public String generateLatex() {
-		return "if\\;(" + conditionExpr.generateLatex() + ")\\;then\\;(" + thenExpr.generateLatex()
-		 + ")\\;else\\;(" + elseExpr.generateLatex() + ")";
+		String cond = "???";
+		if (conditionExpr != null)
+			cond = conditionExpr.generateLatex();
+		String then = "???";
+		if (thenExpr != null)
+			then = thenExpr.generateLatex();
+		String elseexp = "???";
+		if (elseExpr != null)
+			elseexp = elseExpr.generateLatex();
+		return "if\\;(" + cond + ")\\;then\\;(" + then
+		 + ")\\;else\\;(" + elseexp + ")";
 	}
 
 }

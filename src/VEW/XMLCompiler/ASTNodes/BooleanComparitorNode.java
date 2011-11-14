@@ -3,13 +3,13 @@ package VEW.XMLCompiler.ASTNodes;
 public class BooleanComparitorNode extends BExprNode {
 	
 	private ComparisonOperator comparitor;
-	private ExprNode rightExpr;
-	private ExprNode leftExpr;
+	private ExprNode rExpr;
+	private ExprNode lExpr;
 	
 	public BooleanComparitorNode (ComparisonOperator comparitor, ExprNode leftExpr, ExprNode rightExpr) {
 		this.comparitor = comparitor;
-		this.rightExpr = rightExpr;
-		this.leftExpr = leftExpr;
+		this.rExpr = rightExpr;
+		this.lExpr = leftExpr;
 	}
 
 	@Override
@@ -29,11 +29,17 @@ public class BooleanComparitorNode extends BExprNode {
 		case GREATEREQUALS : op = "greaterequal"; break;
 		case LESSEQUALS    : op = "lessequal"; break; 
 		}
-		return "\\" + op + "{" + leftExpr.generateXML() + "," + rightExpr.generateXML() + "}";
+		return "\\" + op + "{" + lExpr.generateXML() + "," + rExpr.generateXML() + "}";
 	}
 	
 	public String generateLatex() {
-		String op = "";
+		String op = "???";
+		String left = "???";
+		if (lExpr != null)
+			left = lExpr.generateLatex();
+		String right = "???";
+		if (rExpr != null)
+			right = rExpr.generateLatex();
 		switch (comparitor) {
 		case EQUALS        : op = " = "; break; 
 		case NEQUALS       : op = " \\neq" ; break; 
@@ -42,7 +48,7 @@ public class BooleanComparitorNode extends BExprNode {
 		case GREATEREQUALS : op = " \\geq "; break;
 		case LESSEQUALS    : op = " \\leq "; break; 
 		}
-		return leftExpr.generateLatex() + op + rightExpr.generateLatex();
+		return left + op + right;
 	}
 
 }

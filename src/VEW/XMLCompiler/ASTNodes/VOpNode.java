@@ -30,13 +30,16 @@ public class VOpNode  extends ExprNode {
 	
 	@Override
 	public String generateLatex() {
-		String func = "";
+		String func = "???";
+		String exp = "???";
+		if (expression != null)
+			exp = expression.generateLatex();
 		switch (vop) {
 		case AVERAGE : func = " average "; break;
 		case PRODUCT : func = " \\prod "; break;
 		case SUM 	 : func = " \\sum "; break;
 		}
-		return func + "(" + expression.generateLatex() + ")";
+		return func + "(" + exp + ")";
 	}
 
 }

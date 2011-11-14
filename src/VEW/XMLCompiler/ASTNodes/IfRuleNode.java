@@ -22,7 +22,13 @@ public class IfRuleNode extends RuleNode {
 	}
 
 	public String generateLatex() {
-		return "if\\;(" + conditionExpr.generateLatex() + ")\\;then\\;(" + rule.generateLatex() + ")";
+		String condition = "???";
+		if (conditionExpr != null)
+			condition = conditionExpr.generateLatex();
+		String result = "???";
+		if (rule != null)
+			result = rule.generateLatex();
+		return "if\\;(" + condition + ")\\;then\\;(" + result + ")";
 	}
 	
 }

@@ -32,14 +32,20 @@ public class BinOpNode extends ExprNode {
 	}
 
 	public String generateLatex() {
-		String func = "";
+		String func = "???";
+		String left = "???";
+		if (lExpr != null)
+			left = lExpr.generateLatex();
+		String right = "???";
+		if (rExpr != null)
+			right = rExpr.generateLatex();
 		switch (operator) {
 		case PLUS     : func  = "+"; break;
 		case MINUS    : func  = "-"; break;
 		case MULTIPLY : func  = "*"; break;
-		case DIVIDE   : return "\\frac {" + lExpr.generateLatex() + "} {" + rExpr.generateLatex() + "}";
-		case POWER    : return lExpr.generateLatex() + "^ {" + rExpr.generateLatex() + "}";
+		case DIVIDE   : return "\\frac {" + left + "} {" + right + "}";
+		case POWER    : return left + "^ {" + right + "}";
 		}
-		return lExpr.generateLatex() + func + rExpr.generateLatex();
+		return left + func + right;
 	}
 }

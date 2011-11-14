@@ -29,12 +29,15 @@ public class VBOpNode extends BExprNode {
 	
 	@Override
 	public String generateLatex() {
-		String func = "";
+		String func = "???";
+		String exp = "???";
+		if (expression != null)
+			exp = expression.generateLatex();
 		switch (vop) {
 		case ALL  : func = " all "; break;
 		case NONE : func = " no "; break;
 		case SOME : func = " some "; break;
 		}
-		return func + "(" + expression.generateLatex() + ")";
+		return func + "(" + exp + ")";
 	}
 }

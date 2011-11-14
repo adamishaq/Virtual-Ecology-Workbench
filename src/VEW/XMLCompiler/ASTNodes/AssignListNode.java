@@ -41,7 +41,10 @@ public class AssignListNode extends ASTree {
 	public String generateLatex() {
 		String genString = "";
 		for (AssignNode a : assignList) {
-			genString += a.generateLatex() + ",";
+			if (a != null)
+				genString += a.generateLatex() + ",";
+			else 
+				genString += "???,";
 		}
 		// Trim off the last comma
 		genString = genString.substring(0, genString.length() - 1);

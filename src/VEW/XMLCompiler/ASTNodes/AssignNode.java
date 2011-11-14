@@ -35,7 +35,13 @@ public class AssignNode extends RuleNode {
 	
 	@Override
 	public String generateLatex() {
-		return identifier.generateLatex() + " = " + expr.generateLatex();
+		String id = "???";
+		if (identifier != null)
+			id = identifier.generateLatex();
+		String ex = "???";
+		if (expr != null)
+			ex = expr.generateLatex();
+		return id + " = " + ex;
 	}
 
 }
