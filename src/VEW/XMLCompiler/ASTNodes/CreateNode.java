@@ -51,5 +51,22 @@ public class CreateNode extends RuleNode {
 			 + expression.generateXML() + "}";
 		}
 	}
+	
+	@Override
+	public String generateLatex() {
+		String id = "???";
+		if (identifier != null)
+			id = identifier.generateLatex();
+		String exp = "???";
+		if (expression != null)
+			exp = expression.generateLatex();
+		if (assignList != null) {
+			return "create(" + id + "," 
+			 + exp + ")\\;with\\;[" + assignList.generateLatex() + "]";
+		} else {
+			return "create(" + id + "," 
+			 + exp + ")";
+		}
+	}
 
 }

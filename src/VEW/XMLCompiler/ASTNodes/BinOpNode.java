@@ -22,7 +22,6 @@ public class BinOpNode extends ExprNode {
 		Type lType = lExpr.getExprType();
 		Type rType = rExpr.getExprType();
 		setExprType(checkCompatibility(lType, rType));
-
 	}
 
 	private Type checkCompatibility(Type lType, Type rType) {
@@ -47,6 +46,24 @@ public class BinOpNode extends ExprNode {
 		case POWER    : op = "pow"; break; 
 		}
 		return "\\" + op + "{" + lExpr.generateXML() + "," + rExpr.generateXML() + "}";
+	}
+
+	public String generateLatex() {
+		String func = "???";
+		String left = "???";
+		if (lExpr != null)
+			left = lExpr.generateLatex();
+		String right = "???";
+		if (rExpr != null)
+			right = rExpr.generateLatex();
+		switch (operator) {
+		case PLUS     : func  = "+"; break;
+		case MINUS    : func  = "-"; break;
+		case MULTIPLY : func  = "*"; break;
+		case DIVIDE   : return "\\frac {" + left + "} {" + right + "}";
+		case POWER    : return left + "^ {" + right + "}";
+		}
+		return left + func + right;
 	}
 
 }

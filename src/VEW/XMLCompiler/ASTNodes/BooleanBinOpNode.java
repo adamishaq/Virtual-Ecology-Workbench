@@ -22,7 +22,6 @@ public class BooleanBinOpNode extends BExprNode {
 		Type rBExprType = rBExpr.getBExprType();
 		Type lBExprType = lBExpr.getBExprType();
 		setBExprType(checkTypeCompatible(rBExprType, lBExprType));
-
 	}
 	
 	private Type checkTypeCompatible(Type rBExprType, Type lBExprType) {
@@ -43,6 +42,22 @@ public class BooleanBinOpNode extends BExprNode {
 		case OR  : op = "or"; break;
 		}
 		return "\\" + op + "{" + lBExpr.generateXML() + "," + rBExpr.generateXML() + "}";
+	}
+
+	
+	public String generateLatex() {
+		String op = "???";
+		String left = "???";
+		if (lBExpr != null)
+			left = lBExpr.generateLatex();
+		String right = "???";
+		if (rBExpr != null)
+			right = rBExpr.generateLatex();
+		switch (booleanOp) {
+		case AND : op = " \\cap "; break; 
+		case OR  : op = " \\cup "; break;
+		}
+		return  left + "\\;" + op + "\\;" + right;
 	}
 
 }

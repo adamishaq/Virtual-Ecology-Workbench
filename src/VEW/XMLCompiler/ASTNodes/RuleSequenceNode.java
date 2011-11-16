@@ -55,5 +55,23 @@ public class RuleSequenceNode extends ASTree {
 				+ "</eq></equation>";
 		}
 	}
+	
+	public String generateLatex() {
+		if (seq != null) {
+			if (rule != null)
+				return "\\\\ \\\\ \\;" + rule.generateLatex() 
+				+ seq.generateLatex();
+			else
+				return "\\\\ \\\\ \\;???" 
+				+ seq.generateLatex();
+			
+		} else {
+			if (rule != null)
+				return "\\\\ \\\\ \\;" + rule.generateLatex();
+			else
+				return "\\\\ \\\\ \\;???";
+		}
+	}
+	
 
 }

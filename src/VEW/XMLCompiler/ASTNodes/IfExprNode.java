@@ -32,5 +32,20 @@ public class IfExprNode extends ExprNode {
 		return "\\conditional{" + conditionExpr.generateXML() + "," + thenExpr.generateXML()
 		 + "," + elseExpr.generateXML() + "}";
 	}
+	
+	@Override
+	public String generateLatex() {
+		String cond = "???";
+		if (conditionExpr != null)
+			cond = conditionExpr.generateLatex();
+		String then = "???";
+		if (thenExpr != null)
+			then = thenExpr.generateLatex();
+		String elseexp = "???";
+		if (elseExpr != null)
+			elseexp = elseExpr.generateLatex();
+		return "if\\;(" + cond + ")\\;then\\;(" + then
+		 + ")\\;else\\;(" + elseexp + ")";
+	}
 
 }

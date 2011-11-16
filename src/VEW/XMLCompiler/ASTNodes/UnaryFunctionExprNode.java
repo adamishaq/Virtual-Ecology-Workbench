@@ -33,5 +33,15 @@ public class UnaryFunctionExprNode extends RuleNode {
 		}
 		return "\\" + func + "{" + expArg.generateXML() + "}";
 	}
+	
+	public String generateLatex() {
+		String func = "???";
+		switch (function) {
+		case DIVIDE : func = " divide "; break;
+		}
+		if (expArg != null)
+			return func + "(" + expArg.generateLatex() + ")";
+		return func + "(???)";
+	}
 
 }

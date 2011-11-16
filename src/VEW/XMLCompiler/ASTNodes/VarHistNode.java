@@ -4,7 +4,6 @@ public class VarHistNode extends ExprNode {
 
 	private IdNode identifier;
 	private ExprNode expression;
-//	private Variable var;
 
 	public VarHistNode (IdNode identifier, ExprNode expression) {
 		this.identifier = identifier;
@@ -27,6 +26,17 @@ public class VarHistNode extends ExprNode {
 	@Override
 	public String generateXML() {
 		return "\\varhist{" + identifier.generateXML() + "," + expression.generateXML() + "}";
+	}
+	
+	@Override
+	public String generateLatex() {
+		String id = "???";
+		if (identifier != null)
+			id = identifier.generateLatex();
+		String exp = "???";
+		if (expression != null)
+			exp = expression.generateLatex();
+		return "varhist( " + id + " , " + exp + " )";
 	}
 
 }

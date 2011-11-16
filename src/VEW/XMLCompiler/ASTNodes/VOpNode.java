@@ -38,11 +38,25 @@ public class VOpNode  extends ExprNode {
 		// TODO - find out what avg codegens into
 		String func = "";
 		switch (vop) {
-		case AVERAGE : func = "???";
-		case PRODUCT : func = "varietymul";
-		case SUM 	 : func = "varietysum";
+		case AVERAGE : func = "???"; break;
+		case PRODUCT : func = "varietymul"; break;
+		case SUM 	 : func = "varietysum"; break;
 		}
 		return "\\" + func + "{" + expression.generateXML() + "}";
+	}
+	
+	@Override
+	public String generateLatex() {
+		String func = "???";
+		String exp = "???";
+		if (expression != null)
+			exp = expression.generateLatex();
+		switch (vop) {
+		case AVERAGE : func = " average "; break;
+		case PRODUCT : func = " \\prod "; break;
+		case SUM 	 : func = " \\sum "; break;
+		}
+		return func + "(" + exp + ")";
 	}
 
 }

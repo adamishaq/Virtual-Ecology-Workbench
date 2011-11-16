@@ -42,6 +42,17 @@ public class AssignNode extends RuleNode {
 		return "\\assign{" + identifier.generateXML() + "," + expr.generateXML() + "}";
 	}
 
+	@Override
+	public String generateLatex() {
+		String id = "???";
+		if (identifier != null)
+			id = identifier.generateLatex();
+		String ex = "???";
+		if (expr != null)
+			ex = expr.generateLatex();
+		return id + " = " + ex;
+	}
+	
 	public VariableType getAssignVar() {
 		return assignVar;
 	}

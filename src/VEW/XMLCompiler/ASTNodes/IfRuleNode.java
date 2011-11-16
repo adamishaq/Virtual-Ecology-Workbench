@@ -29,4 +29,15 @@ public class IfRuleNode extends RuleNode {
 		return "\\ifthen{" + conditionExpr.generateXML() + "," + rule.generateXML() + "}";
 	}
 
+	@Override
+	public String generateLatex() {
+		String condition = "???";
+		if (conditionExpr != null)
+			condition = conditionExpr.generateLatex();
+		String result = "???";
+		if (rule != null)
+			result = rule.generateLatex();
+		return "if\\;(" + condition + ")\\;then\\;(" + result + ")";
+	}
+	
 }

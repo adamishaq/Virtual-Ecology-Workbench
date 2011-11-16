@@ -48,5 +48,24 @@ public class BooleanComparitorNode extends BExprNode {
 		}
 		return "\\" + op + "{" + lExpr.generateXML() + "," + rExpr.generateXML() + "}";
 	}
+	
+	public String generateLatex() {
+		String op = "???";
+		String left = "???";
+		if (lExpr != null)
+			left = lExpr.generateLatex();
+		String right = "???";
+		if (rExpr != null)
+			right = rExpr.generateLatex();
+		switch (comparitor) {
+		case EQUALS        : op = " = "; break; 
+		case NEQUALS       : op = " \\neq" ; break; 
+		case GREATERTHAN   : op = " > "; break; 
+		case LESSTHAN      : op = " < "; break; 
+		case GREATEREQUALS : op = " \\geq "; break;
+		case LESSEQUALS    : op = " \\leq "; break; 
+		}
+		return left + op + right;
+	}
 
 }

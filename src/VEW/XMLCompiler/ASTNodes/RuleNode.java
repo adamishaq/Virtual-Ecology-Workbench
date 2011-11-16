@@ -1,6 +1,7 @@
 package VEW.XMLCompiler.ASTNodes;
 
 public abstract class RuleNode extends ASTree {
+
 	private boolean insideConditional = false;
 	
 	public boolean isWithinConditional(){
@@ -10,4 +11,5 @@ public abstract class RuleNode extends ASTree {
 	public void setInsideConditional(boolean inside) {
 		insideConditional = inside;
 	}
+	
 }

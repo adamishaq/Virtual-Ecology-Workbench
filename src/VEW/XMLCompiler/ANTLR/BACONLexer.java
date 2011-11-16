@@ -1,6 +1,6 @@
 // $ANTLR 3.4 C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g 2011-11-10 12:53:42
 
-package VEW.XMLCompiler.ANTLR.output;
+package VEW.XMLCompiler.ANTLR;
 
 
 import org.antlr.runtime.*;

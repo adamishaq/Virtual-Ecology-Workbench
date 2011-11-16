@@ -72,6 +72,7 @@ private static void populateNaturalNames() {
 	naturalNames.put(RBRACKET, "(");
 	naturalNames.put(LBRACKET, ")");
 	naturalNames.put(EOF, "eof");
+	naturalNames.put(EQUALS, "'='");
 	naturalNames.put(FLOAT, "number");
 	naturalNames.put(ELSE, "else");
 	naturalNames.put(THEN, "then");

@@ -36,5 +36,16 @@ public class UnaryFunctionRuleNode extends RuleNode {
 		}
 		return "\\" + func + "{" + idArg.generateXML() + "}";
 	}
+	
+	@Override
+	public String generateLatex() {
+		String func = "???";
+		switch (funcName) {
+		case CHANGE : func = " change "; break;
+		}
+		if (idArg != null)
+			return func + "(" + idArg.generateLatex() + ")";
+		return func + "(???)";
+	}
 
 }

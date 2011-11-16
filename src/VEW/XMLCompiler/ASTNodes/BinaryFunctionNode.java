@@ -54,4 +54,21 @@ public class BinaryFunctionNode extends RuleNode {
 		return "\\" + func + "{" + expArg.generateXML() + "," + idArg.generateXML() + "}";
 	}
 
+	@Override
+	public String generateLatex() {
+		String func = "???";
+		String id = "???";
+		if (idArg != null)
+			id = idArg.generateLatex();
+		String exp = "???";
+		if (expArg != null)
+			exp = expArg.generateLatex();
+		switch (binFunc) {
+		case UPTAKE  : func = "uptake"; break;
+		case RELEASE : func = "release"; break;
+		case PCHANGE : return "pchange(" + id + "," + exp + ")";
+		}
+		return func + "(" + exp + "," + id + ")";
+	}
+	
 }

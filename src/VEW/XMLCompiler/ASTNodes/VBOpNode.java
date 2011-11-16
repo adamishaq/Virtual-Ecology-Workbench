@@ -30,17 +30,31 @@ public class VBOpNode extends BExprNode {
 			throw new SemanticCheckException("The input for VBOp must be a vector of booleans");
 		}
 		setBExprType(boolType);
-		
 	}
 
 	@Override
 	public String generateXML() {
 		String func = "";
 		switch (vop) {
-		case ALL  : func = "allVariety";
-		case NONE : func = "noVariety";
-		case SOME : func = "someVariety";
+		case ALL  : func = "allVariety"; break;
+		case NONE : func = "noVariety"; break;
+		case SOME : func = "someVariety"; break;
 		}
 		return "\\" + func + "{" + expression.generateXML() + "}";
 	}
+	
+	@Override
+	public String generateLatex() {
+		String func = "???";
+		String exp = "???";
+		if (expression != null)
+			exp = expression.generateLatex();
+		switch (vop) {
+		case ALL  : func = " all "; break;
+		case NONE : func = " no "; break;
+		case SOME : func = " some "; break;
+		}
+		return func + "(" + exp + ")";
+	}
+
 }

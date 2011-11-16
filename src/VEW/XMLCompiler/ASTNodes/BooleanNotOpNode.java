@@ -18,5 +18,12 @@ public class BooleanNotOpNode extends BExprNode {
 	public String generateXML() {
 		return "\\not{" + expression.generateXML() + "}";
 	}
-
+	
+	@Override
+	public String generateLatex() {
+		if (expression != null)
+			return " \\sim " + expression.generateLatex();
+		else
+			return " \\sim ???";
+	}
 }

@@ -1,0 +1,14 @@
+// Test of VEW Syntax
+
+// This is a made up function
+"Temperate Function" : 
+ if ( a = b ) then change( V_max )
+
+// This is also made up
+"Photosynthesis" : create( Plankton , 8 ) with [A=1,B=2,C=3]
+
+// This is a really really long comment to test the scroll pane in the example compiler yay
+
+a = if (b = c and c >= d) then sum(FoodSet_1) else product(FoodSet_2)
+
+b = acos(abs(c)) ^ 7

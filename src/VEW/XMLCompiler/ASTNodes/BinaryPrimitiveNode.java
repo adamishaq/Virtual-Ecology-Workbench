@@ -41,4 +41,21 @@ public class BinaryPrimitiveNode extends ExprNode {
 		return "\\" + op + "{" + lExpr.generateXML() + "," + rExpr.generateXML() + "}";
 	}
 
+
+	@Override
+	public String generateLatex() {
+		String op = "???";
+		String left = "???";
+		if (lExpr != null)
+			left = lExpr.generateLatex();
+		String right = "???";
+		if (rExpr != null)
+			right = rExpr.generateLatex();
+		switch (prim) {
+		case MAX     : op = " max "; break; 
+		case MIN    : op = " min "; break; 
+		}
+		return op + "(" + left + "," + right + ")";
+	}
+
 }

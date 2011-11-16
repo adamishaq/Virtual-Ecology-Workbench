@@ -36,4 +36,18 @@ public class IngestNode extends RuleNode {
 		  	+ rate.generateXML() + "}";
 	}
 
+	@Override
+	public String generateLatex() {
+		String id = "???";
+		if (identifier != null)
+			id = identifier.generateLatex();
+		String thresh = "???";
+		if (threshold != null)
+			thresh = threshold.generateLatex();
+		String rp = "???";
+		if (rate != null)
+			rp = rate.generateLatex();
+		return " ingest(" + id + "," + thresh + " , " + rp + ")";
+	}
+	
 }

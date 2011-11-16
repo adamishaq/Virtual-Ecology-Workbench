@@ -97,15 +97,14 @@ public class BACONParser extends Parser {
     public static final int VPRODUCT=76;
     public static final int VSUM=77;
     public static final int WITH=78;
-
+    
     // delegates
     public Parser[] getDelegates() {
         return new Parser[] {};
     }
 
     // delegators
-
-
+    
     public BACONParser(TokenStream input) {
         this(input, new RecognizerSharedState());
     }
@@ -126,7 +125,6 @@ public TreeAdaptor getTreeAdaptor() {
 }
     public String[] getTokenNames() { return BACONParser.tokenNames; }
     public String getGrammarFileName() { return "C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g"; }
-
 
     private static Map<Integer, String> naturalNames = null; 
     //Parser stuff here
@@ -179,6 +177,7 @@ public TreeAdaptor getTreeAdaptor() {
     	naturalNames.put(RBRACKET, "(");
     	naturalNames.put(LBRACKET, ")");
     	naturalNames.put(EOF, "eof");
+    	naturalNames.put(EQUALS, "'='");
     	naturalNames.put(FLOAT, "number");
     	naturalNames.put(ELSE, "else");
     	naturalNames.put(THEN, "then");

@@ -57,5 +57,37 @@ public class UnaryPrimNode extends ExprNode {
 		}
 		return "\\" + func + "{" + argument.generateXML() + "}";
 	}
+	
+	@Override
+	public String generateLatex() {
+		String func = "???";
+		String arg = "???";
+		if (argument != null)
+			arg = argument.generateLatex();
+		switch (primitive) {
+		case ABS 		 : return " | " + arg + " | ";
+		case ACOS 		 : func = " \\cos ^ {-1} "; break;
+		case ASIN 		 : func = " \\sin ^ {-1} "; break;
+		case ATAN 		 : func = " \\tan ^ {-1} "; break;
+		case COS 		 : func = " \\cos "; break;
+		case EXP 		 : return " e ^ {" + arg + "}";
+		case LN 		 : func = " \\ln "; break;
+		case LOGTEN 	 : func = " log_{10} "; break;
+		case RND 		 : func = " rnd "; break;
+		case SIN 		 : func = " \\sin "; break;
+		case SQRT 		 : return " \\sqrt{" + arg + "}";
+		case TAN 		 : func = " \\tan "; break;
+		case DENSITYAT 	 : func = " densityAt "; break;
+		case DEPTHFORFI  : func = " depthForFI "; break;
+		case DEPTHFORVI  : func = " depthForVI "; break;
+		case FULLIRRADAT : func = " fullIrradAt "; break;
+		case SALINITYAT  : func = " salinityAt "; break;
+		case TEMPAT 	 : func = " temperatureAt "; break;
+		case UVIRRADAT 	 : func = " UVIrradAt "; break;
+		case INTEGRATE 	 : func = " integrate "; break;
+		}
+		return func + "(" + arg + ")";
+	}
+
 
 }

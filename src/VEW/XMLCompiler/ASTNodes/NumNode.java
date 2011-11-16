@@ -21,4 +21,9 @@ public class NumNode extends ExprNode {
 		return "\\val{\\sival{" + value + ",0},\\unit{0,0,0}}";
 	}
 
+	@Override
+	public String generateLatex() {
+		return " " + value + " ";
+	}
+
 }

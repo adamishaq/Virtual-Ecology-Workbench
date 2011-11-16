@@ -64,9 +64,13 @@ public class ANTLRParser {
 	 * @throws TreeWalkerException thrown if the ASTree nodes are generated incorrectly.
 	 * @throws SemanticCheckException 
 	 */
-	public String generateXML () throws RecognitionException, TreeWalkerException, SemanticCheckException {
-		ASTree t = getAST();
-		t.check();
+
+	public String generateXML () throws RecognitionException, SemanticCheckException {
+		ConstructedASTree ct = getAST();
+		ASTree t = ct.getTree();
+		if (ct.getExceptions().isEmpty()) {
+			t.check();
+		}
 		return t.generateXML();
 	}
 	
@@ -79,7 +83,7 @@ public class ANTLRParser {
 	 * @throws RecognitionException thrown if the parser fails to parse the file.
 	 * @throws TreeWalkerException only occurs if the parser has let the incorrect input through
 	 */
-	public ASTree getAST () throws RecognitionException, TreeWalkerException {		
+	public ConstructedASTree getAST () throws RecognitionException {		
 		return new CommonTreeWalker(getAntlrAST()).constructASTree();
 	}
 	
