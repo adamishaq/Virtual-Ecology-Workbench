@@ -11,7 +11,7 @@ public class NumNode extends ExprNode {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
+	public void check() {
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		setExprType((Type)tables.checkTypeTable("$float"));
 	}

@@ -5,6 +5,8 @@ import VEW.Planktonica2.ControllerStructure.Catagory;
 public abstract class ASTree {
 	protected Catagory enclosingCatagory;
 
+	protected int line_number;
+	
 	public Catagory getCatagory() {
 		return enclosingCatagory;
 	}
@@ -13,7 +15,11 @@ public abstract class ASTree {
 		enclosingCatagory = catagory;
 	}
 	
-	public abstract void check() throws SemanticCheckException;
+	public int getLine() {
+		return line_number;
+	}
+	
+	public abstract void check();
 	public abstract String generateXML();
 	public abstract String generateLatex();
 }

@@ -14,11 +14,12 @@ public class IfRuleNode extends RuleNode {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
+	public void check() {
 		conditionExpr.check();
 		Type condType = conditionExpr.getBExprType();
 		if (condType instanceof VarietyType) {
-			throw new SemanticCheckException("The condition must evaluate to a boolean");
+			CommonTreeWalker.add_exception(
+					new SemanticCheckException("The condition must evaluate to a boolean",line_number));
 		}
 		rule.setInsideConditional(true);
 		rule.check();

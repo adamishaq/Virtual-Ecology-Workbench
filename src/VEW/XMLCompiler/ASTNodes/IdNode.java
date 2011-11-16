@@ -12,13 +12,16 @@ public class IdNode extends ExprNode {
 	}
 
 	@Override
-	public void check() throws SemanticCheckException {
+	public void check() {
 		VariableType v = getCatagory().checkAccessableVariableTable(name);
 		if (v == null) {
-			throw new SemanticCheckException("Unrecognized variable " + name);
+			CommonTreeWalker.add_exception(new SemanticCheckException("Unrecognized variable " + name,
+					line_number));
 		}
 		if ((v instanceof Local || v instanceof VarietyLocal) && !v.isAssignedTo()) {
-			throw new SemanticCheckException("Local variable " + name + " has not been assigned to before reading");
+			CommonTreeWalker.add_exception(
+					new SemanticCheckException("Local variable " + name + " has not been assigned to before reading",
+					line_number));
 		}
 		var = (VariableType) v;
 		exprType = var.getVarType();

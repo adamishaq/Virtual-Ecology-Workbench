@@ -15,20 +15,24 @@ public class VOpNode  extends ExprNode {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
+	public void check() {
 		if (getCatagory() instanceof Chemical) {
-			throw new SemanticCheckException("Variety operations cannot be called within chemical equations");
+			CommonTreeWalker.add_exception(
+					new SemanticCheckException("Variety operations cannot be called within chemical equations",
+							line_number));
 		}
 		expression.check();
 		Type exprType = expression.getExprType();
 		if (!(exprType instanceof VarietyType)) {
-			throw new SemanticCheckException("The expression must be a vector");
+			CommonTreeWalker.add_exception(
+					new SemanticCheckException("The expression must be a vector",line_number));
 		}
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
 		VarietyType varType = (VarietyType) exprType;
 		if (varType.getElementType() == floatType) {
-			throw new SemanticCheckException("The input for VBOp must be a vector of booleans");
+			CommonTreeWalker.add_exception(
+					new SemanticCheckException("The input for VBOp must be a vector of booleans",line_number));
 		}
 		setExprType(floatType);
 	}

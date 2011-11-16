@@ -16,7 +16,7 @@ public class BooleanBinOpNode extends BExprNode {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
+	public void check() {
 		rBExpr.check();
 		lBExpr.check();
 		Type rBExprType = rBExpr.getBExprType();

@@ -16,7 +16,7 @@ public class BooleanComparitorNode extends BExprNode {
 	}
 
 	@Override
-	public void check() throws SemanticCheckException {
+	public void check() {
 		rExpr.check();
 		lExpr.check();
 		Type rExprType = rExpr.getExprType();

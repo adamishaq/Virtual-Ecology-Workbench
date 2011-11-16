@@ -14,7 +14,7 @@ public class UnaryPrimNode extends ExprNode {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
+	public void check() {
 		argument.check();
 		Type argType = argument.getExprType();
 		setExprType(checkCompatibility(argType));

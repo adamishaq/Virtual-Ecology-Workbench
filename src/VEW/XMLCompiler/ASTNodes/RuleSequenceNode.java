@@ -34,7 +34,7 @@ public class RuleSequenceNode extends ASTree {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
+	public void check() {
 		rule.check();
 		if (seq != null) {
 			seq.check();

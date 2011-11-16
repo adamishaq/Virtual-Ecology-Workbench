@@ -16,7 +16,7 @@ public class BinOpNode extends ExprNode {
 	}
 
 	@Override
-	public void check() throws SemanticCheckException {
+	public void check() {
 		lExpr.check();
 		rExpr.check();
 		Type lType = lExpr.getExprType();

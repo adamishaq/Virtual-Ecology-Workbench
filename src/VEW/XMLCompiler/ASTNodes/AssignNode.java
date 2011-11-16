@@ -14,26 +14,28 @@ public class AssignNode extends RuleNode {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
+	public void check() {
 		String idName = identifier.getName();
 		VariableType var = getCatagory().checkAssignableVariableTables(identifier.getName());
 		if (var == null) {
-			throw new SemanticCheckException(idName + " is not a assignable variable");
+			CommonTreeWalker.add_exception(
+				new SemanticCheckException(idName + " is not an assignable variable",line_number));
+		} else if ((var instanceof VarietyLocal || var instanceof Local) && var.isAssignedTo()) {
+			CommonTreeWalker.add_exception(
+				new SemanticCheckException(idName + " has already been assigned to in a previous rule",line_number));
+		} else {
+			expr.check();
+			checkTypeCompatibility(var.getVarType());
+			assignVar = var;
+			assignVar.setAssigned(true);
 		}
-		if ((var instanceof VarietyLocal || var instanceof Local) && var.isAssignedTo()) {
-			throw new SemanticCheckException(idName + " has already been assigned to in a previous rule");
-		}
-		expr.check();
-		checkTypeCompatibility(var.getVarType());
-		assignVar = var;
-		assignVar.setAssigned(true);
-		
 	}
 	
-	private void checkTypeCompatibility(Type varType) throws SemanticCheckException{
+	private void checkTypeCompatibility(Type varType) {
 		Type exprType = expr.getExprType();
 		if (varType instanceof VarietyType && !(exprType instanceof VarietyType)) {
-			throw new SemanticCheckException("Cannot assign a variety value to a scalar value");
+			CommonTreeWalker.add_exception(
+					new SemanticCheckException("Cannot assign a variety value to a scalar value",line_number));
 		}
 	}
 

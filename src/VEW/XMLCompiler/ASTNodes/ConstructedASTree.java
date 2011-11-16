@@ -5,18 +5,18 @@ import java.util.ArrayList;
 public class ConstructedASTree {
 	
 	private ASTree tree;
-	private ArrayList<TreeWalkerException> exceptions;
+	private ArrayList<Exception> exceptions;
 	
-	public ConstructedASTree(ASTree _tree, ArrayList<TreeWalkerException> _excep) {
+	public ConstructedASTree(ASTree _tree, ArrayList<Exception> _excep) {
 		tree = _tree;
-		exceptions = new ArrayList<TreeWalkerException>(_excep);
+		exceptions = new ArrayList<Exception>(_excep);
 	}
 	
 	public ASTree getTree() {
 		return tree;
 	}
 	
-	public ArrayList<TreeWalkerException> getExceptions() {
+	public ArrayList<Exception> getExceptions() {
 		return exceptions;
 	}
 

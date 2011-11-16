@@ -13,16 +13,19 @@ public class UnaryFunctionRuleNode extends RuleNode {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
+	public void check() {
 		//May change this into a change node
 		Catagory cata = getCatagory();
 		if (cata instanceof Chemical) {
-			throw new SemanticCheckException("Special functions cannot be called within chemical equations");
+			CommonTreeWalker.add_exception(
+					new SemanticCheckException("Special functions cannot be called within chemical equations",
+							line_number));
 		}
 		FunctionalGroup group = (FunctionalGroup) cata;
 		Stage stg = group.checkStageTable(idArg.getName());
 		if (stg == null) {
-			throw new SemanticCheckException(idArg.getName() + " is not a known stage");
+			CommonTreeWalker.add_exception(
+					new SemanticCheckException(idArg.getName() + " is not a known stage",line_number));
 		}
 		//TODO some sort of warning system if multiple non conditional changes appear
 

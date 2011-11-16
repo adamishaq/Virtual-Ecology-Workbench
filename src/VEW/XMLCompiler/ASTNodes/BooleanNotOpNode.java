@@ -9,7 +9,7 @@ public class BooleanNotOpNode extends BExprNode {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
+	public void check() {
 		expression.check();
 		setBExprType(expression.getBExprType());
 	}

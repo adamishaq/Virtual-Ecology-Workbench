@@ -14,6 +14,8 @@ import java.util.HashMap;
 
 import org.antlr.runtime.tree.*;
 
+import sun.tools.tree.ThisExpression;
+
 
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class BACONParser extends Parser {
@@ -111,10 +113,14 @@ public class BACONParser extends Parser {
     public BACONParser(TokenStream input, RecognizerSharedState state) {
         super(input, state);
         this.state.ruleMemo = new HashMap[23+1];
-         
 
     }
 
+    @Override
+    public void emitErrorMessage(String message) {
+    	// Don't put error messages on the command line!
+    }
+    
 protected TreeAdaptor adaptor = new CommonTreeAdaptor();
 
 public void setTreeAdaptor(TreeAdaptor adaptor) {

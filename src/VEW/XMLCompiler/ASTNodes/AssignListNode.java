@@ -22,7 +22,7 @@ public class AssignListNode extends ASTree {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
+	public void check() {
 		for (AssignNode assign : assignList) {
 			assign.check();
 		}

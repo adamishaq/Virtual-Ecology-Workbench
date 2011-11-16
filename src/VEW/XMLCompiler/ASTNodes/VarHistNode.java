@@ -12,7 +12,7 @@ public class VarHistNode extends ExprNode {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
+	public void check() {
 		identifier.check();
 		expression.check();
 		if (expression instanceof NumNode) {

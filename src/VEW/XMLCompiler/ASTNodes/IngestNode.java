@@ -15,14 +15,17 @@ public class IngestNode extends RuleNode {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
+	public void check() {
 		Catagory cata = getCatagory();
 		if (cata instanceof Chemical) {
-			throw new SemanticCheckException("Special functions cannot be called within chemical equations");
+			CommonTreeWalker.add_exception(
+					new SemanticCheckException("Special functions cannot be called within chemical equations",
+							line_number));
 		}
 		VarietyConcentration foodSet = cata.checkVarietyConcTable(identifier.getName());
 		if (foodSet == null) {
-			throw new SemanticCheckException(identifier.getName() + " is not a known food set");
+			CommonTreeWalker.add_exception(
+					new SemanticCheckException(identifier.getName() + " is not a known food set",line_number));
 		}
 		threshold.check();
 		rate.check();

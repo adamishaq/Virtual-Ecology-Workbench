@@ -21,20 +21,25 @@ public class CreateNode extends RuleNode {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
+	public void check() {
 		Catagory cata = getCatagory();
 		if (cata instanceof Chemical) {
-			throw new SemanticCheckException("Special functions cannot be called within chemical equations");
+			CommonTreeWalker.add_exception(
+					new SemanticCheckException("Special functions cannot be called within chemical equations",
+							line_number));
 		}
 		FunctionalGroup group = (FunctionalGroup) cata;
 		Stage stage = group.checkStageTable(identifier.getName());
 		if (stage == null) {
-			throw new SemanticCheckException(identifier.getName() + " is not a valid stage");
+			CommonTreeWalker.add_exception(
+					new SemanticCheckException(identifier.getName() + " is not a valid stage",line_number));
 		}
 		expression.check();
 		Type numExprType = expression.getExprType();
 		if (numExprType instanceof VarietyType) {
-			throw new SemanticCheckException("The expression for number of offspring must evaluate to a scalar");
+			CommonTreeWalker.add_exception(
+					new SemanticCheckException("The expression for number of offspring must evaluate to a scalar",
+							line_number));
 		}
 		//TODO assign list checking may need to be more complex, not sure yet
 		assignList.check();

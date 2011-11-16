@@ -27,6 +27,7 @@ public class Compiler {
 	private static JTextPane syntax = new JTextPane();
 	private static LatexPreview preview = new LatexPreview();
 	private final static SyntaxHighlighter syntax_highlighter = new SyntaxHighlighter();
+	private static AutocompleteBox auto_complete;
 	private final static JEditorPane error_log = new JEditorPane();
 	
 	// Open/save components
@@ -59,6 +60,8 @@ public class Compiler {
 		syntax.setContentType("text/html");
 		syntax.setText("<html><PRE></PRE></html>");
 		
+		auto_complete = new AutocompleteBox(syntax);
+		
 		error_log.setEditable(false);
 		error_log.setFont(font);
 		error_log.setContentType("text/html");
@@ -87,6 +90,7 @@ public class Compiler {
 		compile.addActionListener(new CompileListener());
 		lpanel.add(compile);
 		
+		//lpanel.add(new VariableEditorPanel(new Dimension(100,100)));
 		
 		lpanel.setSize((850), (600));
 		lpanel.setVisible(true);
@@ -149,6 +153,7 @@ static class CompileListener implements ActionListener {
 		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
 		try {
 			ConstructedASTree ct = p.getAST();
+			//ct.getTree().check();
 			if (ct.getExceptions().isEmpty()) {
 				String latex = "\\begin{array}{lr}";
 				latex += ct.getTree().generateLatex();
@@ -160,9 +165,17 @@ static class CompileListener implements ActionListener {
 			} else {
 				String errors = "<html><PRE>Compilation errors occurred:\n";
 				errors += "<font color=#FF0000>";
-				for (TreeWalkerException t : ct.getExceptions()) {
+				for (Exception t : ct.getExceptions()) {
 					syntax_highlighter.flag_line(t);
-					errors += t.getError() + "\n";
+					if (t instanceof TreeWalkerException) {
+						TreeWalkerException twe = (TreeWalkerException) t;
+						errors += twe.getError() + "\n";
+					} else if (t instanceof SemanticCheckException) {
+						SemanticCheckException sce = (SemanticCheckException) t;
+						errors += sce.getError() + "\n";
+					} else {
+						errors += "Unknown error\n";
+					}
 				}
 				errors += "</font>";
 				errors += "\nCompilation aborted!</PRE></html>";
@@ -277,7 +290,11 @@ static class TypingListener implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO - only characters?
+		if (e.getKeyCode() == KeyEvent.VK_SHIFT || e.getKeyCode() == KeyEvent.VK_CONTROL ||
+			e.getKeyCode() == KeyEvent.VK_ALT)
+			// Ignore them
+			return;
+		auto_complete.show_suggestions(e);
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			// Parse text and check for errors?
 			preview();

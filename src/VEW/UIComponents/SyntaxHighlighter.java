@@ -3,6 +3,8 @@ package VEW.UIComponents;
 import java.util.ArrayList;
 import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 import VEW.XMLCompiler.ASTNodes.TreeWalkerException;
+import VEW.XMLCompiler.ASTNodes.SemanticCheckException;
+
 
 public class SyntaxHighlighter {
 
@@ -19,7 +21,7 @@ public class SyntaxHighlighter {
 	private String[] keywords;
 	private String[] functions;
 	private String[] variables;
-	private ArrayList<TreeWalkerException> exceptions;
+	private ArrayList<Exception> exceptions;
 	
 	// The colours to be used for syntax highlighting is hex form
 	private String keyword_colour = "8B1C62";//"3333FF";
@@ -33,7 +35,7 @@ public class SyntaxHighlighter {
 		// Set up a new SyntaxPane given a list of keywords and functions
 		this.keywords = _keywords;
 		this.functions = _functions;
-		this.exceptions = new ArrayList<TreeWalkerException>();
+		this.exceptions = new ArrayList<Exception>();
 	}
 	
 	public SyntaxHighlighter() {
@@ -45,7 +47,7 @@ public class SyntaxHighlighter {
 				"temperatureAt","UVIrradAt","varhist"};
 		this.functions = funs;
 		this.variables = AmbientVariableTables.getTables().getAllVariableNames();
-		this.exceptions = new ArrayList<TreeWalkerException>();
+		this.exceptions = new ArrayList<Exception>();
 	}
 	
 	public String getKeywordColour() {
@@ -157,8 +159,14 @@ public class SyntaxHighlighter {
 			}
 		}
 		// Flag all error lines
-		for(TreeWalkerException e : exceptions) {
-			text = highlight_error(e.getLine(),e.getChar_pos(),text);
+		for(Exception e : exceptions) {
+			if (e instanceof TreeWalkerException) {
+				TreeWalkerException twe = (TreeWalkerException) e;
+				text = highlight_error(twe.getLine(),twe.getChar_pos(),text);
+			} else if (e instanceof SemanticCheckException) {
+				SemanticCheckException sce = (SemanticCheckException) e;
+				text = highlight_error(sce.getLine(),0,text);
+			}
 		}
 		text = remove_inner_tags(text);
 		// Incorrect keywords should be highlighted
@@ -205,7 +213,7 @@ public class SyntaxHighlighter {
 	}
 	
 	// Add a flag to the list of error lines
-	public void flag_line(TreeWalkerException t) {
+	public void flag_line(Exception t) {
 		this.exceptions.add(t);
 	}
 	

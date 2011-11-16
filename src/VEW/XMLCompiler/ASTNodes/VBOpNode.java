@@ -15,19 +15,23 @@ public class VBOpNode extends BExprNode {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
+	public void check() {
 		if (getCatagory() instanceof Chemical) {
-			throw new SemanticCheckException("Variety operations cannot be called within chemical equations");
+			CommonTreeWalker.add_exception(
+					new SemanticCheckException("Variety operations cannot be called within chemical equations",
+							line_number));
 		}
 		expression.check();
 		Type exprType = expression.getBExprType();
 		if (!(exprType instanceof VarietyType)) {
-			throw new SemanticCheckException("The expression must be a vector");
+			CommonTreeWalker.add_exception(
+					new SemanticCheckException("The expression must be a vector",line_number));
 		}
 		VarietyType varType = (VarietyType) exprType;
 		Type boolType = (Type) AmbientVariableTables.getTables().checkTypeTable("$boolean");
 		if (varType.getElementType() != boolType) {
-			throw new SemanticCheckException("The input for VBOp must be a vector of booleans");
+			CommonTreeWalker.add_exception(
+					new SemanticCheckException("The input for VBOp must be a vector of booleans",line_number));
 		}
 		setBExprType(boolType);
 	}
