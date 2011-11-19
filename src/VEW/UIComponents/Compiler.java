@@ -102,7 +102,13 @@ public class Compiler {
 		
 		preview.update_preview("pre");
 		preview.setVisible(false);
-		
+		/*
+		final JFrame variable = new JFrame("Variable Editor");
+		variable.add(new VariableEditorPanel(new Dimension(300,300)));
+		variable.setSize((300), (300));
+		variable.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		variable.setVisible(true);
+		*/
 	}
 	
 	private static void highlight_syntax() {

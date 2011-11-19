@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class AutocompleteBox {
 	private final static JPopupMenu acbox = new JPopupMenu();
 	JTextPane target;
 	private String current_word;
+	private int caret_position;
 
 	private HashMap<String,String> rule_functions 
 		= new HashMap<String,String>();
@@ -91,6 +93,7 @@ public class AutocompleteBox {
         target = text;
         list.addMouseListener(new AutocompleteClickListener(this));
         list.addListSelectionListener(new SelectionListener(this));
+        list.addKeyListener(new AutocompleteKeyListener(this));
         current_word = "";
         // Add all functions to their hash maps
         fill_function_maps();
@@ -152,7 +155,7 @@ public class AutocompleteBox {
         expr_functions.put("salinityAt([expr])",
 			"Return the salinity of the water at depth [expr].");
         expr_functions.put("temperatureAt([expr])",
-			"Return the temperatur of the water at depth [expr].");
+			"Return the temperature of the water at depth [expr].");
         expr_functions.put("UVIrradAt([expr])",
 			"Return the Ultra Violet irradiance <i>(Wm-2)</i> at depth [expr].");
         expr_functions.put("average([vexpr])",
@@ -161,6 +164,10 @@ public class AutocompleteBox {
 			"Return the vector product of an expression that evaluates to a vector.");
         expr_functions.put("sum([vexpr])",
 			"Return the vector sum of an expression that evaluates to a vector.");
+        expr_functions.put("max([expr],[expr])",
+			"Return the larger of two expressions.");
+        expr_functions.put("min([expr],[expr])",
+		"Return the smaller of two expressions.");
 	}
 	
 	public JList getList() {
@@ -176,22 +183,22 @@ public class AutocompleteBox {
 	}
 	
 	public void show_suggestions(KeyEvent e) {
-		ArrayList<String> suggestions = new ArrayList<String>();
-		String[] globals 
-			= AmbientVariableTables.getTables().getAllVariableNames();
-		for (int i = 0; i < globals.length; i++)
-			suggestions.add(globals[i]);
-		Object[] funcs = rule_functions.keySet().toArray();
-		for (int i = 0; i < funcs.length; i++)
-			suggestions.add(funcs[i].toString());
-		funcs = expr_functions.keySet().toArray();
-		for (int i = 0; i < funcs.length; i++)
-			suggestions.add(funcs[i].toString());
-		// Look up values in list
 		String key_val = KeyEvent.getKeyText(e.getKeyCode());
 		if (key_val.equals("Minus") && e.isShiftDown())
 			key_val = "_";
+		if (key_val.equals("2") && e.isShiftDown()) {
+			// It must be a double quote
+			int pos = target.getCaretPosition();
+			try {
+				target.getDocument().insertString(pos, "\"", null);
+				target.setCaretPosition(pos);
+			} catch (BadLocationException e1) {
+			}
+			return;
+		}
 		if (is_letter_or_number(key_val) || key_val.equals("_")) {
+			ArrayList<String> suggestions = find_suggestions();
+			// Look up values in list
 			current_word += key_val.toLowerCase();
 			ArrayList<String> possible = new ArrayList<String>();
 			for (String s : suggestions) {
@@ -206,6 +213,7 @@ public class AutocompleteBox {
 				return;
 			}
 			list.setListData(possible.toArray());
+			// Set a minimum size for the list
 			list.setVisibleRowCount(list.getModel().getSize() < 6 ? list.getModel().getSize() : 6);
 			Point p = target.getCaret().getMagicCaretPosition();
 			if (acbox.isVisible()) {
@@ -215,16 +223,33 @@ public class AutocompleteBox {
 				acbox.show(target, p.x, p.y + 20);
 			}
 			target.requestFocus();
-		} /*else if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN){
+		} else if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN){
 			// Give focus to the list box if it is visible
-			if (list.isVisible()) {
+			if (list.isVisible() && !current_word.equals("")) {
 				list.requestFocus();
 				list.setSelectedIndex(0);
+				target.setCaretPosition(caret_position);
 			}
-		}*/ else {
+		} else {
 			new_word();
 			hide_suggestions();
 		}
+		caret_position = target.getCaretPosition();
+	}
+
+	private ArrayList<String> find_suggestions() {
+		ArrayList<String> suggestions = new ArrayList<String>();
+		String[] globals 
+			= AmbientVariableTables.getTables().getAllVariableNames();
+		for (int i = 0; i < globals.length; i++)
+			suggestions.add(globals[i]);
+		Object[] funcs = rule_functions.keySet().toArray();
+		for (int i = 0; i < funcs.length; i++)
+			suggestions.add(funcs[i].toString());
+		funcs = expr_functions.keySet().toArray();
+		for (int i = 0; i < funcs.length; i++)
+			suggestions.add(funcs[i].toString());
+		return suggestions;
 	}
 	
 	private boolean is_letter_or_number(String keyVal) {
@@ -234,6 +259,22 @@ public class AutocompleteBox {
 	public void hide_suggestions() {
 		description.setText("");
 		acbox.setVisible(false);
+	}
+	
+	public void insert_selection() {
+		// Get the selected item
+		String select = list.getSelectedValue().toString();
+		try {
+			// Try to place it in the text box
+			int pos = target.getCaretPosition();
+			int length = current_word.length();
+			target.getDocument().remove(pos - length, length);
+			pos = target.getCaretPosition();
+			target.getDocument().insertString(pos, select, null);
+		} catch (BadLocationException e) {
+			// Should never happen
+		}
+		hide_suggestions();
 	}
 	
 	static class SelectionListener implements ListSelectionListener {
@@ -279,23 +320,9 @@ public class AutocompleteBox {
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			if (clicked && parent.getList().getSelectedIndex() == selected) {
-				// Get the selected item
-				String select = parent.getList().getSelectedValue().toString();
-				try {
-					// Try to place it in the text box
-					int pos = parent.getTarget().getCaretPosition();
-					int length = parent.getCurrent_word().length();
-					parent.getTarget().getDocument().remove(pos - length, length);
-					pos = parent.getTarget().getCaretPosition();
-					parent.getTarget().getDocument().insertString(pos, select, null);
-					//parent.setCurrent_word("");
-				} catch (BadLocationException e) {
-					// Should never happen
-					e.printStackTrace();
-				}
+				parent.insert_selection();
 				clicked = false;
 				selected = -1;
-				parent.hide_suggestions();
 			} else {
 				clicked = true;
 				selected = parent.getList().getSelectedIndex();
@@ -304,27 +331,44 @@ public class AutocompleteBox {
 
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void mouseExited(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void mousePressed(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
 		}
+	}
+	
+	static class AutocompleteKeyListener implements KeyListener {
+
+		private AutocompleteBox parent;
+		
+		public AutocompleteKeyListener(AutocompleteBox autocompleteBox) {
+			this.parent = autocompleteBox;
+		}
+		
+		@Override
+		public void keyPressed(KeyEvent arg0) {
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			if (e.getKeyCode() == KeyEvent.VK_ENTER && parent.getList().getSelectedIndex() != -1) {
+				parent.insert_selection();
+			}
+		}
+
+		@Override
+		public void keyTyped(KeyEvent arg0) {
+		}
+	
 	}
 	
 }
