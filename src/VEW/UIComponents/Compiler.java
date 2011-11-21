@@ -103,10 +103,10 @@ public class Compiler {
 		preview.update_preview("pre");
 		preview.setVisible(false);
 		
+		
 		final JFrame variable = new JFrame("Variable Editor");
 		variable.add(new VariableEditorPanel(new Dimension(300,300)));
 		variable.setSize((300), (300));
-		variable.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		variable.setVisible(true);
 		
 	}
@@ -150,6 +150,37 @@ public class Compiler {
 			System.out.println("RECOGNITION EXCEPTION");
 			e.printStackTrace();
 		}
+	}
+	
+	public static boolean caret_in_comment() {
+		int pos = syntax.getCaretPosition() - 2;
+		char[] chars = syntax_highlighter.getPlainText(syntax.getText()).toCharArray();
+		for (int i = pos; i > 0; i--) {
+			if (chars[i] == '\n')
+				return false;
+			if (chars[i] == '/' && chars[i-1] == '/')
+				return true;
+		}
+		return false;
+	}
+	
+	public static int get_caret_line() {
+		int newlines = 1;
+		int pos = syntax.getCaretPosition() - 2;
+		char[] chars = syntax_highlighter.getPlainText(syntax.getText()).toCharArray();
+		for (int i = pos; i > 0; i--) {
+			if (chars[i] == '\n')
+				newlines++;
+		}
+		return newlines;
+	}
+	
+	private static boolean space_before_caret() {
+		int pos = syntax.getCaretPosition() - 3;
+		if (pos <= 0)
+			return true;
+		char c = syntax_highlighter.getPlainText(syntax.getText()).charAt(pos);
+		return !Character.isLetterOrDigit(c);
 	}
 	
 static class CompileListener implements ActionListener {
@@ -284,7 +315,8 @@ static class PreviewListener implements ActionListener {
 			System.out.println("RECOGNITION EXCEPTION");
 			e.printStackTrace();
 		}*/
-		preview();
+		System.out.println(get_caret_line());
+		//preview();
 	}
 	
 }
@@ -300,7 +332,13 @@ static class TypingListener implements KeyListener {
 			e.getKeyCode() == KeyEvent.VK_ALT)
 			// Ignore them
 			return;
-		auto_complete.show_suggestions(e);
+		if (!caret_in_comment() && (!auto_complete.getCurrent_word().equals("")
+				|| space_before_caret())) {
+			auto_complete.show_suggestions(e);
+		} else {
+			auto_complete.hide_suggestions();
+		}
+		//System.out.println(space_before_caret());
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			// Parse text and check for errors?
 			preview();

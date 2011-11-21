@@ -196,10 +196,14 @@ public class AutocompleteBox {
 			}
 			return;
 		}
-		if (is_letter_or_number(key_val) || key_val.equals("_")) {
+		if (is_letter_or_number(key_val) || key_val.equals("_") || 
+				(e.getKeyCode() == KeyEvent.VK_BACK_SPACE && current_word.length() > 1)) {
 			ArrayList<String> suggestions = find_suggestions();
-			// Look up values in list
-			current_word += key_val.toLowerCase();
+			if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+				current_word = current_word.substring(0, current_word.length() - 1);
+			else {
+				current_word += key_val.toLowerCase();
+			}
 			ArrayList<String> possible = new ArrayList<String>();
 			for (String s : suggestions) {
 				String suggest = s.toLowerCase();
@@ -212,6 +216,7 @@ public class AutocompleteBox {
 				hide_suggestions();
 				return;
 			}
+			// TODO - sort list alphabetically
 			list.setListData(possible.toArray());
 			// Set a minimum size for the list
 			list.setVisibleRowCount(list.getModel().getSize() < 6 ? list.getModel().getSize() : 6);
@@ -274,6 +279,7 @@ public class AutocompleteBox {
 		} catch (BadLocationException e) {
 			// Should never happen
 		}
+		current_word = "";
 		hide_suggestions();
 	}
 	

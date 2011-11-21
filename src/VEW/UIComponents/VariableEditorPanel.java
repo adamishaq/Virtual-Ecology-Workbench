@@ -4,18 +4,25 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionListener;
 
+import VEW.Planktonica2.ControllerStructure.VariableType;
+
 public class VariableEditorPanel extends JPanel {
 
 	private Dimension d;
+	private VarType current_selection = VarType.GROUPVAR;
 	
 	JPanel variable_info = new JPanel(new GridBagLayout());
 	GridBagConstraints c = new GridBagConstraints();
@@ -26,11 +33,12 @@ public class VariableEditorPanel extends JPanel {
 	JLabel desc = new JLabel("Description :");
 	JTextField var_desc = new JTextField();
 	JLabel history_size = new JLabel("History Size :  ");
-	JTextField h_size = new JTextField();
+	JTextField h_size = new JTextField("0");
 	JLabel initial_value = new JLabel("Initial Value :  ");
-	JTextField i_val = new JTextField();
+	JTextField i_val = new JTextField("0");
 	JLabel fs_link = new JLabel("Food-Set Link :");
 	JComboBox  link_combo = new JComboBox();
+	JButton add_var = new JButton("Add");
 	
 	public VariableEditorPanel(Dimension dimension) {
 		this.setPreferredSize(dimension);
@@ -38,8 +46,13 @@ public class VariableEditorPanel extends JPanel {
 		this.initialize();
 	}
 
+	public VarType getCurrent_selection() {
+		return current_selection;
+	}
+
 	private void initialize() {
 		variable_info.setPreferredSize(new Dimension(d.width - 25, d.height - 25));
+		add_var.addActionListener(new AddVarListener(this));
 		// Label for scope choice
 		c.ipady = 5;
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -48,13 +61,9 @@ public class VariableEditorPanel extends JPanel {
 		c.gridy = 0;
 		variable_info.add(type, c);
 		// Combo box to choose scope
-		type_combo.addItem("Group Variable");
-		type_combo.addItem("Group Parameter");
-		type_combo.addItem("Local Variable");
-		type_combo.addItem("Food-Based Parameter");
-		type_combo.addItem("Food Set/Concentration");
-		type_combo.addItem("Food-Based Local");
-		type_combo.addItem("Food-Based Variable");
+		for (VarType vt : VarType.values()) {
+			type_combo.addItem(vt);
+	    }
 		type_combo.addItemListener(new VarTypeListener(this));
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridwidth = 2;
@@ -84,34 +93,42 @@ public class VariableEditorPanel extends JPanel {
 		c.gridy = 2;
 		variable_info.add(var_desc, c);
 
-		change_var_type("Group Variable");
+		change_var_type(current_selection);
 		this.add(variable_info,BorderLayout.WEST);
 	}
 	
-	public void change_var_type(String var_type) {
+	public void change_var_type(VarType var_type) {
+		current_selection = var_type;
 		boolean i_value = true;
 		boolean history = true;
 		boolean food_set = true;
-		if (var_type.equals("Group Variable")) {
+		switch (var_type) {
+		case GROUPVAR : 
 			food_set = false;
-		} else if (var_type.equals("Group Parameter")) {
+			break;
+		case GROUPPARAM :
 			history = false;
 			food_set = false;
-		} else if (var_type.equals("Local Variable")) {
+			break;
+		case LOCALVAR :
 			i_value = false;
 			history = false;
 			food_set = false;
-		} else if (var_type.equals("Food-Based Parameter")) {
+			break;
+		case FOODPARAM :
 			history = false;
-		} else if (var_type.equals("Food Set/Concentration")) {
+			break;
+		case FOODSET :
 			i_value = false;
 			history = false;
 			food_set = false;
-		} else if (var_type.equals("Food-Based Local")) {
+			break;
+		case FOODLOCAL :
 			i_value = false;
 			history = false;
-		} else if (var_type.equals("Food-Based Variable")) {
-
+			break;
+		case FOODVAR :
+			break;
 		}
 		history_size.setVisible(false);
 		variable_info.remove(history_size);
@@ -122,8 +139,10 @@ public class VariableEditorPanel extends JPanel {
 		fs_link.setVisible(false);
 		variable_info.remove(fs_link);
 		variable_info.remove(link_combo);
+		variable_info.remove(add_var);
 		variable_info.validate();
 		int y = 3;
+		c.gridwidth = 2;
 		if (history) {
 			// Label for History Size
 			history_size.setVisible(true);
@@ -142,7 +161,7 @@ public class VariableEditorPanel extends JPanel {
 			c.gridx = 0;
 			c.gridy = y;
 			variable_info.add(initial_value, c);
-			// Text field for Initial value=
+			// Text field for Initial value
 			c.gridx = 3;
 			c.gridy = y;
 			variable_info.add(i_val, c);
@@ -160,8 +179,50 @@ public class VariableEditorPanel extends JPanel {
 			c.gridx = 3;
 			c.gridy = y;
 			variable_info.add(link_combo, c);
+			y++;
 		}
+		c.gridwidth = 1;
+		c.gridx = 3;
+		c.gridy = y;
+		variable_info.add(add_var, c);
 		variable_info.validate();
+	}
+	
+	public VariableType construct_variable() {
+		if (var_name.getText().equals("")) {
+			JOptionPane.showMessageDialog(variable_info, "Variable must have a name");
+			return null;
+		}
+		// TODO check name is unique
+		// Check that history has a legal value
+		switch (current_selection) {
+		case GROUPVAR :
+		case FOODVAR :
+			try {
+				int hist = Integer.parseInt(h_size.getText());
+				if (hist < 0) {
+					JOptionPane.showMessageDialog(variable_info, "History size must be 0 or higher");
+					return null;
+				}
+			} catch (NumberFormatException n) {
+				JOptionPane.showMessageDialog(variable_info, "Invalid history size");
+				return null;
+			}
+		}
+		// Check that initial value is legal
+		switch (current_selection) {
+		case GROUPVAR :
+		case GROUPPARAM :
+		case FOODPARAM :
+		case FOODVAR :
+			try {
+				int init = Integer.parseInt(i_val.getText());
+			} catch (NumberFormatException n) {
+				JOptionPane.showMessageDialog(variable_info, "Invalid variable initial value");
+				return null;
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -171,7 +232,6 @@ public class VariableEditorPanel extends JPanel {
 
 	static class VarTypeListener implements ItemListener {
 
-		private String current = "";
 		private VariableEditorPanel parent;
 		
 		public VarTypeListener(VariableEditorPanel par) {
@@ -180,13 +240,26 @@ public class VariableEditorPanel extends JPanel {
 		
 		@Override
 		public void itemStateChanged(ItemEvent i) {
-			String selection = i.getItem().toString();
-			if (!current.equals(selection)) {
-				current = selection;
+			VarType selection = (VarType) i.getItem();
+			if (!parent.getCurrent_selection().equals(selection)) {
 				parent.change_var_type(selection);
 			}
 		}
 		
 	}
 	
+	static class AddVarListener implements ActionListener {
+
+		private VariableEditorPanel parent;
+		
+		public AddVarListener(VariableEditorPanel par) {
+			this.parent = par;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			VariableType var = parent.construct_variable();
+			// Add it to the model
+		}
+	}
 }
