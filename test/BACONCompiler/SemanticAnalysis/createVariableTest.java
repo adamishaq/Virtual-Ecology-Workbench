@@ -4,19 +4,19 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import VEW.Planktonica2.ControllerStructure.GlobalVariable;
-import VEW.Planktonica2.ControllerStructure.Type;
+import VEW.Planktonica2.model.GlobalVariable;
+import VEW.Planktonica2.model.Type;
 import VEW.XMLCompiler.ASTNodes.SymbolTable;
 
 public class createVariableTest {
 
 	@Test
 	public void makeFloat() {
-		SymbolTable topSymTable = new SymbolTable();
+		SymbolTable<Type> topSymTable = new SymbolTable<Type>();
 		topSymTable.put("$float", new Type("float"));
 		Type floatType = (Type) topSymTable.get("$float");
 		GlobalVariable var = new GlobalVariable("TestVar", "desc", floatType, null);
-		SymbolTable table = new SymbolTable(topSymTable);
+		SymbolTable<GlobalVariable> table = new SymbolTable<GlobalVariable>(topSymTable);
 		table.put("TestVar", var);
 		GlobalVariable retrievedVar = (GlobalVariable) table.get("TestVar");
 		Type type = retrievedVar.getVarType();
@@ -25,7 +25,7 @@ public class createVariableTest {
 	
 	@Test
 	public void makeFoodSet() {
-		SymbolTable topSymTable = new SymbolTable();
+		SymbolTable<Type> topSymTable = new SymbolTable<Type>();
 		topSymTable.put("$foodSet", new Type("foodSet"));
 		Type floatType = (Type) topSymTable.get("$foodSet");
 		GlobalVariable var = new GlobalVariable("TestSet", "desc", floatType, null);
@@ -38,7 +38,7 @@ public class createVariableTest {
 	
 	@Test
 	public void makeVector() {
-		SymbolTable topSymTable = new SymbolTable();
+		SymbolTable<Type> topSymTable = new SymbolTable<Type>();
 		topSymTable.put("$vector", new Type("vector"));
 		Type floatType = (Type) topSymTable.get("$vector");
 		GlobalVariable var = new GlobalVariable("Vector", "desc", floatType, null);

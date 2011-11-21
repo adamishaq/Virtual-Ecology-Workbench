@@ -1,6 +1,6 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import VEW.Planktonica2.ControllerStructure.Catagory;
+import VEW.Planktonica2.model.Catagory;
 
 public abstract class ASTree {
 	protected Catagory enclosingCatagory;

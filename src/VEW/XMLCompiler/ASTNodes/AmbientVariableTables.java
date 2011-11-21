@@ -1,20 +1,20 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.model.GlobalVariable;
+import VEW.Planktonica2.model.Type;
+import VEW.Planktonica2.model.Unit;
+
 import java.util.ArrayList;
 import java.util.Collection;
-
-import VEW.Planktonica2.ControllerStructure.GlobalVariable;
-import VEW.Planktonica2.ControllerStructure.Type;
-import VEW.Planktonica2.ControllerStructure.Unit;
 
 public class AmbientVariableTables {
 	
 	private static AmbientVariableTables tables;
-	private SymbolTable typeTable;
-	private SymbolTable physicsVarTable;
-	private SymbolTable waterColumnVarTable;
+	private SymbolTable<Type> typeTable;
+	private SymbolTable<GlobalVariable> physicsVarTable;
+	private SymbolTable<GlobalVariable> waterColumnVarTable;
 	//private SymbolTable chemicalTable;
-	private SymbolTable systemVarTable;
+	private SymbolTable<GlobalVariable> systemVarTable;
 	
 	private AmbientVariableTables() {
 		initialiseTypeTable();
@@ -24,7 +24,7 @@ public class AmbientVariableTables {
 	}
 
 	private void initialiseTypeTable() {
-		typeTable = new SymbolTable();
+		typeTable = new SymbolTable<Type>();
 		typeTable.put("$float", new Type("float"));
 		typeTable.put("$foodSet", new Type("foodSet"));
 		typeTable.put("$vector", new Type("vector"));
@@ -34,7 +34,7 @@ public class AmbientVariableTables {
 	private void initialiseSystemVarTable() {
 		systemVarTable = new SymbolTable();
 		Type floatType = (Type) typeTable.get("$float"); 
-		systemVarTable = new SymbolTable();
+		systemVarTable = new SymbolTable<GlobalVariable>();
 		Collection<Unit> units = new ArrayList<Unit>();
 		units.add(new Unit(0, "d", 1));
 		systemVarTable.put("d_leap", 
@@ -56,7 +56,7 @@ public class AmbientVariableTables {
 	private void initialiseWaterColumnVarTable() {
 		waterColumnVarTable = new SymbolTable();
 		Type floatType = (Type) typeTable.get("$float");
-		waterColumnVarTable = new SymbolTable();
+		waterColumnVarTable = new SymbolTable<GlobalVariable>();
 		Collection<Unit> units = new ArrayList<Unit>();
 		units.add(new Unit(0, "m", 1));
 		waterColumnVarTable.put("Turbocline",
@@ -66,7 +66,7 @@ public class AmbientVariableTables {
 	private void initialisePhysicsVarTable() {
 		physicsVarTable = new SymbolTable();
 		Type floatType = (Type) typeTable.get("$float");
-		physicsVarTable = new SymbolTable();
+		physicsVarTable = new SymbolTable<GlobalVariable>();
 		Collection<Unit> units = new ArrayList<Unit>();
 		units.add(new Unit(0, "kg", -3));
 		units.add(new Unit(0, "m", -3));
@@ -113,19 +113,19 @@ public class AmbientVariableTables {
 	}
 	
 	public Type checkTypeTable(String key) {
-		return (Type) typeTable.get(key);
+		return typeTable.get(key);
 	}
 	
 	public GlobalVariable checkSystemTable(String key) {
-		return (GlobalVariable) systemVarTable.get(key);
+		return systemVarTable.get(key);
 	}
 
 	public GlobalVariable checkWaterColumnTable(String key) {
-		return (GlobalVariable) waterColumnVarTable.get(key);
+		return waterColumnVarTable.get(key);
 	}
 
 	public GlobalVariable checkPhysicsTable(String key) {
-		return (GlobalVariable) physicsVarTable.get(key);
+		return physicsVarTable.get(key);
 	}
 
 	public static AmbientVariableTables getTables() {

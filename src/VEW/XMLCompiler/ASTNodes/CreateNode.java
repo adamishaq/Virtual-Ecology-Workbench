@@ -1,6 +1,13 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import VEW.Planktonica2.ControllerStructure.*;
+import VEW.Planktonica2.model.Catagory;
+import VEW.Planktonica2.model.Chemical;
+import VEW.Planktonica2.model.FunctionalGroup;
+import VEW.Planktonica2.model.Stage;
+import VEW.Planktonica2.model.Type;
+import VEW.Planktonica2.model.VarietyType;
+
+
 
 public class CreateNode extends RuleNode {
 

@@ -24,21 +24,28 @@ import VEW.Common.XML.XMLTag;
 
 public class PigmentPanel extends JPanel {
 
-  private int lockEvents = 0;
-  private DefaultTableModel dataTableModel = new DefaultTableModel();
-  private JTable dataTable = new JTable(dataTableModel);
-  private JComboBox graphType;
-  public JCheckBox doPigments = new JCheckBox("Chemical has pigmentation?");
-  private PigmentGraph pigmentGraph;
-  private XMLTag thePigment;
-  private Planktonica thePlank;
-  public static final String Pigment_CHI = "Chi";
-  public static final String Pigment_e = "e";
-  protected static final int graphHeight = 260;
-  protected static final int graphWidth = 580;
-  private static final String[] colHeaders = new String[] {"Min W", "Max W", "Value"};
+
+	private static final long serialVersionUID = 1040209636264981879L;
+	
+	private int lockEvents = 0;
+	private DefaultTableModel dataTableModel = new DefaultTableModel();
+	private JTable dataTable = new JTable(dataTableModel);
+	private JComboBox graphType;
+	public JCheckBox doPigments = new JCheckBox("Chemical has pigmentation?");
+	private PigmentGraph pigmentGraph;
+	private XMLTag thePigment;
+	private Planktonica thePlank;
+	public static final String Pigment_CHI = "Chi";
+	public static final String Pigment_e = "e";
+	protected static final int graphHeight = 260;
+	protected static final int graphWidth = 580;
+	private static final String[] colHeaders = new String[] {"Min W", "Max W", "Value"};
 
 
+  public PigmentPanel() {
+	  // TODO: pigment Panel
+  }
+  
   public PigmentPanel(Planktonica p) {
     EventHandler eh = new EventHandler();
     thePlank = p;

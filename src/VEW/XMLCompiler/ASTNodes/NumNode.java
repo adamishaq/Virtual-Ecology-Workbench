@@ -1,6 +1,5 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import VEW.Planktonica2.ControllerStructure.Type;
 
 public class NumNode extends ExprNode {
 
@@ -13,7 +12,7 @@ public class NumNode extends ExprNode {
 	@Override
 	public void check() {
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
-		setExprType((Type)tables.checkTypeTable("$float"));
+		setExprType(tables.checkTypeTable("$float"));
 	}
 
 	@Override
