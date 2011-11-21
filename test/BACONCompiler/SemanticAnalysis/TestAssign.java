@@ -4,8 +4,20 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import VEW.Planktonica2.ControllerStructure.*;
-import VEW.XMLCompiler.ASTNodes.*;
+import VEW.Planktonica2.model.FunctionalGroup;
+import VEW.Planktonica2.model.Local;
+import VEW.Planktonica2.model.StateVariable;
+import VEW.Planktonica2.model.Type;
+import VEW.Planktonica2.model.VarietyConcentration;
+import VEW.Planktonica2.model.VarietyType;
+import VEW.Planktonica2.model.VarietyVariable;
+import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
+import VEW.XMLCompiler.ASTNodes.AssignNode;
+import VEW.XMLCompiler.ASTNodes.IdNode;
+import VEW.XMLCompiler.ASTNodes.NumNode;
+import VEW.XMLCompiler.ASTNodes.RuleSequenceNode;
+import VEW.XMLCompiler.ASTNodes.SemanticCheckException;
+
 
 public class TestAssign {
 
@@ -15,7 +27,7 @@ public class TestAssign {
 		StateVariable stateVar = new StateVariable(group);
 		stateVar.setName("testVar");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
-		stateVar.setVarType((Type) tables.checkTypeTable("$float"));
+		stateVar.setVarType(tables.checkTypeTable("$float"));
 		group.addToStateVarTable(stateVar);
 		AssignNode assign = new AssignNode(new IdNode("testVar"), new NumNode(10));
 		assign.setCatagory(group);
@@ -33,7 +45,7 @@ public class TestAssign {
 		VarietyConcentration conc = new VarietyConcentration(group);
 		conc.setName("foodset");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
-		Type floatType = (Type) tables.checkTypeTable("$float");
+		Type floatType = tables.checkTypeTable("$float");
 		conc.setVarType(new VarietyType("float", floatType));
 		group.addToVarietyConcTable(conc);
 		AssignNode assign = new AssignNode(new IdNode("foodset"), new NumNode(5));

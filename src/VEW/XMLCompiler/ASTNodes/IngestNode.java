@@ -1,6 +1,9 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import VEW.Planktonica2.ControllerStructure.*;
+import VEW.Planktonica2.model.Catagory;
+import VEW.Planktonica2.model.Chemical;
+import VEW.Planktonica2.model.VarietyConcentration;
+
 
 public class IngestNode extends RuleNode {
 	

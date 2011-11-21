@@ -1,14 +1,14 @@
 package xmlControllerTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.ControllerStructure.Chemical;
-import VEW.Planktonica2.ControllerStructure.XMLTagEnum;
+import VEW.Planktonica2.model.Chemical;
+import VEW.Planktonica2.model.XMLTagEnum;
 
 public class ChemicalTest {
 
@@ -180,15 +180,8 @@ public class ChemicalTest {
 		assertNotNull(c.getName());
 		assertNotNull(c.getValue());
 		assertNotNull(c.hasPigment());
-		assertNotNull(c.getLocals());
-		assertNotNull(c.getParameters());
-		assertNotNull(c.getVariables());
 		assertNotNull(c.getSpectrum());
 		assertNotNull(c.getFunctions());
-		
-		assertEquals(2, c.getParamTable().size());
-		assertEquals(2, c.getLocalVarTable().size());
-		assertEquals(3, c.getStateVarTable().size());
 		
 		
 	}

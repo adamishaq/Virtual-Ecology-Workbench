@@ -1,6 +1,10 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import VEW.Planktonica2.ControllerStructure.*;
+import VEW.Planktonica2.model.Local;
+import VEW.Planktonica2.model.Type;
+import VEW.Planktonica2.model.VariableType;
+import VEW.Planktonica2.model.VarietyLocal;
+import VEW.Planktonica2.model.VarietyType;
 
 public class AssignNode extends RuleNode {
 

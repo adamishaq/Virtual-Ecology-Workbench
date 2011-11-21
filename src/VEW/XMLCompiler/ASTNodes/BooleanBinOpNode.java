@@ -1,7 +1,9 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import VEW.Planktonica2.ControllerStructure.Type;
-import VEW.Planktonica2.ControllerStructure.VarietyType;
+import VEW.Planktonica2.model.Type;
+import VEW.Planktonica2.model.VarietyType;
+
+
 
 public class BooleanBinOpNode extends BExprNode {
 

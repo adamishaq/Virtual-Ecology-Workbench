@@ -2,8 +2,6 @@ package VEW.Planktonica2;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -11,9 +9,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
 import java.util.Vector;
+import java.util.prefs.BackingStoreException;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,23 +18,87 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
+import javax.swing.JTabbedPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
-
 import VEW.Common.StringTools;
 import VEW.Common.XML.XMLFile;
 import VEW.Common.XML.XMLTag;
 import VEW.Controller2.VEWController2;
+//<<<<<<< HEAD
+import VEW.Planktonica2.ControllerStructure.ChemicalController;
+import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
+import VEW.Planktonica2.model.Model;
+/**
+ * VEW Planktonica display for editing functional groups and chemicals, based on MVC OO design principle
+ * 
+ * @author Michael Hinstridge & Chris Bates
+ *
+ */
+public class Planktonica extends JPanel {
+	
+	private static final long serialVersionUID = 5356091519865535067L;
+
+	/* Categories tab */
+	protected final JTabbedPane catTab = new JTabbedPane();
+	
+	/* Display panes for the tabpane... its Func-y */
+	protected Display funcView;
+	protected Display chemView;
+	/**
+	 * Constructor for starting the Planktonica class
+	 * @param jd - reference to the VEWController2 parent
+	 * @param xmlFile - reference to the XMLFile of the model
+	 */
+	public Planktonica (VEWController2 jd, XMLFile xmlFile) {
+		vc2 = jd;
+	    parent = jd;
+	    ee = new EquationEditor(vc2);
+	    Model m = new Model(xmlFile);
+		try {
+			m.buildFromFile();
+		} catch (BackingStoreException e) {
+			System.err.println(e);
+			new JDialog(jd, "XMLFile: " + xmlFile.getName() + " failed to load.");
+			jd.dispose();
+		}
+		
+	    funcView = new FunctionalDisplay(new FunctionalGroupController(m), catTab.getSize());
+	    chemView = new ChemicalDisplay(new ChemicalController(m), catTab.getSize());
+	    initialiseGUI();
+	    parent.pack();
+	}
+	
+	public Planktonica (XMLFile xmlFile) {
+		ee = new EquationEditor(vc2);
+	    Model m = new Model(xmlFile);
+		try {
+			m.buildFromFile();
+		} catch (BackingStoreException e) {
+			System.err.println(e);
+		}
+		
+	    funcView = new FunctionalDisplay(new FunctionalGroupController(m), catTab.getSize());
+	    chemView = new ChemicalDisplay(new ChemicalController(m), catTab.getSize());
+	    initialiseGUI();
+	}
+	
+	private void initialiseGUI() {
+		setLayout(new BorderLayout(2, 2));
+		
+		catTab.addTab("Functional Groups", funcView);
+		catTab.addTab("Chemicals", chemView);
+		
+		add(catTab);
+	}
+/*=======
 
 public class Planktonica extends JPanel {
+>>>>>>> e73b0823aeb3f8174a28e818a9e717e35ff5ee57*/
 
   /* The frames */
 
@@ -49,8 +110,8 @@ public class Planktonica extends JPanel {
   public final DefaultListModel functionListModel = new DefaultListModel();
   public final JList functions = new JList(functionListModel);
   public JButton stageEditor = new JButton("Edit Stages");
-  public MiniStageTableModel miniStageTableModel = new MiniStageTableModel();
-  public JTable miniStageTable = new JTable(miniStageTableModel);
+  //public MiniStageTableModel miniStageTableModel = new MiniStageTableModel();
+  //public JTable miniStageTable = new JTable(miniStageTableModel);
   public EquationPanel eqPanel = new EquationPanel("");
   public PigmentPanel pigPanel;
   public JScrollPane eqsScroller = new JScrollPane(eqPanel);
@@ -89,7 +150,7 @@ public class Planktonica extends JPanel {
   private final static String PIGMENTEDITOR = "Pigment Editor";
   private static String varNameString = "";
   
-  private EventHandler eh = new EventHandler();
+  //private EventHandler eh = new EventHandler();
 
   private final JComboBox varList = new JComboBox();
   
@@ -99,6 +160,9 @@ public class Planktonica extends JPanel {
   private JDialog parent;
 
   public boolean greenLight(boolean fix) {
+	  
+	return true;
+	 /*
     if (xmlFile.getTag("kernel")!=null) xmlFile.getTag("kernel").removeFromParent();
     
     XMLTag[] fgs = xmlFile.getTags("functionalgroup");
@@ -159,8 +223,10 @@ public class Planktonica extends JPanel {
       eh.groupListHandler();
     }
     return true;
+    */
   }
 
+  /*
   private void initialiseGUI() {
     setLayout(new BorderLayout(2, 2));
     pigPanel = new PigmentPanel(this);
@@ -251,7 +317,7 @@ public class Planktonica extends JPanel {
     eqsScroller.setBorder(BorderFactory.createLoweredBevelBorder());
 
     /* Centre and south of main page */
-
+  /*
     add(varPanel, BorderLayout.CENTER);
 
     Box boxPanel = Box.createVerticalBox();
@@ -817,7 +883,7 @@ public class Planktonica extends JPanel {
         varList.removeAllItems();
         detailsHTML.setText("<html></html>");
         XMLTag[] tags = SelectedFunction.getTags();
-        Vector params = new Vector();
+        Vector<?> params = new Vector<Object>();
 
         for (int i = 0; i < tags.length; i++)
           if (StringTools.memberOf(tags[i].getName(), varOptions))
@@ -879,11 +945,13 @@ public class Planktonica extends JPanel {
     }
   }
   
+  /*
   class MiniStageTableModel extends DefaultTableModel {
     public Class getColumnClass(int column) {
       if (column==1) return Boolean.class;
       else return String.class;
     }
   }
+  */
 
 }

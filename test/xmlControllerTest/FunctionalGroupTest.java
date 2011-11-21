@@ -1,14 +1,15 @@
 package xmlControllerTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.ControllerStructure.FunctionalGroup;
-import VEW.Planktonica2.ControllerStructure.XMLTagEnum;
+import VEW.Planktonica2.model.FunctionalGroup;
+import VEW.Planktonica2.model.XMLTagEnum;
 
 public class FunctionalGroupTest {
 
@@ -182,6 +183,7 @@ public class FunctionalGroupTest {
 		functionalGroup.addTag(param2);
 		functionalGroup.addTag(local1);
 		functionalGroup.addTag(local2);
+		functionalGroup.addTag(vc);
 		functionalGroup.addTag(p1);
 		functionalGroup.addTag(l1);
 		functionalGroup.addTag(v1);
@@ -199,18 +201,25 @@ public class FunctionalGroupTest {
 		f.build(functionalGroup);
 		
 		assertNotNull(f.getName());
-		assertNotNull(f.getLocals());
-		assertNotNull(f.getParamTable());
-		assertNotNull(f.getVariables());
+		assertNotNull(f.checkLocalVarTable("local1"));
+		assertNotNull(f.checkParameterTable("param1"));
+		assertNotNull(f.checkStateVariableTable("variable1"));
+		
+	
+		assertNotNull(f.checkLocalVarTable("local2"));
+		assertNotNull(f.checkParameterTable("param2"));
+		assertNotNull(f.checkStateVariableTable("variable2"));
+		
+		assertNotNull(f.checkStateVariableTable("variable3"));
+		
+		assertNotNull(f.checkVarietyConcTable("vc"));
+		assertNotNull(f.checkVarietyLocalTable("l1"));
+		assertNotNull(f.checkVarietyParamTable("p1"));
+		assertNotNull(f.checkVarietyStateTable("v1"));
+		
 		assertNotNull(f.getFunctions());
+		assertTrue(f.getFunctions().size() == 1);
 		
-		assertEquals(2, f.getParamTable().size());
-		assertEquals(2, f.getLocalVarTable().size());
-		assertEquals(3, f.getStateVarTable().size());
-		
-		assertEquals(1, f.getVarietyLocalTable().size());
-		assertEquals(1, f.getVarietyParamTable().size());
-		assertEquals(1, f.getVarietyStateTable().size());
 	}
 
 }

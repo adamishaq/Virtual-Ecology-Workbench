@@ -2,16 +2,17 @@ package VEW.XMLCompiler.ASTNodes;
 
 import java.util.HashMap;
 
-@SuppressWarnings("serial")
-public class SymbolTable extends HashMap<String, Object>{
+public class SymbolTable <V> extends HashMap<String, V>{
 	
-	private SymbolTable outerTable;
+	private static final long serialVersionUID = 2439614476143080597L;
+
+	private SymbolTable<?> outerTable;
 	
 	public SymbolTable() {
 		outerTable = null;
 	}
 	
-	public SymbolTable(SymbolTable _outerTable) {
+	public SymbolTable(SymbolTable<?> _outerTable) {
 		outerTable = _outerTable;
 	}
 
@@ -23,7 +24,7 @@ public class SymbolTable extends HashMap<String, Object>{
 		return val;
 	}
 
-	public void setOuterTable(SymbolTable _outerTable) {
+	public void setOuterTable(SymbolTable<V> _outerTable) {
 		outerTable = _outerTable;
 	}
 	
