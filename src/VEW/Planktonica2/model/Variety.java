@@ -21,6 +21,13 @@ public class Variety extends VariableType {
 		
 	}
 	
+	@Override
+	public XMLTag buildToXML() {
+		XMLTag varTag = super.buildToXML();
+		varTag.setAttribute("link", linkConcentration.getName());
+		return varTag;
+	}
+	
 
 	public VarietyConcentration getLinkConcentration () {
 		return this.linkConcentration;

@@ -2,12 +2,19 @@ package VEW.Planktonica2.model;
 
 import VEW.Common.XML.XMLTag;
 
-public class Stage implements BuildFromXML {
+public class Stage implements BuildFromXML, BuildToXML {
 	
-	private boolean log;
-	private boolean closure;
+	private Boolean log;
+	private Boolean closure;
 	private String name;
 	private String comment;
+	
+	public Stage() {
+		name = null;
+		comment = null;
+		log = null;
+		closure = null;
+	}
 	
 	@Override
 	public BuildFromXML build(XMLTag tag) {
@@ -72,6 +79,20 @@ public class Stage implements BuildFromXML {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	@Override
+	public XMLTag buildToXML() {
+		XMLTag stageTag = new XMLTag("stage");
+		if (log != null)
+			stageTag.setAttribute("log", Boolean.toString(log));
+		if (closure != null)
+			stageTag.setAttribute("closure", Boolean.toString(closure));
+		if (name != null)
+			stageTag.addTag("name", name);
+		if (comment != null)
+			stageTag.addTag("comment", comment);
+		return stageTag;
 	}
 
 	

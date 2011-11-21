@@ -1,12 +1,15 @@
 package VEW.Planktonica2.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
+import VEW.Common.XML.XMLTag;
 import VEW.Planktonica2.ControllerStructure.SelectableItem;
 import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 import VEW.XMLCompiler.ASTNodes.SymbolTable;
 
-public abstract class Catagory implements SelectableItem, BuildFromXML {
+public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToXML {
 	
 	protected String name;
 	
@@ -155,5 +158,31 @@ public abstract class Catagory implements SelectableItem, BuildFromXML {
 	@Override
 	public String toString() {
 		return this.getName();
+	}
+	
+	public XMLTag buildToXML() {
+		XMLTag tag = new XMLTag("functionalgroup");
+		tag.addTag(new XMLTag("name", name));
+		for(Function f: functions) {
+			tag.addTag(f.buildToXML());
+		}
+		buildVariableTableToXML(tag, stateVarTable);
+		buildVariableTableToXML(tag, paramTable);
+		buildVariableTableToXML(tag, localVarTable);
+		buildVariableTableToXML(tag, varietyStateTable);
+		buildVariableTableToXML(tag, varietyParamTable);
+		buildVariableTableToXML(tag, varietyConcTable);
+		buildVariableTableToXML(tag, varietyLocalTable);
+		return tag;
+	}
+	
+	private <V extends VariableType> void buildVariableTableToXML(XMLTag tag, SymbolTable<V> table) {
+		Collection<V> vals = table.values();
+		Iterator<V> iter = vals.iterator();
+		while(iter.hasNext()) {
+			V var = iter.next();
+			tag.addTag(var.buildToXML());
+		}
+		
 	}
 }
