@@ -15,17 +15,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.event.ListSelectionListener;
 
-import VEW.Planktonica2.ControllerStructure.VariableType;
+import VEW.Planktonica2.model.VariableType;
 
 public class VariableEditorPanel extends JPanel {
 
-	private Dimension d;
 	private VarType current_selection = VarType.GROUPVAR;
-	
-	JPanel variable_info = new JPanel(new GridBagLayout());
 	GridBagConstraints c = new GridBagConstraints();
+	//JPanel variable_info = new JPanel(new GridBagLayout());
 	JLabel type = new JLabel("Type/Scope :");
 	JComboBox  type_combo = new JComboBox();
 	JLabel name = new JLabel("Variable Name :   ");
@@ -40,9 +37,7 @@ public class VariableEditorPanel extends JPanel {
 	JComboBox  link_combo = new JComboBox();
 	JButton add_var = new JButton("Add");
 	
-	public VariableEditorPanel(Dimension dimension) {
-		this.setPreferredSize(dimension);
-		d = dimension;
+	public VariableEditorPanel() {
 		this.initialize();
 	}
 
@@ -51,7 +46,8 @@ public class VariableEditorPanel extends JPanel {
 	}
 
 	private void initialize() {
-		variable_info.setPreferredSize(new Dimension(d.width - 25, d.height - 25));
+		this.setLayout(new GridBagLayout());
+		//variable_info.setPreferredSize(new Dimension(d.width - 25, d.height - 25));
 		add_var.addActionListener(new AddVarListener(this));
 		// Label for scope choice
 		c.ipady = 5;
@@ -59,7 +55,7 @@ public class VariableEditorPanel extends JPanel {
 		c.gridwidth = 2;
 		c.gridx = 0;
 		c.gridy = 0;
-		variable_info.add(type, c);
+		this.add(type, c);
 		// Combo box to choose scope
 		for (VarType vt : VarType.values()) {
 			type_combo.addItem(vt);
@@ -69,32 +65,31 @@ public class VariableEditorPanel extends JPanel {
 		c.gridwidth = 2;
 		c.gridx = 3;
 		c.gridy = 0;
-		variable_info.add(type_combo, c);
+		this.add(type_combo, c);
 		
 		// Label for Variable name
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 1;
-		variable_info.add(name, c);
+		this.add(name, c);
 		// Text field for Var name
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 1;
-		variable_info.add(var_name, c);
+		this.add(var_name, c);
 		
 		// Label for Variable description
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 2;
-		variable_info.add(desc, c);
+		this.add(desc, c);
 		// Text field for Var description
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 3;
 		c.gridy = 2;
-		variable_info.add(var_desc, c);
+		this.add(var_desc, c);
 
 		change_var_type(current_selection);
-		this.add(variable_info,BorderLayout.WEST);
 	}
 	
 	public void change_var_type(VarType var_type) {
@@ -131,16 +126,16 @@ public class VariableEditorPanel extends JPanel {
 			break;
 		}
 		history_size.setVisible(false);
-		variable_info.remove(history_size);
-		variable_info.remove(h_size);
+		this.remove(history_size);
+		this.remove(h_size);
 		initial_value.setVisible(false);
-		variable_info.remove(initial_value);
-		variable_info.remove(i_val);
+		this.remove(initial_value);
+		this.remove(i_val);
 		fs_link.setVisible(false);
-		variable_info.remove(fs_link);
-		variable_info.remove(link_combo);
-		variable_info.remove(add_var);
-		variable_info.validate();
+		this.remove(fs_link);
+		this.remove(link_combo);
+		this.remove(add_var);
+		this.validate();
 		int y = 3;
 		c.gridwidth = 2;
 		if (history) {
@@ -148,11 +143,11 @@ public class VariableEditorPanel extends JPanel {
 			history_size.setVisible(true);
 			c.gridx = 0;
 			c.gridy = y;
-			variable_info.add(history_size, c);
+			this.add(history_size, c);
 			// Text field for History Size
 			c.gridx = 3;
 			c.gridy = y;
-			variable_info.add(h_size, c);
+			this.add(h_size, c);
 			y++;
 		}
 		if (i_value) {
@@ -160,11 +155,11 @@ public class VariableEditorPanel extends JPanel {
 			initial_value.setVisible(true);
 			c.gridx = 0;
 			c.gridy = y;
-			variable_info.add(initial_value, c);
+			this.add(initial_value, c);
 			// Text field for Initial value
 			c.gridx = 3;
 			c.gridy = y;
-			variable_info.add(i_val, c);
+			this.add(i_val, c);
 			y++;
 		}
 		if (food_set) {
@@ -172,25 +167,25 @@ public class VariableEditorPanel extends JPanel {
 			fs_link.setVisible(true);
 			c.gridx = 0;
 			c.gridy = y;
-			variable_info.add(fs_link, c);
+			this.add(fs_link, c);
 			// Combo box for food links
 			link_combo.addItem("Food Set 1");
 			link_combo.addItem("Food Set 2");
 			c.gridx = 3;
 			c.gridy = y;
-			variable_info.add(link_combo, c);
+			this.add(link_combo, c);
 			y++;
 		}
 		c.gridwidth = 1;
 		c.gridx = 3;
 		c.gridy = y;
-		variable_info.add(add_var, c);
-		variable_info.validate();
+		this.add(add_var, c);
+		this.validate();
 	}
 	
 	public VariableType construct_variable() {
 		if (var_name.getText().equals("")) {
-			JOptionPane.showMessageDialog(variable_info, "Variable must have a name");
+			JOptionPane.showMessageDialog(this, "Variable must have a name");
 			return null;
 		}
 		// TODO check name is unique
@@ -201,11 +196,11 @@ public class VariableEditorPanel extends JPanel {
 			try {
 				int hist = Integer.parseInt(h_size.getText());
 				if (hist < 0) {
-					JOptionPane.showMessageDialog(variable_info, "History size must be 0 or higher");
+					JOptionPane.showMessageDialog(this, "History size must be 0 or higher");
 					return null;
 				}
 			} catch (NumberFormatException n) {
-				JOptionPane.showMessageDialog(variable_info, "Invalid history size");
+				JOptionPane.showMessageDialog(this, "Invalid history size");
 				return null;
 			}
 		}
@@ -218,7 +213,7 @@ public class VariableEditorPanel extends JPanel {
 			try {
 				int init = Integer.parseInt(i_val.getText());
 			} catch (NumberFormatException n) {
-				JOptionPane.showMessageDialog(variable_info, "Invalid variable initial value");
+				JOptionPane.showMessageDialog(this, "Invalid variable initial value");
 				return null;
 			}
 		}

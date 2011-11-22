@@ -23,15 +23,15 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.BadLocationException;
 
-import VEW.Planktonica2.ControllerStructure.GlobalVariable;
+import VEW.Planktonica2.model.GlobalVariable;
 import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
 
 public class AutocompleteBox {
 
-	private final static JList list = new JList();
+	private final JList list = new JList();
 	private final JEditorPane description = new JEditorPane();
-	private final static JPopupMenu acbox = new JPopupMenu();
+	private final JPopupMenu acbox = new JPopupMenu();
 	JTextPane target;
 	private String current_word;
 	private int caret_position;
@@ -174,7 +174,7 @@ public class AutocompleteBox {
 		return list;
 	}
 
-	public static JPopupMenu getAcbox() {
+	public JPopupMenu getAcbox() {
 		return acbox;
 	}
 
@@ -186,13 +186,19 @@ public class AutocompleteBox {
 		String key_val = KeyEvent.getKeyText(e.getKeyCode());
 		if (key_val.equals("Minus") && e.isShiftDown())
 			key_val = "_";
-		if (key_val.equals("2") && e.isShiftDown()) {
-			// It must be a double quote
-			int pos = target.getCaretPosition();
-			try {
-				target.getDocument().insertString(pos, "\"", null);
-				target.setCaretPosition(pos);
-			} catch (BadLocationException e1) {
+		if (is_number(key_val) && e.isShiftDown()) {
+			if (key_val.equals("2")) {
+				// It must be a double quote
+				int pos = target.getCaretPosition();
+				try {
+					target.getDocument().insertString(pos, "\"", null);
+					target.setCaretPosition(pos);
+				} catch (BadLocationException e1) {
+				}
+			} else {
+				// It's some other form of punctuation, so reset the autocomplete
+				new_word();
+				hide_suggestions();
 			}
 			return;
 		}
@@ -261,6 +267,10 @@ public class AutocompleteBox {
 		return (keyVal.length() == 1 && Character.isLetterOrDigit(keyVal.charAt(0)));
 	}
 
+	private boolean is_number(String keyVal) {
+		return (keyVal.length() == 1 && Character.isDigit(keyVal.charAt(0)));
+	}
+	
 	public void hide_suggestions() {
 		description.setText("");
 		acbox.setVisible(false);
