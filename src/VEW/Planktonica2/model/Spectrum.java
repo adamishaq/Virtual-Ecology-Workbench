@@ -71,7 +71,7 @@ public class Spectrum implements BuildFromXML, BuildToXML {
 		spectrumTag.addTag("name", name);
 		XMLTag eqTag = buildGraphValuesXML();
 		spectrumTag.addTag(eqTag);
-		return null;
+		return spectrumTag;
 	}
 
 
@@ -79,7 +79,7 @@ public class Spectrum implements BuildFromXML, BuildToXML {
 		XMLTag eqTag = new XMLTag("equation");
 		eqTag.addTag("name", name);
 		eqTag.addTag("eq", buildGraphValuesString());
-		return null;
+		return eqTag;
 	}
 
 

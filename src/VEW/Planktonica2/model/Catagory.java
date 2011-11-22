@@ -161,7 +161,7 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 	}
 	
 	public XMLTag buildToXML() {
-		XMLTag tag = new XMLTag("functionalgroup");
+		XMLTag tag = new XMLTag("placeholder");
 		tag.addTag(new XMLTag("name", name));
 		for(Function f: functions) {
 			tag.addTag(f.buildToXML());

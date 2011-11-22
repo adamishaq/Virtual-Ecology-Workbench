@@ -129,6 +129,7 @@ public class FunctionalGroup extends Catagory {
 	@Override
 	public XMLTag buildToXML() {
 		XMLTag tag = super.buildToXML();
+		tag.setName("functionalgroup");
 		Collection<Stage> stages = stageTable.values();
 		Iterator<Stage> iter = stages.iterator();
 		while (iter.hasNext()) {
