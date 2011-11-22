@@ -75,8 +75,8 @@ public class AmbientVariableTables {
 		units = new ArrayList<Unit>();
 		units.add(new Unit(0, "W", 1));
 		units.add(new Unit(0, "m", -2));
-		physicsVarTable.put("Full Irradiance",
-				new GlobalVariable("Full Irradiance", "Full Irradiance", floatType, units));
+		physicsVarTable.put("FullIrradiance",
+				new GlobalVariable("FullIrradiance", "Full Irradiance", floatType, units));
 		units = new ArrayList<Unit>();
 		units.add(new Unit(0, "0", 0));
 		physicsVarTable.put("Salinity",
@@ -88,8 +88,8 @@ public class AmbientVariableTables {
 		units = new ArrayList<Unit>();
 		units.add(new Unit(0, "W", 1));
 		units.add(new Unit(0, "m", -2));
-		physicsVarTable.put("Visible Irradiance",
-				new GlobalVariable("Visible Irradiance", "Visible Irradiance", floatType, units));		
+		physicsVarTable.put("VisibleIrradiance",
+				new GlobalVariable("VisibleIrradiance", "Visible Irradiance", floatType, units));		
 	}
 	
 	

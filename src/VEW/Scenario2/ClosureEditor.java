@@ -10,6 +10,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -115,9 +116,9 @@ public class ClosureEditor extends JPanel {
     return ok;
   }
   
-  public ClosureEditor(JDialog jd, XMLTag _theModel) {
+  public ClosureEditor(JFrame vewController2, XMLTag _theModel) {
     theModel = _theModel;
-    vc2 = (VEWController2) jd;
+    vc2 = (VEWController2) vewController2;
     ee = new EquationEditor(vc2);
     JPanel topPanel = new JPanel(new FlowLayout());
     JScrollPane jsp1 = new JScrollPane(tpList);

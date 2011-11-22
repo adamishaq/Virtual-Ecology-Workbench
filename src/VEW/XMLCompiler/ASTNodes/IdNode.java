@@ -31,6 +31,8 @@ public class IdNode extends ExprNode {
 
 	@Override
 	public String generateXML() {
+		String var = name.replaceAll("FullIrradiance", "Full Irradiance");
+		var = var.replace("VisibleIrradiance", "Visible Irradiance");
 		return "\\var{" + name + "}";
 	}
 	

@@ -24,6 +24,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -330,8 +331,8 @@ public class ScenarioPanel2 extends JPanel {
   }
   
   
-  public ScenarioPanel2(JDialog ParentFrame, XMLTag _ModelFile) {
-    vc2 = (VEWController2) ParentFrame;
+  public ScenarioPanel2(JFrame vewController2, XMLTag _ModelFile) {
+    vc2 = (VEWController2) vewController2;
     dd = new DateDialog(vc2,1800);
     dvScale = new DataViewerScale(vc2);
     dpScale = new DepthScale(vc2);
@@ -853,8 +854,8 @@ public class ScenarioPanel2 extends JPanel {
       valLabel.setText("   Value under cursor: "+val);
     }
     
-    public DataViewerScale(JDialog parent) {
-      super(parent,"Scale",false);
+    public DataViewerScale(JFrame vc2) {
+      super(vc2,"Scale",false);
       setSize(450,150);
       getContentPane().setLayout(new BorderLayout());
       JPanel scaleBit = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -909,8 +910,8 @@ public class ScenarioPanel2 extends JPanel {
     JTable depthTable = new JTable(depthTableModel);
     JLabel dataName = new JLabel("");
     
-    public DepthScale(JDialog parent) {
-      super(parent,"Depths",false);
+    public DepthScale(JFrame vc2) {
+      super(vc2,"Depths",false);
       depthTableModel.setColumnCount(2);
       depthTableModel.setColumnIdentifiers(new String[] {"Depth","Value"});
       for (int i=0; i<14; i++) {

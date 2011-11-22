@@ -11,6 +11,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -211,9 +212,9 @@ public class SpeciesBuilder2 extends JPanel {
     addMany.setEnabled(fgList.getSelectedIndices().length==1);
   }
   
-  public SpeciesBuilder2(JDialog parent, XMLTag model) {
+  public SpeciesBuilder2(JFrame vewController2, XMLTag model) {
     theModel = model;
-    vc2 = (VEWController2) parent;
+    vc2 = (VEWController2) vewController2;
     setLayout(new BorderLayout());
     JPanel freqSpeciesPanel = new JPanel(new BorderLayout());
       JPanel fgPanel = new JPanel(new BorderLayout());
@@ -254,7 +255,7 @@ public class SpeciesBuilder2 extends JPanel {
       paramTablePanel.add(paramButtons,BorderLayout.SOUTH);
       add(paramTablePanel,BorderLayout.CENTER);
     
-    parent.pack();
+    vewController2.pack();
     xValue.setText("0.0");
     fgList.addListSelectionListener(eh);
     specList.addListSelectionListener(eh);
@@ -536,8 +537,8 @@ class ManySpeciesDialog extends JDialog {
    return species;
   }
   
-  public ManySpeciesDialog(JDialog parent, String _fgName) {
-    super(parent,"Add Many Species",true);
+  public ManySpeciesDialog(JFrame vc2, String _fgName) {
+    super(vc2,"Add Many Species",true);
     fgName=_fgName;
     JScrollPane tableScroller = new JScrollPane(xTable);
     tableScroller.setPreferredSize(new Dimension(400,200));

@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -120,10 +121,10 @@ public class ChemicalConservationDialog extends JPanel {
   }
   
   
-  public ChemicalConservationDialog(JDialog parent, XMLTag model) {
+  public ChemicalConservationDialog(JFrame vewController2, XMLTag model) {
     theModel = model;
-    vc2 = (VEWController2) parent;
-    dd = new DateDialog(parent,1800);
+    vc2 = (VEWController2) vewController2;
+    dd = new DateDialog(vewController2,1800);
     JPanel mainPanel = new JPanel(new BorderLayout(2,2));
     JPanel switchOptions = new JPanel(new FlowLayout());
     switchOptions.add(useCC);

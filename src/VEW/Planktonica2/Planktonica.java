@@ -18,6 +18,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -157,7 +158,7 @@ public class Planktonica extends JPanel {
   private String SelectedGroup = null;
   private XMLTag SelectedInstance = null;
   private XMLTag SelectedFunction = null;
-  private JDialog parent;
+  private JFrame parent;
 
   public boolean greenLight(boolean fix) {
 	  
@@ -409,7 +410,7 @@ public class Planktonica extends JPanel {
         (String) instances.getSelectedValue());
   }
 
-  public Planktonica(JDialog jd, XMLFile xmlfile) {
+  public Planktonica(JFrame jd, XMLFile xmlfile) {
     vc2 = (VEWController2) jd;
     parent = jd;
     ee = new EquationEditor(vc2);
