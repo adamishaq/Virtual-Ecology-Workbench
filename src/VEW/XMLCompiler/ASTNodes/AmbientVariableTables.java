@@ -32,7 +32,6 @@ public class AmbientVariableTables {
 	}
 
 	private void initialiseSystemVarTable() {
-		systemVarTable = new SymbolTable();
 		Type floatType = (Type) typeTable.get("$float"); 
 		systemVarTable = new SymbolTable<GlobalVariable>();
 		Collection<Unit> units = new ArrayList<Unit>();
@@ -54,7 +53,6 @@ public class AmbientVariableTables {
 	}
 
 	private void initialiseWaterColumnVarTable() {
-		waterColumnVarTable = new SymbolTable();
 		Type floatType = (Type) typeTable.get("$float");
 		waterColumnVarTable = new SymbolTable<GlobalVariable>();
 		Collection<Unit> units = new ArrayList<Unit>();
@@ -64,7 +62,6 @@ public class AmbientVariableTables {
 	}
 
 	private void initialisePhysicsVarTable() {
-		physicsVarTable = new SymbolTable();
 		Type floatType = (Type) typeTable.get("$float");
 		physicsVarTable = new SymbolTable<GlobalVariable>();
 		Collection<Unit> units = new ArrayList<Unit>();
