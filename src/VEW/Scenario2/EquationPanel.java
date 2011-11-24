@@ -1,4 +1,4 @@
-package VEW.Planktonica2;
+package VEW.Scenario2;
 
 import java.awt.Dimension;
 import java.awt.Font;

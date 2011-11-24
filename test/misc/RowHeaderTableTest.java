@@ -4,9 +4,9 @@ import java.awt.Dimension;
 import javax.swing.*;
 import javax.swing.table.*;
 
-import VEW.Planktonica2.JScrollPaneAdjuster;
-import VEW.Planktonica2.JTableRowHeaderResizer;
-import VEW.Planktonica2.RowHeaderRenderer;
+import VEW.Planktonica2.StageEditor.JScrollPaneAdjuster;
+import VEW.Planktonica2.StageEditor.JTableRowHeaderResizer;
+import VEW.Planktonica2.StageEditor.RowHeaderRenderer;
 
 import java.util.Vector;
 

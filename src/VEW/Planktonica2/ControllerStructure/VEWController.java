@@ -11,15 +11,15 @@ import VEW.Planktonica2.EditorPanel;
 import VEW.Planktonica2.model.Catagory;
 import VEW.Planktonica2.model.Function;
 import VEW.Planktonica2.model.Model;
-import VEW.Planktonica2.model.StateVariable;
 import VEW.Planktonica2.model.VariableType;
 
 
 public abstract class VEWController extends Observable {
 	
-	Model model;
-	EditorPanel editor;
-	Display display;
+	protected Model model;
+	protected EditorPanel editor;
+	protected Display display;
+	
 	/**
 	 * 
 	 * @param m the class based model of the current VEW project

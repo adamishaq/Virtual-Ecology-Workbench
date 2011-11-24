@@ -1,14 +1,7 @@
 package VEW.UIComponents;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -16,6 +9,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import VEW.Planktonica2.DisplayEventHandlers.AddVarListener;
+import VEW.Planktonica2.DisplayEventHandlers.VarTypeListener;
 import VEW.Planktonica2.model.Local;
 import VEW.Planktonica2.model.Parameter;
 import VEW.Planktonica2.model.StateVariable;
@@ -27,22 +22,24 @@ import VEW.Planktonica2.model.VarietyVariable;
 
 public class VariableEditorPanel extends JPanel {
 
+	private static final long serialVersionUID = 1484036714507019850L;
+	
 	private VarType current_selection = VarType.GROUPVAR;
-	GridBagConstraints c = new GridBagConstraints();
+	private GridBagConstraints c = new GridBagConstraints();
 	//JPanel variable_info = new JPanel(new GridBagLayout());
-	JLabel type = new JLabel("Type/Scope :");
-	JComboBox  type_combo = new JComboBox();
-	JLabel name = new JLabel("Variable Name :   ");
-	JTextField var_name = new JTextField();
-	JLabel desc = new JLabel("Description :");
-	JTextField var_desc = new JTextField();
-	JLabel history_size = new JLabel("History Size :  ");
-	JTextField h_size = new JTextField("0");
-	JLabel initial_value = new JLabel("Initial Value :  ");
-	JTextField i_val = new JTextField("0");
-	JLabel fs_link = new JLabel("Food-Set Link :");
-	JComboBox  link_combo = new JComboBox();
-	JButton add_var = new JButton("Add");
+	private JLabel type = new JLabel("Type/Scope :");
+	private JComboBox  type_combo = new JComboBox();
+	private JLabel name = new JLabel("Variable Name :   ");
+	private JTextField var_name = new JTextField();
+	private JLabel desc = new JLabel("Description :");
+	private JTextField var_desc = new JTextField();
+	private JLabel history_size = new JLabel("History Size :  ");
+	private JTextField h_size = new JTextField("0");
+	private JLabel initial_value = new JLabel("Initial Value :  ");
+	private JTextField i_val = new JTextField("0");
+	private JLabel fs_link = new JLabel("Food-Set Link :");
+	private JComboBox  link_combo = new JComboBox();
+	private JButton add_var = new JButton("Add");
 	
 	public VariableEditorPanel() {
 		this.initialize();
@@ -227,43 +224,6 @@ public class VariableEditorPanel extends JPanel {
 		return null;
 	}
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1484036714507019850L;
-
-	static class VarTypeListener implements ItemListener {
-
-		private VariableEditorPanel parent;
-		
-		public VarTypeListener(VariableEditorPanel par) {
-			this.parent = par;
-		}
-		
-		@Override
-		public void itemStateChanged(ItemEvent i) {
-			VarType selection = (VarType) i.getItem();
-			if (!parent.getCurrent_selection().equals(selection)) {
-				parent.change_var_type(selection);
-			}
-		}
-		
-	}
-	
-	static class AddVarListener implements ActionListener {
-
-		private VariableEditorPanel parent;
-		
-		public AddVarListener(VariableEditorPanel par) {
-			this.parent = par;
-		}
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			VariableType var = parent.construct_variable();
-			// Add it to the model
-		}
-	}
 
 	public void display(VariableType v) {
 		// Fill in the variable name and description

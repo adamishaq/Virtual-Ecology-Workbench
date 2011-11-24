@@ -81,9 +81,9 @@ public class PigmentPanel extends JPanel {
   public void show(XMLTag pigment, XMLFile model) {
     thePigment = pigment;
     if (graphType.getSelectedIndex()==-1) graphType.setSelectedIndex(0);
-    doPigments.setSelected((thePlank.getCurrentInstance()!=null) && 
-                           (thePlank.getCurrentInstance().getValue("pigment")!=null) &&
-                           (thePlank.getCurrentInstance().getValue("pigment").equals("true")));
+    //doPigments.setSelected((thePlank.getCurrentInstance()!=null) && 
+   //                        (thePlank.getCurrentInstance().getValue("pigment")!=null) &&
+     //                      (thePlank.getCurrentInstance().getValue("pigment").equals("true")));
     setGraph();
     updatePig();
   }
@@ -131,7 +131,7 @@ public class PigmentPanel extends JPanel {
     public void actionPerformed(ActionEvent e) {
       if (e.getSource()==graphType) setGraph();
       else if (e.getSource()==doPigments) {
-        thePlank.getCurrentInstance().getTag("pigment").setValue(String.valueOf(doPigments.isSelected()));
+       // thePlank.getCurrentInstance().getTag("pigment").setValue(String.valueOf(doPigments.isSelected()));
         updatePig();
         setGraph();
         thePlank.vc2.unsaved(false);

@@ -3,13 +3,13 @@ package VEW.Planktonica2;
 import java.awt.Dimension;
 import VEW.Planktonica2.ControllerStructure.ChemicalController;
 import VEW.Planktonica2.model.VariableType;
+import VEW.UIComponents.VariableEditorPanel;
 
 public class ChemicalDisplay extends Display {
 
 	private static final long serialVersionUID = 7723416016731656817L;
+	private VariableEditorPanel variablePanel;
 	private EditorPanel editorPanel;
-	private VariablePanel variablePanel;
-	private PigmentPanel pigPanel;
 	
 	private ChemicalController chemController;
 
@@ -36,9 +36,9 @@ public class ChemicalDisplay extends Display {
 		// editor tab
 		this.addTabToAncilary("Editor", editorPanel = new EditorPanel (this.controller));
 		// variable tab
-		this.addTabToAncilary("Variable", variablePanel = new VariablePanel ());
+		this.addTabToAncilary("Variable", variablePanel = new VariableEditorPanel ());
 		// pigment tab
-		this.addTabToAncilary("Pigment Display", pigPanel = new PigmentPanel ());
+		this.addTabToAncilary("Pigment Display", new PigmentPanel ());
 		
 	}
 

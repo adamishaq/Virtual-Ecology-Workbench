@@ -3,7 +3,6 @@ package VEW.Planktonica2.DisplayEventHandlers;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import VEW.Planktonica2.ControllerStructure.SelectableItem;
 import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.Planktonica2.model.Catagory;
 import VEW.Planktonica2.model.Function;

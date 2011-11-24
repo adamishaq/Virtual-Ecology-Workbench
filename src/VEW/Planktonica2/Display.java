@@ -7,7 +7,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.io.File;
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -18,7 +17,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
 import VEW.Planktonica2.ControllerStructure.SelectableItem;
@@ -67,8 +65,6 @@ public abstract class Display extends JSplitPane {
 	
 	protected DefaultMutableTreeNode rootNode;
 	private DefaultMutableTreeNode varRootNode;
-	private final int visibleListRows = 5;
-
 	private JTabbedPane ancilaryFuncPane;
 
 	final protected JPanel buttonPane = new JPanel ();

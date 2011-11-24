@@ -10,7 +10,7 @@ import java.util.prefs.BackingStoreException;
 import VEW.Common.XML.XMLFile;
 import VEW.Common.XML.XMLTag;
 
-public class Model implements BuildFromXML, Observer {
+public class Model implements BuildFromXML {
 
 	private Collection<Chemical> chemicals;
 	private Collection<FunctionalGroup> functionalGroups;
@@ -69,15 +69,7 @@ public class Model implements BuildFromXML, Observer {
 		return this;
 	}
 
-	/**
-	 * A function that activates the checkModel method, causing the model to
-	 * automatically compile. 
-	 */
-	@Override
-	public void update(Observable o, Object arg) {
-		checkModel();
 
-	}
 	
 	/**
 	 * Checks the validity of the current data in the controller.

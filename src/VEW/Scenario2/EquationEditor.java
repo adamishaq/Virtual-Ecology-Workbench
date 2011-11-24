@@ -1,4 +1,4 @@
-package VEW.Planktonica2;
+package VEW.Scenario2;
 
 import java.awt.*;
 import java.awt.event.*;

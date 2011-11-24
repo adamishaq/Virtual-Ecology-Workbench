@@ -1,8 +1,6 @@
 package VEW.Planktonica2.DisplayEventHandlers;
 
 import javax.swing.JTree;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 

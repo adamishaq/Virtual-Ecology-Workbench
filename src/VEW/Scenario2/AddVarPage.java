@@ -1,4 +1,4 @@
-package VEW.Planktonica2;
+package VEW.Scenario2;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;

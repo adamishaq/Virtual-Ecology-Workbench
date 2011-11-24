@@ -1,4 +1,4 @@
-package VEW.Planktonica2;
+package VEW.Planktonica2.StageEditor;
 
 import java.awt.Point;
 import javax.swing.JScrollPane;

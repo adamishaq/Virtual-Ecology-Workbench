@@ -3,13 +3,15 @@ package VEW.Planktonica2;
 import java.awt.Dimension;
 import javax.swing.JCheckBox;
 import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
+import VEW.Planktonica2.StageEditor.StageEditorPanel;
 import VEW.Planktonica2.model.VariableType;
+import VEW.UIComponents.VariableEditorPanel;
 
 public class FunctionalDisplay extends Display {
 
 	private static final long serialVersionUID = -6094339463447273188L;
 	private EditorPanel editorPanel;
-	private VariablePanel variablePanel;
+	private VariableEditorPanel variablePanel;
 	private StageEditorPanel stageEditor;
 	
 	private FunctionalGroupController funcController;
@@ -39,7 +41,7 @@ public class FunctionalDisplay extends Display {
 		// editor tab
 		this.addTabToAncilary("Editor", editorPanel = new EditorPanel (this.controller));
 		// variable tab
-		this.addTabToAncilary("Variable", variablePanel = new VariablePanel ());
+		this.addTabToAncilary("Variable", variablePanel = new VariableEditorPanel ());
 		// edit stages
 		stageEditor = null;
 		if (funcController == null) {

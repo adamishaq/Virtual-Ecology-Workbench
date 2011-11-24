@@ -5,14 +5,12 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
@@ -36,7 +34,7 @@ import VEW.XMLCompiler.ASTNodes.TreeWalkerException;
 
 public class EditorPanel extends JPanel {
 
-	VEWController controller;
+	private VEWController controller;
 	
 	private static final long serialVersionUID = 960655324263522980L;
 	private JTextPane syntax;

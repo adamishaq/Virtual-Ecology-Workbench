@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -22,8 +21,6 @@ import VEW.Common.MessageBox;
 import VEW.Common.StringTools;
 import VEW.Common.XML.XMLTag;
 import VEW.Controller2.VEWController2;
-import VEW.Planktonica2.EquationEditor;
-import VEW.Planktonica2.EquationPanel;
 
 public class ClosureEditor extends JPanel {
   private DefaultListModel tpListModel = new DefaultListModel();
