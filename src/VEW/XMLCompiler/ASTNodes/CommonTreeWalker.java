@@ -1,13 +1,11 @@
 package VEW.XMLCompiler.ASTNodes;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.antlr.runtime.tree.CommonErrorNode;
 import org.antlr.runtime.tree.CommonTree;
 
-import org.antlr.runtime.CommonToken;
 import org.antlr.runtime.MismatchedTokenException;
 import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.Token;

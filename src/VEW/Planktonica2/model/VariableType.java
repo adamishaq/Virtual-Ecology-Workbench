@@ -2,17 +2,19 @@ package VEW.Planktonica2.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
+
 import VEW.Common.XML.XMLTag;
 
 
-public abstract class VariableType implements BuildFromXML {
+public abstract class VariableType implements BuildFromXML, BuildToXML {
 
 	protected Catagory parentCatagory;
 	private String name;
 	private String desc;
-	private float value;
+	private Float value;
 	private Type type;
-	private int hist;
+	private Integer hist;
 	private Collection<Unit> units;
 	private boolean assignedTo;
 	private boolean readFrom;
@@ -117,9 +119,31 @@ public abstract class VariableType implements BuildFromXML {
 		}
 	}
 
+	public XMLTag buildToXML() {
+		XMLTag tag = new XMLTag("placeholder");
+		tag.addTag(new XMLTag("name", name));
+		if (desc != null)
+			tag.addTag(new XMLTag("desc", desc));
+		if (value != null)
+			tag.addTag(new XMLTag("value", Float.toString(value)));
+		if (hist != null)
+			tag.addTag(new XMLTag("hist", Integer.toString(hist)));
+		buildUnitXML(tag);
+		return tag;
+	}
 	
 	
-	
+	private void buildUnitXML(XMLTag tag) {
+		String unitString = "";
+		Iterator<Unit> unitIter = units.iterator();
+		while(unitIter.hasNext()) {
+			Unit u = unitIter.next();
+			unitString += u.toString() + ",";
+		}
+		unitString = unitString.substring(0, unitString.length()-1);
+		tag.addTag(new XMLTag("unit", unitString));
+	}
+
 	public String getName() {
 		return name;
 	}

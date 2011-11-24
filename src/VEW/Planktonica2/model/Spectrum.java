@@ -3,7 +3,7 @@ package VEW.Planktonica2.model;
 import java.util.ArrayList;
 import VEW.Common.XML.XMLTag;
 
-public class Spectrum implements BuildFromXML {
+public class Spectrum implements BuildFromXML, BuildToXML {
 	
 	private String name;
 	private ArrayList<Float> equations;
@@ -62,6 +62,36 @@ public class Spectrum implements BuildFromXML {
 
 	public void setEquations(ArrayList<Float> equations) {
 		this.equations = equations;
+	}
+
+
+	@Override
+	public XMLTag buildToXML() {
+		XMLTag spectrumTag = new XMLTag("spectrum");
+		spectrumTag.addTag("name", name);
+		XMLTag eqTag = buildGraphValuesXML();
+		spectrumTag.addTag(eqTag);
+		return spectrumTag;
+	}
+
+
+	private XMLTag buildGraphValuesXML() {
+		XMLTag eqTag = new XMLTag("equation");
+		eqTag.addTag("name", name);
+		eqTag.addTag("eq", buildGraphValuesString());
+		return eqTag;
+	}
+
+
+	private String buildGraphValuesString() {
+		String graphValsString = GRAPH_VALUES + "{";
+		for (int n = 0; n < equations.size(); n++) {
+			graphValsString += "{" + n + "," + equations.get(n) + "}";
+			if (n != equations.size() - 1) {
+				graphValsString += ",";
+			}
+		}
+		return graphValsString + "}";
 	}
 	
 	

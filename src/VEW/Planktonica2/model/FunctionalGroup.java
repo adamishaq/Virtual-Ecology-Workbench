@@ -1,6 +1,7 @@
 package VEW.Planktonica2.model;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import VEW.Common.XML.XMLTag;
 import VEW.XMLCompiler.ASTNodes.SymbolTable;
@@ -124,6 +125,19 @@ public class FunctionalGroup extends Catagory {
 		
 		
 		return this;
+	}
+	
+	@Override
+	public XMLTag buildToXML() {
+		XMLTag tag = super.buildToXML();
+		tag.setName("functionalgroup");
+		Collection<Stage> stages = stageTable.values();
+		Iterator<Stage> iter = stages.iterator();
+		while (iter.hasNext()) {
+			Stage st = iter.next();
+			tag.addTag(st.buildToXML());
+		}
+		return tag;
 	}
 
 	

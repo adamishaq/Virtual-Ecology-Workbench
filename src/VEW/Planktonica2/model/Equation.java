@@ -2,7 +2,7 @@ package VEW.Planktonica2.model;
 
 import VEW.Common.XML.XMLTag;
 
-public class Equation implements BuildFromXML {
+public class Equation implements BuildFromXML, BuildToXML {
 
 	private String name;
 	private String equation;
@@ -41,6 +41,17 @@ public class Equation implements BuildFromXML {
 
 	public void setEquation(String equation) {
 		this.equation = equation;
+	}
+
+
+
+
+	@Override
+	public XMLTag buildToXML() {
+		XMLTag eqTag = new XMLTag("equation");
+		eqTag.addTag("name", name);
+		//TODO compile AST to XML
+		return null;
 	}
 
 	

@@ -44,6 +44,10 @@ public class Unit {
 		this.name = name;
 	}
 	
+	public String toString() {
+		return size + "," + name + "," + exponent;
+	}
+	
 	
 	
 }

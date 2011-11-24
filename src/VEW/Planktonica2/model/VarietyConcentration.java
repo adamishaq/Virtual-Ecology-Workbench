@@ -1,5 +1,6 @@
 package VEW.Planktonica2.model;
 
+import VEW.Common.XML.XMLTag;
 import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
 public class VarietyConcentration extends VariableType {
@@ -9,6 +10,13 @@ public class VarietyConcentration extends VariableType {
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
 		setVarType(floatType);
+	}
+	
+	@Override
+	public XMLTag buildToXML() {
+		XMLTag varTag = super.buildToXML();
+		varTag.setName("varietyconcentration");
+		return varTag;
 	}
 
 	

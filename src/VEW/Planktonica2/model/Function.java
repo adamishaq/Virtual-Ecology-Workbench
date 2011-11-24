@@ -2,10 +2,11 @@ package VEW.Planktonica2.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import VEW.Common.XML.XMLTag;
 
-public class Function implements BuildFromXML {
+public class Function implements BuildFromXML, BuildToXML {
 
 	private String name;
 	
@@ -208,7 +209,30 @@ public class Function implements BuildFromXML {
 		filePath += "\\";
 		return filePath;
 	}
-	
+
+	@Override
+	public XMLTag buildToXML() {
+		XMLTag funcTag = new XMLTag("function");
+		funcTag.addTag("name", name);
+		Iterator<Equation> eqIter = equations.iterator();
+		while (eqIter.hasNext()) {
+			Equation eq = eqIter.next();
+			funcTag.addTag(eq.buildToXML());
+		}
+		Iterator<Stage> stageIter = calledIn.iterator();
+		while (stageIter.hasNext()) {
+			Stage stage = stageIter.next();
+			funcTag.addTag(new XMLTag("calledin", stage.getName()));
+		}
+		if (archiveName != null)
+			funcTag.addTag(new XMLTag("archivename", archiveName));
+		if (comment != null)
+			funcTag.addTag(new XMLTag("comment", comment));
+		if (author != null)
+			funcTag.addTag(new XMLTag("author", author));
+		return funcTag;
+	}
+
 	public void setParentName(String parentName) {
 		this.parentName = parentName;
 	}

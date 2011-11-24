@@ -2,6 +2,7 @@ package VEW.Planktonica2.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import VEW.Common.XML.XMLTag;
 
@@ -16,7 +17,6 @@ public class Chemical extends Catagory {
 	
 	private String file_path;
 	
-
 	
 	public Chemical(String _file_path) {
 		super();
@@ -96,6 +96,19 @@ public class Chemical extends Catagory {
 
 
 		return this;
+	}
+	
+	@Override
+	public XMLTag buildToXML() {
+		XMLTag chemicalTag = super.buildToXML();
+		chemicalTag.setName("chemical");
+		chemicalTag.addTag("pigment", pigment);
+		Iterator<Spectrum> spectrumIter = spectrum.iterator();
+		while (spectrumIter.hasNext()) {
+			Spectrum spectrum = spectrumIter.next();
+			chemicalTag.addTag(spectrum.buildToXML());
+		}
+		return chemicalTag;
 	}
 
 		
