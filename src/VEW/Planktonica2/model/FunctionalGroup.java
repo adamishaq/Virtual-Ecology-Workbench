@@ -9,14 +9,15 @@ public class FunctionalGroup extends Catagory {
 	
 
 	private boolean invisible;
-	
+	private String file_path;
 	
 	
 	private SymbolTable<Stage> stageTable;
 
-	public FunctionalGroup () {
+	public FunctionalGroup (String file_path) {
 		super();
 		invisible = true;
+		this.file_path = file_path;
 		initialiseFuncTables();
 	}
 
@@ -53,7 +54,7 @@ public class FunctionalGroup extends Catagory {
 		tags = xmlTag.getTags(XMLTagEnum.FUNCTION.xmlTag());
 		
 		for (XMLTag t : tags) {
-			Function f = new Function (stageTable.values());
+			Function f = new Function (stageTable.values(),file_path,this.name);
 			f.build(t);
 			functions.add(f);
 		}

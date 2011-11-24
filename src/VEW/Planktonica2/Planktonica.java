@@ -96,10 +96,6 @@ public class Planktonica extends JPanel {
 		
 		add(catTab);
 	}
-/*=======
-
-public class Planktonica extends JPanel {
->>>>>>> e73b0823aeb3f8174a28e818a9e717e35ff5ee57*/
 
   /* The frames */
 
@@ -130,7 +126,7 @@ public class Planktonica extends JPanel {
   private static final int INST_CHEMICAL = 1;
   private final JCheckBox predCheckBox = new JCheckBox("Mark as Top Predator");
   
-  private final JButton editVar = new JButton("Edit Var");
+  //private final JButton editVar = new JButton("Edit Var");
   private final JButton upFunc = new JButton(new ImageIcon(IconRoot+ "up.gif"));
   private final JButton downFunc = new JButton(new ImageIcon(IconRoot+ "down.gif"));
   private final JButton upFG = new JButton(new ImageIcon(IconRoot+ "up.gif"));
@@ -446,10 +442,10 @@ public class Planktonica extends JPanel {
           XMLTag group = getCurrentInstance();
           if (theVar == null) theVar = group.getTagWhere("*", "name", varNameString);
           detailsHTML.setText(VariableChooser.HTMLForVarHelper(varNameString,group, theVar, false));
-          editVar.setEnabled(true);
+          //editVar.setEnabled(true);
           parent.pack();
-        } else
-          editVar.setEnabled(false);
+        } //else
+          //editVar.setEnabled(false);
       }
     }
 
@@ -568,7 +564,7 @@ public class Planktonica extends JPanel {
 
         // } else if (e.getSource()==closeButton) setVisible(false);
 
-      } else if (e.getSource() == editVar) {
+      }/* else if (e.getSource() == editVar) {
         XMLTag theFunction;
         theFunction = getCurrentFunction();
         
@@ -587,7 +583,7 @@ public class Planktonica extends JPanel {
         vc2.unsaved(false);
         parent.pack();
 
-      } else if (e.getSource() == addInstance) {
+      } */else if (e.getSource() == addInstance) {
         int ind = groups.getSelectedIndex();
         if (ind == INST_FGROUP) {
           importPage.showImporter(Importer.FUNCTIONALGROUPS, xmlFile);

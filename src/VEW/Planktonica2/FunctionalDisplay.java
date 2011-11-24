@@ -3,6 +3,7 @@ package VEW.Planktonica2;
 import java.awt.Dimension;
 import javax.swing.JCheckBox;
 import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
+import VEW.Planktonica2.model.VariableType;
 
 public class FunctionalDisplay extends Display {
 
@@ -20,7 +21,9 @@ public class FunctionalDisplay extends Display {
 		
 	}
 	
-	
+	public void updateVariablePanel(VariableType v) {
+		this.variablePanel.display(v);
+	}
 	
 	@Override
 	protected String getCategoryName() {
@@ -34,7 +37,7 @@ public class FunctionalDisplay extends Display {
 	protected void populateAncilaryFuncPane() {
 		
 		// editor tab
-		this.addTabToAncilary("Editor", editorPanel = new EditorPanel ());
+		this.addTabToAncilary("Editor", editorPanel = new EditorPanel (this.controller));
 		// variable tab
 		this.addTabToAncilary("Variable", variablePanel = new VariablePanel ());
 		// edit stages

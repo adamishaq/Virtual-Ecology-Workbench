@@ -6,15 +6,20 @@ import java.util.prefs.BackingStoreException;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import VEW.Planktonica2.Display;
+import VEW.Planktonica2.EditorPanel;
+import VEW.Planktonica2.model.Catagory;
 import VEW.Planktonica2.model.Function;
 import VEW.Planktonica2.model.Model;
 import VEW.Planktonica2.model.StateVariable;
+import VEW.Planktonica2.model.VariableType;
 
 
 public abstract class VEWController extends Observable {
 	
 	Model model;
-	
+	EditorPanel editor;
+	Display display;
 	/**
 	 * 
 	 * @param m the class based model of the current VEW project
@@ -33,16 +38,16 @@ public abstract class VEWController extends Observable {
 	 * @param selectedVariable
 	 * @return a Variable with name == selected Variable
 	 */
-	public StateVariable getVariable(String selectedVariable) {
+	public VariableType getVariable(String selectedVariable) {
 		
 		if (getSelectedItem() == null || getSelectedFunction () == null) {
 			return null;
 		}
-		
-		
-		
-		// TODO: get variable.
-		
+		SelectableItem i = getSelectedItem();
+		if (i instanceof Catagory) {
+			Catagory c = (Catagory) i;
+			return c.checkAccessableVariableTable(selectedVariable);
+		}
 		return null;
 		
 	}
@@ -54,14 +59,17 @@ public abstract class VEWController extends Observable {
 		Collection<SelectableItem> selectables = this.getSelectables();
 		
 		for (SelectableItem s : selectables) {
-			rootNode.add(new DefaultMutableTreeNode(s));
+			DefaultMutableTreeNode select = new DefaultMutableTreeNode(s);
+			rootNode.add(select);
+			for (int i = 0; i < s.getNoFunctions(); i++) {
+				select.add(new DefaultMutableTreeNode(s.getFunctionAtIndex(i)));
+			}
 		}
 		
 	}
 	
 	private String getSelectedFunction() {
-		
-		return null;
+		return display.get_selected_function();
 	}
 	
 	public Function getFunctionAtIndex(int functionNo) {
@@ -85,6 +93,7 @@ public abstract class VEWController extends Observable {
 			this.setChanged();
 			this.notifyObservers(i);
 		}
+		this.display.update_vars(i);
 		
 	}
 	
@@ -96,6 +105,22 @@ public abstract class VEWController extends Observable {
 	protected abstract boolean setInternalSelectedItem(SelectableItem i);
 	 
 	public abstract Collection<SelectableItem> getSelectables();
+
+	public void setEditor(EditorPanel editorPanel) {
+		this.editor = editorPanel;
+	}
+	
+	public void setDisplay(Display disp) {
+		this.display = disp;
+	}
+
+	public void load_source(String filePath) {
+		this.editor.open_source_file(filePath);
+	}
+
+	public void updateVariablePanel(VariableType variable) {
+		display.updateVariablePanel(variable);
+	}
 
 	
 

@@ -16,15 +16,22 @@ public class Function implements BuildFromXML {
 	private String comment;
 	private String author;
 	
+	private String parentName;
+	
 	private Collection <Equation> equations;
+	private String source_file_path;
 
 	
-	public Function(Collection<Stage> stages) {
+	public Function(Collection<Stage> stages, String file_path, String parent) {
+		this.source_file_path = get_path(file_path);
 		this.availableStages = stages;
+		this.setParentName(parent);
 	}
 
-	public Function() {
+	public Function(String file_path, String parent) {
+		this.source_file_path = get_path(file_path);
 		this.availableStages = null;
+		this.setParentName(parent);
 	}
 
 	
@@ -188,7 +195,32 @@ public class Function implements BuildFromXML {
 		this.equations = equations;
 	}
 
+	public void setSource_code(String source_code) {
+		this.source_file_path = source_code;
+	}
+
+	public String getSource_code() {
+		return source_file_path;
+	}
+
+	private String get_path(String filePath) {
+		filePath = filePath.substring(0, filePath.lastIndexOf('\\'));
+		filePath += "\\";
+		return filePath;
+	}
 	
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
+
+	public String getParentName() {
+		return parentName;
+	}
+
+	@Override
+	public String toString() {
+		return this.getName();
+	}
 
 	
 	

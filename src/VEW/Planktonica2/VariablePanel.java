@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 
+import VEW.Planktonica2.model.VariableType;
 import VEW.UIComponents.VariableEditorPanel;
 
 public class VariablePanel extends JPanel {
@@ -30,6 +31,10 @@ public class VariablePanel extends JPanel {
 
 
 		
+	}
+
+	public void display(VariableType v) {
+		var_edit.display(v);
 	}
 	
 	

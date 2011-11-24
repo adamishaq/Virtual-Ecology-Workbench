@@ -14,10 +14,13 @@ public class Chemical extends Catagory {
 	
 	private ArrayList<Function> functions;
 	
+	private String file_path;
+	
 
 	
-	public Chemical() {
+	public Chemical(String _file_path) {
 		super();
+		this.file_path = _file_path;
 	}
 	
 	@Override
@@ -59,7 +62,7 @@ public class Chemical extends Catagory {
 		this.functions = new ArrayList<Function> (tags.length);
 
 		for (XMLTag t : tags) {
-			Function f = new Function ();
+			Function f = new Function (file_path, this.name);
 			f.build(t);
 			functions.add(f);
 		}

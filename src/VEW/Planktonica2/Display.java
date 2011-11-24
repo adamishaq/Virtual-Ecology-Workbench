@@ -17,11 +17,16 @@ import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
+import VEW.Planktonica2.ControllerStructure.SelectableItem;
 import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
 import VEW.Planktonica2.DisplayEventHandlers.VariableSelectionEventHandler;
+import VEW.Planktonica2.model.Catagory;
+import VEW.Planktonica2.model.VariableType;
 
 public abstract class Display extends JSplitPane {
 
@@ -58,8 +63,10 @@ public abstract class Display extends JSplitPane {
 	protected JButton editFunction;
 	protected JButton copyFunction;
 
+	protected JList list;
+	
 	protected DefaultMutableTreeNode rootNode;
-	private DefaultListModel varList;
+	private DefaultMutableTreeNode varRootNode;
 	private final int visibleListRows = 5;
 
 	private JTabbedPane ancilaryFuncPane;
@@ -67,10 +74,12 @@ public abstract class Display extends JSplitPane {
 	final protected JPanel buttonPane = new JPanel ();
 
 	protected JTree tree;
+	protected JTree var_tree;
 	
 	protected Display(VEWController controller, Dimension initialSize) {
 		super(JSplitPane.HORIZONTAL_SPLIT);
 		this.controller = controller;
+		this.controller.setDisplay(this);
 		initialiseGUI(initialSize);
 		
 		fillGUI();
@@ -85,6 +94,8 @@ public abstract class Display extends JSplitPane {
 	
 	protected abstract void populateButtonPane ();
 	 
+	public abstract void updateVariablePanel(VariableType v);
+	
 	protected void defaultPopulateButtonPane () {
 		
 		initialiseButtons();
@@ -150,16 +161,15 @@ public abstract class Display extends JSplitPane {
 		JScrollPane treeVeiwPane = new JScrollPane(tree);
 		
 		// set up variable list
-		this.varList = new DefaultListModel ();
+		this.varRootNode = new DefaultMutableTreeNode ("Variables"); 
 		
-		JList list = new JList (this.varList);
+		var_tree = new JTree(this.varRootNode);
+		this.var_tree.setRootVisible(false);
+		var_tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		
-		list.setLayoutOrientation(JList.VERTICAL);
-		list.setVisibleRowCount(this.visibleListRows);
+		var_tree.addTreeSelectionListener(new VariableSelectionEventHandler (this.controller));
 		
-		list.addListSelectionListener(new VariableSelectionEventHandler (this.controller));
-		
-		JScrollPane varVeiwPane = new JScrollPane(list);
+		JScrollPane varVeiwPane = new JScrollPane(var_tree);
 		
 		// add two panels
 		splitPane.setTopComponent(treeVeiwPane);
@@ -356,4 +366,60 @@ public abstract class Display extends JSplitPane {
 		copyFunction.setEnabled(false);
 	}
 
+
+	public void update_vars(SelectableItem i) {
+		
+		varRootNode.removeAllChildren();
+		if (i instanceof Catagory) {
+			Catagory c = (Catagory) i;
+			// State Variables
+			DefaultMutableTreeNode heading = new DefaultMutableTreeNode("State Variables");
+			String[] vars = c.get_state_vars();
+			add_table_vars(heading, vars);
+			// Local Variables
+			heading = new DefaultMutableTreeNode("Local Variables");
+			vars = c.get_local_vars();
+			add_table_vars(heading, vars);
+			// Parameters
+			heading = new DefaultMutableTreeNode("Parameters");
+			vars = c.get_params();
+			add_table_vars(heading, vars);
+			// FoodSets
+			heading = new DefaultMutableTreeNode("Food Sets/Concentrations");
+			vars = c.get_variety_concs();
+			add_table_vars(heading, vars);
+			// Variety State Variables
+			heading = new DefaultMutableTreeNode("Variety State Variables");
+			vars = c.get_variety_states();
+			add_table_vars(heading, vars);
+			// Variety Local Variables
+			heading = new DefaultMutableTreeNode("Variety Local Variables");
+			vars = c.get_variety_locals();
+			add_table_vars(heading, vars);
+			// Variety Parameters
+			heading = new DefaultMutableTreeNode("Variety Parameters");
+			vars = c.get_variety_params();
+			add_table_vars(heading, vars);
+		}
+		this.var_tree.expandRow(0);
+		this.var_tree.setRootVisible(false);
+		DefaultTreeModel t = (DefaultTreeModel) this.var_tree.getModel();
+		t.setRoot(varRootNode);
+		this.var_tree.validate();
+	}
+
+
+
+
+	private void add_table_vars(DefaultMutableTreeNode heading, String[] vars) {
+		for (int j = 0; j < vars.length; j++) {
+			heading.add(new DefaultMutableTreeNode(vars[j]));
+		}
+		if (vars.length > 0)
+			varRootNode.add(heading);
+	}
+
+	public String get_selected_function() {
+		return tree.getSelectionPath().getLastPathComponent().toString();
+	}
 }

@@ -10,6 +10,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
@@ -19,6 +24,7 @@ import javax.swing.JTextPane;
 
 import org.antlr.runtime.RecognitionException;
 
+import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.UIComponents.AutocompleteBox;
 import VEW.UIComponents.BACONFilter;
 import VEW.UIComponents.LatexPreview;
@@ -30,6 +36,8 @@ import VEW.XMLCompiler.ASTNodes.TreeWalkerException;
 
 public class EditorPanel extends JPanel {
 
+	VEWController controller;
+	
 	private static final long serialVersionUID = 960655324263522980L;
 	private JTextPane syntax;
 	private LatexPreview preview;
@@ -40,8 +48,10 @@ public class EditorPanel extends JPanel {
 	// Open/save components
 	final static JFileChooser file_chooser = new JFileChooser();
 	
-	public EditorPanel () {
+	public EditorPanel (VEWController controller) {
 		super();
+		this.controller = controller;
+		this.controller.setEditor(this);
 		initialise();
 	}
 	
@@ -235,6 +245,32 @@ public class EditorPanel extends JPanel {
 		char c = syntax_highlighter.getPlainText(syntax.getText()).charAt(pos);
 		return !Character.isLetterOrDigit(c);
 	}
+	
+	public void open_source_file(String filePath) {
+        try {
+			FileInputStream fstream = new FileInputStream(filePath);
+			DataInputStream in = new DataInputStream(fstream);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String source = "<html><head></head><PRE>", line = "";
+			String file_text = "";
+			while ((line = br.readLine()) != null)   {
+				file_text += (line + "\n"); 
+			}
+			in.close();
+			file_text = file_text.replaceAll("<","&lt;");
+			file_text = file_text.replaceAll(">","&gt;");
+			file_text = file_text.replaceAll("\"","&quot;");
+			source += file_text;
+			source += "</PRE></html>";
+			syntax.setText(source);
+			highlight_syntax();
+			syntax.setCaretPosition(0);
+		} catch (Exception e) {
+			syntax.setText("<html><head></head><PRE>Could not find source file " + filePath
+					+ "</PRE></html>");
+		}
+	}
+	
 /*	
 static class CompileListener implements ActionListener {
 		

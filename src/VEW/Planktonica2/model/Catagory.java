@@ -152,6 +152,69 @@ public abstract class Catagory implements SelectableItem, BuildFromXML {
 	}
 	
 	
+	public String[] get_state_vars() {
+		Object[] vars = stateVarTable.keySet().toArray();
+		String [] all_vars = new String[vars.length];
+		for (int i = 0; i < all_vars.length; i++) {
+			all_vars[i] = (String) vars[i];
+		}
+		return all_vars;
+	}
+	
+	public String[] get_params() {
+		Object[] vars = paramTable.keySet().toArray();
+		String [] all_vars = new String[vars.length];
+		for (int i = 0; i < all_vars.length; i++) {
+			all_vars[i] = (String) vars[i];
+		}
+		return all_vars;
+	}
+
+	public String[] get_local_vars() {
+		Object[] vars = localVarTable.keySet().toArray();
+		String [] all_vars = new String[vars.length];
+		for (int i = 0; i < all_vars.length; i++) {
+			all_vars[i] = (String) vars[i];
+		}
+		return all_vars;
+	}
+
+	public String[] get_variety_states() {
+		Object[] vars = varietyStateTable.keySet().toArray();
+		String [] all_vars = new String[vars.length];
+		for (int i = 0; i < all_vars.length; i++) {
+			all_vars[i] = (String) vars[i];
+		}
+		return all_vars;
+	}
+
+	public String[] get_variety_params() {
+		Object[] vars = varietyParamTable.keySet().toArray();
+		String [] all_vars = new String[vars.length];
+		for (int i = 0; i < all_vars.length; i++) {
+			all_vars[i] = (String) vars[i];
+		}
+		return all_vars;
+	}
+
+	public String[] get_variety_concs() {
+		Object[] vars = varietyConcTable.keySet().toArray();
+		String [] all_vars = new String[vars.length];
+		for (int i = 0; i < all_vars.length; i++) {
+			all_vars[i] = (String) vars[i];
+		}
+		return all_vars;
+	}
+
+	public String[] get_variety_locals() {
+		Object[] vars = varietyLocalTable.keySet().toArray();
+		String [] all_vars = new String[vars.length];
+		for (int i = 0; i < all_vars.length; i++) {
+			all_vars[i] = (String) vars[i];
+		}
+		return all_vars;
+	}
+	
 	@Override
 	public String toString() {
 		return this.getName();

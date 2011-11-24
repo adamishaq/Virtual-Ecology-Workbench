@@ -16,7 +16,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import VEW.Planktonica2.model.Local;
+import VEW.Planktonica2.model.Parameter;
+import VEW.Planktonica2.model.StateVariable;
 import VEW.Planktonica2.model.VariableType;
+import VEW.Planktonica2.model.VarietyConcentration;
+import VEW.Planktonica2.model.VarietyLocal;
+import VEW.Planktonica2.model.VarietyParameter;
+import VEW.Planktonica2.model.VarietyVariable;
 
 public class VariableEditorPanel extends JPanel {
 
@@ -255,6 +262,44 @@ public class VariableEditorPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			VariableType var = parent.construct_variable();
 			// Add it to the model
+		}
+	}
+
+	public void display(VariableType v) {
+		// Fill in the variable name and description
+		var_name.setText(v.getName());
+		var_name.setCaretPosition(0);
+		var_desc.setText(v.getDesc());
+		var_desc.setCaretPosition(0);
+		// Check what type of variable it is
+		if (v instanceof StateVariable) {
+			type_combo.setSelectedIndex(0);
+			StateVariable sv = (StateVariable) v;
+			h_size.setText(String.valueOf(sv.getHist()));
+			i_val.setText(String.valueOf(v.getValue()));
+		} else if (v instanceof Parameter) {
+			type_combo.setSelectedIndex(1);
+			Parameter p = (Parameter) v;
+			i_val.setText(String.valueOf(p.getValue()));
+		} else if (v instanceof Local) {
+			type_combo.setSelectedIndex(2);
+		} else if (v instanceof VarietyParameter) {
+			type_combo.setSelectedIndex(3);
+			VarietyParameter vp = (VarietyParameter) v;
+			i_val.setText(String.valueOf(vp.getValue()));
+			// TODO link_combo
+		} else if (v instanceof VarietyConcentration) {
+			type_combo.setSelectedIndex(4);
+		} else if (v instanceof VarietyLocal) {
+			type_combo.setSelectedIndex(5);
+			VarietyLocal vl = (VarietyLocal) v;
+			// TODO link_combo
+		} else if (v instanceof VarietyVariable) {
+			type_combo.setSelectedIndex(6);
+			VarietyVariable vv = (VarietyVariable) v;
+			h_size.setText(String.valueOf(vv.getHist()));
+			i_val.setText(String.valueOf(vv.getValue()));
+			// TODO link_combo
 		}
 	}
 }
