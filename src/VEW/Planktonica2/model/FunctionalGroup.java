@@ -55,7 +55,7 @@ public class FunctionalGroup extends Catagory {
 		tags = xmlTag.getTags(XMLTagEnum.FUNCTION.xmlTag());
 		
 		for (XMLTag t : tags) {
-			Function f = new Function (stageTable.values(),file_path,this.name);
+			Function f = new Function (stageTable.values(),file_path,this);
 			f.build(t);
 			functions.add(f);
 		}

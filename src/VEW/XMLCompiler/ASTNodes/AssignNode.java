@@ -1,5 +1,6 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.model.Catagory;
 import VEW.Planktonica2.model.Local;
 import VEW.Planktonica2.model.Type;
 import VEW.Planktonica2.model.VariableType;
@@ -18,27 +19,27 @@ public class AssignNode extends RuleNode {
 	}
 	
 	@Override
-	public void check() {
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
 		String idName = identifier.getName();
-		VariableType var = getCatagory().checkAssignableVariableTables(identifier.getName());
+		VariableType var = enclosingCategory.checkAssignableVariableTables(identifier.getName());
 		if (var == null) {
-			CommonTreeWalker.add_exception(
+			enclosingTree.addSemanticException(
 				new SemanticCheckException(idName + " is not an assignable variable",line_number));
 		} else if ((var instanceof VarietyLocal || var instanceof Local) && var.isAssignedTo()) {
-			CommonTreeWalker.add_exception(
+			enclosingTree.addSemanticException(
 				new SemanticCheckException(idName + " has already been assigned to in a previous rule",line_number));
 		} else {
-			expr.check();
-			checkTypeCompatibility(var.getVarType());
+			expr.check(enclosingCategory, enclosingTree);
+			checkTypeCompatibility(var.getVarType(), enclosingTree);
 			assignVar = var;
 			assignVar.setAssigned(true);
 		}
 	}
 	
-	private void checkTypeCompatibility(Type varType) {
+	private void checkTypeCompatibility(Type varType, ConstructedASTree enclosingTree) {
 		Type exprType = expr.getExprType();
 		if (varType instanceof VarietyType && !(exprType instanceof VarietyType)) {
-			CommonTreeWalker.add_exception(
+			enclosingTree.addSemanticException(
 					new SemanticCheckException("Cannot assign a variety value to a scalar value",line_number));
 		}
 	}
@@ -62,5 +63,4 @@ public class AssignNode extends RuleNode {
 	public VariableType getAssignVar() {
 		return assignVar;
 	}
-
 }

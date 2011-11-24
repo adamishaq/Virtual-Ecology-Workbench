@@ -1,5 +1,6 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.model.Catagory;
 import VEW.Planktonica2.model.Type;
 import VEW.Planktonica2.model.VarietyType;
 
@@ -14,8 +15,8 @@ public class UnaryPrimNode extends ExprNode {
 	}
 	
 	@Override
-	public void check() {
-		argument.check();
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
+		argument.check(enclosingCategory, enclosingTree);
 		Type argType = argument.getExprType();
 		setExprType(checkCompatibility(argType));
 

@@ -1,5 +1,6 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.model.Catagory;
 import VEW.Planktonica2.model.Type;
 import VEW.Planktonica2.model.VarietyType;
 
@@ -18,9 +19,9 @@ public class BooleanBinOpNode extends BExprNode {
 	}
 	
 	@Override
-	public void check() {
-		rBExpr.check();
-		lBExpr.check();
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
+		rBExpr.check(enclosingCategory, enclosingTree);
+		lBExpr.check(enclosingCategory, enclosingTree);
 		Type rBExprType = rBExpr.getBExprType();
 		Type lBExprType = lBExpr.getBExprType();
 		setBExprType(checkTypeCompatible(rBExprType, lBExprType));

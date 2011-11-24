@@ -1,5 +1,7 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.model.Catagory;
+
 public class RuleSequenceNode extends ASTree {
 	
 	private String ruleName;
@@ -34,10 +36,10 @@ public class RuleSequenceNode extends ASTree {
 	}
 	
 	@Override
-	public void check() {
-		rule.check();
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
+		rule.check(enclosingCategory, enclosingTree);
 		if (seq != null) {
-			seq.check();
+			seq.check(enclosingCategory, enclosingTree);
 		}
 	}
 
@@ -48,11 +50,10 @@ public class RuleSequenceNode extends ASTree {
 			name = ruleName;
 		}
 		if (seq != null) {
-			return "<equation><name>" + name + "</name><eq>" + rule.generateXML() 
-				+ "</eq></equation>" + seq.generateXML();
+			return name + ":" + rule.generateXML() 
+				+ ";" + seq.generateXML();
 		} else {
-			return "<equation><name>" + name + "</name><eq>" + rule.generateXML() 
-				+ "</eq></equation>";
+			return name + ":" + rule.generateXML();
 		}
 	}
 	

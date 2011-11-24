@@ -1,5 +1,6 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.model.Catagory;
 import VEW.Planktonica2.model.Type;
 import VEW.Planktonica2.model.VarietyType;
 
@@ -18,9 +19,9 @@ public class BinOpNode extends ExprNode {
 	}
 
 	@Override
-	public void check() {
-		lExpr.check();
-		rExpr.check();
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
+		lExpr.check(enclosingCategory, enclosingTree);
+		rExpr.check(enclosingCategory, enclosingTree);
 		Type lType = lExpr.getExprType();
 		Type rType = rExpr.getExprType();
 		setExprType(checkCompatibility(lType, rType));

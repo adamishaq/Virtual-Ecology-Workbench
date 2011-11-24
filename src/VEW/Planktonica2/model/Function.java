@@ -18,21 +18,24 @@ public class Function implements BuildFromXML, BuildToXML {
 	private String author;
 	
 	private String parentName;
+	private Catagory parent;
 	
 	private Collection <Equation> equations;
 	private String source_file_path;
 
 	
-	public Function(Collection<Stage> stages, String file_path, String parent) {
+	public Function(Collection<Stage> stages, String file_path, Catagory parent) {
 		this.source_file_path = get_path(file_path);
 		this.availableStages = stages;
-		this.setParentName(parent);
+		this.setParentName(parent.name);
+		this.parent = parent;
 	}
 
-	public Function(String file_path, String parent) {
+	public Function(String file_path, Catagory parent) {
 		this.source_file_path = get_path(file_path);
 		this.availableStages = null;
-		this.setParentName(parent);
+		this.setParentName(parent.name);
+		this.parent = parent;
 	}
 
 	
@@ -244,6 +247,18 @@ public class Function implements BuildFromXML, BuildToXML {
 	@Override
 	public String toString() {
 		return this.getName();
+	}
+	
+	public void compileFunction() {
+		
+	}
+	
+	public void compileCodeForFunction(String code) {
+		
+	}
+
+	public Catagory getParent() {
+		return parent;
 	}
 
 	

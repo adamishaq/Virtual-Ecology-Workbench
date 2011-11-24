@@ -6,6 +6,7 @@ public class Equation implements BuildFromXML, BuildToXML {
 
 	private String name;
 	private String equation;
+	private String code;
 	
 	@Override
 	public BuildFromXML build(XMLTag t) {
@@ -21,10 +22,11 @@ public class Equation implements BuildFromXML, BuildToXML {
 			this.equation = tag.getValue();
 		}
 		
+		EquationStringParser parser = new EquationStringParser(equation);
+		code = "\"" + name + "\" : " + parser.parseEquationString() + "\n";
 		return this;
 	}
 
-	
 	
 	
 	public String getName() {

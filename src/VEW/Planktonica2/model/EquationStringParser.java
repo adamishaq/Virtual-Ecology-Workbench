@@ -20,7 +20,7 @@ public class EquationStringParser {
 	}
 	
 	public String parseEquationString() {
-		return parseRuleString(equationString) + "\n";
+		return parseRuleString(equationString);
 		
 	}
 

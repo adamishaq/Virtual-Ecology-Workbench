@@ -112,7 +112,6 @@ public class Model implements BuildFromXML, Observer {
 	public void removeAllFunctionalGroups() {
 		functionalGroups = new ArrayList<FunctionalGroup> ();
 	}
-
 	
 	
 }

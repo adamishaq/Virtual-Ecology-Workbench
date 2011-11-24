@@ -79,7 +79,7 @@ public class FunctionsTest {
 
 		stages.add(s);
 
-		Function f = new Function (stages, "", "");
+		Function f = new Function (stages, "", null);
 
 		f.build(function);
 

@@ -1,5 +1,6 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.model.Catagory;
 import VEW.Planktonica2.model.Type;
 import VEW.Planktonica2.model.VarietyType;
 
@@ -17,15 +18,15 @@ public class IfExprNode extends ExprNode {
 	}
 	
 	@Override
-	public void check() {
-		conditionExpr.check();
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
+		conditionExpr.check(enclosingCategory, enclosingTree);
 		Type condType = conditionExpr.getBExprType();
 		if (condType instanceof VarietyType) {
-			CommonTreeWalker.add_exception(
+			enclosingTree.addSemanticException(
 					new SemanticCheckException("The condition must evaluate to a boolean",line_number));
 		}
-		thenExpr.check();
-		elseExpr.check();
+		thenExpr.check(enclosingCategory, enclosingTree);
+		elseExpr.check(enclosingCategory, enclosingTree);
 
 	}
 
