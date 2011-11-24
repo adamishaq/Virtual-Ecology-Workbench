@@ -12,6 +12,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -343,8 +344,8 @@ public class FoodTypeDialog extends JPanel {
     }
   }
   
-  public FoodTypeDialog(JDialog jd, XMLTag model) {
-    vc2 = (VEWController2) jd;
+  public FoodTypeDialog(JFrame vewController2, XMLTag model) {
+    vc2 = (VEWController2) vewController2;
     theModel = model;
     varDescTableModel.setColumnIdentifiers(new String[] {"Name","Description"});
     foodParamTableModel.setColumnIdentifiers(new String[] {"Food type", "A", "B", "Value"});

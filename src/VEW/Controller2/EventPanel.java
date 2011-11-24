@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -420,11 +421,11 @@ public class EventPanel extends JPanel {
  
    }
    
-   public EventPanel(JDialog jd, XMLTag model) {
+   public EventPanel(JFrame vewController2, XMLTag model) {
      lockEvents++;
      theModel = model;
     
-     vc2 = (VEWController2) jd;
+     vc2 = (VEWController2) vewController2;
      dd = new DateDialog(vc2,1800);
      setLayout(new BorderLayout());
      JPanel topHalf = new JPanel(new BorderLayout());

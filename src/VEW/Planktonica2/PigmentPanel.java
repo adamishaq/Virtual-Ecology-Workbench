@@ -24,21 +24,28 @@ import VEW.Common.XML.XMLTag;
 
 public class PigmentPanel extends JPanel {
 
-  private int lockEvents = 0;
-  private DefaultTableModel dataTableModel = new DefaultTableModel();
-  private JTable dataTable = new JTable(dataTableModel);
-  private JComboBox graphType;
-  public JCheckBox doPigments = new JCheckBox("Chemical has pigmentation?");
-  private PigmentGraph pigmentGraph;
-  private XMLTag thePigment;
-  private Planktonica thePlank;
-  public static final String Pigment_CHI = "Chi";
-  public static final String Pigment_e = "e";
-  protected static final int graphHeight = 260;
-  protected static final int graphWidth = 580;
-  private static final String[] colHeaders = new String[] {"Min W", "Max W", "Value"};
+
+	private static final long serialVersionUID = 1040209636264981879L;
+	
+	private int lockEvents = 0;
+	private DefaultTableModel dataTableModel = new DefaultTableModel();
+	private JTable dataTable = new JTable(dataTableModel);
+	private JComboBox graphType;
+	public JCheckBox doPigments = new JCheckBox("Chemical has pigmentation?");
+	private PigmentGraph pigmentGraph;
+	private XMLTag thePigment;
+	private Planktonica thePlank;
+	public static final String Pigment_CHI = "Chi";
+	public static final String Pigment_e = "e";
+	protected static final int graphHeight = 260;
+	protected static final int graphWidth = 580;
+	private static final String[] colHeaders = new String[] {"Min W", "Max W", "Value"};
 
 
+  public PigmentPanel() {
+	  // TODO: pigment Panel
+  }
+  
   public PigmentPanel(Planktonica p) {
     EventHandler eh = new EventHandler();
     thePlank = p;
@@ -74,9 +81,9 @@ public class PigmentPanel extends JPanel {
   public void show(XMLTag pigment, XMLFile model) {
     thePigment = pigment;
     if (graphType.getSelectedIndex()==-1) graphType.setSelectedIndex(0);
-    doPigments.setSelected((thePlank.getCurrentInstance()!=null) && 
-                           (thePlank.getCurrentInstance().getValue("pigment")!=null) &&
-                           (thePlank.getCurrentInstance().getValue("pigment").equals("true")));
+    //doPigments.setSelected((thePlank.getCurrentInstance()!=null) && 
+   //                        (thePlank.getCurrentInstance().getValue("pigment")!=null) &&
+     //                      (thePlank.getCurrentInstance().getValue("pigment").equals("true")));
     setGraph();
     updatePig();
   }
@@ -124,7 +131,7 @@ public class PigmentPanel extends JPanel {
     public void actionPerformed(ActionEvent e) {
       if (e.getSource()==graphType) setGraph();
       else if (e.getSource()==doPigments) {
-        thePlank.getCurrentInstance().getTag("pigment").setValue(String.valueOf(doPigments.isSelected()));
+       // thePlank.getCurrentInstance().getTag("pigment").setValue(String.valueOf(doPigments.isSelected()));
         updatePig();
         setGraph();
         thePlank.vc2.unsaved(false);

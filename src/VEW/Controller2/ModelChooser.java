@@ -284,6 +284,9 @@ public class ModelChooser extends JPanel {
               lockEvents--;
             }
           }
+          else {
+        	  lockEvents--;
+          }
         }
         updateButtons();
         

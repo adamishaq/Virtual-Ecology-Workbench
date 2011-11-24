@@ -4,10 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
 import java.util.Vector;
+import java.util.prefs.BackingStoreException;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -16,19 +18,28 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.JTabbedPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
-
 import VEW.Common.StringTools;
 import VEW.Common.XML.XMLFile;
 import VEW.Common.XML.XMLTag;
 import VEW.Controller2.VEWController2;
+
+import VEW.Planktonica2.ControllerStructure.ChemicalController;
+import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
+import VEW.Planktonica2.model.Model;
+/**
+ * VEW Planktonica display for editing functional groups and chemicals, based on MVC OO design principle
+ * 
+ * @author Michael Hinstridge & Chris Bates
+ *
+ */
 
 public class Planktonica extends JPanel {
 
@@ -49,14 +60,36 @@ public class Planktonica extends JPanel {
 		vc2 = jd;
 	    parent = jd;
 	    ee = new EquationEditor(vc2);
-	    VEWController controller = new XMLController(xmlFile);
-	    funcView = new FunctionalDisplay(controller, catTab.getSize());
-	    chemView = new ChemicalDisplay(controller, catTab.getSize());
-	    initialiseGUI(controller);
+	    Model m = new Model(xmlFile);
+		try {
+			m.buildFromFile();
+		} catch (BackingStoreException e) {
+			System.err.println(e);
+			new JDialog(jd, "XMLFile: " + xmlFile.getName() + " failed to load.");
+			jd.dispose();
+		}
+		
+	    funcView = new FunctionalDisplay(new FunctionalGroupController(m), catTab.getSize());
+	    chemView = new ChemicalDisplay(new ChemicalController(m), catTab.getSize());
+	    initialiseGUI();
 	    parent.pack();
 	}
 	
-	private void initialiseGUI(VEWController controller) {
+	public Planktonica (XMLFile xmlFile) {
+		ee = new EquationEditor(vc2);
+	    Model m = new Model(xmlFile);
+		try {
+			m.buildFromFile();
+		} catch (BackingStoreException e) {
+			System.err.println(e);
+		}
+		
+	    funcView = new FunctionalDisplay(new FunctionalGroupController(m), catTab.getSize());
+	    chemView = new ChemicalDisplay(new ChemicalController(m), catTab.getSize());
+	    initialiseGUI();
+	}
+	
+	private void initialiseGUI() {
 		setLayout(new BorderLayout(2, 2));
 		
 		catTab.addTab("Functional Groups", funcView);
@@ -75,8 +108,8 @@ public class Planktonica extends JPanel {
   public final DefaultListModel functionListModel = new DefaultListModel();
   public final JList functions = new JList(functionListModel);
   public JButton stageEditor = new JButton("Edit Stages");
-  public MiniStageTableModel miniStageTableModel = new MiniStageTableModel();
-  public JTable miniStageTable = new JTable(miniStageTableModel);
+  //public MiniStageTableModel miniStageTableModel = new MiniStageTableModel();
+  //public JTable miniStageTable = new JTable(miniStageTableModel);
   public EquationPanel eqPanel = new EquationPanel("");
   public PigmentPanel pigPanel;
   public JScrollPane eqsScroller = new JScrollPane(eqPanel);
@@ -94,7 +127,7 @@ public class Planktonica extends JPanel {
   private static final int INST_CHEMICAL = 1;
   private final JCheckBox predCheckBox = new JCheckBox("Mark as Top Predator");
   
-  private final JButton editVar = new JButton("Edit Var");
+  //private final JButton editVar = new JButton("Edit Var");
   private final JButton upFunc = new JButton(new ImageIcon(IconRoot+ "up.gif"));
   private final JButton downFunc = new JButton(new ImageIcon(IconRoot+ "down.gif"));
   private final JButton upFG = new JButton(new ImageIcon(IconRoot+ "up.gif"));
@@ -115,16 +148,19 @@ public class Planktonica extends JPanel {
   private final static String PIGMENTEDITOR = "Pigment Editor";
   private static String varNameString = "";
   
-  private EventHandler eh = new EventHandler();
+  //private EventHandler eh = new EventHandler();
 
   private final JComboBox varList = new JComboBox();
   
   private String SelectedGroup = null;
   private XMLTag SelectedInstance = null;
   private XMLTag SelectedFunction = null;
-  private JDialog parent;
+  private JFrame parent;
 
   public boolean greenLight(boolean fix) {
+	  
+	return true;
+	 /*
     if (xmlFile.getTag("kernel")!=null) xmlFile.getTag("kernel").removeFromParent();
     
     XMLTag[] fgs = xmlFile.getTags("functionalgroup");
@@ -185,164 +221,9 @@ public class Planktonica extends JPanel {
       eh.groupListHandler();
     }
     return true;
+    */
   }
 
-  private void initialiseGUI() {
-    setLayout(new BorderLayout(2, 2));
-    pigPanel = new PigmentPanel(this);
-    final JPanel topBoxes = new JPanel(new FlowLayout());
-    final JPanel p1 = new JPanel(new BorderLayout());
-    final JPanel p2 = new JPanel(new BorderLayout());
-    final JPanel p3 = new JPanel(new BorderLayout());
-    final JScrollPane jsp1 = new JScrollPane(groups);
-    jsp1.setPreferredSize(new Dimension(120, 100));
-    final JScrollPane jsp2 = new JScrollPane(instances);
-    jsp2.setPreferredSize(new Dimension(195, 100));
-    final JScrollPane jsp3 = new JScrollPane(functions);
-    jsp3.setPreferredSize(new Dimension(295, 100));
-    p1.add(jsp1, BorderLayout.CENTER);
-    p1.add(new JLabel("Catagories"), BorderLayout.NORTH);
-    p1.add(predCheckBox, BorderLayout.SOUTH);
-    p2.add(jsp2, BorderLayout.CENTER);
-    p2.add(new JLabel("Items"), BorderLayout.NORTH);
-    p3.add(jsp3, BorderLayout.CENTER);
-    p3.add(new JLabel("Functions"), BorderLayout.NORTH);
-    predCheckBox.setEnabled(false);
-    predCheckBox.addActionListener(eh);
-
-    final JPanel ar2 = new JPanel(new FlowLayout());// new BorderLayout());
-    final JPanel ar3 = new JPanel(new FlowLayout());// new BorderLayout());
-    final JPanel ar4 = new JPanel(new FlowLayout());// new BorderLayout());
-    ar2.setPreferredSize(new Dimension(195, 30));
-    ar3.setPreferredSize(new Dimension(195, 30));
-    ar4.setPreferredSize(new Dimension(195, 30));
-    
-
-
-
-
-    ar2.add(upFG);
-    ar2.add(downFG);
-    ar2.add(addInstance);
-    ar2.add(renameInstance);
-    ar2.add(removeInstance);
-    ar2.add(copyInstance);
-    ar3.add(upFunc);
-    ar3.add(downFunc);
-    ar3.add(addFunction);
-    ar3.add(renameFunction);
-    ar3.add(editFunction);
-    ar3.add(removeFunction);
-    ar3.add(copyFunction);
-    p2.add(ar2, BorderLayout.SOUTH);
-    p3.add(ar3, BorderLayout.SOUTH);
-    topBoxes.add(p1);
-    topBoxes.add(p2);
-    topBoxes.add(p3);
-    groupListModel.addElement("Functional Groups");
-    groupListModel.addElement("Chemicals");
-
-    // Ensure only one item can be selected at a time from the lists.
-    groups.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    instances.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    functions.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-    final JPanel varPanel = new JPanel(new BorderLayout());
-    // varPanel.setPreferredSize(new Dimension(600,150));
-    final JPanel varDetails = new JPanel(new BorderLayout());
-
-    varDetails.add(detailsHTML, BorderLayout.SOUTH);
-    detailsHTML.setContentType("text/html");
-    detailsHTML.setText("<html><body></body></html>");
-    detailsHTML.setEditable(false);
-    detailsHTML.setPreferredSize(new Dimension(300, 100));
-    varList.setPreferredSize(new Dimension(200, 20));
-    varList.addItemListener(eh);
-    editVar.setPreferredSize(new Dimension(80, 20));
-    editVar.addActionListener(eh);
-    JPanel varListPanel = new JPanel(new BorderLayout());
-    varListPanel.add(varList, BorderLayout.WEST);
-    varListPanel.add(editVar, BorderLayout.EAST);
-    editVar.setEnabled(false);
-    varDetails.add(varListPanel, BorderLayout.NORTH);
-    varPanel.add(varDetails, BorderLayout.WEST);
-    final JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-    buttonPanel.add(stageEditor);
-    miniStageTableModel.setColumnCount(2);
-    miniStageTableModel.setColumnIdentifiers(new String[] {"Stage","Selected"});
-    varPanel.add(buttonPanel, BorderLayout.CENTER);
-    
-    eqsScroller.setPreferredSize(new Dimension(750, 300));
-    eqsScroller.setOpaque(false);
-    eqsScroller.setBorder(BorderFactory.createLoweredBevelBorder());
-
-    /* Centre and south of main page */
-
-    add(varPanel, BorderLayout.CENTER);
-
-    Box boxPanel = Box.createVerticalBox();
-    EqPigCard.add(eqsScroller, EQUATIONPANEL);
-    EqPigCard.add(pigPanel, PIGMENTEDITOR);
-
-    boxPanel.setPreferredSize(new Dimension(696, 300));
-    EqPigCard.setPreferredSize(new Dimension(696, 300));
-    eqsScroller.setPreferredSize(new Dimension(696, 300));
-    boxPanel.add(EqPigCard);
-    add(boxPanel, BorderLayout.SOUTH);
-    copyFunction.setEnabled(false);
-    editFunction.setEnabled(false);
-    addInstance.setEnabled(false);
-    removeInstance.setEnabled(false);
-    copyInstance.setEnabled(false);
-    renameInstance.setEnabled(false);
-    predCheckBox.setEnabled(false);
-    addFunction.setEnabled(false);
-    removeFunction.setEnabled(false);
-    renameFunction.setEnabled(false);
-    upFG.setEnabled(false);
-    upFunc.setEnabled(false);
-    downFG.setEnabled(false);
-    downFunc.setEnabled(false);
-    groups.getSelectionModel().addListSelectionListener(eh);
-    instances.getSelectionModel().addListSelectionListener(eh);
-    functions.getSelectionModel().addListSelectionListener(eh);
-    editFunction.addActionListener(eh);
-    removeFunction.addActionListener(eh);
-    addFunction.addActionListener(eh);
-    upFunc.addActionListener(eh);
-    upFG.addActionListener(eh);
-    downFunc.addActionListener(eh);
-    downFG.addActionListener(eh);
-    copyFunction.addActionListener(eh);
-    addInstance.addActionListener(eh);
-    removeInstance.addActionListener(eh);
-    renameInstance.addActionListener(eh);
-    renameFunction.addActionListener(eh);
-    copyInstance.addActionListener(eh);
-    stageEditor.addActionListener(eh);
-    addInstance.setPreferredSize(new Dimension(24, 24));
-    removeInstance.setPreferredSize(new Dimension(24, 24));
-    renameInstance.setPreferredSize(new Dimension(24, 24));
-    copyInstance.setPreferredSize(new Dimension(24, 24));    
-    addFunction.setPreferredSize(new Dimension(24, 24));
-    upFunc.setPreferredSize(new Dimension(24, 24));
-    downFunc.setPreferredSize(new Dimension(24, 24));
-    upFG.setPreferredSize(new Dimension(24, 24));
-    downFG.setPreferredSize(new Dimension(24, 24));
-    removeFunction.setPreferredSize(new Dimension(24, 24));
-    renameFunction.setPreferredSize(new Dimension(24, 24));
-    editFunction.setPreferredSize(new Dimension(24, 24));
-    copyFunction.setPreferredSize(new Dimension(24,24));
-
-    add(topBoxes, BorderLayout.NORTH);
-
-    importPage = new Importer(parent, this);
-    addVarPage = new AddVarPage(parent);
-    CardLayout CL = (CardLayout) EqPigCard.getLayout();
-    eqPanel.setEquation("");
-    CL.show(EqPigCard, PIGMENTEDITOR);
-    CL.show(EqPigCard, EQUATIONPANEL);
-  }
 
   /*
    * Initialise the main screen with the boxes for FG/Chem/Pigment, Instances,
@@ -369,7 +250,8 @@ public class Planktonica extends JPanel {
         (String) instances.getSelectedValue());
   }
 
-  public Planktonica(JDialog jd, XMLFile xmlfile) {
+
+  public Planktonica(JFrame jd, XMLFile xmlfile) {
     vc2 = (VEWController2) jd;
     parent = jd;
     ee = new EquationEditor(vc2);
@@ -405,10 +287,10 @@ public class Planktonica extends JPanel {
           XMLTag group = getCurrentInstance();
           if (theVar == null) theVar = group.getTagWhere("*", "name", varNameString);
           detailsHTML.setText(VariableChooser.HTMLForVarHelper(varNameString,group, theVar, false));
-          editVar.setEnabled(true);
+          //editVar.setEnabled(true);
           parent.pack();
-        } else
-          editVar.setEnabled(false);
+        } //else
+          //editVar.setEnabled(false);
       }
     }
 
@@ -527,7 +409,7 @@ public class Planktonica extends JPanel {
 
         // } else if (e.getSource()==closeButton) setVisible(false);
 
-      } else if (e.getSource() == editVar) {
+      }/* else if (e.getSource() == editVar) {
         XMLTag theFunction;
         theFunction = getCurrentFunction();
         
@@ -546,7 +428,7 @@ public class Planktonica extends JPanel {
         vc2.unsaved(false);
         parent.pack();
 
-      } else if (e.getSource() == addInstance) {
+      } */else if (e.getSource() == addInstance) {
         int ind = groups.getSelectedIndex();
         if (ind == INST_FGROUP) {
           importPage.showImporter(Importer.FUNCTIONALGROUPS, xmlFile);
@@ -843,7 +725,7 @@ public class Planktonica extends JPanel {
         varList.removeAllItems();
         detailsHTML.setText("<html></html>");
         XMLTag[] tags = SelectedFunction.getTags();
-        Vector params = new Vector();
+        Vector<?> params = new Vector<Object>();
 
         for (int i = 0; i < tags.length; i++)
           if (StringTools.memberOf(tags[i].getName(), varOptions))
@@ -905,11 +787,13 @@ public class Planktonica extends JPanel {
     }
   }
   
+  /*
   class MiniStageTableModel extends DefaultTableModel {
     public Class getColumnClass(int column) {
       if (column==1) return Boolean.class;
       else return String.class;
     }
   }
+  */
 
 }

@@ -58,7 +58,7 @@ public class SystemTest {
 		VEWController2 vc = new VEWController2(tp, testXmlFile);
 		Planktonica plk = new Planktonica(vc, testXmlFile);
 		SyntaxChecker sc = new SyntaxChecker(vc, testXmlFile);
-		assertTrue(sc.checkModel()); //THE SYNTAX CHECKER IS BROKEN, WILL ALWAYS RETURN FALSE
+		assertTrue(sc.checkModel()); 
 		
 		
 		String[] origValues = origXmlFile.getValues();
