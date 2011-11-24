@@ -73,7 +73,7 @@ public class VariableTypeTest {
 
 	@Test
 	public void test() {
-		FunctionalGroup func = new FunctionalGroup();
+		FunctionalGroup func = new FunctionalGroup("");
 		Parameter p = new Parameter(func);
 		p.build(p1);
 		

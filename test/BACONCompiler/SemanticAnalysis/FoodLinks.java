@@ -13,13 +13,12 @@ import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 import VEW.XMLCompiler.ASTNodes.BinOpNode;
 import VEW.XMLCompiler.ASTNodes.IdNode;
 import VEW.XMLCompiler.ASTNodes.MathematicalOperator;
-import VEW.XMLCompiler.ASTNodes.SemanticCheckException;
 
 public class FoodLinks {
 
 	@Test
 	public void testMultiplicationWithSameLinks() {
-		FunctionalGroup group = new FunctionalGroup();
+		FunctionalGroup group = new FunctionalGroup("");
 		VarietyConcentration foodSet = new VarietyConcentration(group);
 		foodSet.setName("foodset");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
@@ -42,17 +41,12 @@ public class FoodLinks {
 		id2.setCatagory(group);
 		BinOpNode binOp = new BinOpNode(MathematicalOperator.MULTIPLY, id1, id2);
 		binOp.setCatagory(group);
-		try {
-			binOp.check();
-		}
-		catch (SemanticCheckException ex) {
-			fail("Should pass if both the link concentrations are the same");
-		}
+		binOp.check();
 	}
 	
 	@Test
 	public void testMultiplicationWithDifferentLinks() {
-		FunctionalGroup group = new FunctionalGroup();
+		FunctionalGroup group = new FunctionalGroup("");
 		VarietyConcentration foodSet1 = new VarietyConcentration(group);
 		foodSet1.setName("foodset1");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
@@ -79,13 +73,8 @@ public class FoodLinks {
 		id2.setCatagory(group);
 		BinOpNode binOp = new BinOpNode(MathematicalOperator.MULTIPLY, id1, id2);
 		binOp.setCatagory(group);
-		try {
-			binOp.check();
-			fail("Should not pass if the link concentrations are different");
-		}
-		catch (SemanticCheckException ex) {
-			
-		}
+		binOp.check();
+		fail("Should not pass if the link concentrations are different");
 	}
 
 }

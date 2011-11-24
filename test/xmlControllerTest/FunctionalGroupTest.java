@@ -197,7 +197,7 @@ public class FunctionalGroupTest {
 
 	@Test
 	public void test() {
-		FunctionalGroup f = new FunctionalGroup();
+		FunctionalGroup f = new FunctionalGroup("");
 		f.build(functionalGroup);
 		
 		assertNotNull(f.getName());

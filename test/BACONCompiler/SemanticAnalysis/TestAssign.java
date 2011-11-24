@@ -16,14 +16,13 @@ import VEW.XMLCompiler.ASTNodes.AssignNode;
 import VEW.XMLCompiler.ASTNodes.IdNode;
 import VEW.XMLCompiler.ASTNodes.NumNode;
 import VEW.XMLCompiler.ASTNodes.RuleSequenceNode;
-import VEW.XMLCompiler.ASTNodes.SemanticCheckException;
 
 
 public class TestAssign {
 
 	@Test
 	public void testAssignToStateVariable() {
-		FunctionalGroup group = new FunctionalGroup();
+		FunctionalGroup group = new FunctionalGroup("");
 		StateVariable stateVar = new StateVariable(group);
 		stateVar.setName("testVar");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
@@ -31,17 +30,12 @@ public class TestAssign {
 		group.addToStateVarTable(stateVar);
 		AssignNode assign = new AssignNode(new IdNode("testVar"), new NumNode(10));
 		assign.setCatagory(group);
-		try {
-			assign.check();
-		}
-		catch (SemanticCheckException ex) {
-			fail();
-		}
+		assign.check();
 	}
 	
 	@Test
 	public void testAssignToFoodSet() {
-		FunctionalGroup group = new FunctionalGroup();
+		FunctionalGroup group = new FunctionalGroup("");
 		VarietyConcentration conc = new VarietyConcentration(group);
 		conc.setName("foodset");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
@@ -50,18 +44,13 @@ public class TestAssign {
 		group.addToVarietyConcTable(conc);
 		AssignNode assign = new AssignNode(new IdNode("foodset"), new NumNode(5));
 		assign.setCatagory(group);
-		try {
-			assign.check();
-		}
-		catch (SemanticCheckException ex) {
-			return;
-		}
+		assign.check();
 		fail();
 	}
 	
 	@Test
 	public void testAssignFromFoodSet() {
-		FunctionalGroup group = new FunctionalGroup();
+		FunctionalGroup group = new FunctionalGroup("");
 		VarietyConcentration conc = new VarietyConcentration(group);
 		conc.setName("foodset");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
@@ -76,17 +65,12 @@ public class TestAssign {
 		id.setCatagory(group);
 		AssignNode assign = new AssignNode(new IdNode("foodHappiness"), id);
 		assign.setCatagory(group);
-		try {
-			assign.check();
-		}
-		catch (SemanticCheckException ex) {
-			fail();
-		}
+		assign.check();
 	}
 	
 	@Test
 	public void testDoubleAssignToLocal() {
-		FunctionalGroup group = new FunctionalGroup();
+		FunctionalGroup group = new FunctionalGroup("");
 		Local loc = new Local(group);
 		loc.setName("testLocal");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
@@ -98,18 +82,13 @@ public class TestAssign {
 		assign1.setCatagory(group);
 		assign2.setCatagory(group);
 		RuleSequenceNode seq = new RuleSequenceNode(assign1, new RuleSequenceNode(assign2));
-		try {
-			seq.check();
-		}
-		catch (SemanticCheckException ex) {
-			return;
-		}
+		seq.check();
 		fail();
 	}
 	
 	@Test
 	public void testScalarToVarietyAssign() {
-		FunctionalGroup group = new FunctionalGroup();
+		FunctionalGroup group = new FunctionalGroup("");
 		StateVariable state = new StateVariable(group);
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
@@ -126,37 +105,22 @@ public class TestAssign {
 		varietyId.setCatagory(group);
 		AssignNode assign = new AssignNode(varietyId, stateId);
 		assign.setCatagory(group);
-		try {
-			assign.check();
-		}
-		catch (SemanticCheckException ex) {
-			fail("Should not be able to assign scalar to variety");
-		}
+		assign.check();
 		assign = new AssignNode(stateId, varietyId);
 		assign.setCatagory(group);
-		try {
-			assign.check();
-			fail("Should not be able to assign variety to scalar");
-		}
-		catch (SemanticCheckException ex) {
-			return;
-		}
+		assign.check();
+		fail("Should not be able to assign variety to scalar");
 	}
 	
 	@Test
 	public void testAssignToAndFromGlobal() {
-		FunctionalGroup group = new FunctionalGroup();
+		FunctionalGroup group = new FunctionalGroup("");
 		IdNode id = new IdNode("Salinity");
 		id.setCatagory(group);
 		AssignNode assign = new AssignNode(id, new NumNode(5));
 		assign.setCatagory(group);
-		try {
-			assign.check();
-			fail("Should not be able to assign to a global");
-		}
-		catch (SemanticCheckException ex) {
-			
-		}
+		assign.check();
+		fail("Should not be able to assign to a global");
 		Local loc = new Local(group);
 		loc.setName("local");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
@@ -167,12 +131,7 @@ public class TestAssign {
 		locId.setCatagory(group);
 		assign = new AssignNode(locId, id);
 		assign.setCatagory(group);
-		try {
-			assign.check();
-		}
-		catch (SemanticCheckException ex) {
-			fail("Should be able to assign the value of a global variable");
-		}
+		assign.check();
 		
 		
 	}

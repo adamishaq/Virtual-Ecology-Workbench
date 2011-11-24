@@ -174,7 +174,7 @@ public class ChemicalTest {
 	@Test
 	public void test() {
 		
-		Chemical c = new Chemical();
+		Chemical c = new Chemical("");
 		c.build(chem);
 		
 		assertNotNull(c.getName());

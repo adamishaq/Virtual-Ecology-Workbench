@@ -94,7 +94,7 @@ public class VarietyTypeTest {
 	
 	@Test
 	public void test() {
-		FunctionalGroup func = new FunctionalGroup();
+		FunctionalGroup func = new FunctionalGroup("");
 		VarietyConcentration conc = new VarietyConcentration(func);
 		conc.build(vc);
 		func.addToVarietyConcTable(conc);
