@@ -21,10 +21,13 @@ import javax.swing.tree.TreeSelectionModel;
 
 import VEW.Planktonica2.ControllerStructure.SelectableItem;
 import VEW.Planktonica2.ControllerStructure.VEWController;
+import VEW.Planktonica2.DisplayEventHandlers.FGButtonListener;
+import VEW.Planktonica2.DisplayEventHandlers.FuncButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
 import VEW.Planktonica2.DisplayEventHandlers.VariableSelectionEventHandler;
 import VEW.Planktonica2.model.Catagory;
 import VEW.Planktonica2.model.VariableType;
+import VEW.Planktonica2.DisplayEventHandlers.ButtonCommandNamesEnum;
 
 public abstract class Display extends JSplitPane {
 
@@ -251,45 +254,73 @@ public abstract class Display extends JSplitPane {
 	
 	private void initialiseButtons() {
 			
+		FuncButtonListener funcButtonListener = new FuncButtonListener();
+		FGButtonListener fgButtonListener = new FGButtonListener();
+		
 		upFunc = new JButton(new ImageIcon(IconRoot+ "up.gif"));
 		upFunc.setPreferredSize(STANDARD_BUTTON_SIZE);
+		upFunc.setActionCommand(ButtonCommandNamesEnum.UPFUNC.toString());
+		upFunc.addActionListener(funcButtonListener);
 		
 		downFunc = new JButton(new ImageIcon(IconRoot+ "down.gif"));
 		downFunc.setPreferredSize(STANDARD_BUTTON_SIZE);
+		downFunc.setActionCommand(ButtonCommandNamesEnum.DOWNFUNC.toString());
+		downFunc.addActionListener(funcButtonListener);
 		
 		upFG = new JButton(new ImageIcon(IconRoot+ "up.gif"));
 		upFG.setPreferredSize(STANDARD_BUTTON_SIZE);
+		upFG.setActionCommand(ButtonCommandNamesEnum.UPFG.toString());
+		upFG.addActionListener(fgButtonListener);
 		
 		downFG = new JButton(new ImageIcon(IconRoot+ "down.gif"));
 		downFG.setPreferredSize(STANDARD_BUTTON_SIZE);
+		downFG.setActionCommand(ButtonCommandNamesEnum.DOWNFG.toString());
+		downFG.addActionListener(fgButtonListener);
 		
 		addInstance = new JButton(new ImageIcon(IconRoot+ "plus.gif"));
 		addInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
+		addInstance.setActionCommand(ButtonCommandNamesEnum.ADD_INSTANCE.toString());
+		addInstance.addActionListener(fgButtonListener);
 		
 		removeInstance = new JButton(new ImageIcon(IconRoot + "bin1.gif"));
 		removeInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
+		removeInstance.setActionCommand(ButtonCommandNamesEnum.REMOVE_INSTANCE.toString());
+		removeInstance.addActionListener(fgButtonListener);
 		
 		renameInstance = new JButton(new ImageIcon(IconRoot + "rename.gif"));
 		renameInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
+		renameInstance.setActionCommand(ButtonCommandNamesEnum.RENAME_INSTANCE.toString());
+		renameInstance.addActionListener(fgButtonListener);
 		
 		copyInstance = new JButton(new ImageIcon(IconRoot + "copy.gif"));
 		copyInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
+		copyInstance.setActionCommand(ButtonCommandNamesEnum.COPY_INSTANCE.toString());
+		copyInstance.addActionListener(fgButtonListener);
 		
 		addFunction = new JButton(new ImageIcon(IconRoot+ "plus.gif"));
 		addFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
+		addFunction.setActionCommand(ButtonCommandNamesEnum.ADD_FUNC.toString());
+		addFunction.addActionListener(funcButtonListener);
 		
 		removeFunction = new JButton(new ImageIcon(IconRoot + "bin1.gif"));
 		removeFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
+		removeFunction.setActionCommand(ButtonCommandNamesEnum.REMOVE_FUNC.toString());
+		removeFunction.addActionListener(funcButtonListener);
 		
 		renameFunction = new JButton(new ImageIcon(IconRoot + "rename.gif"));
 		renameFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
+		renameFunction.setActionCommand(ButtonCommandNamesEnum.RENAME_FUNC.toString());
+		renameFunction.addActionListener(funcButtonListener);
 		
 		editFunction = new JButton(new ImageIcon(IconRoot + "edit.gif"));
 		editFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
+		editFunction.setActionCommand(ButtonCommandNamesEnum.EDIT_FUNC.toString());
+		editFunction.addActionListener(funcButtonListener);
 		
 		copyFunction = new JButton(new ImageIcon(IconRoot + "copy.gif"));		
 		copyFunction.setPreferredSize(STANDARD_BUTTON_SIZE);		
-		
+		copyFunction.setActionCommand(ButtonCommandNamesEnum.COPY_FUNC.toString());
+		copyFunction.addActionListener(funcButtonListener);
 	}
 	
 	protected void setButtonToolTips() {
