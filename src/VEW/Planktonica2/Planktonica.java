@@ -34,6 +34,10 @@ import VEW.Controller2.VEWController2;
 import VEW.Planktonica2.ControllerStructure.ChemicalController;
 import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
 import VEW.Planktonica2.model.Model;
+import VEW.Scenario2.AddVarPage;
+import VEW.Scenario2.EquationEditor;
+import VEW.Scenario2.EquationPanel;
+import VEW.Scenario2.VariableChooser;
 /**
  * VEW Planktonica display for editing functional groups and chemicals, based on MVC OO design principle
  * 
