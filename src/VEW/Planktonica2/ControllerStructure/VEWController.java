@@ -7,7 +7,6 @@ import java.util.prefs.BackingStoreException;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import VEW.Planktonica2.Display;
-import VEW.Planktonica2.EditorPanel;
 import VEW.Planktonica2.model.Catagory;
 import VEW.Planktonica2.model.Function;
 import VEW.Planktonica2.model.Model;
@@ -17,7 +16,7 @@ import VEW.Planktonica2.model.VariableType;
 public abstract class VEWController extends Observable {
 	
 	protected Model model;
-	protected EditorPanel editor;
+	protected String currentSourcePath;
 	protected Display display;
 	
 	/**
@@ -106,16 +105,13 @@ public abstract class VEWController extends Observable {
 	 
 	public abstract Collection<SelectableItem> getSelectables();
 
-	public void setEditor(EditorPanel editorPanel) {
-		this.editor = editorPanel;
-	}
-	
 	public void setDisplay(Display disp) {
 		this.display = disp;
 	}
 
 	public void load_source(String filePath) {
-		this.editor.open_source_file(filePath);
+		this.currentSourcePath = filePath;
+		this.notifyObservers(new SourcePath(filePath));
 	}
 
 	public void updateVariablePanel(VariableType variable) {

@@ -13,6 +13,8 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
@@ -22,6 +24,7 @@ import javax.swing.JTextPane;
 
 import org.antlr.runtime.RecognitionException;
 
+import VEW.Planktonica2.ControllerStructure.SourcePath;
 import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.UIComponents.AutocompleteBox;
 import VEW.UIComponents.BACONFilter;
@@ -32,7 +35,7 @@ import VEW.XMLCompiler.ASTNodes.ConstructedASTree;
 import VEW.XMLCompiler.ASTNodes.SemanticCheckException;
 import VEW.XMLCompiler.ASTNodes.TreeWalkerException;
 
-public class EditorPanel extends JPanel {
+public class EditorPanel extends JPanel implements Observer {
 
 	private VEWController controller;
 	
@@ -49,8 +52,21 @@ public class EditorPanel extends JPanel {
 	public EditorPanel (VEWController controller) {
 		super();
 		this.controller = controller;
-		this.controller.setEditor(this);
+		this.controller.addObserver(this);
 		initialise();
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		
+		if (arg instanceof SourcePath) {
+			
+			SourcePath p = (SourcePath) arg;
+			
+			open_source_file(p.getPath());
+			
+		}
+		
 	}
 	
 	public void initialise() {
@@ -438,5 +454,7 @@ class TypingListener implements KeyListener {
 	public void keyTyped(KeyEvent e) {}
 
 }
+
+
 	
 }
