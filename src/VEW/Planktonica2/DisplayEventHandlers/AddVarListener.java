@@ -16,8 +16,7 @@ public class AddVarListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		VariableType var = parent.construct_variable();
-		// Add it to the model
+		parent.construct_variable();
 	}
 
 }

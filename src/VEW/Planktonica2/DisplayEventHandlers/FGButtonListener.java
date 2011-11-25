@@ -19,12 +19,10 @@ public class FGButtonListener extends TreeButtonListener implements ActionListen
 	}
 	@Override
 	protected void moveUp(String s) {
-		System.out.println("lololol");
 		((FunctionalGroupController) controller).moveFunctionIndex(s, -1);
 	}
 	@Override
 	protected void moveDown(String s) {
-		System.out.println("roflmao");
 		((FunctionalGroupController) controller).moveFunctionIndex(s, 1);
 	}
 	@Override

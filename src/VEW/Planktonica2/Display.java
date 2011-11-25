@@ -7,6 +7,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.io.File;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -20,19 +23,25 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
 import VEW.Planktonica2.ControllerStructure.SelectableItem;
+import VEW.Planktonica2.ControllerStructure.SourcePath;
 import VEW.Planktonica2.ControllerStructure.VEWController;
+import VEW.Planktonica2.DisplayEventHandlers.CompileButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.FGButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
 import VEW.Planktonica2.DisplayEventHandlers.VariableSelectionEventHandler;
 import VEW.Planktonica2.DisplayEventHandlers.ButtonCommandNamesEnum;
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.VariableType;
+import VEW.UIComponents.VariableEditorPanel;
 
-public abstract class Display extends JSplitPane {
+public abstract class Display extends JSplitPane implements Observer {
 
 	private static final long serialVersionUID = -3961634639923671255L;
 	
 	protected VEWController controller;
+	
+	protected VariableEditorPanel variablePanel;
+	protected EditorPanel editorPanel;
 	
 	protected JPanel topDisplay;
 	protected int numRowsOfTopDisplay = 3;
@@ -44,10 +53,6 @@ public abstract class Display extends JSplitPane {
 	protected final Dimension STANDARD_BUTTON_SIZE = new Dimension(24, 24);
 	protected final Dimension ALTERNATE_BUTTON_SIZE = new Dimension(new Dimension(150, 24));
 	protected final Dimension STANDARD_GROUP_SIZE = new Dimension(250, 200);
-	
-	
-	
-
 	
 	protected JButton upFunc;
 	protected JButton downFunc;
@@ -62,30 +67,46 @@ public abstract class Display extends JSplitPane {
 	protected JButton renameFunction;
 	protected JButton editFunction;
 	protected JButton copyFunction;
+	protected JButton compileButton;
 
 	protected JList list;
 	
-	protected DefaultMutableTreeNode rootNode;
+	public DefaultMutableTreeNode rootNode;
 	private DefaultMutableTreeNode varRootNode;
 	private JTabbedPane ancilaryFuncPane;
 
 	//final protected JPanel buttonPane = new JPanel ();
 	protected JPanel treeButtonPanel = new JPanel(new FlowLayout());
 
-	protected JTree tree;
+	public JTree tree;
 	protected JTree var_tree;
 	
 	protected Display(VEWController controller, Dimension initialSize) {
 		super(JSplitPane.HORIZONTAL_SPLIT);
 		this.controller = controller;
 		this.controller.setDisplay(this);
+		this.controller.addObserver(this);
 		initialiseGUI(initialSize);
 		
 		fillGUI();
 	}
 
-
-
+	public void update(Observable o, Object arg) {
+		
+		if (arg instanceof SelectableItem) {
+			this.update_vars((SelectableItem)arg);
+		}
+		if (arg instanceof Catagory) {
+			Catagory f = (Catagory) arg;
+			this.variablePanel.update_selected_category(f);
+			//this.variablePanel.clear();
+			this.editorPanel.clear();
+		}
+		if (arg instanceof SourcePath) {
+			this.ancilaryFuncPane.setSelectedIndex(0);
+		}
+		
+	}
 
 	protected abstract String getCategoryName();
 	
@@ -93,7 +114,11 @@ public abstract class Display extends JSplitPane {
 	
 	protected abstract void populateButtonPane ();
 	 
-	public abstract void updateVariablePanel(VariableType v);
+	public void updateVariablePanel(VariableType v) {
+		variablePanel.display(v);
+		// Show the variable panel
+		this.ancilaryFuncPane.setSelectedIndex(1);
+	}
 	
 	protected void defaultPopulateButtonPane () {
 		
@@ -249,6 +274,8 @@ public abstract class Display extends JSplitPane {
 		itemPanel.add(addInstance);
 		itemPanel.add(renameInstance);
 		itemPanel.add(removeInstance);
+		//itemPanel.add(copyInstance);
+		itemPanel.add(compileButton);
 	}
 	
 	
@@ -325,6 +352,10 @@ public abstract class Display extends JSplitPane {
 		copyFunction.setPreferredSize(STANDARD_BUTTON_SIZE);		
 		copyFunction.setActionCommand(ButtonCommandNamesEnum.COPY_FUNC.toString());
 		copyFunction.addActionListener(funcButtonListener);*/
+		compileButton = new JButton(new ImageIcon(IconRoot + "copy.gif"));		
+		compileButton.setPreferredSize(STANDARD_BUTTON_SIZE);
+		compileButton.addActionListener(new CompileButtonListener(this.editorPanel));
+
 	}
 	
 	protected void setButtonToolTips() {

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import javax.swing.JTree;
+
 import VEW.Planktonica2.Model.Function;
 import VEW.Planktonica2.Model.FunctionalGroup;
 import VEW.Planktonica2.Model.Model;
@@ -87,8 +89,8 @@ public class FunctionalGroupController extends VEWController {
 
 	@Override
 	public Collection<SelectableItem> getSelectables() {
-		Collection<SelectableItem> c = new ArrayList<SelectableItem> (functionalGroups.size());
-		for (FunctionalGroup f : functionalGroups) {
+		Collection<SelectableItem> c = new ArrayList<SelectableItem> (getFunctionalGroups().size());
+		for (FunctionalGroup f : getFunctionalGroups()) {
 			c.add(f);
 		}
 		return c;
@@ -96,6 +98,9 @@ public class FunctionalGroupController extends VEWController {
 
 	public void moveFunctionIndex(String funcName, int index) {
 		currentFG.moveFunctionIndex(funcName, index);
+		this.populateFunctionTree(display.rootNode);
+		display.tree.updateUI();
+		
 	}
 
 	

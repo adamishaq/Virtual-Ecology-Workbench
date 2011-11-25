@@ -1,6 +1,8 @@
 package VEW.Planktonica2;
 
 import java.awt.Dimension;
+import java.util.Observable;
+
 import javax.swing.JCheckBox;
 import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
 import VEW.Planktonica2.DisplayEventHandlers.ButtonCommandNamesEnum;
@@ -13,8 +15,6 @@ import VEW.UIComponents.VariableEditorPanel;
 public class FunctionalDisplay extends Display {
 
 	private static final long serialVersionUID = -6094339463447273188L;
-	private EditorPanel editorPanel;
-	private VariableEditorPanel variablePanel;
 	private StageEditorPanel stageEditor;
 	
 	private FunctionalGroupController funcController;
@@ -24,10 +24,6 @@ public class FunctionalDisplay extends Display {
 		
 		this.funcController = controller;
 		
-	}
-	
-	public void updateVariablePanel(VariableType v) {
-		this.variablePanel.display(v);
 	}
 	
 	@Override
@@ -44,7 +40,7 @@ public class FunctionalDisplay extends Display {
 		// editor tab
 		this.addTabToAncilary("Editor", editorPanel = new EditorPanel (this.controller));
 		// variable tab
-		this.addTabToAncilary("Variable", variablePanel = new VariableEditorPanel ());
+		this.addTabToAncilary("Variable", variablePanel = new VariableEditorPanel (this.controller));
 		// edit stages
 		stageEditor = null;
 		if (funcController == null) {

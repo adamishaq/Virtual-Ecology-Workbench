@@ -16,8 +16,6 @@ import VEW.UIComponents.VariableEditorPanel;
 public class ChemicalDisplay extends Display {
 
 	private static final long serialVersionUID = 7723416016731656817L;
-	private VariableEditorPanel variablePanel;
-	private EditorPanel editorPanel;
 	
 	private ChemicalController chemController;
 
@@ -28,14 +26,11 @@ public class ChemicalDisplay extends Display {
 		this.chemController = controller;
 	}
 
+	
 	@Override
 	protected String getCategoryName() {
 		// TODO Auto-generated method stub
 		return "chemical";
-	}
-
-	public void updateVariablePanel(VariableType v) {
-		this.variablePanel.display(v);
 	}
 	
 	@Override
@@ -44,7 +39,7 @@ public class ChemicalDisplay extends Display {
 		// editor tab
 		this.addTabToAncilary("Editor", editorPanel = new EditorPanel (this.controller));
 		// variable tab
-		this.addTabToAncilary("Variable", variablePanel = new VariableEditorPanel ());
+		this.addTabToAncilary("Variable", variablePanel = new VariableEditorPanel (this.controller));
 		// pigment tab
 		this.addTabToAncilary("Pigment Display", new PigmentPanel (chemController));
 		

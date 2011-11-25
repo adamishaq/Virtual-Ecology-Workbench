@@ -45,7 +45,7 @@ public abstract class VEWController extends Observable {
 		SelectableItem i = getSelectedItem();
 		if (i instanceof Catagory) {
 			Catagory c = (Catagory) i;
-			return c.checkAccessableVariableTable(selectedVariable);
+			return c.checkAllVariableTables(selectedVariable);
 		}
 		return null;
 		
@@ -92,7 +92,6 @@ public abstract class VEWController extends Observable {
 			this.setChanged();
 			this.notifyObservers(i);
 		}
-		this.display.update_vars(i);
 		
 	}
 	
@@ -117,6 +116,11 @@ public abstract class VEWController extends Observable {
 
 	public void updateVariablePanel(VariableType variable) {
 		display.updateVariablePanel(variable);
+	}
+
+	public void update_category(Catagory cat) {
+		this.setChanged();
+		this.notifyObservers(cat);
 	}
 
 	

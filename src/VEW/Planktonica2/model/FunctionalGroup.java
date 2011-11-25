@@ -205,8 +205,10 @@ public class FunctionalGroup extends Catagory {
 		
 		if (func != null) {
 			int oldIndex = functions.indexOf(func);
-			functions.remove(func);
-			functions.add(oldIndex + offset, func);
+			if (oldIndex > 0 && oldIndex < functions.size() - 2) {
+				functions.remove(func);
+				functions.add(oldIndex + offset, func);
+			}
 		} else {
 			System.err.println("Could not move func");
 		}
