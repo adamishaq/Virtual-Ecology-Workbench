@@ -7,6 +7,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.io.File;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -25,12 +28,16 @@ import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
 import VEW.Planktonica2.DisplayEventHandlers.VariableSelectionEventHandler;
 import VEW.Planktonica2.model.Catagory;
 import VEW.Planktonica2.model.VariableType;
+import VEW.UIComponents.VariableEditorPanel;
 
-public abstract class Display extends JSplitPane {
+public abstract class Display extends JSplitPane implements Observer {
 
 	private static final long serialVersionUID = -3961634639923671255L;
 	
 	protected VEWController controller;
+	
+	protected VariableEditorPanel variablePanel;
+	protected EditorPanel editorPanel;
 	
 	protected JPanel topDisplay;
 	protected int numRowsOfTopDisplay = 3;
@@ -76,13 +83,23 @@ public abstract class Display extends JSplitPane {
 		super(JSplitPane.HORIZONTAL_SPLIT);
 		this.controller = controller;
 		this.controller.setDisplay(this);
+		this.controller.addObserver(this);
 		initialiseGUI(initialSize);
 		
 		fillGUI();
 	}
 
-
-
+	public void update(Observable o, Object arg) {
+		
+		if (arg instanceof SelectableItem) {
+			this.update_vars((SelectableItem)arg);
+		}
+		if (arg instanceof Catagory) {
+			Catagory f = (Catagory) arg;
+			this.variablePanel.update_selected_category(f);
+		}
+		
+	}
 
 	protected abstract String getCategoryName();
 	

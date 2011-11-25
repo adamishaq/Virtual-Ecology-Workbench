@@ -113,7 +113,7 @@ public class EditorPanel extends JPanel implements Observer {
 		syntax.setText("<html><PRE></PRE></html>");
 		syntax.setEnabled(true);
 		
-		auto_complete = new AutocompleteBox(syntax);
+		auto_complete = new AutocompleteBox(syntax,controller);
 		
 		error_log.setEditable(false);
 		error_log.setFont(font);

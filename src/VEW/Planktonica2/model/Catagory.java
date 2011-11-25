@@ -62,6 +62,14 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		return var;
 	}
 	
+	public VariableType checkAllVariableTables(String variableName) {
+		VariableType var = checkAccessableVariableTable(variableName);
+		if (var != null) return var;
+		var = checkParameterTable(variableName);
+		if (var != null) return var;
+		var = checkVarietyParamTable(variableName);
+		return var;
+	}
 	
 	public String getName() {
 		return name;

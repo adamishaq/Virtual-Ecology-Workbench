@@ -1,15 +1,17 @@
 package VEW.Planktonica2;
 
 import java.awt.Dimension;
+import java.util.Observable;
+
 import VEW.Planktonica2.ControllerStructure.ChemicalController;
+import VEW.Planktonica2.ControllerStructure.SelectableItem;
+import VEW.Planktonica2.model.Catagory;
 import VEW.Planktonica2.model.VariableType;
 import VEW.UIComponents.VariableEditorPanel;
 
 public class ChemicalDisplay extends Display {
 
 	private static final long serialVersionUID = 7723416016731656817L;
-	private VariableEditorPanel variablePanel;
-	private EditorPanel editorPanel;
 	
 	private ChemicalController chemController;
 
@@ -20,6 +22,7 @@ public class ChemicalDisplay extends Display {
 		this.chemController = controller;
 	}
 
+	
 	@Override
 	protected String getCategoryName() {
 		// TODO Auto-generated method stub
