@@ -20,11 +20,9 @@ public class Equation implements BuildFromXML, BuildToXML {
 		if (tag != null) {
 			this.equation = tag.getValue();
 		}
-		
 		return this;
 	}
 
-	
 	
 	
 	public String getName() {

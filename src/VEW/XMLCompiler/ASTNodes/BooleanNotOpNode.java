@@ -1,5 +1,7 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.model.Catagory;
+
 public class BooleanNotOpNode extends BExprNode {
 
 	private BExprNode expression;
@@ -9,8 +11,8 @@ public class BooleanNotOpNode extends BExprNode {
 	}
 	
 	@Override
-	public void check() {
-		expression.check();
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
+		expression.check(enclosingCategory, enclosingTree);
 		setBExprType(expression.getBExprType());
 	}
 

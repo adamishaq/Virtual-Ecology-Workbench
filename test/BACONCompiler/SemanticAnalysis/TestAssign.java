@@ -13,6 +13,7 @@ import VEW.Planktonica2.model.VarietyType;
 import VEW.Planktonica2.model.VarietyVariable;
 import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 import VEW.XMLCompiler.ASTNodes.AssignNode;
+import VEW.XMLCompiler.ASTNodes.ConstructedASTree;
 import VEW.XMLCompiler.ASTNodes.IdNode;
 import VEW.XMLCompiler.ASTNodes.NumNode;
 import VEW.XMLCompiler.ASTNodes.RuleSequenceNode;
@@ -29,8 +30,7 @@ public class TestAssign {
 		stateVar.setVarType(tables.checkTypeTable("$float"));
 		group.addToStateVarTable(stateVar);
 		AssignNode assign = new AssignNode(new IdNode("testVar"), new NumNode(10));
-		assign.setCatagory(group);
-		assign.check();
+		assign.check(group, new ConstructedASTree(assign));
 	}
 	
 	@Test
@@ -43,9 +43,10 @@ public class TestAssign {
 		conc.setVarType(new VarietyType("float", floatType));
 		group.addToVarietyConcTable(conc);
 		AssignNode assign = new AssignNode(new IdNode("foodset"), new NumNode(5));
-		assign.setCatagory(group);
-		assign.check();
-		fail();
+		ConstructedASTree constr = new ConstructedASTree(assign);
+		assign.check(group, constr);
+		if (!constr.hasExceptions())
+			fail();
 	}
 	
 	@Test
@@ -62,10 +63,8 @@ public class TestAssign {
 		varState.setVarType(new VarietyType("float", floatType));
 		group.addToVarietyStateTable(varState);
 		IdNode id = new IdNode("foodset");
-		id.setCatagory(group);
 		AssignNode assign = new AssignNode(new IdNode("foodHappiness"), id);
-		assign.setCatagory(group);
-		assign.check();
+		assign.check(group, new ConstructedASTree(assign));
 	}
 	
 	@Test
@@ -79,11 +78,11 @@ public class TestAssign {
 		group.addToLocalTable(loc);
 		AssignNode assign1 = new AssignNode(new IdNode("testLocal"), new NumNode(5));
 		AssignNode assign2 = new AssignNode(new IdNode("testLocal"), new NumNode(4));
-		assign1.setCatagory(group);
-		assign2.setCatagory(group);
 		RuleSequenceNode seq = new RuleSequenceNode(assign1, new RuleSequenceNode(assign2));
-		seq.check();
-		fail();
+		ConstructedASTree constr = new ConstructedASTree(seq);
+		seq.check(group, constr);
+		if (!constr.hasExceptions())
+			fail();
 	}
 	
 	@Test
@@ -100,27 +99,25 @@ public class TestAssign {
 		state.setVarType(new VarietyType("float", floatType));
 		group.addToVarietyStateTable(var);
 		IdNode stateId = new IdNode("stateVar");
-		stateId.setCatagory(group);
 		IdNode varietyId = new IdNode("varietyVar");
-		varietyId.setCatagory(group);
 		AssignNode assign = new AssignNode(varietyId, stateId);
-		assign.setCatagory(group);
-		assign.check();
+		assign.check(group, new ConstructedASTree(assign));
 		assign = new AssignNode(stateId, varietyId);
-		assign.setCatagory(group);
-		assign.check();
-		fail("Should not be able to assign variety to scalar");
+		ConstructedASTree constr = new ConstructedASTree(assign);
+		assign.check(group, constr);
+		if (!constr.hasExceptions())
+			fail("Should not be able to assign variety to scalar");
 	}
 	
 	@Test
 	public void testAssignToAndFromGlobal() {
 		FunctionalGroup group = new FunctionalGroup("");
 		IdNode id = new IdNode("Salinity");
-		id.setCatagory(group);
 		AssignNode assign = new AssignNode(id, new NumNode(5));
-		assign.setCatagory(group);
-		assign.check();
-		fail("Should not be able to assign to a global");
+		ConstructedASTree constr = new ConstructedASTree(assign);
+		assign.check(group, constr);
+		if (!constr.hasExceptions())
+			fail("Should not be able to assign to a global");
 		Local loc = new Local(group);
 		loc.setName("local");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
@@ -128,10 +125,8 @@ public class TestAssign {
 		loc.setVarType(floatType);
 		group.addToLocalTable(loc);
 		IdNode locId = new IdNode("local");
-		locId.setCatagory(group);
 		assign = new AssignNode(locId, id);
-		assign.setCatagory(group);
-		assign.check();
+		assign.check(group, new ConstructedASTree(assign));
 		
 		
 	}

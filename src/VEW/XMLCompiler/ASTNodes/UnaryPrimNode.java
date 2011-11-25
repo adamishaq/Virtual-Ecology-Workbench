@@ -1,5 +1,6 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.model.Catagory;
 import VEW.Planktonica2.model.Type;
 import VEW.Planktonica2.model.VarietyType;
 
@@ -14,8 +15,8 @@ public class UnaryPrimNode extends ExprNode {
 	}
 	
 	@Override
-	public void check() {
-		argument.check();
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
+		argument.check(enclosingCategory, enclosingTree);
 		Type argType = argument.getExprType();
 		setExprType(checkCompatibility(argType));
 
@@ -54,6 +55,7 @@ public class UnaryPrimNode extends ExprNode {
 		case TEMPAT 	 : func = "temperatureAt"; break;
 		case UVIRRADAT 	 : func = "UVIrradAt"; break;
 		case INTEGRATE 	 : func = "integrate"; break;
+		case VISIRRADAT	 : func = "visIrradAt"; break;
 		}
 		return "\\" + func + "{" + argument.generateXML() + "}";
 	}
@@ -85,6 +87,7 @@ public class UnaryPrimNode extends ExprNode {
 		case TEMPAT 	 : func = " temperatureAt "; break;
 		case UVIRRADAT 	 : func = " UVIrradAt "; break;
 		case INTEGRATE 	 : func = " integrate "; break;
+		case VISIRRADAT  : func = " visIrradAt"; break;
 		}
 		return func + "(" + arg + ")";
 	}

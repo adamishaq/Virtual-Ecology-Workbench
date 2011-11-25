@@ -62,7 +62,7 @@ public class Chemical extends Catagory {
 		this.functions = new ArrayList<Function> (tags.length);
 
 		for (XMLTag t : tags) {
-			Function f = new Function (file_path, this.name);
+			Function f = new Function (file_path, this);
 			f.build(t);
 			functions.add(f);
 		}

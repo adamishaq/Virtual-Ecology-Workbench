@@ -28,28 +28,27 @@ public class CreateNode extends RuleNode {
 	}
 	
 	@Override
-	public void check() {
-		Catagory cata = getCatagory();
-		if (cata instanceof Chemical) {
-			CommonTreeWalker.add_exception(
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
+		if (enclosingCategory instanceof Chemical) {
+			enclosingTree.addSemanticException(
 					new SemanticCheckException("Special functions cannot be called within chemical equations",
 							line_number));
 		}
-		FunctionalGroup group = (FunctionalGroup) cata;
+		FunctionalGroup group = (FunctionalGroup) enclosingCategory;
 		Stage stage = group.checkStageTable(identifier.getName());
 		if (stage == null) {
-			CommonTreeWalker.add_exception(
+			enclosingTree.addSemanticException(
 					new SemanticCheckException(identifier.getName() + " is not a valid stage",line_number));
 		}
-		expression.check();
+		expression.check(enclosingCategory, enclosingTree);
 		Type numExprType = expression.getExprType();
 		if (numExprType instanceof VarietyType) {
-			CommonTreeWalker.add_exception(
+			enclosingTree.addSemanticException(
 					new SemanticCheckException("The expression for number of offspring must evaluate to a scalar",
 							line_number));
 		}
 		//TODO assign list checking may need to be more complex, not sure yet
-		assignList.check();
+		assignList.check(enclosingCategory, enclosingTree);
 
 	}
 

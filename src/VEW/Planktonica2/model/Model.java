@@ -31,6 +31,7 @@ public class Model implements BuildFromXML {
 		try {
 			b = build(file);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new BackingStoreException (e);
 		}
 		
@@ -104,7 +105,6 @@ public class Model implements BuildFromXML {
 	public void removeAllFunctionalGroups() {
 		functionalGroups = new ArrayList<FunctionalGroup> ();
 	}
-
 	
 	
 }

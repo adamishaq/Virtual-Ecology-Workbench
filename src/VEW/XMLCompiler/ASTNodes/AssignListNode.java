@@ -3,6 +3,8 @@ package VEW.XMLCompiler.ASTNodes;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import VEW.Planktonica2.model.Catagory;
+
 
 public class AssignListNode extends ASTree {
 
@@ -19,13 +21,15 @@ public class AssignListNode extends ASTree {
 	
 	public void addAssign(AssignNode assign) {
 		assignList.add(assign);
-	}
-	
+	}	
+
 	@Override
-	public void check() {
+	public void check(Catagory enclosingCategory,
+			ConstructedASTree enclosingTree) {
 		for (AssignNode assign : assignList) {
-			assign.check();
+			assign.check(enclosingCategory, enclosingTree);
 		}
+		
 	}
 
 	@Override
@@ -50,5 +54,7 @@ public class AssignListNode extends ASTree {
 		genString = genString.substring(0, genString.length() - 1);
 		return genString;
 	}
+	
+
 
 }

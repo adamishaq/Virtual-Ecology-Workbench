@@ -11,6 +11,7 @@ import VEW.Planktonica2.model.VarietyType;
 import VEW.Planktonica2.model.VarietyVariable;
 import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 import VEW.XMLCompiler.ASTNodes.BinOpNode;
+import VEW.XMLCompiler.ASTNodes.ConstructedASTree;
 import VEW.XMLCompiler.ASTNodes.IdNode;
 import VEW.XMLCompiler.ASTNodes.MathematicalOperator;
 
@@ -36,12 +37,10 @@ public class FoodLinks {
 		state2.setLinkConcentration(foodSet);
 		group.addToVarietyStateTable(state2);
 		IdNode id1 = new IdNode("state1");
-		id1.setCatagory(group);
 		IdNode id2 = new IdNode("state2");
-		id2.setCatagory(group);
 		BinOpNode binOp = new BinOpNode(MathematicalOperator.MULTIPLY, id1, id2);
-		binOp.setCatagory(group);
-		binOp.check();
+		ConstructedASTree constr = new ConstructedASTree(binOp);
+		binOp.check(group, constr);
 	}
 	
 	@Test
@@ -68,13 +67,12 @@ public class FoodLinks {
 		state2.setLinkConcentration(foodSet2);
 		group.addToVarietyStateTable(state2);
 		IdNode id1 = new IdNode("state1");
-		id1.setCatagory(group);
 		IdNode id2 = new IdNode("state2");
-		id2.setCatagory(group);
 		BinOpNode binOp = new BinOpNode(MathematicalOperator.MULTIPLY, id1, id2);
-		binOp.setCatagory(group);
-		binOp.check();
-		fail("Should not pass if the link concentrations are different");
+		ConstructedASTree constr = new ConstructedASTree(binOp);
+		binOp.check(group, constr);
+		if (!constr.hasExceptions())
+			fail("Should not pass if the link concentrations are different");
 	}
 
 }
