@@ -1,13 +1,17 @@
 package VEW.Planktonica2.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import VEW.Common.XML.XMLTag;
 
-public class Spectrum implements BuildFromXML, BuildToXML {
+public class Spectrum implements BuildFromXML, BuildToXML, Iterable<WaveLengthIntensityPair> {
 	
-	private String name;
-	private ArrayList<Float> equations;
-	private final String GRAPH_VALUES = "\\graphvals";  
+	protected String name;
+
+	
+	protected ArrayList<WaveLengthIntensityPair> values;
+	protected final String GRAPH_VALUES = "\\graphvals";
 
 	@Override
 	public BuildFromXML build(XMLTag tag) {
@@ -36,9 +40,11 @@ public class Spectrum implements BuildFromXML, BuildToXML {
 					// splits values around "," so of form ["0", "v1", "1", "v2", ...]
 					String [] valueArray = values.split(",");
 					
-					this.equations = new ArrayList<Float> ();
-					for (int i = 1; i < valueArray.length; i+=2) {
-						equations.add(Float.valueOf(valueArray[i]));
+					this.values = new ArrayList<WaveLengthIntensityPair> ();
+					int wavelength = 0;
+					for (int i = 1; i < valueArray.length; i+=2, wavelength++) {
+						Double intensity = Double.valueOf(valueArray[i]);
+						this.values.add(new WaveLengthIntensityPair(wavelength, intensity));
 					}					
 				}
 			}
@@ -56,14 +62,17 @@ public class Spectrum implements BuildFromXML, BuildToXML {
 		this.name = name;
 	}
 
-	public ArrayList<Float> getEquations() {
-		return equations;
+	public WaveLengthIntensityPair getSpectrumValue(int index) {
+		return values.get(index);
 	}
 
-	public void setEquations(ArrayList<Float> equations) {
-		this.equations = equations;
+	public void setValue(int index, double intensity) {
+		values.set(index, new WaveLengthIntensityPair(index, intensity));
 	}
 
+	public int getNumberValues() {
+		return values.size();
+	}
 
 	@Override
 	public XMLTag buildToXML() {
@@ -85,13 +94,19 @@ public class Spectrum implements BuildFromXML, BuildToXML {
 
 	private String buildGraphValuesString() {
 		String graphValsString = GRAPH_VALUES + "{";
-		for (int n = 0; n < equations.size(); n++) {
-			graphValsString += "{" + n + "," + equations.get(n) + "}";
-			if (n != equations.size() - 1) {
+		for (int n = 0; n < values.size(); n++) {
+			graphValsString += "{" + n + "," + values.get(n) + "}";
+			if (n != values.size() - 1) {
 				graphValsString += ",";
 			}
 		}
 		return graphValsString + "}";
+	}
+
+
+	@Override
+	public Iterator<WaveLengthIntensityPair> iterator() {
+		return values.iterator();
 	}
 	
 	

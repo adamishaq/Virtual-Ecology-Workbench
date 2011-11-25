@@ -52,11 +52,9 @@ public class SpectrumTest {
 
 		assertEquals(s.getName(), testName);
 
-		assertNotNull(s.getEquations());
+		assertNotNull(s.getNumberValues());
 
-		assertEquals(s.getEquations().size(), 25);
-
-		System.out.println(s.getEquations().toString());
+		assertEquals(s.getNumberValues(), 25);
 
 	}
 
