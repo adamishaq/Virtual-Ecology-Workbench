@@ -1,4 +1,4 @@
-package VEW.Planktonica2.model;
+package VEW.Planktonica2.Model;
 
 import java.util.Collection;
 

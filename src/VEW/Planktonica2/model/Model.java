@@ -1,10 +1,8 @@
-package VEW.Planktonica2.model;
+package VEW.Planktonica2.Model;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.prefs.BackingStoreException;
 
 import VEW.Common.XML.XMLFile;
@@ -14,6 +12,7 @@ public class Model implements BuildFromXML {
 
 	private Collection<Chemical> chemicals;
 	private Collection<FunctionalGroup> functionalGroups;
+	@SuppressWarnings("unused")
 	private Catagory current_category;
 	
 	private XMLFile file;

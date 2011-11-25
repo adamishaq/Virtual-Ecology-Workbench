@@ -1,4 +1,4 @@
-package VEW.Planktonica2.model;
+package VEW.Planktonica2.Model;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -176,6 +176,42 @@ public class FunctionalGroup extends Catagory {
 	public Collection<String> getStageNames() {
 		
 		return stageTable.keySet();
+	}
+
+	/**
+	 * 
+	 * @param funcName
+	 * @return The function corresponding to funName or null
+	 */
+	public Function getFunctionIndex(String funcName) {
+		Iterator<Function> iter = functions.iterator();
+		while (iter.hasNext()) {
+			Function func = iter.next();
+			if (funcName.equals(func.getName())) {
+				return func;
+			}
+		}
+		return null;
+		
+	}
+
+	/**
+	 * Moves funcName by the offset in the functions list
+	 * @param funcName
+	 * @param offset (+ = down/ - = up (the list))
+	 */
+	public void moveFunctionIndex(String funcName, int offset) {
+		Function func = getFunctionIndex(funcName);
+		
+		if (func != null) {
+			int oldIndex = functions.indexOf(func);
+			functions.remove(func);
+			functions.add(oldIndex + offset, func);
+		} else {
+			System.err.println("Could not move func");
+		}
+		
+		
 	}
 
 

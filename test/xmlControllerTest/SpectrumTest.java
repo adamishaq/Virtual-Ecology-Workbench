@@ -8,8 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.model.Spectrum;
-import VEW.Planktonica2.model.XMLTagEnum;
+import VEW.Planktonica2.Model.Spectrum;
+import VEW.Planktonica2.Model.XMLTagEnum;
 
 public class SpectrumTest {
 

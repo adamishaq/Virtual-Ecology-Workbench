@@ -8,12 +8,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.model.FunctionalGroup;
-import VEW.Planktonica2.model.Local;
-import VEW.Planktonica2.model.Parameter;
-import VEW.Planktonica2.model.StateVariable;
-import VEW.Planktonica2.model.Unit;
-import VEW.Planktonica2.model.XMLTagEnum;
+import VEW.Planktonica2.Model.FunctionalGroup;
+import VEW.Planktonica2.Model.Local;
+import VEW.Planktonica2.Model.Parameter;
+import VEW.Planktonica2.Model.StateVariable;
+import VEW.Planktonica2.Model.Unit;
+import VEW.Planktonica2.Model.XMLTagEnum;
 
 public class VariableTypeTest {
 

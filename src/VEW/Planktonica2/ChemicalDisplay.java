@@ -1,8 +1,15 @@
 package VEW.Planktonica2;
 
 import java.awt.Dimension;
+
+import javax.swing.JCheckBox;
+
 import VEW.Planktonica2.ControllerStructure.ChemicalController;
-import VEW.Planktonica2.model.VariableType;
+import VEW.Planktonica2.DisplayEventHandlers.ButtonCommandNamesEnum;
+import VEW.Planktonica2.DisplayEventHandlers.ChemButtonListener;
+import VEW.Planktonica2.DisplayEventHandlers.FGButtonListener;
+import VEW.Planktonica2.DisplayEventHandlers.TreeButtonListener;
+import VEW.Planktonica2.Model.VariableType;
 import VEW.UIComponents.VariableEditorPanel;
 
 public class ChemicalDisplay extends Display {
@@ -46,6 +53,14 @@ public class ChemicalDisplay extends Display {
 	protected void populateButtonPane() {
 		
 		this.defaultPopulateButtonPane();
+		
+		TreeButtonListener ChemListener = new ChemButtonListener(this.controller);
+		
+		upFG.addActionListener(ChemListener);
+		downFG.addActionListener(ChemListener);
+		removeInstance.addActionListener(ChemListener);
+		renameInstance.addActionListener(ChemListener);
+		addInstance.addActionListener(ChemListener);
 		
 	}
 

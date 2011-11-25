@@ -1,6 +1,6 @@
 package VEW.Planktonica2.ControllerStructure;
 
-import VEW.Planktonica2.model.Function;
+import VEW.Planktonica2.Model.Function;
 
 public interface SelectableItem {
 

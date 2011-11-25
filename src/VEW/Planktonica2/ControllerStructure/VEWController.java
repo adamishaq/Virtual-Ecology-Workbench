@@ -7,10 +7,10 @@ import java.util.prefs.BackingStoreException;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import VEW.Planktonica2.Display;
-import VEW.Planktonica2.model.Catagory;
-import VEW.Planktonica2.model.Function;
-import VEW.Planktonica2.model.Model;
-import VEW.Planktonica2.model.VariableType;
+import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.Function;
+import VEW.Planktonica2.Model.Model;
+import VEW.Planktonica2.Model.VariableType;
 
 
 public abstract class VEWController extends Observable {
@@ -67,7 +67,7 @@ public abstract class VEWController extends Observable {
 		
 	}
 	
-	private String getSelectedFunction() {
+	public String getSelectedFunction() {
 		return display.get_selected_function();
 	}
 	

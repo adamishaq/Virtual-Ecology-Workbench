@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLFile;
-import VEW.Planktonica2.model.Model;
+import VEW.Planktonica2.Model.Model;
 
 public class FullModelTest {
 

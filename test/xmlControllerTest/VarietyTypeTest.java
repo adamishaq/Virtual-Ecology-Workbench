@@ -9,13 +9,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.model.FunctionalGroup;
-import VEW.Planktonica2.model.Unit;
-import VEW.Planktonica2.model.VarietyConcentration;
-import VEW.Planktonica2.model.VarietyLocal;
-import VEW.Planktonica2.model.VarietyParameter;
-import VEW.Planktonica2.model.VarietyVariable;
-import VEW.Planktonica2.model.XMLTagEnum;
+import VEW.Planktonica2.Model.FunctionalGroup;
+import VEW.Planktonica2.Model.Unit;
+import VEW.Planktonica2.Model.VarietyConcentration;
+import VEW.Planktonica2.Model.VarietyLocal;
+import VEW.Planktonica2.Model.VarietyParameter;
+import VEW.Planktonica2.Model.VarietyVariable;
+import VEW.Planktonica2.Model.XMLTagEnum;
 
 public class VarietyTypeTest {
 

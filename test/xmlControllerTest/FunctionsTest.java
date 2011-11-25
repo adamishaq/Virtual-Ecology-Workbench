@@ -11,10 +11,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.model.Equation;
-import VEW.Planktonica2.model.Function;
-import VEW.Planktonica2.model.Stage;
-import VEW.Planktonica2.model.XMLTagEnum;
+import VEW.Planktonica2.Model.Equation;
+import VEW.Planktonica2.Model.Function;
+import VEW.Planktonica2.Model.Stage;
+import VEW.Planktonica2.Model.XMLTagEnum;
 
 public class FunctionsTest {
 

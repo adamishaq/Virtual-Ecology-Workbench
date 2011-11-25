@@ -4,13 +4,13 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import VEW.Planktonica2.model.FunctionalGroup;
-import VEW.Planktonica2.model.Local;
-import VEW.Planktonica2.model.StateVariable;
-import VEW.Planktonica2.model.Type;
-import VEW.Planktonica2.model.VarietyConcentration;
-import VEW.Planktonica2.model.VarietyType;
-import VEW.Planktonica2.model.VarietyVariable;
+import VEW.Planktonica2.Model.FunctionalGroup;
+import VEW.Planktonica2.Model.Local;
+import VEW.Planktonica2.Model.StateVariable;
+import VEW.Planktonica2.Model.Type;
+import VEW.Planktonica2.Model.VarietyConcentration;
+import VEW.Planktonica2.Model.VarietyType;
+import VEW.Planktonica2.Model.VarietyVariable;
 import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 import VEW.XMLCompiler.ASTNodes.AssignNode;
 import VEW.XMLCompiler.ASTNodes.IdNode;

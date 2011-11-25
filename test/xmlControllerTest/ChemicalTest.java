@@ -7,8 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.model.Chemical;
-import VEW.Planktonica2.model.XMLTagEnum;
+import VEW.Planktonica2.Model.Chemical;
+import VEW.Planktonica2.Model.XMLTagEnum;
 
 public class ChemicalTest {
 

@@ -1,8 +1,8 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import VEW.Planktonica2.model.Chemical;
-import VEW.Planktonica2.model.Type;
-import VEW.Planktonica2.model.VarietyType;
+import VEW.Planktonica2.Model.Chemical;
+import VEW.Planktonica2.Model.Type;
+import VEW.Planktonica2.Model.VarietyType;
 
 public class VBOpNode extends BExprNode {
 	

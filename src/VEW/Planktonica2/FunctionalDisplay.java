@@ -3,8 +3,11 @@ package VEW.Planktonica2;
 import java.awt.Dimension;
 import javax.swing.JCheckBox;
 import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
+import VEW.Planktonica2.DisplayEventHandlers.ButtonCommandNamesEnum;
+import VEW.Planktonica2.DisplayEventHandlers.FGButtonListener;
+import VEW.Planktonica2.DisplayEventHandlers.TreeButtonListener;
+import VEW.Planktonica2.Model.VariableType;
 import VEW.Planktonica2.StageEditor.StageEditorPanel;
-import VEW.Planktonica2.model.VariableType;
 import VEW.UIComponents.VariableEditorPanel;
 
 public class FunctionalDisplay extends Display {
@@ -61,9 +64,18 @@ public class FunctionalDisplay extends Display {
 		
 		this.defaultPopulateButtonPane();
 		
+		TreeButtonListener FGListener = new FGButtonListener(this.controller);
 		JCheckBox predBox = new JCheckBox ("Mark as top predator");
+		predBox.setActionCommand(ButtonCommandNamesEnum.TOP_GUN.toString());
+		predBox.addActionListener(FGListener);
 		
-		this.buttonPane.add(predBox);
+		upFG.addActionListener(FGListener);
+		downFG.addActionListener(FGListener);
+		removeInstance.addActionListener(FGListener);
+		renameInstance.addActionListener(FGListener);
+		addInstance.addActionListener(FGListener);
+		
+		this.treeButtonPanel.add(predBox);
 		
 	}
 

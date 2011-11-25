@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import VEW.Planktonica2.model.GlobalVariable;
-import VEW.Planktonica2.model.Type;
+import VEW.Planktonica2.Model.GlobalVariable;
+import VEW.Planktonica2.Model.Type;
 import VEW.XMLCompiler.ASTNodes.SymbolTable;
 
 public class createVariableTest {

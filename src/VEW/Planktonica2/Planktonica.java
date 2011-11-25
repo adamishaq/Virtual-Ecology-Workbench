@@ -33,7 +33,7 @@ import VEW.Controller2.VEWController2;
 
 import VEW.Planktonica2.ControllerStructure.ChemicalController;
 import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
-import VEW.Planktonica2.model.Model;
+import VEW.Planktonica2.Model.Model;
 import VEW.Scenario2.AddVarPage;
 import VEW.Scenario2.EquationEditor;
 import VEW.Scenario2.EquationPanel;

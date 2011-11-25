@@ -11,14 +11,14 @@ import javax.swing.JTextField;
 
 import VEW.Planktonica2.DisplayEventHandlers.AddVarListener;
 import VEW.Planktonica2.DisplayEventHandlers.VarTypeListener;
-import VEW.Planktonica2.model.Local;
-import VEW.Planktonica2.model.Parameter;
-import VEW.Planktonica2.model.StateVariable;
-import VEW.Planktonica2.model.VariableType;
-import VEW.Planktonica2.model.VarietyConcentration;
-import VEW.Planktonica2.model.VarietyLocal;
-import VEW.Planktonica2.model.VarietyParameter;
-import VEW.Planktonica2.model.VarietyVariable;
+import VEW.Planktonica2.Model.Local;
+import VEW.Planktonica2.Model.Parameter;
+import VEW.Planktonica2.Model.StateVariable;
+import VEW.Planktonica2.Model.VariableType;
+import VEW.Planktonica2.Model.VarietyConcentration;
+import VEW.Planktonica2.Model.VarietyLocal;
+import VEW.Planktonica2.Model.VarietyParameter;
+import VEW.Planktonica2.Model.VarietyVariable;
 
 public class VariableEditorPanel extends JPanel {
 

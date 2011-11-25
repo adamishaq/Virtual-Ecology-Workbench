@@ -22,12 +22,11 @@ import javax.swing.tree.TreeSelectionModel;
 import VEW.Planktonica2.ControllerStructure.SelectableItem;
 import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.Planktonica2.DisplayEventHandlers.FGButtonListener;
-import VEW.Planktonica2.DisplayEventHandlers.FuncButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
 import VEW.Planktonica2.DisplayEventHandlers.VariableSelectionEventHandler;
-import VEW.Planktonica2.model.Catagory;
-import VEW.Planktonica2.model.VariableType;
 import VEW.Planktonica2.DisplayEventHandlers.ButtonCommandNamesEnum;
+import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.VariableType;
 
 public abstract class Display extends JSplitPane {
 
@@ -70,7 +69,8 @@ public abstract class Display extends JSplitPane {
 	private DefaultMutableTreeNode varRootNode;
 	private JTabbedPane ancilaryFuncPane;
 
-	final protected JPanel buttonPane = new JPanel ();
+	//final protected JPanel buttonPane = new JPanel ();
+	protected JPanel treeButtonPanel = new JPanel(new FlowLayout());
 
 	protected JTree tree;
 	protected JTree var_tree;
@@ -101,8 +101,8 @@ public abstract class Display extends JSplitPane {
 		
 		//setButtonToolTips();
 		
-		this.addItemButtons(this.buttonPane);
-		this.addFunctionButtons(this.buttonPane);
+		//this.addItemButtons(this.buttonPane);
+		//this.addFunctionButtons(this.buttonPane);
 		
 	}
 	
@@ -113,9 +113,10 @@ public abstract class Display extends JSplitPane {
 		this.setPreferredSize(initialSize);
 		
 		
+		this.populateButtonPane();
 		
 		JPanel leftPanel = new JPanel (new BorderLayout ());
-		leftPanel.setMinimumSize(new Dimension (150, this.getHeight()));
+		leftPanel.setMinimumSize(new Dimension (170, this.getHeight()));
 		
 		constructLeftPanel(leftPanel);
 		
@@ -128,12 +129,12 @@ public abstract class Display extends JSplitPane {
 		constructRightPanel(rightPanel);
 		
 		
-		this.setDividerLocation(150);
+		this.setDividerLocation(170);
 		this.setLeftComponent(leftPanel);
 		this.setRightComponent(rightPanel);
 		
 		this.populateAncilaryFuncPane();
-		this.populateButtonPane();
+		
 		
 		//this.ancilaryFuncPane.setEnabled(false);
 		
@@ -157,7 +158,7 @@ public abstract class Display extends JSplitPane {
 		
 		tree.addTreeSelectionListener(new LeftPanelTreeSelectionListener (this.controller));
 		
-		JScrollPane treeVeiwPane = new JScrollPane(tree);
+		JScrollPane treeViewPane = new JScrollPane(tree);
 		
 		// set up variable list
 		this.varRootNode = new DefaultMutableTreeNode ("Variables"); 
@@ -168,18 +169,28 @@ public abstract class Display extends JSplitPane {
 		
 		var_tree.addTreeSelectionListener(new VariableSelectionEventHandler (this.controller));
 		
-		JScrollPane varVeiwPane = new JScrollPane(var_tree);
+		JScrollPane varViewPane = new JScrollPane(var_tree);
+		
+		
+		JSplitPane groupPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+		groupPane.setDividerLocation(groupPane.getHeight()-60);
+		groupPane.setDividerSize(0);
+		groupPane.setResizeWeight(1);
+		
+		this.addItemButtons(treeButtonPanel);
+		groupPane.setBottomComponent(treeButtonPanel);
+		groupPane.setTopComponent(treeViewPane);
 		
 		// add two panels
-		splitPane.setTopComponent(treeVeiwPane);
-		splitPane.setBottomComponent(varVeiwPane);
+		splitPane.setTopComponent(groupPane);
+		splitPane.setBottomComponent(varViewPane);
 		
 		Dimension minSize = new Dimension (splitPane.getWidth(), 150);
 		
-		treeVeiwPane.setMinimumSize(minSize);
-		varVeiwPane.setMinimumSize(minSize);
+		treeViewPane.setMinimumSize(minSize);
+		varViewPane.setMinimumSize(minSize);
 		
-		splitPane.setDividerLocation(splitPane.getHeight() - 150);
+		splitPane.setDividerLocation(splitPane.getHeight() - 250);
 		
 		leftPanel.add(splitPane, BorderLayout.CENTER);
 		
@@ -193,7 +204,7 @@ public abstract class Display extends JSplitPane {
 		//BoxLayout box = new BoxLayout (layout, BoxLayout.Y_AXIS);
 		//layout.setLayout(box);
 		
-		buttonPane.setLayout(new FlowLayout());
+		//buttonPane.setLayout(new FlowLayout());
 		
 		//buttonPane.setPreferredSize(new Dimension (layout.getWidth(), 100));
 		//buttonPane.setMaximumSize(new Dimension(layout.getWidth(), 200));
@@ -207,7 +218,7 @@ public abstract class Display extends JSplitPane {
 		g.weightx = 1;
 		g.weighty = 0;
 		
-		layout.add(buttonPane, g);
+		//layout.add(buttonPane, g);
 		
 		
 		this.ancilaryFuncPane = new JTabbedPane ();
@@ -238,7 +249,6 @@ public abstract class Display extends JSplitPane {
 		itemPanel.add(addInstance);
 		itemPanel.add(renameInstance);
 		itemPanel.add(removeInstance);
-		itemPanel.add(copyInstance);
 	}
 	
 	
@@ -253,10 +263,29 @@ public abstract class Display extends JSplitPane {
 	}
 	
 	private void initialiseButtons() {
-			
-		FuncButtonListener funcButtonListener = new FuncButtonListener();
-		FGButtonListener fgButtonListener = new FGButtonListener();
 		
+		
+		upFG = new JButton(new ImageIcon(IconRoot+ "up.gif"));
+		upFG.setPreferredSize(STANDARD_BUTTON_SIZE);
+		upFG.setActionCommand(ButtonCommandNamesEnum.MOVE_UP.toString());
+		
+		downFG = new JButton(new ImageIcon(IconRoot+ "down.gif"));
+		downFG.setPreferredSize(STANDARD_BUTTON_SIZE);
+		downFG.setActionCommand(ButtonCommandNamesEnum.MOVE_DOWN.toString());
+		
+		addInstance = new JButton(new ImageIcon(IconRoot+ "plus.gif"));
+		addInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
+		addInstance.setActionCommand(ButtonCommandNamesEnum.ADD_INSTANCE.toString());
+		
+		removeInstance = new JButton(new ImageIcon(IconRoot + "bin1.gif"));
+		removeInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
+		removeInstance.setActionCommand(ButtonCommandNamesEnum.REMOVE_INSTANCE.toString());
+		
+		renameInstance = new JButton(new ImageIcon(IconRoot + "rename.gif"));
+		renameInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
+		renameInstance.setActionCommand(ButtonCommandNamesEnum.RENAME_INSTANCE.toString());
+		
+		/*
 		upFunc = new JButton(new ImageIcon(IconRoot+ "up.gif"));
 		upFunc.setPreferredSize(STANDARD_BUTTON_SIZE);
 		upFunc.setActionCommand(ButtonCommandNamesEnum.UPFUNC.toString());
@@ -266,31 +295,6 @@ public abstract class Display extends JSplitPane {
 		downFunc.setPreferredSize(STANDARD_BUTTON_SIZE);
 		downFunc.setActionCommand(ButtonCommandNamesEnum.DOWNFUNC.toString());
 		downFunc.addActionListener(funcButtonListener);
-		
-		upFG = new JButton(new ImageIcon(IconRoot+ "up.gif"));
-		upFG.setPreferredSize(STANDARD_BUTTON_SIZE);
-		upFG.setActionCommand(ButtonCommandNamesEnum.UPFG.toString());
-		upFG.addActionListener(fgButtonListener);
-		
-		downFG = new JButton(new ImageIcon(IconRoot+ "down.gif"));
-		downFG.setPreferredSize(STANDARD_BUTTON_SIZE);
-		downFG.setActionCommand(ButtonCommandNamesEnum.DOWNFG.toString());
-		downFG.addActionListener(fgButtonListener);
-		
-		addInstance = new JButton(new ImageIcon(IconRoot+ "plus.gif"));
-		addInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
-		addInstance.setActionCommand(ButtonCommandNamesEnum.ADD_INSTANCE.toString());
-		addInstance.addActionListener(fgButtonListener);
-		
-		removeInstance = new JButton(new ImageIcon(IconRoot + "bin1.gif"));
-		removeInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
-		removeInstance.setActionCommand(ButtonCommandNamesEnum.REMOVE_INSTANCE.toString());
-		removeInstance.addActionListener(fgButtonListener);
-		
-		renameInstance = new JButton(new ImageIcon(IconRoot + "rename.gif"));
-		renameInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
-		renameInstance.setActionCommand(ButtonCommandNamesEnum.RENAME_INSTANCE.toString());
-		renameInstance.addActionListener(fgButtonListener);
 		
 		copyInstance = new JButton(new ImageIcon(IconRoot + "copy.gif"));
 		copyInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
@@ -320,7 +324,7 @@ public abstract class Display extends JSplitPane {
 		copyFunction = new JButton(new ImageIcon(IconRoot + "copy.gif"));		
 		copyFunction.setPreferredSize(STANDARD_BUTTON_SIZE);		
 		copyFunction.setActionCommand(ButtonCommandNamesEnum.COPY_FUNC.toString());
-		copyFunction.addActionListener(funcButtonListener);
+		copyFunction.addActionListener(funcButtonListener);*/
 	}
 	
 	protected void setButtonToolTips() {

@@ -23,7 +23,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.BadLocationException;
 
-import VEW.Planktonica2.model.GlobalVariable;
+import VEW.Planktonica2.Model.GlobalVariable;
 import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
 

@@ -2,9 +2,12 @@ package VEW.Planktonica2.ControllerStructure;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import VEW.Planktonica2.model.FunctionalGroup;
-import VEW.Planktonica2.model.Model;
-import VEW.Planktonica2.model.Stage;
+import java.util.Iterator;
+
+import VEW.Planktonica2.Model.Function;
+import VEW.Planktonica2.Model.FunctionalGroup;
+import VEW.Planktonica2.Model.Model;
+import VEW.Planktonica2.Model.Stage;
 
 public class FunctionalGroupController extends VEWController {
 
@@ -91,7 +94,9 @@ public class FunctionalGroupController extends VEWController {
 		return c;
 	}
 
-	
+	public void moveFunctionIndex(String funcName, int index) {
+		currentFG.moveFunctionIndex(funcName, index);
+	}
 
 	
 	
