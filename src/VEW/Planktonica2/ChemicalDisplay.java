@@ -10,6 +10,7 @@ import VEW.Planktonica2.DisplayEventHandlers.ChemButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.FGButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.TreeButtonListener;
 import VEW.Planktonica2.Model.VariableType;
+import VEW.Planktonica2.PigmentGraph.PigmentPanel;
 import VEW.UIComponents.VariableEditorPanel;
 
 public class ChemicalDisplay extends Display {
@@ -45,7 +46,7 @@ public class ChemicalDisplay extends Display {
 		// variable tab
 		this.addTabToAncilary("Variable", variablePanel = new VariableEditorPanel ());
 		// pigment tab
-		this.addTabToAncilary("Pigment Display", new PigmentPanel ());
+		this.addTabToAncilary("Pigment Display", new PigmentPanel (chemController));
 		
 	}
 

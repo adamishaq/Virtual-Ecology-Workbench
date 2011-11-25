@@ -111,6 +111,7 @@ public abstract class VEWController extends Observable {
 
 	public void load_source(String filePath) {
 		this.currentSourcePath = filePath;
+		this.setChanged();
 		this.notifyObservers(new SourcePath(filePath));
 	}
 

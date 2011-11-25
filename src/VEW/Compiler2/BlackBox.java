@@ -9,7 +9,7 @@ import VEW.Common.StringTools;
 import VEW.Common.XML.XMLTag;
 import VEW.Controller2.MiscUtils;
 import VEW.Controller2.OutputDialog2;
-import VEW.Planktonica2.PigmentPanel;
+import VEW.Planktonica2.PigmentGraph.PigmentPanel;
 
 public class BlackBox  {
   private static String theOutputDir = null;
