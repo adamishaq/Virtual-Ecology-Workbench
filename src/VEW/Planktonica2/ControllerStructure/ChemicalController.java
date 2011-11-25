@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import VEW.Planktonica2.model.Chemical;
 import VEW.Planktonica2.model.Model;
+import VEW.Planktonica2.model.NullSpectrum;
+import VEW.Planktonica2.model.Spectrum;
 
 public class ChemicalController extends VEWController {
 
@@ -47,9 +49,35 @@ public class ChemicalController extends VEWController {
 		return this.selectedChemical;
 	}
 
+	public Spectrum getSelectedChemicalSpetrum (String spectrumName) {
+		if (selectedChemical == null) {
+			return new NullSpectrum();
+		}
+		Collection<Spectrum> allSpecs = selectedChemical.getSpectrum();
+		for (Spectrum s : allSpecs) {
+			String name = s.getName();
+			if (name != null && s.equals(spectrumName)) {
+				return s;
+			}
+		}
+		
+		return new NullSpectrum();
+	}
+	
+	public Collection<Spectrum> getAllSelectedSpectrum() {
+		return selectedChemical.getSpectrum();
+	}
+	
+	
 	public Collection<Chemical> getChemicals() {
 		return chemicals;
 	}
+
 	
+	public void chemicalHasPigment(boolean b) {
+		
+		getSelectedChemical().setPigment(b);
+		
+	}
 	
 }
