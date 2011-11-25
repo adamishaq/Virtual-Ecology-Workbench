@@ -38,7 +38,7 @@ public class EquationStringParser {
 		}
 		else if (ruleName.equals("\\ifthen")) {
 			String[] args = splitArgs(argsString, 2);
-			rule = "if (" + parseBExprString(args[0]) + ")" + " then" + parseRuleString(args[1]);
+			rule = "if (" + parseBExprString(args[0]) + ")" + " then " + parseRuleString(args[1]);
 		}
 		else if (ruleName.equals("\\pchange")) {
 			String[] args = splitArgs(argsString, 2);
@@ -54,11 +54,11 @@ public class EquationStringParser {
 		}
 		else if (ruleName.equals("\\uptake")) {
 			String[] args = splitArgs(argsString, 2);
-			rule = "uptake(" + parseExpressionString(args[0]) + "," + parseVariableString(args[1]) + ")";
+			rule = "uptake(" + parseVariableString(args[1]) + "," + parseExpressionString(args[0]) + ")";
 		}
 		else if (ruleName.equals("\\release")) {
 			String[] args = splitArgs(argsString, 2);
-			rule = "release(" + parseExpressionString(args[0]) + "," + parseVariableString(args[1]) + ")";
+			rule = "release(" + parseVariableString(args[1]) + "," + parseExpressionString(args[0]) + ")";
 		}
 		else if (ruleName.equals("\\create")) {
 			String[] argList = splitAllArgs(argsString);
@@ -100,7 +100,7 @@ public class EquationStringParser {
 			bexprCode = "not(" + parseBExprString(argString) + ")";
 		}
 		else if (bexprName.equals("\\equal")) {
-			bexprCode = parseBComparitorString(argString, "==");
+			bexprCode = parseBComparitorString(argString, "=");
 		}
 		else if (bexprName.equals("\\greater")) {
 			bexprCode = parseBComparitorString(argString, ">");
@@ -151,7 +151,7 @@ public class EquationStringParser {
 		String exprName = ruleParts[0];
 		String argString = extractArgs(ruleParts[1]);
 		if (exprName.equals("\\var")) {
-			exprCode = argString;
+			exprCode = argString.replace('$', '_');
 		}
 		else if (exprName.equals("\\val")) {
 			String[] valArgs = splitArgs(argString, 2);
@@ -175,6 +175,9 @@ public class EquationStringParser {
 		}
 		else if (exprName.equals("\\sub")) {
 			exprCode = constructBinaryOperatorString(argString, "-");
+		}
+		else if (exprName.equals("\\minus")) {
+			exprCode = "-(" + parseExpressionString(argString) + ")";
 		}
 		else if (exprName.equals("\\div")) {
 			exprCode = constructBinaryOperatorString(argString, "/");
@@ -213,7 +216,7 @@ public class EquationStringParser {
 	private String constructBinaryFunctionString(String argString, String function) {
 		String exprCode = "";
 		String[] minArgs = splitAllArgs(argString);
-		for (int n = minArgs.length-2; n >= 0; n++) {
+		for (int n = minArgs.length-2; n >= 0; n--) {
 			if (n == minArgs.length-2) {
 				exprCode = function + "(" + parseExpressionString(minArgs[n]) + "," +
 											parseExpressionString(minArgs[n+1]) + ")";
@@ -249,7 +252,7 @@ public class EquationStringParser {
 		String var = new String();
 		String[] ruleParts = extractRuleType(argsString);
 		if (ruleParts[0].equals("\\var"))
-			var = extractArgs(ruleParts[1]);
+			var = extractArgs(ruleParts[1]).replace('$', '_');
 		return var;
 	}
 

@@ -1,5 +1,8 @@
 package VEW.Planktonica2.model;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -72,6 +75,7 @@ public class Function implements BuildFromXML, BuildToXML {
 			e.build(t);
 			equations.add(e);
 		}
+		createSourceFile(xmlTags);
 		
 		XMLTag authorTag = tag.getTag(XMLTagEnum.AUTHOR.xmlTag());
 		if (authorTag != null) {
@@ -92,6 +96,36 @@ public class Function implements BuildFromXML, BuildToXML {
 		return this;
 	}
 	
+	private void createSourceFile(XMLTag[] xmlTags) {
+		String parentPath = source_file_path + parentName + "\\";
+		File parentDirectory = new File(parentPath);
+		if (!parentDirectory.exists()) {
+			parentDirectory.mkdir();
+		}
+		File sourceFile = new File(parentPath + name + ".bacon");
+		if (sourceFile.exists()) {
+			return;
+		}
+		String sourceCode = "";
+		for (XMLTag equationTag: xmlTags) {
+			XMLTag nameTag = equationTag.getTag("name");
+			XMLTag eqTag = equationTag.getTag("eq");
+			String name = nameTag.getValue();
+			String eq = eqTag.getValue();
+			EquationStringParser parser = new EquationStringParser(eq);
+			sourceCode += "\"" + name + "\": " + parser.parseEquationString() + "\n\n";
+		}
+		try {
+			FileWriter writer = new FileWriter(sourceFile);
+			writer.write(sourceCode);
+			writer.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
 	private Stage getStageFromList (String name) {
 		
 		if (availableStages == null || name == null)

@@ -55,6 +55,7 @@ public class UnaryPrimNode extends ExprNode {
 		case TEMPAT 	 : func = "temperatureAt"; break;
 		case UVIRRADAT 	 : func = "UVIrradAt"; break;
 		case INTEGRATE 	 : func = "integrate"; break;
+		case VISIRRADAT	 : func = "visIrradAt"; break;
 		}
 		return "\\" + func + "{" + argument.generateXML() + "}";
 	}
@@ -86,6 +87,7 @@ public class UnaryPrimNode extends ExprNode {
 		case TEMPAT 	 : func = " temperatureAt "; break;
 		case UVIRRADAT 	 : func = " UVIrradAt "; break;
 		case INTEGRATE 	 : func = " integrate "; break;
+		case VISIRRADAT  : func = " visIrradAt"; break;
 		}
 		return func + "(" + arg + ")";
 	}

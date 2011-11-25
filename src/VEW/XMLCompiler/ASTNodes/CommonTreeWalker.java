@@ -308,6 +308,11 @@ public class CommonTreeWalker {
 				expr = constructBinOpNode(MathematicalOperator.POWER, tree);
 				break;
 			}
+			case(BACONParser.NEG) : {
+				ExprNode negExpr = constructExprNode((CommonTree)tree.getChild(0));
+				expr = new NegNode(negExpr);
+				break;
+			}
 			case(BACONParser.IF) : {
 				BExprNode ifCondNode = constructBExprNode((CommonTree)tree.getChild(0));
 				ExprNode thenExpr = constructExprNode((CommonTree)tree.getChild(1));

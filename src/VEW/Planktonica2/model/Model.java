@@ -31,6 +31,7 @@ public class Model implements BuildFromXML, Observer {
 		try {
 			b = build(file);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new BackingStoreException (e);
 		}
 		

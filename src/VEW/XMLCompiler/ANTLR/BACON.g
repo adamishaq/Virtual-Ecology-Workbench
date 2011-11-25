@@ -12,6 +12,7 @@ tokens {
 	ASSIGNLIST;
 	EXPR;
 	BEXPR;
+	NEG;
 }
 
 @header {
@@ -91,11 +92,11 @@ public static String getTokenFromType(int ttype) {
 }
 
 @lexer::header {
-package VEW.XMLCompiler.ANTLR.output;
+package VEW.XMLCompiler.ANTLR;
 }
 
 // Rules
-RULENAME : ('"')(LETTER|DIGIT|'_'|IGNORE)*('"');	
+RULENAME : ('"')(LETTER|DIGIT|'_'|IGNORE|','|'-')*('"');	
 COLON    : (':')(IGNORE)*(NEWLINE)?;
 
 // Keywords
@@ -141,6 +142,7 @@ DENSITYAT   : 'densityAt';
 DEPTHFORFI  : 'depthForFI';
 DEPTHFORVI  : 'depthForVI';
 FULLIRRADAT : 'fullIrradAt';
+VISIRRADAT  : 'visIrradAt';
 SALINITYAT  : 'salinityAt';
 TEMPAT      : 'temperatureAt';
 UVIRRADAT   : 'UVIrradAt';
@@ -148,10 +150,14 @@ VARHIST     : 'varhist';
 
 // Numerical Expressions
 fragment DIGIT : ('0'..'9');
+
 FLOAT
-    :   (DIGIT)+ '.' (DIGIT)*
-    |   '.' (DIGIT)+
-    |   (DIGIT)+;
+    :   (MINUS)? DIGIT+ ('.' DIGIT* EXPONENT?)?
+    |   (MINUS)? DIGIT+ EXPONENT
+    ;
+
+fragment
+EXPONENT : ('e'|'E') ('+'|'-')? DIGIT+ ;
 
 // Arithmetic Operators
 EQUALS   : '=';
@@ -255,6 +261,7 @@ expr3
 expr4
  	: LBRACKET expr RBRACKET -> expr
 	| unaryPrimitives LBRACKET expr RBRACKET -> ^(unaryPrimitives expr)
+	| MINUS expr -> ^(NEG expr)
 	| FLOAT
 	| VAR
 	| IF bExpr THEN expr ELSE expr -> ^(IF bExpr expr expr)
@@ -299,6 +306,7 @@ unaryPrimitives
 	| TEMPAT
 	| UVIRRADAT
 	| INTEGRATE
+	| VISIRRADAT
 	;
 	
 lowPrecMathOp

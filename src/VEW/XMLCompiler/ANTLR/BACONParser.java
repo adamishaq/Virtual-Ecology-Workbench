@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g 2011-11-10 12:53:42
+// $ANTLR 3.4 C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g 2011-11-25 17:14:50
 
 package VEW.XMLCompiler.ANTLR;
 import java.util.Map;
@@ -14,13 +14,11 @@ import java.util.HashMap;
 
 import org.antlr.runtime.tree.*;
 
-import sun.tools.tree.ThisExpression;
-
 
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class BACONParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ABS", "ACOS", "ALL", "AND", "ASIN", "ASSIGN", "ASSIGNLIST", "ATAN", "BEXPR", "CHANGE", "COLON", "COMMA", "COMMENT", "COS", "CREATE", "DENSITYAT", "DEPTHFORFI", "DEPTHFORVI", "DIGIT", "DIV", "DIVIDE", "ELSE", "EQUALS", "EXP", "EXPR", "FLOAT", "FULLIRRADAT", "GREATEREQUALS", "GREATERTHAN", "IF", "IGNORE", "INGEST", "INTEGRATE", "LBRACKET", "LESSEQUALS", "LESSTHAN", "LETTER", "LN", "LOGTEN", "LSQUARE", "MAX", "MIN", "MINUS", "MUL", "NEQUALS", "NEWLINE", "NONE", "NOT", "OR", "PCHANGE", "PLUS", "POW", "RBRACKET", "RELEASE", "RND", "RSQUARE", "RULE", "RULENAME", "RULES", "SALINITYAT", "SIN", "SOME", "SQRT", "TAN", "TEMPAT", "THEN", "UNKNOWN", "UPTAKE", "UVIRRADAT", "VAR", "VARHIST", "VAVERAGE", "VPRODUCT", "VSUM", "WITH"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "ABS", "ACOS", "ALL", "AND", "ASIN", "ASSIGN", "ASSIGNLIST", "ATAN", "BEXPR", "CHANGE", "COLON", "COMMA", "COMMENT", "COS", "CREATE", "DENSITYAT", "DEPTHFORFI", "DEPTHFORVI", "DIGIT", "DIV", "DIVIDE", "ELSE", "EQUALS", "EXP", "EXPONENT", "EXPR", "FLOAT", "FULLIRRADAT", "GREATEREQUALS", "GREATERTHAN", "IF", "IGNORE", "INGEST", "INTEGRATE", "LBRACKET", "LESSEQUALS", "LESSTHAN", "LETTER", "LN", "LOGTEN", "LSQUARE", "MAX", "MIN", "MINUS", "MUL", "NEG", "NEQUALS", "NEWLINE", "NONE", "NOT", "OR", "PCHANGE", "PLUS", "POW", "RBRACKET", "RELEASE", "RND", "RSQUARE", "RULE", "RULENAME", "RULES", "SALINITYAT", "SIN", "SOME", "SQRT", "TAN", "TEMPAT", "THEN", "UNKNOWN", "UPTAKE", "UVIRRADAT", "VAR", "VARHIST", "VAVERAGE", "VISIRRADAT", "VPRODUCT", "VSUM", "WITH"
     };
 
     public static final int EOF=-1;
@@ -48,79 +46,79 @@ public class BACONParser extends Parser {
     public static final int ELSE=25;
     public static final int EQUALS=26;
     public static final int EXP=27;
-    public static final int EXPR=28;
-    public static final int FLOAT=29;
-    public static final int FULLIRRADAT=30;
-    public static final int GREATEREQUALS=31;
-    public static final int GREATERTHAN=32;
-    public static final int IF=33;
-    public static final int IGNORE=34;
-    public static final int INGEST=35;
-    public static final int INTEGRATE=36;
-    public static final int LBRACKET=37;
-    public static final int LESSEQUALS=38;
-    public static final int LESSTHAN=39;
-    public static final int LETTER=40;
-    public static final int LN=41;
-    public static final int LOGTEN=42;
-    public static final int LSQUARE=43;
-    public static final int MAX=44;
-    public static final int MIN=45;
-    public static final int MINUS=46;
-    public static final int MUL=47;
-    public static final int NEQUALS=48;
-    public static final int NEWLINE=49;
-    public static final int NONE=50;
-    public static final int NOT=51;
-    public static final int OR=52;
-    public static final int PCHANGE=53;
-    public static final int PLUS=54;
-    public static final int POW=55;
-    public static final int RBRACKET=56;
-    public static final int RELEASE=57;
-    public static final int RND=58;
-    public static final int RSQUARE=59;
-    public static final int RULE=60;
-    public static final int RULENAME=61;
-    public static final int RULES=62;
-    public static final int SALINITYAT=63;
-    public static final int SIN=64;
-    public static final int SOME=65;
-    public static final int SQRT=66;
-    public static final int TAN=67;
-    public static final int TEMPAT=68;
-    public static final int THEN=69;
-    public static final int UNKNOWN=70;
-    public static final int UPTAKE=71;
-    public static final int UVIRRADAT=72;
-    public static final int VAR=73;
-    public static final int VARHIST=74;
-    public static final int VAVERAGE=75;
-    public static final int VPRODUCT=76;
-    public static final int VSUM=77;
-    public static final int WITH=78;
-    
+    public static final int EXPONENT=28;
+    public static final int EXPR=29;
+    public static final int FLOAT=30;
+    public static final int FULLIRRADAT=31;
+    public static final int GREATEREQUALS=32;
+    public static final int GREATERTHAN=33;
+    public static final int IF=34;
+    public static final int IGNORE=35;
+    public static final int INGEST=36;
+    public static final int INTEGRATE=37;
+    public static final int LBRACKET=38;
+    public static final int LESSEQUALS=39;
+    public static final int LESSTHAN=40;
+    public static final int LETTER=41;
+    public static final int LN=42;
+    public static final int LOGTEN=43;
+    public static final int LSQUARE=44;
+    public static final int MAX=45;
+    public static final int MIN=46;
+    public static final int MINUS=47;
+    public static final int MUL=48;
+    public static final int NEG=49;
+    public static final int NEQUALS=50;
+    public static final int NEWLINE=51;
+    public static final int NONE=52;
+    public static final int NOT=53;
+    public static final int OR=54;
+    public static final int PCHANGE=55;
+    public static final int PLUS=56;
+    public static final int POW=57;
+    public static final int RBRACKET=58;
+    public static final int RELEASE=59;
+    public static final int RND=60;
+    public static final int RSQUARE=61;
+    public static final int RULE=62;
+    public static final int RULENAME=63;
+    public static final int RULES=64;
+    public static final int SALINITYAT=65;
+    public static final int SIN=66;
+    public static final int SOME=67;
+    public static final int SQRT=68;
+    public static final int TAN=69;
+    public static final int TEMPAT=70;
+    public static final int THEN=71;
+    public static final int UNKNOWN=72;
+    public static final int UPTAKE=73;
+    public static final int UVIRRADAT=74;
+    public static final int VAR=75;
+    public static final int VARHIST=76;
+    public static final int VAVERAGE=77;
+    public static final int VISIRRADAT=78;
+    public static final int VPRODUCT=79;
+    public static final int VSUM=80;
+    public static final int WITH=81;
+
     // delegates
     public Parser[] getDelegates() {
         return new Parser[] {};
     }
 
     // delegators
-    
+
+
     public BACONParser(TokenStream input) {
         this(input, new RecognizerSharedState());
     }
     public BACONParser(TokenStream input, RecognizerSharedState state) {
         super(input, state);
         this.state.ruleMemo = new HashMap[23+1];
+         
 
     }
 
-    @Override
-    public void emitErrorMessage(String message) {
-    	// Don't put error messages on the command line!
-    }
-    
 protected TreeAdaptor adaptor = new CommonTreeAdaptor();
 
 public void setTreeAdaptor(TreeAdaptor adaptor) {
@@ -131,6 +129,7 @@ public TreeAdaptor getTreeAdaptor() {
 }
     public String[] getTokenNames() { return BACONParser.tokenNames; }
     public String getGrammarFileName() { return "C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g"; }
+
 
     private static Map<Integer, String> naturalNames = null; 
     //Parser stuff here
@@ -208,7 +207,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "rules"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:201:1: rules : ( NEWLINE )? pair ( NEWLINE pair )* ( NEWLINE )? -> ^( RULES pair ( pair )* ) ;
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:208:1: rules : ( NEWLINE )? pair ( NEWLINE pair )* ( NEWLINE )? -> ^( RULES pair ( pair )* ) ;
     public final BACONParser.rules_return rules() throws RecognitionException {
         BACONParser.rules_return retval = new BACONParser.rules_return();
         retval.start = input.LT(1);
@@ -233,10 +232,10 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:202:2: ( ( NEWLINE )? pair ( NEWLINE pair )* ( NEWLINE )? -> ^( RULES pair ( pair )* ) )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:202:4: ( NEWLINE )? pair ( NEWLINE pair )* ( NEWLINE )?
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:209:2: ( ( NEWLINE )? pair ( NEWLINE pair )* ( NEWLINE )? -> ^( RULES pair ( pair )* ) )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:209:4: ( NEWLINE )? pair ( NEWLINE pair )* ( NEWLINE )?
             {
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:202:4: ( NEWLINE )?
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:209:4: ( NEWLINE )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -245,9 +244,9 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt1) {
                 case 1 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:202:5: NEWLINE
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:209:5: NEWLINE
                     {
-                    NEWLINE1=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rules905); if (state.failed) return retval; 
+                    NEWLINE1=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rules949); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_NEWLINE.add(NEWLINE1);
 
 
@@ -257,14 +256,14 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            pushFollow(FOLLOW_pair_in_rules909);
+            pushFollow(FOLLOW_pair_in_rules953);
             pair2=pair();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_pair.add(pair2.getTree());
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:202:20: ( NEWLINE pair )*
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:209:20: ( NEWLINE pair )*
             loop2:
             do {
                 int alt2=2;
@@ -283,13 +282,13 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt2) {
             	case 1 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:202:21: NEWLINE pair
+            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:209:21: NEWLINE pair
             	    {
-            	    NEWLINE3=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rules912); if (state.failed) return retval; 
+            	    NEWLINE3=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rules956); if (state.failed) return retval; 
             	    if ( state.backtracking==0 ) stream_NEWLINE.add(NEWLINE3);
 
 
-            	    pushFollow(FOLLOW_pair_in_rules914);
+            	    pushFollow(FOLLOW_pair_in_rules958);
             	    pair4=pair();
 
             	    state._fsp--;
@@ -305,7 +304,7 @@ public TreeAdaptor getTreeAdaptor() {
             } while (true);
 
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:202:36: ( NEWLINE )?
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:209:36: ( NEWLINE )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -314,9 +313,9 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt3) {
                 case 1 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:202:37: NEWLINE
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:209:37: NEWLINE
                     {
-                    NEWLINE5=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rules919); if (state.failed) return retval; 
+                    NEWLINE5=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rules963); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_NEWLINE.add(NEWLINE5);
 
 
@@ -339,9 +338,9 @@ public TreeAdaptor getTreeAdaptor() {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 202:47: -> ^( RULES pair ( pair )* )
+            // 209:47: -> ^( RULES pair ( pair )* )
             {
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:202:50: ^( RULES pair ( pair )* )
+                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:209:50: ^( RULES pair ( pair )* )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot(
@@ -350,7 +349,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                 adaptor.addChild(root_1, stream_pair.nextTree());
 
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:202:63: ( pair )*
+                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:209:63: ( pair )*
                 while ( stream_pair.hasNext() ) {
                     adaptor.addChild(root_1, stream_pair.nextTree());
 
@@ -401,7 +400,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "pair"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:205:1: pair : ( ruleName rule2 -> ^( RULE ruleName rule2 ) | rule );
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:212:1: pair : ( ruleName rule2 -> ^( RULE ruleName rule2 ) | rule );
     public final BACONParser.pair_return pair() throws RecognitionException {
         BACONParser.pair_return retval = new BACONParser.pair_return();
         retval.start = input.LT(1);
@@ -422,7 +421,7 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:206:2: ( ruleName rule2 -> ^( RULE ruleName rule2 ) | rule )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:213:2: ( ruleName rule2 -> ^( RULE ruleName rule2 ) | rule )
             int alt4=2;
             switch ( input.LA(1) ) {
             case RULENAME:
@@ -474,16 +473,16 @@ public TreeAdaptor getTreeAdaptor() {
 
             switch (alt4) {
                 case 1 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:206:4: ruleName rule2
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:213:4: ruleName rule2
                     {
-                    pushFollow(FOLLOW_ruleName_in_pair945);
+                    pushFollow(FOLLOW_ruleName_in_pair989);
                     ruleName6=ruleName();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_ruleName.add(ruleName6.getTree());
 
-                    pushFollow(FOLLOW_rule2_in_pair947);
+                    pushFollow(FOLLOW_rule2_in_pair991);
                     rule27=rule2();
 
                     state._fsp--;
@@ -491,7 +490,7 @@ public TreeAdaptor getTreeAdaptor() {
                     if ( state.backtracking==0 ) stream_rule2.add(rule27.getTree());
 
                     // AST REWRITE
-                    // elements: rule2, ruleName
+                    // elements: ruleName, rule2
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -503,9 +502,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 206:19: -> ^( RULE ruleName rule2 )
+                    // 213:19: -> ^( RULE ruleName rule2 )
                     {
-                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:206:22: ^( RULE ruleName rule2 )
+                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:213:22: ^( RULE ruleName rule2 )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -528,12 +527,12 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:207:4: rule
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:214:4: rule
                     {
                     root_0 = (Object)adaptor.nil();
 
 
-                    pushFollow(FOLLOW_rule_in_pair962);
+                    pushFollow(FOLLOW_rule_in_pair1006);
                     rule8=rule();
 
                     state._fsp--;
@@ -577,7 +576,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "ruleName"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:210:1: ruleName : ( RULENAME COLON ( NEWLINE )? -> RULENAME | VAR COLON ( NEWLINE )? -> VAR );
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:217:1: ruleName : ( RULENAME COLON ( NEWLINE )? -> RULENAME | VAR COLON ( NEWLINE )? -> VAR );
     public final BACONParser.ruleName_return ruleName() throws RecognitionException {
         BACONParser.ruleName_return retval = new BACONParser.ruleName_return();
         retval.start = input.LT(1);
@@ -607,7 +606,7 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:211:2: ( RULENAME COLON ( NEWLINE )? -> RULENAME | VAR COLON ( NEWLINE )? -> VAR )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:218:2: ( RULENAME COLON ( NEWLINE )? -> RULENAME | VAR COLON ( NEWLINE )? -> VAR )
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -627,17 +626,17 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt7) {
                 case 1 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:211:4: RULENAME COLON ( NEWLINE )?
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:218:4: RULENAME COLON ( NEWLINE )?
                     {
-                    RULENAME9=(Token)match(input,RULENAME,FOLLOW_RULENAME_in_ruleName974); if (state.failed) return retval; 
+                    RULENAME9=(Token)match(input,RULENAME,FOLLOW_RULENAME_in_ruleName1018); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RULENAME.add(RULENAME9);
 
 
-                    COLON10=(Token)match(input,COLON,FOLLOW_COLON_in_ruleName976); if (state.failed) return retval; 
+                    COLON10=(Token)match(input,COLON,FOLLOW_COLON_in_ruleName1020); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COLON.add(COLON10);
 
 
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:211:19: ( NEWLINE )?
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:218:19: ( NEWLINE )?
                     int alt5=2;
                     int LA5_0 = input.LA(1);
 
@@ -646,9 +645,9 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     switch (alt5) {
                         case 1 :
-                            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:211:20: NEWLINE
+                            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:218:20: NEWLINE
                             {
-                            NEWLINE11=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_ruleName979); if (state.failed) return retval; 
+                            NEWLINE11=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_ruleName1023); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_NEWLINE.add(NEWLINE11);
 
 
@@ -671,7 +670,7 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 211:30: -> RULENAME
+                    // 218:30: -> RULENAME
                     {
                         adaptor.addChild(root_0, 
                         stream_RULENAME.nextNode()
@@ -686,17 +685,17 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:212:4: VAR COLON ( NEWLINE )?
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:219:4: VAR COLON ( NEWLINE )?
                     {
-                    VAR12=(Token)match(input,VAR,FOLLOW_VAR_in_ruleName990); if (state.failed) return retval; 
+                    VAR12=(Token)match(input,VAR,FOLLOW_VAR_in_ruleName1034); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_VAR.add(VAR12);
 
 
-                    COLON13=(Token)match(input,COLON,FOLLOW_COLON_in_ruleName992); if (state.failed) return retval; 
+                    COLON13=(Token)match(input,COLON,FOLLOW_COLON_in_ruleName1036); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COLON.add(COLON13);
 
 
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:212:14: ( NEWLINE )?
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:219:14: ( NEWLINE )?
                     int alt6=2;
                     int LA6_0 = input.LA(1);
 
@@ -705,9 +704,9 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     switch (alt6) {
                         case 1 :
-                            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:212:15: NEWLINE
+                            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:219:15: NEWLINE
                             {
-                            NEWLINE14=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_ruleName995); if (state.failed) return retval; 
+                            NEWLINE14=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_ruleName1039); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_NEWLINE.add(NEWLINE14);
 
 
@@ -730,7 +729,7 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 212:25: -> VAR
+                    // 219:25: -> VAR
                     {
                         adaptor.addChild(root_0, 
                         stream_VAR.nextNode()
@@ -779,7 +778,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "rule"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:215:1: rule : rule2 -> ^( RULE rule2 ) ;
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:222:1: rule : rule2 -> ^( RULE rule2 ) ;
     public final BACONParser.rule_return rule() throws RecognitionException {
         BACONParser.rule_return retval = new BACONParser.rule_return();
         retval.start = input.LT(1);
@@ -795,10 +794,10 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:216:2: ( rule2 -> ^( RULE rule2 ) )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:216:4: rule2
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:223:2: ( rule2 -> ^( RULE rule2 ) )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:223:4: rule2
             {
-            pushFollow(FOLLOW_rule2_in_rule1012);
+            pushFollow(FOLLOW_rule2_in_rule1056);
             rule215=rule2();
 
             state._fsp--;
@@ -818,9 +817,9 @@ public TreeAdaptor getTreeAdaptor() {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 216:10: -> ^( RULE rule2 )
+            // 223:10: -> ^( RULE rule2 )
             {
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:216:13: ^( RULE rule2 )
+                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:223:13: ^( RULE rule2 )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot(
@@ -873,7 +872,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "rule2"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:219:1: rule2 : ( assign | IF bExpr THEN rule -> ^( IF bExpr rule ) | UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^( UPTAKE VAR expr ) | RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^( RELEASE VAR expr ) | INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^( INGEST VAR expr expr ) | CHANGE LBRACKET VAR RBRACKET -> ^( CHANGE VAR ) | PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^( PCHANGE VAR expr ) | DIVIDE LBRACKET expr RBRACKET -> ^( DIVIDE expr ) | CREATE LBRACKET VAR COMMA expr RBRACKET ( WITH LSQUARE assignList RSQUARE )? -> ^( CREATE VAR expr ( assignList )? ) | LBRACKET rule2 RBRACKET -> rule2 );
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:226:1: rule2 : ( assign | IF bExpr THEN rule -> ^( IF bExpr rule ) | UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^( UPTAKE VAR expr ) | RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^( RELEASE VAR expr ) | INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^( INGEST VAR expr expr ) | CHANGE LBRACKET VAR RBRACKET -> ^( CHANGE VAR ) | PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^( PCHANGE VAR expr ) | DIVIDE LBRACKET expr RBRACKET -> ^( DIVIDE expr ) | CREATE LBRACKET VAR COMMA expr RBRACKET ( WITH LSQUARE assignList RSQUARE )? -> ^( CREATE VAR expr ( assignList )? ) | LBRACKET rule2 RBRACKET -> rule2 );
     public final BACONParser.rule2_return rule2() throws RecognitionException {
         BACONParser.rule2_return retval = new BACONParser.rule2_return();
         retval.start = input.LT(1);
@@ -1011,7 +1010,7 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:220:2: ( assign | IF bExpr THEN rule -> ^( IF bExpr rule ) | UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^( UPTAKE VAR expr ) | RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^( RELEASE VAR expr ) | INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^( INGEST VAR expr expr ) | CHANGE LBRACKET VAR RBRACKET -> ^( CHANGE VAR ) | PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^( PCHANGE VAR expr ) | DIVIDE LBRACKET expr RBRACKET -> ^( DIVIDE expr ) | CREATE LBRACKET VAR COMMA expr RBRACKET ( WITH LSQUARE assignList RSQUARE )? -> ^( CREATE VAR expr ( assignList )? ) | LBRACKET rule2 RBRACKET -> rule2 )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:227:2: ( assign | IF bExpr THEN rule -> ^( IF bExpr rule ) | UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^( UPTAKE VAR expr ) | RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^( RELEASE VAR expr ) | INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^( INGEST VAR expr expr ) | CHANGE LBRACKET VAR RBRACKET -> ^( CHANGE VAR ) | PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^( PCHANGE VAR expr ) | DIVIDE LBRACKET expr RBRACKET -> ^( DIVIDE expr ) | CREATE LBRACKET VAR COMMA expr RBRACKET ( WITH LSQUARE assignList RSQUARE )? -> ^( CREATE VAR expr ( assignList )? ) | LBRACKET rule2 RBRACKET -> rule2 )
             int alt9=10;
             switch ( input.LA(1) ) {
             case VAR:
@@ -1075,12 +1074,12 @@ public TreeAdaptor getTreeAdaptor() {
 
             switch (alt9) {
                 case 1 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:220:4: assign
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:227:4: assign
                     {
                     root_0 = (Object)adaptor.nil();
 
 
-                    pushFollow(FOLLOW_assign_in_rule21031);
+                    pushFollow(FOLLOW_assign_in_rule21075);
                     assign16=assign();
 
                     state._fsp--;
@@ -1090,24 +1089,24 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:221:4: IF bExpr THEN rule
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:228:4: IF bExpr THEN rule
                     {
-                    IF17=(Token)match(input,IF,FOLLOW_IF_in_rule21036); if (state.failed) return retval; 
+                    IF17=(Token)match(input,IF,FOLLOW_IF_in_rule21080); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_IF.add(IF17);
 
 
-                    pushFollow(FOLLOW_bExpr_in_rule21038);
+                    pushFollow(FOLLOW_bExpr_in_rule21082);
                     bExpr18=bExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_bExpr.add(bExpr18.getTree());
 
-                    THEN19=(Token)match(input,THEN,FOLLOW_THEN_in_rule21040); if (state.failed) return retval; 
+                    THEN19=(Token)match(input,THEN,FOLLOW_THEN_in_rule21084); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_THEN.add(THEN19);
 
 
-                    pushFollow(FOLLOW_rule_in_rule21042);
+                    pushFollow(FOLLOW_rule_in_rule21086);
                     rule20=rule();
 
                     state._fsp--;
@@ -1115,7 +1114,7 @@ public TreeAdaptor getTreeAdaptor() {
                     if ( state.backtracking==0 ) stream_rule.add(rule20.getTree());
 
                     // AST REWRITE
-                    // elements: bExpr, rule, IF
+                    // elements: IF, rule, bExpr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1127,9 +1126,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 221:23: -> ^( IF bExpr rule )
+                    // 228:23: -> ^( IF bExpr rule )
                     {
-                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:221:26: ^( IF bExpr rule )
+                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:228:26: ^( IF bExpr rule )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -1152,37 +1151,37 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:222:4: UPTAKE LBRACKET VAR COMMA expr RBRACKET
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:229:4: UPTAKE LBRACKET VAR COMMA expr RBRACKET
                     {
-                    UPTAKE21=(Token)match(input,UPTAKE,FOLLOW_UPTAKE_in_rule21057); if (state.failed) return retval; 
+                    UPTAKE21=(Token)match(input,UPTAKE,FOLLOW_UPTAKE_in_rule21101); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_UPTAKE.add(UPTAKE21);
 
 
-                    LBRACKET22=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21059); if (state.failed) return retval; 
+                    LBRACKET22=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21103); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET22);
 
 
-                    VAR23=(Token)match(input,VAR,FOLLOW_VAR_in_rule21061); if (state.failed) return retval; 
+                    VAR23=(Token)match(input,VAR,FOLLOW_VAR_in_rule21105); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_VAR.add(VAR23);
 
 
-                    COMMA24=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21063); if (state.failed) return retval; 
+                    COMMA24=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21107); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COMMA.add(COMMA24);
 
 
-                    pushFollow(FOLLOW_expr_in_rule21065);
+                    pushFollow(FOLLOW_expr_in_rule21109);
                     expr25=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr25.getTree());
 
-                    RBRACKET26=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21067); if (state.failed) return retval; 
+                    RBRACKET26=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21111); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET26);
 
 
                     // AST REWRITE
-                    // elements: expr, UPTAKE, VAR
+                    // elements: expr, VAR, UPTAKE
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1194,9 +1193,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 222:44: -> ^( UPTAKE VAR expr )
+                    // 229:44: -> ^( UPTAKE VAR expr )
                     {
-                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:222:47: ^( UPTAKE VAR expr )
+                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:229:47: ^( UPTAKE VAR expr )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -1221,37 +1220,37 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:223:4: RELEASE LBRACKET VAR COMMA expr RBRACKET
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:230:4: RELEASE LBRACKET VAR COMMA expr RBRACKET
                     {
-                    RELEASE27=(Token)match(input,RELEASE,FOLLOW_RELEASE_in_rule21082); if (state.failed) return retval; 
+                    RELEASE27=(Token)match(input,RELEASE,FOLLOW_RELEASE_in_rule21126); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RELEASE.add(RELEASE27);
 
 
-                    LBRACKET28=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21084); if (state.failed) return retval; 
+                    LBRACKET28=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21128); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET28);
 
 
-                    VAR29=(Token)match(input,VAR,FOLLOW_VAR_in_rule21086); if (state.failed) return retval; 
+                    VAR29=(Token)match(input,VAR,FOLLOW_VAR_in_rule21130); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_VAR.add(VAR29);
 
 
-                    COMMA30=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21088); if (state.failed) return retval; 
+                    COMMA30=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21132); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COMMA.add(COMMA30);
 
 
-                    pushFollow(FOLLOW_expr_in_rule21090);
+                    pushFollow(FOLLOW_expr_in_rule21134);
                     expr31=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr31.getTree());
 
-                    RBRACKET32=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21092); if (state.failed) return retval; 
+                    RBRACKET32=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21136); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET32);
 
 
                     // AST REWRITE
-                    // elements: RELEASE, VAR, expr
+                    // elements: VAR, RELEASE, expr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1263,9 +1262,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 223:45: -> ^( RELEASE VAR expr )
+                    // 230:45: -> ^( RELEASE VAR expr )
                     {
-                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:223:48: ^( RELEASE VAR expr )
+                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:230:48: ^( RELEASE VAR expr )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -1290,48 +1289,48 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 5 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:224:4: INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:231:4: INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET
                     {
-                    INGEST33=(Token)match(input,INGEST,FOLLOW_INGEST_in_rule21107); if (state.failed) return retval; 
+                    INGEST33=(Token)match(input,INGEST,FOLLOW_INGEST_in_rule21151); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_INGEST.add(INGEST33);
 
 
-                    LBRACKET34=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21109); if (state.failed) return retval; 
+                    LBRACKET34=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21153); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET34);
 
 
-                    VAR35=(Token)match(input,VAR,FOLLOW_VAR_in_rule21111); if (state.failed) return retval; 
+                    VAR35=(Token)match(input,VAR,FOLLOW_VAR_in_rule21155); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_VAR.add(VAR35);
 
 
-                    COMMA36=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21113); if (state.failed) return retval; 
+                    COMMA36=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21157); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COMMA.add(COMMA36);
 
 
-                    pushFollow(FOLLOW_expr_in_rule21115);
+                    pushFollow(FOLLOW_expr_in_rule21159);
                     expr37=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr37.getTree());
 
-                    COMMA38=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21117); if (state.failed) return retval; 
+                    COMMA38=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21161); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COMMA.add(COMMA38);
 
 
-                    pushFollow(FOLLOW_expr_in_rule21119);
+                    pushFollow(FOLLOW_expr_in_rule21163);
                     expr39=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr39.getTree());
 
-                    RBRACKET40=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21121); if (state.failed) return retval; 
+                    RBRACKET40=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21165); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET40);
 
 
                     // AST REWRITE
-                    // elements: expr, VAR, INGEST, expr
+                    // elements: INGEST, expr, expr, VAR
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1343,9 +1342,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 224:55: -> ^( INGEST VAR expr expr )
+                    // 231:55: -> ^( INGEST VAR expr expr )
                     {
-                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:224:58: ^( INGEST VAR expr expr )
+                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:231:58: ^( INGEST VAR expr expr )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -1372,21 +1371,21 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 6 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:225:4: CHANGE LBRACKET VAR RBRACKET
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:232:4: CHANGE LBRACKET VAR RBRACKET
                     {
-                    CHANGE41=(Token)match(input,CHANGE,FOLLOW_CHANGE_in_rule21138); if (state.failed) return retval; 
+                    CHANGE41=(Token)match(input,CHANGE,FOLLOW_CHANGE_in_rule21182); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_CHANGE.add(CHANGE41);
 
 
-                    LBRACKET42=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21140); if (state.failed) return retval; 
+                    LBRACKET42=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21184); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET42);
 
 
-                    VAR43=(Token)match(input,VAR,FOLLOW_VAR_in_rule21142); if (state.failed) return retval; 
+                    VAR43=(Token)match(input,VAR,FOLLOW_VAR_in_rule21186); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_VAR.add(VAR43);
 
 
-                    RBRACKET44=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21144); if (state.failed) return retval; 
+                    RBRACKET44=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21188); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET44);
 
 
@@ -1403,9 +1402,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 225:33: -> ^( CHANGE VAR )
+                    // 232:33: -> ^( CHANGE VAR )
                     {
-                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:225:36: ^( CHANGE VAR )
+                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:232:36: ^( CHANGE VAR )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -1428,37 +1427,37 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 7 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:226:4: PCHANGE LBRACKET VAR COMMA expr RBRACKET
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:233:4: PCHANGE LBRACKET VAR COMMA expr RBRACKET
                     {
-                    PCHANGE45=(Token)match(input,PCHANGE,FOLLOW_PCHANGE_in_rule21157); if (state.failed) return retval; 
+                    PCHANGE45=(Token)match(input,PCHANGE,FOLLOW_PCHANGE_in_rule21201); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_PCHANGE.add(PCHANGE45);
 
 
-                    LBRACKET46=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21159); if (state.failed) return retval; 
+                    LBRACKET46=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21203); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET46);
 
 
-                    VAR47=(Token)match(input,VAR,FOLLOW_VAR_in_rule21161); if (state.failed) return retval; 
+                    VAR47=(Token)match(input,VAR,FOLLOW_VAR_in_rule21205); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_VAR.add(VAR47);
 
 
-                    COMMA48=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21163); if (state.failed) return retval; 
+                    COMMA48=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21207); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COMMA.add(COMMA48);
 
 
-                    pushFollow(FOLLOW_expr_in_rule21165);
+                    pushFollow(FOLLOW_expr_in_rule21209);
                     expr49=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr49.getTree());
 
-                    RBRACKET50=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21167); if (state.failed) return retval; 
+                    RBRACKET50=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21211); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET50);
 
 
                     // AST REWRITE
-                    // elements: expr, VAR, PCHANGE
+                    // elements: PCHANGE, VAR, expr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1470,9 +1469,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 226:45: -> ^( PCHANGE VAR expr )
+                    // 233:45: -> ^( PCHANGE VAR expr )
                     {
-                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:226:48: ^( PCHANGE VAR expr )
+                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:233:48: ^( PCHANGE VAR expr )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -1497,29 +1496,29 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 8 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:227:4: DIVIDE LBRACKET expr RBRACKET
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:234:4: DIVIDE LBRACKET expr RBRACKET
                     {
-                    DIVIDE51=(Token)match(input,DIVIDE,FOLLOW_DIVIDE_in_rule21182); if (state.failed) return retval; 
+                    DIVIDE51=(Token)match(input,DIVIDE,FOLLOW_DIVIDE_in_rule21226); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_DIVIDE.add(DIVIDE51);
 
 
-                    LBRACKET52=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21184); if (state.failed) return retval; 
+                    LBRACKET52=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21228); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET52);
 
 
-                    pushFollow(FOLLOW_expr_in_rule21186);
+                    pushFollow(FOLLOW_expr_in_rule21230);
                     expr53=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr53.getTree());
 
-                    RBRACKET54=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21188); if (state.failed) return retval; 
+                    RBRACKET54=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21232); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET54);
 
 
                     // AST REWRITE
-                    // elements: DIVIDE, expr
+                    // elements: expr, DIVIDE
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1531,9 +1530,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 227:34: -> ^( DIVIDE expr )
+                    // 234:34: -> ^( DIVIDE expr )
                     {
-                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:227:37: ^( DIVIDE expr )
+                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:234:37: ^( DIVIDE expr )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -1554,36 +1553,36 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 9 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:228:4: CREATE LBRACKET VAR COMMA expr RBRACKET ( WITH LSQUARE assignList RSQUARE )?
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:235:4: CREATE LBRACKET VAR COMMA expr RBRACKET ( WITH LSQUARE assignList RSQUARE )?
                     {
-                    CREATE55=(Token)match(input,CREATE,FOLLOW_CREATE_in_rule21201); if (state.failed) return retval; 
+                    CREATE55=(Token)match(input,CREATE,FOLLOW_CREATE_in_rule21245); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_CREATE.add(CREATE55);
 
 
-                    LBRACKET56=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21203); if (state.failed) return retval; 
+                    LBRACKET56=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21247); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET56);
 
 
-                    VAR57=(Token)match(input,VAR,FOLLOW_VAR_in_rule21205); if (state.failed) return retval; 
+                    VAR57=(Token)match(input,VAR,FOLLOW_VAR_in_rule21249); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_VAR.add(VAR57);
 
 
-                    COMMA58=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21207); if (state.failed) return retval; 
+                    COMMA58=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21251); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COMMA.add(COMMA58);
 
 
-                    pushFollow(FOLLOW_expr_in_rule21209);
+                    pushFollow(FOLLOW_expr_in_rule21253);
                     expr59=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr59.getTree());
 
-                    RBRACKET60=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21211); if (state.failed) return retval; 
+                    RBRACKET60=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21255); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET60);
 
 
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:229:3: ( WITH LSQUARE assignList RSQUARE )?
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:236:3: ( WITH LSQUARE assignList RSQUARE )?
                     int alt8=2;
                     int LA8_0 = input.LA(1);
 
@@ -1592,24 +1591,24 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     switch (alt8) {
                         case 1 :
-                            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:229:4: WITH LSQUARE assignList RSQUARE
+                            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:236:4: WITH LSQUARE assignList RSQUARE
                             {
-                            WITH61=(Token)match(input,WITH,FOLLOW_WITH_in_rule21217); if (state.failed) return retval; 
+                            WITH61=(Token)match(input,WITH,FOLLOW_WITH_in_rule21261); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_WITH.add(WITH61);
 
 
-                            LSQUARE62=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_rule21219); if (state.failed) return retval; 
+                            LSQUARE62=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_rule21263); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_LSQUARE.add(LSQUARE62);
 
 
-                            pushFollow(FOLLOW_assignList_in_rule21221);
+                            pushFollow(FOLLOW_assignList_in_rule21265);
                             assignList63=assignList();
 
                             state._fsp--;
                             if (state.failed) return retval;
                             if ( state.backtracking==0 ) stream_assignList.add(assignList63.getTree());
 
-                            RSQUARE64=(Token)match(input,RSQUARE,FOLLOW_RSQUARE_in_rule21223); if (state.failed) return retval; 
+                            RSQUARE64=(Token)match(input,RSQUARE,FOLLOW_RSQUARE_in_rule21267); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_RSQUARE.add(RSQUARE64);
 
 
@@ -1620,7 +1619,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: assignList, VAR, CREATE, expr
+                    // elements: VAR, assignList, CREATE, expr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1632,9 +1631,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 229:38: -> ^( CREATE VAR expr ( assignList )? )
+                    // 236:38: -> ^( CREATE VAR expr ( assignList )? )
                     {
-                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:229:41: ^( CREATE VAR expr ( assignList )? )
+                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:236:41: ^( CREATE VAR expr ( assignList )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -1647,7 +1646,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                         adaptor.addChild(root_1, stream_expr.nextTree());
 
-                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:229:59: ( assignList )?
+                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:236:59: ( assignList )?
                         if ( stream_assignList.hasNext() ) {
                             adaptor.addChild(root_1, stream_assignList.nextTree());
 
@@ -1666,20 +1665,20 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 10 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:230:4: LBRACKET rule2 RBRACKET
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:237:4: LBRACKET rule2 RBRACKET
                     {
-                    LBRACKET65=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21245); if (state.failed) return retval; 
+                    LBRACKET65=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21289); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET65);
 
 
-                    pushFollow(FOLLOW_rule2_in_rule21247);
+                    pushFollow(FOLLOW_rule2_in_rule21291);
                     rule266=rule2();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_rule2.add(rule266.getTree());
 
-                    RBRACKET67=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21249); if (state.failed) return retval; 
+                    RBRACKET67=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21293); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET67);
 
 
@@ -1696,7 +1695,7 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 230:28: -> rule2
+                    // 237:28: -> rule2
                     {
                         adaptor.addChild(root_0, stream_rule2.nextTree());
 
@@ -1743,7 +1742,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "assign"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:233:1: assign : VAR EQUALS expr -> ^( ASSIGN VAR expr ) ;
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:240:1: assign : VAR EQUALS expr -> ^( ASSIGN VAR expr ) ;
     public final BACONParser.assign_return assign() throws RecognitionException {
         BACONParser.assign_return retval = new BACONParser.assign_return();
         retval.start = input.LT(1);
@@ -1765,18 +1764,18 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:234:2: ( VAR EQUALS expr -> ^( ASSIGN VAR expr ) )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:234:4: VAR EQUALS expr
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:241:2: ( VAR EQUALS expr -> ^( ASSIGN VAR expr ) )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:241:4: VAR EQUALS expr
             {
-            VAR68=(Token)match(input,VAR,FOLLOW_VAR_in_assign1264); if (state.failed) return retval; 
+            VAR68=(Token)match(input,VAR,FOLLOW_VAR_in_assign1308); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_VAR.add(VAR68);
 
 
-            EQUALS69=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_assign1266); if (state.failed) return retval; 
+            EQUALS69=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_assign1310); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_EQUALS.add(EQUALS69);
 
 
-            pushFollow(FOLLOW_expr_in_assign1268);
+            pushFollow(FOLLOW_expr_in_assign1312);
             expr70=expr();
 
             state._fsp--;
@@ -1784,7 +1783,7 @@ public TreeAdaptor getTreeAdaptor() {
             if ( state.backtracking==0 ) stream_expr.add(expr70.getTree());
 
             // AST REWRITE
-            // elements: VAR, expr
+            // elements: expr, VAR
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1796,9 +1795,9 @@ public TreeAdaptor getTreeAdaptor() {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 234:20: -> ^( ASSIGN VAR expr )
+            // 241:20: -> ^( ASSIGN VAR expr )
             {
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:234:23: ^( ASSIGN VAR expr )
+                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:241:23: ^( ASSIGN VAR expr )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot(
@@ -1855,7 +1854,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "assignList"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:237:1: assignList : assign ( COMMA assign )* -> ^( ASSIGNLIST assign ( assign )* ) ;
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:244:1: assignList : assign ( COMMA assign )* -> ^( ASSIGNLIST assign ( assign )* ) ;
     public final BACONParser.assignList_return assignList() throws RecognitionException {
         BACONParser.assignList_return retval = new BACONParser.assignList_return();
         retval.start = input.LT(1);
@@ -1876,17 +1875,17 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:238:2: ( assign ( COMMA assign )* -> ^( ASSIGNLIST assign ( assign )* ) )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:238:4: assign ( COMMA assign )*
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:245:2: ( assign ( COMMA assign )* -> ^( ASSIGNLIST assign ( assign )* ) )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:245:4: assign ( COMMA assign )*
             {
-            pushFollow(FOLLOW_assign_in_assignList1289);
+            pushFollow(FOLLOW_assign_in_assignList1333);
             assign71=assign();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_assign.add(assign71.getTree());
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:238:11: ( COMMA assign )*
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:245:11: ( COMMA assign )*
             loop10:
             do {
                 int alt10=2;
@@ -1899,13 +1898,13 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt10) {
             	case 1 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:238:12: COMMA assign
+            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:245:12: COMMA assign
             	    {
-            	    COMMA72=(Token)match(input,COMMA,FOLLOW_COMMA_in_assignList1292); if (state.failed) return retval; 
+            	    COMMA72=(Token)match(input,COMMA,FOLLOW_COMMA_in_assignList1336); if (state.failed) return retval; 
             	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA72);
 
 
-            	    pushFollow(FOLLOW_assign_in_assignList1294);
+            	    pushFollow(FOLLOW_assign_in_assignList1338);
             	    assign73=assign();
 
             	    state._fsp--;
@@ -1934,9 +1933,9 @@ public TreeAdaptor getTreeAdaptor() {
             RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
             root_0 = (Object)adaptor.nil();
-            // 238:27: -> ^( ASSIGNLIST assign ( assign )* )
+            // 245:27: -> ^( ASSIGNLIST assign ( assign )* )
             {
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:238:30: ^( ASSIGNLIST assign ( assign )* )
+                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:245:30: ^( ASSIGNLIST assign ( assign )* )
                 {
                 Object root_1 = (Object)adaptor.nil();
                 root_1 = (Object)adaptor.becomeRoot(
@@ -1945,7 +1944,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                 adaptor.addChild(root_1, stream_assign.nextTree());
 
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:238:50: ( assign )*
+                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:245:50: ( assign )*
                 while ( stream_assign.hasNext() ) {
                     adaptor.addChild(root_1, stream_assign.nextTree());
 
@@ -1996,7 +1995,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "expr"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:241:1: expr : expr2 ( options {greedy=true; } : lowPrecMathOp ^ expr2 )* ;
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:248:1: expr : expr2 ( options {greedy=true; } : lowPrecMathOp ^ expr2 )* ;
     public final BACONParser.expr_return expr() throws RecognitionException {
         BACONParser.expr_return retval = new BACONParser.expr_return();
         retval.start = input.LT(1);
@@ -2016,20 +2015,20 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:242:2: ( expr2 ( options {greedy=true; } : lowPrecMathOp ^ expr2 )* )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:242:4: expr2 ( options {greedy=true; } : lowPrecMathOp ^ expr2 )*
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:249:2: ( expr2 ( options {greedy=true; } : lowPrecMathOp ^ expr2 )* )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:249:4: expr2 ( options {greedy=true; } : lowPrecMathOp ^ expr2 )*
             {
             root_0 = (Object)adaptor.nil();
 
 
-            pushFollow(FOLLOW_expr2_in_expr1322);
+            pushFollow(FOLLOW_expr2_in_expr1366);
             expr274=expr2();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, expr274.getTree());
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:242:10: ( options {greedy=true; } : lowPrecMathOp ^ expr2 )*
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:249:10: ( options {greedy=true; } : lowPrecMathOp ^ expr2 )*
             loop11:
             do {
                 int alt11=2;
@@ -2042,16 +2041,16 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt11) {
             	case 1 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:242:38: lowPrecMathOp ^ expr2
+            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:249:38: lowPrecMathOp ^ expr2
             	    {
-            	    pushFollow(FOLLOW_lowPrecMathOp_in_expr1336);
+            	    pushFollow(FOLLOW_lowPrecMathOp_in_expr1380);
             	    lowPrecMathOp75=lowPrecMathOp();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
             	    if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot(lowPrecMathOp75.getTree(), root_0);
 
-            	    pushFollow(FOLLOW_expr2_in_expr1339);
+            	    pushFollow(FOLLOW_expr2_in_expr1383);
             	    expr276=expr2();
 
             	    state._fsp--;
@@ -2102,7 +2101,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "expr2"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:245:1: expr2 : expr3 ( options {greedy=true; } : medPrecMathOp ^ expr3 )* ;
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:252:1: expr2 : expr3 ( options {greedy=true; } : medPrecMathOp ^ expr3 )* ;
     public final BACONParser.expr2_return expr2() throws RecognitionException {
         BACONParser.expr2_return retval = new BACONParser.expr2_return();
         retval.start = input.LT(1);
@@ -2122,20 +2121,20 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:246:2: ( expr3 ( options {greedy=true; } : medPrecMathOp ^ expr3 )* )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:246:4: expr3 ( options {greedy=true; } : medPrecMathOp ^ expr3 )*
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:253:2: ( expr3 ( options {greedy=true; } : medPrecMathOp ^ expr3 )* )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:253:4: expr3 ( options {greedy=true; } : medPrecMathOp ^ expr3 )*
             {
             root_0 = (Object)adaptor.nil();
 
 
-            pushFollow(FOLLOW_expr3_in_expr21353);
+            pushFollow(FOLLOW_expr3_in_expr21397);
             expr377=expr3();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, expr377.getTree());
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:246:10: ( options {greedy=true; } : medPrecMathOp ^ expr3 )*
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:253:10: ( options {greedy=true; } : medPrecMathOp ^ expr3 )*
             loop12:
             do {
                 int alt12=2;
@@ -2148,16 +2147,16 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt12) {
             	case 1 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:246:38: medPrecMathOp ^ expr3
+            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:253:38: medPrecMathOp ^ expr3
             	    {
-            	    pushFollow(FOLLOW_medPrecMathOp_in_expr21367);
+            	    pushFollow(FOLLOW_medPrecMathOp_in_expr21411);
             	    medPrecMathOp78=medPrecMathOp();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
             	    if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot(medPrecMathOp78.getTree(), root_0);
 
-            	    pushFollow(FOLLOW_expr3_in_expr21371);
+            	    pushFollow(FOLLOW_expr3_in_expr21415);
             	    expr379=expr3();
 
             	    state._fsp--;
@@ -2208,7 +2207,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "expr3"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:249:1: expr3 : expr4 ( options {greedy=true; } : highPrecMathOp ^ expr4 )* ;
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:256:1: expr3 : expr4 ( options {greedy=true; } : highPrecMathOp ^ expr4 )* ;
     public final BACONParser.expr3_return expr3() throws RecognitionException {
         BACONParser.expr3_return retval = new BACONParser.expr3_return();
         retval.start = input.LT(1);
@@ -2228,20 +2227,20 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:250:2: ( expr4 ( options {greedy=true; } : highPrecMathOp ^ expr4 )* )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:250:4: expr4 ( options {greedy=true; } : highPrecMathOp ^ expr4 )*
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:257:2: ( expr4 ( options {greedy=true; } : highPrecMathOp ^ expr4 )* )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:257:4: expr4 ( options {greedy=true; } : highPrecMathOp ^ expr4 )*
             {
             root_0 = (Object)adaptor.nil();
 
 
-            pushFollow(FOLLOW_expr4_in_expr31385);
+            pushFollow(FOLLOW_expr4_in_expr31429);
             expr480=expr4();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, expr480.getTree());
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:250:10: ( options {greedy=true; } : highPrecMathOp ^ expr4 )*
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:257:10: ( options {greedy=true; } : highPrecMathOp ^ expr4 )*
             loop13:
             do {
                 int alt13=2;
@@ -2254,16 +2253,16 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt13) {
             	case 1 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:250:38: highPrecMathOp ^ expr4
+            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:257:38: highPrecMathOp ^ expr4
             	    {
-            	    pushFollow(FOLLOW_highPrecMathOp_in_expr31399);
+            	    pushFollow(FOLLOW_highPrecMathOp_in_expr31443);
             	    highPrecMathOp81=highPrecMathOp();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
             	    if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot(highPrecMathOp81.getTree(), root_0);
 
-            	    pushFollow(FOLLOW_expr4_in_expr31402);
+            	    pushFollow(FOLLOW_expr4_in_expr31446);
             	    expr482=expr4();
 
             	    state._fsp--;
@@ -2314,7 +2313,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "expr4"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:254:1: expr4 : ( LBRACKET expr RBRACKET -> expr | unaryPrimitives LBRACKET expr RBRACKET -> ^( unaryPrimitives expr ) | FLOAT | VAR | IF bExpr THEN expr ELSE expr -> ^( IF bExpr expr expr ) | binPrim LBRACKET expr COMMA expr RBRACKET -> ^( binPrim expr expr ) | VARHIST LBRACKET VAR COMMA expr RBRACKET -> ^( VARHIST VAR expr ) | vOp LBRACKET expr RBRACKET -> ^( vOp expr ) );
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:261:1: expr4 : ( LBRACKET expr RBRACKET -> expr | unaryPrimitives LBRACKET expr RBRACKET -> ^( unaryPrimitives expr ) | MINUS expr -> ^( NEG expr ) | FLOAT | VAR | IF bExpr THEN expr ELSE expr -> ^( IF bExpr expr expr ) | binPrim LBRACKET expr COMMA expr RBRACKET -> ^( binPrim expr expr ) | VARHIST LBRACKET VAR COMMA expr RBRACKET -> ^( VARHIST VAR expr ) | vOp LBRACKET expr RBRACKET -> ^( vOp expr ) );
     public final BACONParser.expr4_return expr4() throws RecognitionException {
         BACONParser.expr4_return retval = new BACONParser.expr4_return();
         retval.start = input.LT(1);
@@ -2327,68 +2326,73 @@ public TreeAdaptor getTreeAdaptor() {
         Token RBRACKET85=null;
         Token LBRACKET87=null;
         Token RBRACKET89=null;
-        Token FLOAT90=null;
-        Token VAR91=null;
-        Token IF92=null;
-        Token THEN94=null;
-        Token ELSE96=null;
-        Token LBRACKET99=null;
-        Token COMMA101=null;
-        Token RBRACKET103=null;
-        Token VARHIST104=null;
-        Token LBRACKET105=null;
-        Token VAR106=null;
-        Token COMMA107=null;
-        Token RBRACKET109=null;
-        Token LBRACKET111=null;
-        Token RBRACKET113=null;
+        Token MINUS90=null;
+        Token FLOAT92=null;
+        Token VAR93=null;
+        Token IF94=null;
+        Token THEN96=null;
+        Token ELSE98=null;
+        Token LBRACKET101=null;
+        Token COMMA103=null;
+        Token RBRACKET105=null;
+        Token VARHIST106=null;
+        Token LBRACKET107=null;
+        Token VAR108=null;
+        Token COMMA109=null;
+        Token RBRACKET111=null;
+        Token LBRACKET113=null;
+        Token RBRACKET115=null;
         BACONParser.expr_return expr84 =null;
 
         BACONParser.unaryPrimitives_return unaryPrimitives86 =null;
 
         BACONParser.expr_return expr88 =null;
 
-        BACONParser.bExpr_return bExpr93 =null;
+        BACONParser.expr_return expr91 =null;
 
-        BACONParser.expr_return expr95 =null;
+        BACONParser.bExpr_return bExpr95 =null;
 
         BACONParser.expr_return expr97 =null;
 
-        BACONParser.binPrim_return binPrim98 =null;
+        BACONParser.expr_return expr99 =null;
 
-        BACONParser.expr_return expr100 =null;
+        BACONParser.binPrim_return binPrim100 =null;
 
         BACONParser.expr_return expr102 =null;
 
-        BACONParser.expr_return expr108 =null;
+        BACONParser.expr_return expr104 =null;
 
-        BACONParser.vOp_return vOp110 =null;
+        BACONParser.expr_return expr110 =null;
 
-        BACONParser.expr_return expr112 =null;
+        BACONParser.vOp_return vOp112 =null;
+
+        BACONParser.expr_return expr114 =null;
 
 
         Object LBRACKET83_tree=null;
         Object RBRACKET85_tree=null;
         Object LBRACKET87_tree=null;
         Object RBRACKET89_tree=null;
-        Object FLOAT90_tree=null;
-        Object VAR91_tree=null;
-        Object IF92_tree=null;
-        Object THEN94_tree=null;
-        Object ELSE96_tree=null;
-        Object LBRACKET99_tree=null;
-        Object COMMA101_tree=null;
-        Object RBRACKET103_tree=null;
-        Object VARHIST104_tree=null;
-        Object LBRACKET105_tree=null;
-        Object VAR106_tree=null;
-        Object COMMA107_tree=null;
-        Object RBRACKET109_tree=null;
-        Object LBRACKET111_tree=null;
-        Object RBRACKET113_tree=null;
+        Object MINUS90_tree=null;
+        Object FLOAT92_tree=null;
+        Object VAR93_tree=null;
+        Object IF94_tree=null;
+        Object THEN96_tree=null;
+        Object ELSE98_tree=null;
+        Object LBRACKET101_tree=null;
+        Object COMMA103_tree=null;
+        Object RBRACKET105_tree=null;
+        Object VARHIST106_tree=null;
+        Object LBRACKET107_tree=null;
+        Object VAR108_tree=null;
+        Object COMMA109_tree=null;
+        Object RBRACKET111_tree=null;
+        Object LBRACKET113_tree=null;
+        Object RBRACKET115_tree=null;
         RewriteRuleTokenStream stream_LBRACKET=new RewriteRuleTokenStream(adaptor,"token LBRACKET");
         RewriteRuleTokenStream stream_VAR=new RewriteRuleTokenStream(adaptor,"token VAR");
         RewriteRuleTokenStream stream_THEN=new RewriteRuleTokenStream(adaptor,"token THEN");
+        RewriteRuleTokenStream stream_MINUS=new RewriteRuleTokenStream(adaptor,"token MINUS");
         RewriteRuleTokenStream stream_RBRACKET=new RewriteRuleTokenStream(adaptor,"token RBRACKET");
         RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
         RewriteRuleTokenStream stream_VARHIST=new RewriteRuleTokenStream(adaptor,"token VARHIST");
@@ -2402,8 +2406,8 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:255:3: ( LBRACKET expr RBRACKET -> expr | unaryPrimitives LBRACKET expr RBRACKET -> ^( unaryPrimitives expr ) | FLOAT | VAR | IF bExpr THEN expr ELSE expr -> ^( IF bExpr expr expr ) | binPrim LBRACKET expr COMMA expr RBRACKET -> ^( binPrim expr expr ) | VARHIST LBRACKET VAR COMMA expr RBRACKET -> ^( VARHIST VAR expr ) | vOp LBRACKET expr RBRACKET -> ^( vOp expr ) )
-            int alt14=8;
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:262:3: ( LBRACKET expr RBRACKET -> expr | unaryPrimitives LBRACKET expr RBRACKET -> ^( unaryPrimitives expr ) | MINUS expr -> ^( NEG expr ) | FLOAT | VAR | IF bExpr THEN expr ELSE expr -> ^( IF bExpr expr expr ) | binPrim LBRACKET expr COMMA expr RBRACKET -> ^( binPrim expr expr ) | VARHIST LBRACKET VAR COMMA expr RBRACKET -> ^( VARHIST VAR expr ) | vOp LBRACKET expr RBRACKET -> ^( vOp expr ) )
+            int alt14=9;
             switch ( input.LA(1) ) {
             case LBRACKET:
                 {
@@ -2430,41 +2434,47 @@ public TreeAdaptor getTreeAdaptor() {
             case TAN:
             case TEMPAT:
             case UVIRRADAT:
+            case VISIRRADAT:
                 {
                 alt14=2;
                 }
                 break;
-            case FLOAT:
+            case MINUS:
                 {
                 alt14=3;
                 }
                 break;
-            case VAR:
+            case FLOAT:
                 {
                 alt14=4;
                 }
                 break;
-            case IF:
+            case VAR:
                 {
                 alt14=5;
+                }
+                break;
+            case IF:
+                {
+                alt14=6;
                 }
                 break;
             case MAX:
             case MIN:
                 {
-                alt14=6;
+                alt14=7;
                 }
                 break;
             case VARHIST:
                 {
-                alt14=7;
+                alt14=8;
                 }
                 break;
             case VAVERAGE:
             case VPRODUCT:
             case VSUM:
                 {
-                alt14=8;
+                alt14=9;
                 }
                 break;
             default:
@@ -2478,20 +2488,20 @@ public TreeAdaptor getTreeAdaptor() {
 
             switch (alt14) {
                 case 1 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:255:5: LBRACKET expr RBRACKET
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:262:5: LBRACKET expr RBRACKET
                     {
-                    LBRACKET83=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_expr41418); if (state.failed) return retval; 
+                    LBRACKET83=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_expr41462); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET83);
 
 
-                    pushFollow(FOLLOW_expr_in_expr41420);
+                    pushFollow(FOLLOW_expr_in_expr41464);
                     expr84=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr84.getTree());
 
-                    RBRACKET85=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_expr41422); if (state.failed) return retval; 
+                    RBRACKET85=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_expr41466); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET85);
 
 
@@ -2508,7 +2518,7 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 255:28: -> expr
+                    // 262:28: -> expr
                     {
                         adaptor.addChild(root_0, stream_expr.nextTree());
 
@@ -2521,27 +2531,27 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:256:4: unaryPrimitives LBRACKET expr RBRACKET
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:263:4: unaryPrimitives LBRACKET expr RBRACKET
                     {
-                    pushFollow(FOLLOW_unaryPrimitives_in_expr41431);
+                    pushFollow(FOLLOW_unaryPrimitives_in_expr41475);
                     unaryPrimitives86=unaryPrimitives();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_unaryPrimitives.add(unaryPrimitives86.getTree());
 
-                    LBRACKET87=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_expr41433); if (state.failed) return retval; 
+                    LBRACKET87=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_expr41477); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET87);
 
 
-                    pushFollow(FOLLOW_expr_in_expr41435);
+                    pushFollow(FOLLOW_expr_in_expr41479);
                     expr88=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr88.getTree());
 
-                    RBRACKET89=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_expr41437); if (state.failed) return retval; 
+                    RBRACKET89=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_expr41481); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET89);
 
 
@@ -2558,9 +2568,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 256:43: -> ^( unaryPrimitives expr )
+                    // 263:43: -> ^( unaryPrimitives expr )
                     {
-                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:256:46: ^( unaryPrimitives expr )
+                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:263:46: ^( unaryPrimitives expr )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(stream_unaryPrimitives.nextNode(), root_1);
@@ -2579,75 +2589,21 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:257:4: FLOAT
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:264:4: MINUS expr
                     {
-                    root_0 = (Object)adaptor.nil();
+                    MINUS90=(Token)match(input,MINUS,FOLLOW_MINUS_in_expr41494); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_MINUS.add(MINUS90);
 
 
-                    FLOAT90=(Token)match(input,FLOAT,FOLLOW_FLOAT_in_expr41450); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    FLOAT90_tree = 
-                    (Object)adaptor.create(FLOAT90)
-                    ;
-                    adaptor.addChild(root_0, FLOAT90_tree);
-                    }
-
-                    }
-                    break;
-                case 4 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:258:4: VAR
-                    {
-                    root_0 = (Object)adaptor.nil();
-
-
-                    VAR91=(Token)match(input,VAR,FOLLOW_VAR_in_expr41455); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    VAR91_tree = 
-                    (Object)adaptor.create(VAR91)
-                    ;
-                    adaptor.addChild(root_0, VAR91_tree);
-                    }
-
-                    }
-                    break;
-                case 5 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:259:4: IF bExpr THEN expr ELSE expr
-                    {
-                    IF92=(Token)match(input,IF,FOLLOW_IF_in_expr41460); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_IF.add(IF92);
-
-
-                    pushFollow(FOLLOW_bExpr_in_expr41462);
-                    bExpr93=bExpr();
+                    pushFollow(FOLLOW_expr_in_expr41496);
+                    expr91=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_bExpr.add(bExpr93.getTree());
-
-                    THEN94=(Token)match(input,THEN,FOLLOW_THEN_in_expr41464); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_THEN.add(THEN94);
-
-
-                    pushFollow(FOLLOW_expr_in_expr41466);
-                    expr95=expr();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_expr.add(expr95.getTree());
-
-                    ELSE96=(Token)match(input,ELSE,FOLLOW_ELSE_in_expr41468); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_ELSE.add(ELSE96);
-
-
-                    pushFollow(FOLLOW_expr_in_expr41470);
-                    expr97=expr();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_expr.add(expr97.getTree());
+                    if ( state.backtracking==0 ) stream_expr.add(expr91.getTree());
 
                     // AST REWRITE
-                    // elements: IF, expr, bExpr, expr
+                    // elements: expr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2659,9 +2615,112 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 259:33: -> ^( IF bExpr expr expr )
+                    // 264:15: -> ^( NEG expr )
                     {
-                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:259:36: ^( IF bExpr expr expr )
+                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:264:18: ^( NEG expr )
+                        {
+                        Object root_1 = (Object)adaptor.nil();
+                        root_1 = (Object)adaptor.becomeRoot(
+                        (Object)adaptor.create(NEG, "NEG")
+                        , root_1);
+
+                        adaptor.addChild(root_1, stream_expr.nextTree());
+
+                        adaptor.addChild(root_0, root_1);
+                        }
+
+                    }
+
+
+                    retval.tree = root_0;
+                    }
+
+                    }
+                    break;
+                case 4 :
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:265:4: FLOAT
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+
+                    FLOAT92=(Token)match(input,FLOAT,FOLLOW_FLOAT_in_expr41509); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    FLOAT92_tree = 
+                    (Object)adaptor.create(FLOAT92)
+                    ;
+                    adaptor.addChild(root_0, FLOAT92_tree);
+                    }
+
+                    }
+                    break;
+                case 5 :
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:266:4: VAR
+                    {
+                    root_0 = (Object)adaptor.nil();
+
+
+                    VAR93=(Token)match(input,VAR,FOLLOW_VAR_in_expr41514); if (state.failed) return retval;
+                    if ( state.backtracking==0 ) {
+                    VAR93_tree = 
+                    (Object)adaptor.create(VAR93)
+                    ;
+                    adaptor.addChild(root_0, VAR93_tree);
+                    }
+
+                    }
+                    break;
+                case 6 :
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:267:4: IF bExpr THEN expr ELSE expr
+                    {
+                    IF94=(Token)match(input,IF,FOLLOW_IF_in_expr41519); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_IF.add(IF94);
+
+
+                    pushFollow(FOLLOW_bExpr_in_expr41521);
+                    bExpr95=bExpr();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) stream_bExpr.add(bExpr95.getTree());
+
+                    THEN96=(Token)match(input,THEN,FOLLOW_THEN_in_expr41523); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_THEN.add(THEN96);
+
+
+                    pushFollow(FOLLOW_expr_in_expr41525);
+                    expr97=expr();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) stream_expr.add(expr97.getTree());
+
+                    ELSE98=(Token)match(input,ELSE,FOLLOW_ELSE_in_expr41527); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_ELSE.add(ELSE98);
+
+
+                    pushFollow(FOLLOW_expr_in_expr41529);
+                    expr99=expr();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) stream_expr.add(expr99.getTree());
+
+                    // AST REWRITE
+                    // elements: expr, expr, bExpr, IF
+                    // token labels: 
+                    // rule labels: retval
+                    // token list labels: 
+                    // rule list labels: 
+                    // wildcard labels: 
+                    if ( state.backtracking==0 ) {
+
+                    retval.tree = root_0;
+                    RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
+
+                    root_0 = (Object)adaptor.nil();
+                    // 267:33: -> ^( IF bExpr expr expr )
+                    {
+                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:267:36: ^( IF bExpr expr expr )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -2685,44 +2744,44 @@ public TreeAdaptor getTreeAdaptor() {
 
                     }
                     break;
-                case 6 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:260:4: binPrim LBRACKET expr COMMA expr RBRACKET
+                case 7 :
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:268:4: binPrim LBRACKET expr COMMA expr RBRACKET
                     {
-                    pushFollow(FOLLOW_binPrim_in_expr41487);
-                    binPrim98=binPrim();
+                    pushFollow(FOLLOW_binPrim_in_expr41546);
+                    binPrim100=binPrim();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_binPrim.add(binPrim98.getTree());
+                    if ( state.backtracking==0 ) stream_binPrim.add(binPrim100.getTree());
 
-                    LBRACKET99=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_expr41489); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET99);
-
-
-                    pushFollow(FOLLOW_expr_in_expr41491);
-                    expr100=expr();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_expr.add(expr100.getTree());
-
-                    COMMA101=(Token)match(input,COMMA,FOLLOW_COMMA_in_expr41493); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_COMMA.add(COMMA101);
+                    LBRACKET101=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_expr41548); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET101);
 
 
-                    pushFollow(FOLLOW_expr_in_expr41495);
+                    pushFollow(FOLLOW_expr_in_expr41550);
                     expr102=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr102.getTree());
 
-                    RBRACKET103=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_expr41497); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET103);
+                    COMMA103=(Token)match(input,COMMA,FOLLOW_COMMA_in_expr41552); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_COMMA.add(COMMA103);
+
+
+                    pushFollow(FOLLOW_expr_in_expr41554);
+                    expr104=expr();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) stream_expr.add(expr104.getTree());
+
+                    RBRACKET105=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_expr41556); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET105);
 
 
                     // AST REWRITE
-                    // elements: expr, expr, binPrim
+                    // elements: expr, binPrim, expr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2734,9 +2793,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 260:46: -> ^( binPrim expr expr )
+                    // 268:46: -> ^( binPrim expr expr )
                     {
-                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:260:49: ^( binPrim expr expr )
+                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:268:49: ^( binPrim expr expr )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(stream_binPrim.nextNode(), root_1);
@@ -2756,38 +2815,38 @@ public TreeAdaptor getTreeAdaptor() {
 
                     }
                     break;
-                case 7 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:261:4: VARHIST LBRACKET VAR COMMA expr RBRACKET
+                case 8 :
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:269:4: VARHIST LBRACKET VAR COMMA expr RBRACKET
                     {
-                    VARHIST104=(Token)match(input,VARHIST,FOLLOW_VARHIST_in_expr41512); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_VARHIST.add(VARHIST104);
+                    VARHIST106=(Token)match(input,VARHIST,FOLLOW_VARHIST_in_expr41571); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_VARHIST.add(VARHIST106);
 
 
-                    LBRACKET105=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_expr41514); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET105);
+                    LBRACKET107=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_expr41573); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET107);
 
 
-                    VAR106=(Token)match(input,VAR,FOLLOW_VAR_in_expr41516); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_VAR.add(VAR106);
+                    VAR108=(Token)match(input,VAR,FOLLOW_VAR_in_expr41575); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_VAR.add(VAR108);
 
 
-                    COMMA107=(Token)match(input,COMMA,FOLLOW_COMMA_in_expr41518); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_COMMA.add(COMMA107);
+                    COMMA109=(Token)match(input,COMMA,FOLLOW_COMMA_in_expr41577); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_COMMA.add(COMMA109);
 
 
-                    pushFollow(FOLLOW_expr_in_expr41520);
-                    expr108=expr();
+                    pushFollow(FOLLOW_expr_in_expr41579);
+                    expr110=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_expr.add(expr108.getTree());
+                    if ( state.backtracking==0 ) stream_expr.add(expr110.getTree());
 
-                    RBRACKET109=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_expr41522); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET109);
+                    RBRACKET111=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_expr41581); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET111);
 
 
                     // AST REWRITE
-                    // elements: VAR, VARHIST, expr
+                    // elements: VARHIST, expr, VAR
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2799,9 +2858,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 261:45: -> ^( VARHIST VAR expr )
+                    // 269:45: -> ^( VARHIST VAR expr )
                     {
-                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:261:48: ^( VARHIST VAR expr )
+                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:269:48: ^( VARHIST VAR expr )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -2825,33 +2884,33 @@ public TreeAdaptor getTreeAdaptor() {
 
                     }
                     break;
-                case 8 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:262:4: vOp LBRACKET expr RBRACKET
+                case 9 :
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:270:4: vOp LBRACKET expr RBRACKET
                     {
-                    pushFollow(FOLLOW_vOp_in_expr41537);
-                    vOp110=vOp();
+                    pushFollow(FOLLOW_vOp_in_expr41596);
+                    vOp112=vOp();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_vOp.add(vOp110.getTree());
+                    if ( state.backtracking==0 ) stream_vOp.add(vOp112.getTree());
 
-                    LBRACKET111=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_expr41539); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET111);
+                    LBRACKET113=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_expr41598); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET113);
 
 
-                    pushFollow(FOLLOW_expr_in_expr41541);
-                    expr112=expr();
+                    pushFollow(FOLLOW_expr_in_expr41600);
+                    expr114=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_expr.add(expr112.getTree());
+                    if ( state.backtracking==0 ) stream_expr.add(expr114.getTree());
 
-                    RBRACKET113=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_expr41543); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET113);
+                    RBRACKET115=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_expr41602); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET115);
 
 
                     // AST REWRITE
-                    // elements: vOp, expr
+                    // elements: expr, vOp
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2863,9 +2922,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 262:31: -> ^( vOp expr )
+                    // 270:31: -> ^( vOp expr )
                     {
-                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:262:34: ^( vOp expr )
+                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:270:34: ^( vOp expr )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(stream_vOp.nextNode(), root_1);
@@ -2918,7 +2977,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "bExpr"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:266:1: bExpr : bExpr2 ( lowPrecBoolOp ^ bExpr2 )* ;
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:274:1: bExpr : bExpr2 ( lowPrecBoolOp ^ bExpr2 )* ;
     public final BACONParser.bExpr_return bExpr() throws RecognitionException {
         BACONParser.bExpr_return retval = new BACONParser.bExpr_return();
         retval.start = input.LT(1);
@@ -2927,31 +2986,31 @@ public TreeAdaptor getTreeAdaptor() {
 
         Object root_0 = null;
 
-        BACONParser.bExpr2_return bExpr2114 =null;
-
-        BACONParser.lowPrecBoolOp_return lowPrecBoolOp115 =null;
-
         BACONParser.bExpr2_return bExpr2116 =null;
+
+        BACONParser.lowPrecBoolOp_return lowPrecBoolOp117 =null;
+
+        BACONParser.bExpr2_return bExpr2118 =null;
 
 
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:267:2: ( bExpr2 ( lowPrecBoolOp ^ bExpr2 )* )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:267:4: bExpr2 ( lowPrecBoolOp ^ bExpr2 )*
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:275:2: ( bExpr2 ( lowPrecBoolOp ^ bExpr2 )* )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:275:4: bExpr2 ( lowPrecBoolOp ^ bExpr2 )*
             {
             root_0 = (Object)adaptor.nil();
 
 
-            pushFollow(FOLLOW_bExpr2_in_bExpr1563);
-            bExpr2114=bExpr2();
+            pushFollow(FOLLOW_bExpr2_in_bExpr1622);
+            bExpr2116=bExpr2();
 
             state._fsp--;
             if (state.failed) return retval;
-            if ( state.backtracking==0 ) adaptor.addChild(root_0, bExpr2114.getTree());
+            if ( state.backtracking==0 ) adaptor.addChild(root_0, bExpr2116.getTree());
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:267:11: ( lowPrecBoolOp ^ bExpr2 )*
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:275:11: ( lowPrecBoolOp ^ bExpr2 )*
             loop15:
             do {
                 int alt15=2;
@@ -2964,21 +3023,21 @@ public TreeAdaptor getTreeAdaptor() {
 
                 switch (alt15) {
             	case 1 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:267:12: lowPrecBoolOp ^ bExpr2
+            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:275:12: lowPrecBoolOp ^ bExpr2
             	    {
-            	    pushFollow(FOLLOW_lowPrecBoolOp_in_bExpr1566);
-            	    lowPrecBoolOp115=lowPrecBoolOp();
+            	    pushFollow(FOLLOW_lowPrecBoolOp_in_bExpr1625);
+            	    lowPrecBoolOp117=lowPrecBoolOp();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot(lowPrecBoolOp115.getTree(), root_0);
+            	    if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot(lowPrecBoolOp117.getTree(), root_0);
 
-            	    pushFollow(FOLLOW_bExpr2_in_bExpr1569);
-            	    bExpr2116=bExpr2();
+            	    pushFollow(FOLLOW_bExpr2_in_bExpr1628);
+            	    bExpr2118=bExpr2();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
-            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, bExpr2116.getTree());
+            	    if ( state.backtracking==0 ) adaptor.addChild(root_0, bExpr2118.getTree());
 
             	    }
             	    break;
@@ -3024,7 +3083,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "bExpr2"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:270:1: bExpr2 : ( ( expr comparators )=> expr comparators ^ expr | NOT LBRACKET bExpr RBRACKET -> ^( NOT bExpr ) | LBRACKET bExpr RBRACKET -> bExpr | vBOp LBRACKET bExpr RBRACKET -> ^( vBOp bExpr ) );
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:278:1: bExpr2 : ( ( expr comparators )=> expr comparators ^ expr | NOT LBRACKET bExpr RBRACKET -> ^( NOT bExpr ) | LBRACKET bExpr RBRACKET -> bExpr | vBOp LBRACKET bExpr RBRACKET -> ^( vBOp bExpr ) );
     public final BACONParser.bExpr2_return bExpr2() throws RecognitionException {
         BACONParser.bExpr2_return retval = new BACONParser.bExpr2_return();
         retval.start = input.LT(1);
@@ -3033,35 +3092,35 @@ public TreeAdaptor getTreeAdaptor() {
 
         Object root_0 = null;
 
-        Token NOT120=null;
-        Token LBRACKET121=null;
-        Token RBRACKET123=null;
-        Token LBRACKET124=null;
-        Token RBRACKET126=null;
-        Token LBRACKET128=null;
-        Token RBRACKET130=null;
-        BACONParser.expr_return expr117 =null;
-
-        BACONParser.comparators_return comparators118 =null;
-
+        Token NOT122=null;
+        Token LBRACKET123=null;
+        Token RBRACKET125=null;
+        Token LBRACKET126=null;
+        Token RBRACKET128=null;
+        Token LBRACKET130=null;
+        Token RBRACKET132=null;
         BACONParser.expr_return expr119 =null;
 
-        BACONParser.bExpr_return bExpr122 =null;
+        BACONParser.comparators_return comparators120 =null;
 
-        BACONParser.bExpr_return bExpr125 =null;
+        BACONParser.expr_return expr121 =null;
 
-        BACONParser.vBOp_return vBOp127 =null;
+        BACONParser.bExpr_return bExpr124 =null;
 
-        BACONParser.bExpr_return bExpr129 =null;
+        BACONParser.bExpr_return bExpr127 =null;
+
+        BACONParser.vBOp_return vBOp129 =null;
+
+        BACONParser.bExpr_return bExpr131 =null;
 
 
-        Object NOT120_tree=null;
-        Object LBRACKET121_tree=null;
-        Object RBRACKET123_tree=null;
-        Object LBRACKET124_tree=null;
-        Object RBRACKET126_tree=null;
-        Object LBRACKET128_tree=null;
-        Object RBRACKET130_tree=null;
+        Object NOT122_tree=null;
+        Object LBRACKET123_tree=null;
+        Object RBRACKET125_tree=null;
+        Object LBRACKET126_tree=null;
+        Object RBRACKET128_tree=null;
+        Object LBRACKET130_tree=null;
+        Object RBRACKET132_tree=null;
         RewriteRuleTokenStream stream_LBRACKET=new RewriteRuleTokenStream(adaptor,"token LBRACKET");
         RewriteRuleTokenStream stream_NOT=new RewriteRuleTokenStream(adaptor,"token NOT");
         RewriteRuleTokenStream stream_RBRACKET=new RewriteRuleTokenStream(adaptor,"token RBRACKET");
@@ -3070,7 +3129,7 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:271:2: ( ( expr comparators )=> expr comparators ^ expr | NOT LBRACKET bExpr RBRACKET -> ^( NOT bExpr ) | LBRACKET bExpr RBRACKET -> bExpr | vBOp LBRACKET bExpr RBRACKET -> ^( vBOp bExpr ) )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:279:2: ( ( expr comparators )=> expr comparators ^ expr | NOT LBRACKET bExpr RBRACKET -> ^( NOT bExpr ) | LBRACKET bExpr RBRACKET -> bExpr | vBOp LBRACKET bExpr RBRACKET -> ^( vBOp bExpr ) )
             int alt16=4;
             int LA16_0 = input.LA(1);
 
@@ -3092,7 +3151,10 @@ public TreeAdaptor getTreeAdaptor() {
 
                 }
             }
-            else if ( ((LA16_0 >= ABS && LA16_0 <= ACOS)||LA16_0==ASIN||LA16_0==ATAN||LA16_0==COS||(LA16_0 >= DENSITYAT && LA16_0 <= DEPTHFORVI)||LA16_0==EXP||LA16_0==FULLIRRADAT||LA16_0==INTEGRATE||(LA16_0 >= LN && LA16_0 <= LOGTEN)||LA16_0==RND||(LA16_0 >= SALINITYAT && LA16_0 <= SIN)||(LA16_0 >= SQRT && LA16_0 <= TEMPAT)||LA16_0==UVIRRADAT) && (synpred1_BACON())) {
+            else if ( ((LA16_0 >= ABS && LA16_0 <= ACOS)||LA16_0==ASIN||LA16_0==ATAN||LA16_0==COS||(LA16_0 >= DENSITYAT && LA16_0 <= DEPTHFORVI)||LA16_0==EXP||LA16_0==FULLIRRADAT||LA16_0==INTEGRATE||(LA16_0 >= LN && LA16_0 <= LOGTEN)||LA16_0==RND||(LA16_0 >= SALINITYAT && LA16_0 <= SIN)||(LA16_0 >= SQRT && LA16_0 <= TEMPAT)||LA16_0==UVIRRADAT||LA16_0==VISIRRADAT) && (synpred1_BACON())) {
+                alt16=1;
+            }
+            else if ( (LA16_0==MINUS) && (synpred1_BACON())) {
                 alt16=1;
             }
             else if ( (LA16_0==FLOAT) && (synpred1_BACON())) {
@@ -3110,7 +3172,7 @@ public TreeAdaptor getTreeAdaptor() {
             else if ( (LA16_0==VARHIST) && (synpred1_BACON())) {
                 alt16=1;
             }
-            else if ( ((LA16_0 >= VAVERAGE && LA16_0 <= VSUM)) && (synpred1_BACON())) {
+            else if ( (LA16_0==VAVERAGE||(LA16_0 >= VPRODUCT && LA16_0 <= VSUM)) && (synpred1_BACON())) {
                 alt16=1;
             }
             else if ( (LA16_0==NOT) ) {
@@ -3129,54 +3191,54 @@ public TreeAdaptor getTreeAdaptor() {
             }
             switch (alt16) {
                 case 1 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:271:4: ( expr comparators )=> expr comparators ^ expr
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:279:4: ( expr comparators )=> expr comparators ^ expr
                     {
                     root_0 = (Object)adaptor.nil();
 
 
-                    pushFollow(FOLLOW_expr_in_bExpr21593);
-                    expr117=expr();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) adaptor.addChild(root_0, expr117.getTree());
-
-                    pushFollow(FOLLOW_comparators_in_bExpr21595);
-                    comparators118=comparators();
-
-                    state._fsp--;
-                    if (state.failed) return retval;
-                    if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot(comparators118.getTree(), root_0);
-
-                    pushFollow(FOLLOW_expr_in_bExpr21598);
+                    pushFollow(FOLLOW_expr_in_bExpr21652);
                     expr119=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, expr119.getTree());
 
-                    }
-                    break;
-                case 2 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:272:4: NOT LBRACKET bExpr RBRACKET
-                    {
-                    NOT120=(Token)match(input,NOT,FOLLOW_NOT_in_bExpr21603); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_NOT.add(NOT120);
-
-
-                    LBRACKET121=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_bExpr21605); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET121);
-
-
-                    pushFollow(FOLLOW_bExpr_in_bExpr21607);
-                    bExpr122=bExpr();
+                    pushFollow(FOLLOW_comparators_in_bExpr21654);
+                    comparators120=comparators();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_bExpr.add(bExpr122.getTree());
+                    if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot(comparators120.getTree(), root_0);
 
-                    RBRACKET123=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_bExpr21609); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET123);
+                    pushFollow(FOLLOW_expr_in_bExpr21657);
+                    expr121=expr();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, expr121.getTree());
+
+                    }
+                    break;
+                case 2 :
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:280:4: NOT LBRACKET bExpr RBRACKET
+                    {
+                    NOT122=(Token)match(input,NOT,FOLLOW_NOT_in_bExpr21662); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_NOT.add(NOT122);
+
+
+                    LBRACKET123=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_bExpr21664); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET123);
+
+
+                    pushFollow(FOLLOW_bExpr_in_bExpr21666);
+                    bExpr124=bExpr();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) stream_bExpr.add(bExpr124.getTree());
+
+                    RBRACKET125=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_bExpr21668); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET125);
 
 
                     // AST REWRITE
@@ -3192,9 +3254,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 272:32: -> ^( NOT bExpr )
+                    // 280:32: -> ^( NOT bExpr )
                     {
-                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:272:35: ^( NOT bExpr )
+                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:280:35: ^( NOT bExpr )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -3215,21 +3277,21 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:273:4: LBRACKET bExpr RBRACKET
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:281:4: LBRACKET bExpr RBRACKET
                     {
-                    LBRACKET124=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_bExpr21622); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET124);
+                    LBRACKET126=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_bExpr21681); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET126);
 
 
-                    pushFollow(FOLLOW_bExpr_in_bExpr21624);
-                    bExpr125=bExpr();
+                    pushFollow(FOLLOW_bExpr_in_bExpr21683);
+                    bExpr127=bExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_bExpr.add(bExpr125.getTree());
+                    if ( state.backtracking==0 ) stream_bExpr.add(bExpr127.getTree());
 
-                    RBRACKET126=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_bExpr21626); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET126);
+                    RBRACKET128=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_bExpr21685); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET128);
 
 
                     // AST REWRITE
@@ -3245,7 +3307,7 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 273:28: -> bExpr
+                    // 281:28: -> bExpr
                     {
                         adaptor.addChild(root_0, stream_bExpr.nextTree());
 
@@ -3258,28 +3320,28 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:274:4: vBOp LBRACKET bExpr RBRACKET
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:282:4: vBOp LBRACKET bExpr RBRACKET
                     {
-                    pushFollow(FOLLOW_vBOp_in_bExpr21635);
-                    vBOp127=vBOp();
+                    pushFollow(FOLLOW_vBOp_in_bExpr21694);
+                    vBOp129=vBOp();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_vBOp.add(vBOp127.getTree());
+                    if ( state.backtracking==0 ) stream_vBOp.add(vBOp129.getTree());
 
-                    LBRACKET128=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_bExpr21637); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET128);
+                    LBRACKET130=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_bExpr21696); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET130);
 
 
-                    pushFollow(FOLLOW_bExpr_in_bExpr21639);
-                    bExpr129=bExpr();
+                    pushFollow(FOLLOW_bExpr_in_bExpr21698);
+                    bExpr131=bExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
-                    if ( state.backtracking==0 ) stream_bExpr.add(bExpr129.getTree());
+                    if ( state.backtracking==0 ) stream_bExpr.add(bExpr131.getTree());
 
-                    RBRACKET130=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_bExpr21641); if (state.failed) return retval; 
-                    if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET130);
+                    RBRACKET132=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_bExpr21700); if (state.failed) return retval; 
+                    if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET132);
 
 
                     // AST REWRITE
@@ -3295,9 +3357,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 274:33: -> ^( vBOp bExpr )
+                    // 282:33: -> ^( vBOp bExpr )
                     {
-                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:274:36: ^( vBOp bExpr )
+                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:282:36: ^( vBOp bExpr )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(stream_vBOp.nextNode(), root_1);
@@ -3350,7 +3412,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "unaryPrimitives"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:280:1: unaryPrimitives : ( ABS | ACOS | ASIN | ATAN | COS | EXP | LN | LOGTEN | RND | SIN | SQRT | TAN | DENSITYAT | DEPTHFORFI | DEPTHFORVI | FULLIRRADAT | SALINITYAT | TEMPAT | UVIRRADAT | INTEGRATE );
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:288:1: unaryPrimitives : ( ABS | ACOS | ASIN | ATAN | COS | EXP | LN | LOGTEN | RND | SIN | SQRT | TAN | DENSITYAT | DEPTHFORFI | DEPTHFORVI | FULLIRRADAT | SALINITYAT | TEMPAT | UVIRRADAT | INTEGRATE | VISIRRADAT );
     public final BACONParser.unaryPrimitives_return unaryPrimitives() throws RecognitionException {
         BACONParser.unaryPrimitives_return retval = new BACONParser.unaryPrimitives_return();
         retval.start = input.LT(1);
@@ -3359,25 +3421,25 @@ public TreeAdaptor getTreeAdaptor() {
 
         Object root_0 = null;
 
-        Token set131=null;
+        Token set133=null;
 
-        Object set131_tree=null;
+        Object set133_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:281:2: ( ABS | ACOS | ASIN | ATAN | COS | EXP | LN | LOGTEN | RND | SIN | SQRT | TAN | DENSITYAT | DEPTHFORFI | DEPTHFORVI | FULLIRRADAT | SALINITYAT | TEMPAT | UVIRRADAT | INTEGRATE )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:289:2: ( ABS | ACOS | ASIN | ATAN | COS | EXP | LN | LOGTEN | RND | SIN | SQRT | TAN | DENSITYAT | DEPTHFORFI | DEPTHFORVI | FULLIRRADAT | SALINITYAT | TEMPAT | UVIRRADAT | INTEGRATE | VISIRRADAT )
             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
             {
             root_0 = (Object)adaptor.nil();
 
 
-            set131=(Token)input.LT(1);
+            set133=(Token)input.LT(1);
 
-            if ( (input.LA(1) >= ABS && input.LA(1) <= ACOS)||input.LA(1)==ASIN||input.LA(1)==ATAN||input.LA(1)==COS||(input.LA(1) >= DENSITYAT && input.LA(1) <= DEPTHFORVI)||input.LA(1)==EXP||input.LA(1)==FULLIRRADAT||input.LA(1)==INTEGRATE||(input.LA(1) >= LN && input.LA(1) <= LOGTEN)||input.LA(1)==RND||(input.LA(1) >= SALINITYAT && input.LA(1) <= SIN)||(input.LA(1) >= SQRT && input.LA(1) <= TEMPAT)||input.LA(1)==UVIRRADAT ) {
+            if ( (input.LA(1) >= ABS && input.LA(1) <= ACOS)||input.LA(1)==ASIN||input.LA(1)==ATAN||input.LA(1)==COS||(input.LA(1) >= DENSITYAT && input.LA(1) <= DEPTHFORVI)||input.LA(1)==EXP||input.LA(1)==FULLIRRADAT||input.LA(1)==INTEGRATE||(input.LA(1) >= LN && input.LA(1) <= LOGTEN)||input.LA(1)==RND||(input.LA(1) >= SALINITYAT && input.LA(1) <= SIN)||(input.LA(1) >= SQRT && input.LA(1) <= TEMPAT)||input.LA(1)==UVIRRADAT||input.LA(1)==VISIRRADAT ) {
                 input.consume();
                 if ( state.backtracking==0 ) adaptor.addChild(root_0, 
-                (Object)adaptor.create(set131)
+                (Object)adaptor.create(set133)
                 );
                 state.errorRecovery=false;
                 state.failed=false;
@@ -3424,7 +3486,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "lowPrecMathOp"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:303:1: lowPrecMathOp : ( PLUS | MINUS );
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:312:1: lowPrecMathOp : ( PLUS | MINUS );
     public final BACONParser.lowPrecMathOp_return lowPrecMathOp() throws RecognitionException {
         BACONParser.lowPrecMathOp_return retval = new BACONParser.lowPrecMathOp_return();
         retval.start = input.LT(1);
@@ -3433,25 +3495,25 @@ public TreeAdaptor getTreeAdaptor() {
 
         Object root_0 = null;
 
-        Token set132=null;
+        Token set134=null;
 
-        Object set132_tree=null;
+        Object set134_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:304:2: ( PLUS | MINUS )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:313:2: ( PLUS | MINUS )
             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
             {
             root_0 = (Object)adaptor.nil();
 
 
-            set132=(Token)input.LT(1);
+            set134=(Token)input.LT(1);
 
             if ( input.LA(1)==MINUS||input.LA(1)==PLUS ) {
                 input.consume();
                 if ( state.backtracking==0 ) adaptor.addChild(root_0, 
-                (Object)adaptor.create(set132)
+                (Object)adaptor.create(set134)
                 );
                 state.errorRecovery=false;
                 state.failed=false;
@@ -3498,7 +3560,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "medPrecMathOp"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:308:1: medPrecMathOp : ( MUL | DIV );
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:317:1: medPrecMathOp : ( MUL | DIV );
     public final BACONParser.medPrecMathOp_return medPrecMathOp() throws RecognitionException {
         BACONParser.medPrecMathOp_return retval = new BACONParser.medPrecMathOp_return();
         retval.start = input.LT(1);
@@ -3507,25 +3569,25 @@ public TreeAdaptor getTreeAdaptor() {
 
         Object root_0 = null;
 
-        Token set133=null;
+        Token set135=null;
 
-        Object set133_tree=null;
+        Object set135_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 16) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:309:2: ( MUL | DIV )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:318:2: ( MUL | DIV )
             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
             {
             root_0 = (Object)adaptor.nil();
 
 
-            set133=(Token)input.LT(1);
+            set135=(Token)input.LT(1);
 
             if ( input.LA(1)==DIV||input.LA(1)==MUL ) {
                 input.consume();
                 if ( state.backtracking==0 ) adaptor.addChild(root_0, 
-                (Object)adaptor.create(set133)
+                (Object)adaptor.create(set135)
                 );
                 state.errorRecovery=false;
                 state.failed=false;
@@ -3572,7 +3634,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "highPrecMathOp"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:313:1: highPrecMathOp : POW ;
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:322:1: highPrecMathOp : POW ;
     public final BACONParser.highPrecMathOp_return highPrecMathOp() throws RecognitionException {
         BACONParser.highPrecMathOp_return retval = new BACONParser.highPrecMathOp_return();
         retval.start = input.LT(1);
@@ -3581,25 +3643,25 @@ public TreeAdaptor getTreeAdaptor() {
 
         Object root_0 = null;
 
-        Token POW134=null;
+        Token POW136=null;
 
-        Object POW134_tree=null;
+        Object POW136_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 17) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:314:2: ( POW )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:314:4: POW
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:323:2: ( POW )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:323:4: POW
             {
             root_0 = (Object)adaptor.nil();
 
 
-            POW134=(Token)match(input,POW,FOLLOW_POW_in_highPrecMathOp1806); if (state.failed) return retval;
+            POW136=(Token)match(input,POW,FOLLOW_POW_in_highPrecMathOp1870); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
-            POW134_tree = 
-            (Object)adaptor.create(POW134)
+            POW136_tree = 
+            (Object)adaptor.create(POW136)
             ;
-            adaptor.addChild(root_0, POW134_tree);
+            adaptor.addChild(root_0, POW136_tree);
             }
 
             }
@@ -3637,7 +3699,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "binPrim"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:317:1: binPrim : ( MIN | MAX );
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:326:1: binPrim : ( MIN | MAX );
     public final BACONParser.binPrim_return binPrim() throws RecognitionException {
         BACONParser.binPrim_return retval = new BACONParser.binPrim_return();
         retval.start = input.LT(1);
@@ -3646,25 +3708,25 @@ public TreeAdaptor getTreeAdaptor() {
 
         Object root_0 = null;
 
-        Token set135=null;
+        Token set137=null;
 
-        Object set135_tree=null;
+        Object set137_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 18) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:318:2: ( MIN | MAX )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:327:2: ( MIN | MAX )
             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
             {
             root_0 = (Object)adaptor.nil();
 
 
-            set135=(Token)input.LT(1);
+            set137=(Token)input.LT(1);
 
             if ( (input.LA(1) >= MAX && input.LA(1) <= MIN) ) {
                 input.consume();
                 if ( state.backtracking==0 ) adaptor.addChild(root_0, 
-                (Object)adaptor.create(set135)
+                (Object)adaptor.create(set137)
                 );
                 state.errorRecovery=false;
                 state.failed=false;
@@ -3711,7 +3773,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "lowPrecBoolOp"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:322:1: lowPrecBoolOp : ( AND | OR );
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:331:1: lowPrecBoolOp : ( AND | OR );
     public final BACONParser.lowPrecBoolOp_return lowPrecBoolOp() throws RecognitionException {
         BACONParser.lowPrecBoolOp_return retval = new BACONParser.lowPrecBoolOp_return();
         retval.start = input.LT(1);
@@ -3720,25 +3782,25 @@ public TreeAdaptor getTreeAdaptor() {
 
         Object root_0 = null;
 
-        Token set136=null;
+        Token set138=null;
 
-        Object set136_tree=null;
+        Object set138_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 19) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:323:2: ( AND | OR )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:332:2: ( AND | OR )
             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
             {
             root_0 = (Object)adaptor.nil();
 
 
-            set136=(Token)input.LT(1);
+            set138=(Token)input.LT(1);
 
             if ( input.LA(1)==AND||input.LA(1)==OR ) {
                 input.consume();
                 if ( state.backtracking==0 ) adaptor.addChild(root_0, 
-                (Object)adaptor.create(set136)
+                (Object)adaptor.create(set138)
                 );
                 state.errorRecovery=false;
                 state.failed=false;
@@ -3785,7 +3847,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "comparators"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:327:1: comparators : ( EQUALS | NEQUALS | GREATERTHAN | LESSTHAN | GREATEREQUALS | LESSEQUALS );
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:336:1: comparators : ( EQUALS | NEQUALS | GREATERTHAN | LESSTHAN | GREATEREQUALS | LESSEQUALS );
     public final BACONParser.comparators_return comparators() throws RecognitionException {
         BACONParser.comparators_return retval = new BACONParser.comparators_return();
         retval.start = input.LT(1);
@@ -3794,25 +3856,25 @@ public TreeAdaptor getTreeAdaptor() {
 
         Object root_0 = null;
 
-        Token set137=null;
+        Token set139=null;
 
-        Object set137_tree=null;
+        Object set139_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 20) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:328:2: ( EQUALS | NEQUALS | GREATERTHAN | LESSTHAN | GREATEREQUALS | LESSEQUALS )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:337:2: ( EQUALS | NEQUALS | GREATERTHAN | LESSTHAN | GREATEREQUALS | LESSEQUALS )
             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
             {
             root_0 = (Object)adaptor.nil();
 
 
-            set137=(Token)input.LT(1);
+            set139=(Token)input.LT(1);
 
             if ( input.LA(1)==EQUALS||(input.LA(1) >= GREATEREQUALS && input.LA(1) <= GREATERTHAN)||(input.LA(1) >= LESSEQUALS && input.LA(1) <= LESSTHAN)||input.LA(1)==NEQUALS ) {
                 input.consume();
                 if ( state.backtracking==0 ) adaptor.addChild(root_0, 
-                (Object)adaptor.create(set137)
+                (Object)adaptor.create(set139)
                 );
                 state.errorRecovery=false;
                 state.failed=false;
@@ -3859,7 +3921,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "vOp"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:336:1: vOp : ( VSUM | VPRODUCT | VAVERAGE );
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:345:1: vOp : ( VSUM | VPRODUCT | VAVERAGE );
     public final BACONParser.vOp_return vOp() throws RecognitionException {
         BACONParser.vOp_return retval = new BACONParser.vOp_return();
         retval.start = input.LT(1);
@@ -3868,25 +3930,25 @@ public TreeAdaptor getTreeAdaptor() {
 
         Object root_0 = null;
 
-        Token set138=null;
+        Token set140=null;
 
-        Object set138_tree=null;
+        Object set140_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 21) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:337:2: ( VSUM | VPRODUCT | VAVERAGE )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:346:2: ( VSUM | VPRODUCT | VAVERAGE )
             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
             {
             root_0 = (Object)adaptor.nil();
 
 
-            set138=(Token)input.LT(1);
+            set140=(Token)input.LT(1);
 
-            if ( (input.LA(1) >= VAVERAGE && input.LA(1) <= VSUM) ) {
+            if ( input.LA(1)==VAVERAGE||(input.LA(1) >= VPRODUCT && input.LA(1) <= VSUM) ) {
                 input.consume();
                 if ( state.backtracking==0 ) adaptor.addChild(root_0, 
-                (Object)adaptor.create(set138)
+                (Object)adaptor.create(set140)
                 );
                 state.errorRecovery=false;
                 state.failed=false;
@@ -3933,7 +3995,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "vBOp"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:342:1: vBOp : ( ALL | SOME | NONE );
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:351:1: vBOp : ( ALL | SOME | NONE );
     public final BACONParser.vBOp_return vBOp() throws RecognitionException {
         BACONParser.vBOp_return retval = new BACONParser.vBOp_return();
         retval.start = input.LT(1);
@@ -3942,25 +4004,25 @@ public TreeAdaptor getTreeAdaptor() {
 
         Object root_0 = null;
 
-        Token set139=null;
+        Token set141=null;
 
-        Object set139_tree=null;
+        Object set141_tree=null;
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 22) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:343:2: ( ALL | SOME | NONE )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:352:2: ( ALL | SOME | NONE )
             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
             {
             root_0 = (Object)adaptor.nil();
 
 
-            set139=(Token)input.LT(1);
+            set141=(Token)input.LT(1);
 
             if ( input.LA(1)==ALL||input.LA(1)==NONE||input.LA(1)==SOME ) {
                 input.consume();
                 if ( state.backtracking==0 ) adaptor.addChild(root_0, 
-                (Object)adaptor.create(set139)
+                (Object)adaptor.create(set141)
                 );
                 state.errorRecovery=false;
                 state.failed=false;
@@ -4001,16 +4063,16 @@ public TreeAdaptor getTreeAdaptor() {
 
     // $ANTLR start synpred1_BACON
     public final void synpred1_BACON_fragment() throws RecognitionException {
-        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:271:4: ( expr comparators )
-        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:271:5: expr comparators
+        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:279:4: ( expr comparators )
+        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:279:5: expr comparators
         {
-        pushFollow(FOLLOW_expr_in_synpred1_BACON1585);
+        pushFollow(FOLLOW_expr_in_synpred1_BACON1644);
         expr();
 
         state._fsp--;
         if (state.failed) return ;
 
-        pushFollow(FOLLOW_comparators_in_synpred1_BACON1587);
+        pushFollow(FOLLOW_comparators_in_synpred1_BACON1646);
         comparators();
 
         state._fsp--;
@@ -4041,138 +4103,140 @@ public TreeAdaptor getTreeAdaptor() {
 
  
 
-    public static final BitSet FOLLOW_NEWLINE_in_rules905 = new BitSet(new long[]{0x2220002A01042000L,0x0000000000000280L});
-    public static final BitSet FOLLOW_pair_in_rules909 = new BitSet(new long[]{0x0002000000000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_rules912 = new BitSet(new long[]{0x2220002A01042000L,0x0000000000000280L});
-    public static final BitSet FOLLOW_pair_in_rules914 = new BitSet(new long[]{0x0002000000000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_rules919 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleName_in_pair945 = new BitSet(new long[]{0x0220002A01042000L,0x0000000000000280L});
-    public static final BitSet FOLLOW_rule2_in_pair947 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule_in_pair962 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULENAME_in_ruleName974 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_COLON_in_ruleName976 = new BitSet(new long[]{0x0002000000000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_ruleName979 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_VAR_in_ruleName990 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_COLON_in_ruleName992 = new BitSet(new long[]{0x0002000000000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_ruleName995 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule2_in_rule1012 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_assign_in_rule21031 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IF_in_rule21036 = new BitSet(new long[]{0x840C3632683A0970L,0x0000000000003F1FL});
-    public static final BitSet FOLLOW_bExpr_in_rule21038 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_THEN_in_rule21040 = new BitSet(new long[]{0x0220002A01042000L,0x0000000000000280L});
-    public static final BitSet FOLLOW_rule_in_rule21042 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_UPTAKE_in_rule21057 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_rule21059 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
-    public static final BitSet FOLLOW_VAR_in_rule21061 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_COMMA_in_rule21063 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
-    public static final BitSet FOLLOW_expr_in_rule21065 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_rule21067 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RELEASE_in_rule21082 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_rule21084 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
-    public static final BitSet FOLLOW_VAR_in_rule21086 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_COMMA_in_rule21088 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
-    public static final BitSet FOLLOW_expr_in_rule21090 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_rule21092 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INGEST_in_rule21107 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_rule21109 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
-    public static final BitSet FOLLOW_VAR_in_rule21111 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_COMMA_in_rule21113 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
-    public static final BitSet FOLLOW_expr_in_rule21115 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_COMMA_in_rule21117 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
-    public static final BitSet FOLLOW_expr_in_rule21119 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_rule21121 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CHANGE_in_rule21138 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_rule21140 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
-    public static final BitSet FOLLOW_VAR_in_rule21142 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_rule21144 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PCHANGE_in_rule21157 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_rule21159 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
-    public static final BitSet FOLLOW_VAR_in_rule21161 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_COMMA_in_rule21163 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
-    public static final BitSet FOLLOW_expr_in_rule21165 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_rule21167 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DIVIDE_in_rule21182 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_rule21184 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
-    public static final BitSet FOLLOW_expr_in_rule21186 = new BitSet(new long[]{0x0100000000000000L});
+    public static final BitSet FOLLOW_NEWLINE_in_rules949 = new BitSet(new long[]{0x8880005401042000L,0x0000000000000A00L});
+    public static final BitSet FOLLOW_pair_in_rules953 = new BitSet(new long[]{0x0008000000000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_rules956 = new BitSet(new long[]{0x8880005401042000L,0x0000000000000A00L});
+    public static final BitSet FOLLOW_pair_in_rules958 = new BitSet(new long[]{0x0008000000000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_rules963 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleName_in_pair989 = new BitSet(new long[]{0x0880005401042000L,0x0000000000000A00L});
+    public static final BitSet FOLLOW_rule2_in_pair991 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule_in_pair1006 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULENAME_in_ruleName1018 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_COLON_in_ruleName1020 = new BitSet(new long[]{0x0008000000000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_ruleName1023 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_VAR_in_ruleName1034 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_COLON_in_ruleName1036 = new BitSet(new long[]{0x0008000000000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_ruleName1039 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule2_in_rule1056 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_assign_in_rule21075 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IF_in_rule21080 = new BitSet(new long[]{0x1030EC64C83A0970L,0x000000000001FC7EL});
+    public static final BitSet FOLLOW_bExpr_in_rule21082 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_THEN_in_rule21084 = new BitSet(new long[]{0x0880005401042000L,0x0000000000000A00L});
+    public static final BitSet FOLLOW_rule_in_rule21086 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_UPTAKE_in_rule21101 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_rule21103 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_VAR_in_rule21105 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_COMMA_in_rule21107 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_rule21109 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_rule21111 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RELEASE_in_rule21126 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_rule21128 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_VAR_in_rule21130 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_COMMA_in_rule21132 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_rule21134 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_rule21136 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INGEST_in_rule21151 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_rule21153 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_VAR_in_rule21155 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_COMMA_in_rule21157 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_rule21159 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_COMMA_in_rule21161 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_rule21163 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_rule21165 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CHANGE_in_rule21182 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_rule21184 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_VAR_in_rule21186 = new BitSet(new long[]{0x0400000000000000L});
     public static final BitSet FOLLOW_RBRACKET_in_rule21188 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CREATE_in_rule21201 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_rule21203 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_PCHANGE_in_rule21201 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_rule21203 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
     public static final BitSet FOLLOW_VAR_in_rule21205 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_COMMA_in_rule21207 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
-    public static final BitSet FOLLOW_expr_in_rule21209 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_rule21211 = new BitSet(new long[]{0x0000000000000002L,0x0000000000004000L});
-    public static final BitSet FOLLOW_WITH_in_rule21217 = new BitSet(new long[]{0x0000080000000000L});
-    public static final BitSet FOLLOW_LSQUARE_in_rule21219 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
-    public static final BitSet FOLLOW_assignList_in_rule21221 = new BitSet(new long[]{0x0800000000000000L});
-    public static final BitSet FOLLOW_RSQUARE_in_rule21223 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LBRACKET_in_rule21245 = new BitSet(new long[]{0x0220002A01042000L,0x0000000000000280L});
-    public static final BitSet FOLLOW_rule2_in_rule21247 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_rule21249 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_VAR_in_assign1264 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_EQUALS_in_assign1266 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
-    public static final BitSet FOLLOW_expr_in_assign1268 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_assign_in_assignList1289 = new BitSet(new long[]{0x0000000000008002L});
-    public static final BitSet FOLLOW_COMMA_in_assignList1292 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
-    public static final BitSet FOLLOW_assign_in_assignList1294 = new BitSet(new long[]{0x0000000000008002L});
-    public static final BitSet FOLLOW_expr2_in_expr1322 = new BitSet(new long[]{0x0040400000000002L});
-    public static final BitSet FOLLOW_lowPrecMathOp_in_expr1336 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
-    public static final BitSet FOLLOW_expr2_in_expr1339 = new BitSet(new long[]{0x0040400000000002L});
-    public static final BitSet FOLLOW_expr3_in_expr21353 = new BitSet(new long[]{0x0000800000800002L});
-    public static final BitSet FOLLOW_medPrecMathOp_in_expr21367 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
-    public static final BitSet FOLLOW_expr3_in_expr21371 = new BitSet(new long[]{0x0000800000800002L});
-    public static final BitSet FOLLOW_expr4_in_expr31385 = new BitSet(new long[]{0x0080000000000002L});
-    public static final BitSet FOLLOW_highPrecMathOp_in_expr31399 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
-    public static final BitSet FOLLOW_expr4_in_expr31402 = new BitSet(new long[]{0x0080000000000002L});
-    public static final BitSet FOLLOW_LBRACKET_in_expr41418 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
-    public static final BitSet FOLLOW_expr_in_expr41420 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_expr41422 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_unaryPrimitives_in_expr41431 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_expr41433 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
-    public static final BitSet FOLLOW_expr_in_expr41435 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_expr41437 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FLOAT_in_expr41450 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_VAR_in_expr41455 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IF_in_expr41460 = new BitSet(new long[]{0x840C3632683A0970L,0x0000000000003F1FL});
-    public static final BitSet FOLLOW_bExpr_in_expr41462 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_THEN_in_expr41464 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
-    public static final BitSet FOLLOW_expr_in_expr41466 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_ELSE_in_expr41468 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
-    public static final BitSet FOLLOW_expr_in_expr41470 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_binPrim_in_expr41487 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_expr41489 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
-    public static final BitSet FOLLOW_expr_in_expr41491 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_COMMA_in_expr41493 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
-    public static final BitSet FOLLOW_expr_in_expr41495 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_expr41497 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_VARHIST_in_expr41512 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_expr41514 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
-    public static final BitSet FOLLOW_VAR_in_expr41516 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_COMMA_in_expr41518 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
-    public static final BitSet FOLLOW_expr_in_expr41520 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_expr41522 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_vOp_in_expr41537 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_expr41539 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
-    public static final BitSet FOLLOW_expr_in_expr41541 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_expr41543 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_bExpr2_in_bExpr1563 = new BitSet(new long[]{0x0010000000000082L});
-    public static final BitSet FOLLOW_lowPrecBoolOp_in_bExpr1566 = new BitSet(new long[]{0x840C3632683A0970L,0x0000000000003F1FL});
-    public static final BitSet FOLLOW_bExpr2_in_bExpr1569 = new BitSet(new long[]{0x0010000000000082L});
-    public static final BitSet FOLLOW_expr_in_bExpr21593 = new BitSet(new long[]{0x000100C184000000L});
-    public static final BitSet FOLLOW_comparators_in_bExpr21595 = new BitSet(new long[]{0x84003632683A0930L,0x0000000000003F1DL});
-    public static final BitSet FOLLOW_expr_in_bExpr21598 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NOT_in_bExpr21603 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_bExpr21605 = new BitSet(new long[]{0x840C3632683A0970L,0x0000000000003F1FL});
-    public static final BitSet FOLLOW_bExpr_in_bExpr21607 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_bExpr21609 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LBRACKET_in_bExpr21622 = new BitSet(new long[]{0x840C3632683A0970L,0x0000000000003F1FL});
-    public static final BitSet FOLLOW_bExpr_in_bExpr21624 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_bExpr21626 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_vBOp_in_bExpr21635 = new BitSet(new long[]{0x0000002000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_bExpr21637 = new BitSet(new long[]{0x840C3632683A0970L,0x0000000000003F1FL});
-    public static final BitSet FOLLOW_bExpr_in_bExpr21639 = new BitSet(new long[]{0x0100000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_bExpr21641 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_POW_in_highPrecMathOp1806 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_expr_in_synpred1_BACON1585 = new BitSet(new long[]{0x000100C184000000L});
-    public static final BitSet FOLLOW_comparators_in_synpred1_BACON1587 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_COMMA_in_rule21207 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_rule21209 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_rule21211 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DIVIDE_in_rule21226 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_rule21228 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_rule21230 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_rule21232 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CREATE_in_rule21245 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_rule21247 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_VAR_in_rule21249 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_COMMA_in_rule21251 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_rule21253 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_rule21255 = new BitSet(new long[]{0x0000000000000002L,0x0000000000020000L});
+    public static final BitSet FOLLOW_WITH_in_rule21261 = new BitSet(new long[]{0x0000100000000000L});
+    public static final BitSet FOLLOW_LSQUARE_in_rule21263 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_assignList_in_rule21265 = new BitSet(new long[]{0x2000000000000000L});
+    public static final BitSet FOLLOW_RSQUARE_in_rule21267 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LBRACKET_in_rule21289 = new BitSet(new long[]{0x0880005401042000L,0x0000000000000A00L});
+    public static final BitSet FOLLOW_rule2_in_rule21291 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_rule21293 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_VAR_in_assign1308 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_EQUALS_in_assign1310 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_assign1312 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_assign_in_assignList1333 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_COMMA_in_assignList1336 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_assign_in_assignList1338 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_expr2_in_expr1366 = new BitSet(new long[]{0x0100800000000002L});
+    public static final BitSet FOLLOW_lowPrecMathOp_in_expr1380 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr2_in_expr1383 = new BitSet(new long[]{0x0100800000000002L});
+    public static final BitSet FOLLOW_expr3_in_expr21397 = new BitSet(new long[]{0x0001000000800002L});
+    public static final BitSet FOLLOW_medPrecMathOp_in_expr21411 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr3_in_expr21415 = new BitSet(new long[]{0x0001000000800002L});
+    public static final BitSet FOLLOW_expr4_in_expr31429 = new BitSet(new long[]{0x0200000000000002L});
+    public static final BitSet FOLLOW_highPrecMathOp_in_expr31443 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr4_in_expr31446 = new BitSet(new long[]{0x0200000000000002L});
+    public static final BitSet FOLLOW_LBRACKET_in_expr41462 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_expr41464 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_expr41466 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_unaryPrimitives_in_expr41475 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_expr41477 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_expr41479 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_expr41481 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MINUS_in_expr41494 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_expr41496 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FLOAT_in_expr41509 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_VAR_in_expr41514 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IF_in_expr41519 = new BitSet(new long[]{0x1030EC64C83A0970L,0x000000000001FC7EL});
+    public static final BitSet FOLLOW_bExpr_in_expr41521 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_THEN_in_expr41523 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_expr41525 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_ELSE_in_expr41527 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_expr41529 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_binPrim_in_expr41546 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_expr41548 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_expr41550 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_COMMA_in_expr41552 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_expr41554 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_expr41556 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_VARHIST_in_expr41571 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_expr41573 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_VAR_in_expr41575 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_COMMA_in_expr41577 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_expr41579 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_expr41581 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_vOp_in_expr41596 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_expr41598 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_expr41600 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_expr41602 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_bExpr2_in_bExpr1622 = new BitSet(new long[]{0x0040000000000082L});
+    public static final BitSet FOLLOW_lowPrecBoolOp_in_bExpr1625 = new BitSet(new long[]{0x1030EC64C83A0970L,0x000000000001FC7EL});
+    public static final BitSet FOLLOW_bExpr2_in_bExpr1628 = new BitSet(new long[]{0x0040000000000082L});
+    public static final BitSet FOLLOW_expr_in_bExpr21652 = new BitSet(new long[]{0x0004018304000000L});
+    public static final BitSet FOLLOW_comparators_in_bExpr21654 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_bExpr21657 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NOT_in_bExpr21662 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_bExpr21664 = new BitSet(new long[]{0x1030EC64C83A0970L,0x000000000001FC7EL});
+    public static final BitSet FOLLOW_bExpr_in_bExpr21666 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_bExpr21668 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LBRACKET_in_bExpr21681 = new BitSet(new long[]{0x1030EC64C83A0970L,0x000000000001FC7EL});
+    public static final BitSet FOLLOW_bExpr_in_bExpr21683 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_bExpr21685 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_vBOp_in_bExpr21694 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_bExpr21696 = new BitSet(new long[]{0x1030EC64C83A0970L,0x000000000001FC7EL});
+    public static final BitSet FOLLOW_bExpr_in_bExpr21698 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_bExpr21700 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_POW_in_highPrecMathOp1870 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_expr_in_synpred1_BACON1644 = new BitSet(new long[]{0x0004018304000000L});
+    public static final BitSet FOLLOW_comparators_in_synpred1_BACON1646 = new BitSet(new long[]{0x0000000000000002L});
 
 }
