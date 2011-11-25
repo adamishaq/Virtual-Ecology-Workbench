@@ -23,7 +23,9 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
 import VEW.Planktonica2.ControllerStructure.SelectableItem;
+import VEW.Planktonica2.ControllerStructure.SourcePath;
 import VEW.Planktonica2.ControllerStructure.VEWController;
+import VEW.Planktonica2.DisplayEventHandlers.CompileButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
 import VEW.Planktonica2.DisplayEventHandlers.VariableSelectionEventHandler;
 import VEW.Planktonica2.model.Catagory;
@@ -50,10 +52,6 @@ public abstract class Display extends JSplitPane implements Observer {
 	protected final Dimension ALTERNATE_BUTTON_SIZE = new Dimension(new Dimension(150, 24));
 	protected final Dimension STANDARD_GROUP_SIZE = new Dimension(250, 200);
 	
-	
-	
-
-	
 	protected JButton upFunc;
 	protected JButton downFunc;
 	protected JButton upFG;
@@ -67,6 +65,7 @@ public abstract class Display extends JSplitPane implements Observer {
 	protected JButton renameFunction;
 	protected JButton editFunction;
 	protected JButton copyFunction;
+	protected JButton compileButton;
 
 	protected JList list;
 	
@@ -97,6 +96,11 @@ public abstract class Display extends JSplitPane implements Observer {
 		if (arg instanceof Catagory) {
 			Catagory f = (Catagory) arg;
 			this.variablePanel.update_selected_category(f);
+			//this.variablePanel.clear();
+			this.editorPanel.clear();
+		}
+		if (arg instanceof SourcePath) {
+			this.ancilaryFuncPane.setSelectedIndex(0);
 		}
 		
 	}
@@ -107,7 +111,11 @@ public abstract class Display extends JSplitPane implements Observer {
 	
 	protected abstract void populateButtonPane ();
 	 
-	public abstract void updateVariablePanel(VariableType v);
+	public void updateVariablePanel(VariableType v) {
+		variablePanel.display(v);
+		// Show the variable panel
+		this.ancilaryFuncPane.setSelectedIndex(1);
+	}
 	
 	protected void defaultPopulateButtonPane () {
 		
@@ -252,7 +260,8 @@ public abstract class Display extends JSplitPane implements Observer {
 		itemPanel.add(addInstance);
 		itemPanel.add(renameInstance);
 		itemPanel.add(removeInstance);
-		itemPanel.add(copyInstance);
+		//itemPanel.add(copyInstance);
+		itemPanel.add(compileButton);
 	}
 	
 	
@@ -305,7 +314,11 @@ public abstract class Display extends JSplitPane implements Observer {
 		editFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
 		
 		copyFunction = new JButton(new ImageIcon(IconRoot + "copy.gif"));		
-		copyFunction.setPreferredSize(STANDARD_BUTTON_SIZE);		
+		copyFunction.setPreferredSize(STANDARD_BUTTON_SIZE);	
+		
+		compileButton = new JButton(new ImageIcon(IconRoot + "copy.gif"));		
+		compileButton.setPreferredSize(STANDARD_BUTTON_SIZE);
+		compileButton.addActionListener(new CompileButtonListener(this.editorPanel));
 		
 	}
 	

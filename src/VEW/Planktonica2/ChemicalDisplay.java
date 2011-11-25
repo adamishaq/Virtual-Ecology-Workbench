@@ -28,10 +28,6 @@ public class ChemicalDisplay extends Display {
 		// TODO Auto-generated method stub
 		return "chemical";
 	}
-
-	public void updateVariablePanel(VariableType v) {
-		this.variablePanel.display(v);
-	}
 	
 	@Override
 	protected void populateAncilaryFuncPane() {
@@ -39,7 +35,7 @@ public class ChemicalDisplay extends Display {
 		// editor tab
 		this.addTabToAncilary("Editor", editorPanel = new EditorPanel (this.controller));
 		// variable tab
-		this.addTabToAncilary("Variable", variablePanel = new VariableEditorPanel ());
+		this.addTabToAncilary("Variable", variablePanel = new VariableEditorPanel (this.controller));
 		// pigment tab
 		this.addTabToAncilary("Pigment Display", new PigmentPanel ());
 		

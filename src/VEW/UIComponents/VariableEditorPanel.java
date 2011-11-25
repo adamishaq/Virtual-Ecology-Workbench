@@ -2,6 +2,7 @@ package VEW.UIComponents;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.DefaultComboBoxModel;
@@ -12,13 +13,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.Planktonica2.DisplayEventHandlers.AddVarListener;
+import VEW.Planktonica2.DisplayEventHandlers.UpdateVarListener;
 import VEW.Planktonica2.DisplayEventHandlers.VarTypeListener;
 import VEW.Planktonica2.model.Catagory;
 import VEW.Planktonica2.model.FunctionalGroup;
 import VEW.Planktonica2.model.Local;
 import VEW.Planktonica2.model.Parameter;
 import VEW.Planktonica2.model.StateVariable;
+import VEW.Planktonica2.model.Unit;
 import VEW.Planktonica2.model.VariableType;
 import VEW.Planktonica2.model.Variety;
 import VEW.Planktonica2.model.VarietyConcentration;
@@ -32,6 +36,7 @@ public class VariableEditorPanel extends JPanel {
 	
 	private VarType current_selection = VarType.GROUPVAR;
 	private Catagory current_category;
+	private VEWController controller;
 	private HashMap<String,Integer> food_sets = new HashMap<String,Integer>();
 	
 	private GridBagConstraints c = new GridBagConstraints();
@@ -52,13 +57,14 @@ public class VariableEditorPanel extends JPanel {
 	private JLabel fs_link = new JLabel("Food-Set Link :");
 	private JComboBox  link_combo = new JComboBox();
 	
-	private JLabel units = new JLabel("Units :  ");
+	private JLabel units = new JLabel("  Units :  ");
 	private JTextField unit_string = new JTextField("");
 	
 	private JButton add_var = new JButton("Add");
 	private JButton update_var = new JButton("Update");
 	
-	public VariableEditorPanel() {
+	public VariableEditorPanel(VEWController controller) {
+		this.controller = controller;
 		this.initialize();
 	}
 
@@ -131,6 +137,7 @@ public class VariableEditorPanel extends JPanel {
 		this.add(unit_editor,main_layout);
 		
 		add_var.addActionListener(new AddVarListener(this));
+		update_var.addActionListener(new UpdateVarListener(this));
 		button_panel.add(add_var);
 		button_panel.add(update_var);
 		// Add the panel to the main layout
@@ -232,112 +239,75 @@ public class VariableEditorPanel extends JPanel {
 	
 	
 	
-	public VariableType construct_variable() {
-		if (var_name.getText().equals("")) {
-			JOptionPane.showMessageDialog(this, "Variable must have a name");
-			return null;
-		}
-		char[] chars = var_name.getText().toCharArray();
-		for (int i = 0; i < chars.length; i++) {
-			if (!(Character.isLetterOrDigit(chars[i]) || chars[i] == '_')) {
-				JOptionPane.showMessageDialog(this, "Variable name cannot contain '" 
-						+ chars[i] + "'");
-				return null;
-			}
-		}
-		// TODO check name is unique
-		// Check that history has a legal value
-		int hist = 0;
-		switch (current_selection) {
-		case GROUPVAR :
-		case FOODVAR :
-			try {
-				hist = Integer.parseInt(h_size.getText());
-				if (hist < 0) {
-					JOptionPane.showMessageDialog(this, "History size must be 0 or higher");
-					return null;
-				}
-			} catch (NumberFormatException n) {
-				JOptionPane.showMessageDialog(this, "Invalid history size");
-				return null;
-			}
-		}
-		// Check that initial value is legal
-		float init = 0;
-		switch (current_selection) {
-		case GROUPVAR :
-		case GROUPPARAM :
-		case FOODPARAM :
-		case FOODVAR :
-			try {
-				init = Float.parseFloat(i_val.getText());
-			} catch (NumberFormatException n) {
-				JOptionPane.showMessageDialog(this, "Invalid variable initial value");
-				return null;
-			}
-		}
+	public void construct_variable() {
+		// Check the variable has all appropriate values set
+		if (!validate_variable(false))
+			return;
 		// Construct the variable
 		switch (current_selection) {
 		case GROUPVAR :
 			StateVariable v = new StateVariable(this.current_category);
 			v.setName(var_name.getText());
 			v.setDesc(var_desc.getText());
-			v.setHist(hist);
-			v.setValue(init);
-			return v;
+			v.setHist(Integer.parseInt(h_size.getText()));
+			v.setValue(Float.parseFloat(i_val.getText()));
+			current_category.addToStateVarTable(v);
+			break;
 		case GROUPPARAM :
 			Parameter p = new Parameter(this.current_category);
 			p.setName(var_name.getText());
 			p.setDesc(var_desc.getText());
-			p.setValue(init);
-			return p;
+			p.setValue(Float.parseFloat(i_val.getText()));
+			current_category.addToParamTable(p);
+			break;
 		case LOCALVAR :
 			Local l = new Local(this.current_category);
 			l.setName(var_name.getText());
 			l.setDesc(var_desc.getText());
-			return l;
+			current_category.addToLocalTable(l);
+			break;
 		case FOODPARAM :
 			// Make sure the currently selected category is not a chemical
 			if (this.current_category instanceof FunctionalGroup) {
 				VarietyParameter vp = new VarietyParameter((FunctionalGroup) this.current_category);
 				vp.setName(var_name.getText());
 				vp.setDesc(var_desc.getText());
-				vp.setValue(init);
+				vp.setValue(Float.parseFloat(i_val.getText()));
 				// Check the food set link actually exists
 				VarietyConcentration vc =
 					this.current_category.checkVarietyConcTable(link_combo.getSelectedItem().toString());
 				if (vc == null)
-					return null;
+					return;
 				vp.setLinkConcentration(vc);
-				return vp;
+				current_category.addToVarietyParamTable(vp);
 			}
-			return null;
+			break;
 		case FOODVAR :
 			// Make sure the currently selected category is not a chemical
 			if (this.current_category instanceof FunctionalGroup) {
 				VarietyVariable vv = new VarietyVariable((FunctionalGroup) this.current_category);
 				vv.setName(var_name.getText());
 				vv.setDesc(var_desc.getText());
-				vv.setHist(hist);
-				vv.setValue(init);
+				vv.setHist(Integer.parseInt(h_size.getText()));
+				vv.setValue(Float.parseFloat(i_val.getText()));
 				// Check the food set link actually exists
 				VarietyConcentration vc =
 					this.current_category.checkVarietyConcTable(link_combo.getSelectedItem().toString());
 				if (vc == null)
-					return null;
+					return;
 				vv.setLinkConcentration(vc);
-				return vv;
+				current_category.addToVarietyStateTable(vv);
 			}
-			return null;
+			break;
 		case FOODSET :
 			// Make sure the currently selected category is not a chemical
 			if (this.current_category instanceof FunctionalGroup) {
 				VarietyConcentration vc = new VarietyConcentration((FunctionalGroup) this.current_category);
 				vc.setName(var_name.getText());
 				vc.setDesc(var_desc.getText());
-				return vc;
+				current_category.addToVarietyConcTable(vc);
 			}
-			return null;
+			break;
 		case FOODLOCAL :
 			// Make sure the currently selected category is not a chemical
 			if (this.current_category instanceof FunctionalGroup) {
@@ -348,16 +318,110 @@ public class VariableEditorPanel extends JPanel {
 				VarietyConcentration vc =
 					this.current_category.checkVarietyConcTable(link_combo.getSelectedItem().toString());
 				if (vc == null)
-					return null;
+					return;
 				vl.setLinkConcentration(vc);
-				return vl;
+				current_category.addToVarietyLocalTable(vl);
 			}
-			return null;
+			break;
 		}
-		return null;
+		controller.update_category(this.current_category);
 	}
 
-
+	public void update_variable() {
+		// Check the variable has all appropriate values set
+		if (!validate_variable(true))
+			return;
+		VariableType v = current_category.checkAllVariableTables(var_name.getText());
+		v.setDesc(var_desc.getText());
+		ArrayList<Unit> units = new ArrayList<Unit>();
+		units.add(new Unit(0,unit_string.getText(),0));
+		v.setUnits(units);
+		if (v instanceof Variety) {
+			Variety var = (Variety) v;
+			if (this.current_category instanceof FunctionalGroup) {
+				// Check the food set link actually exists
+				VarietyConcentration vc =
+					this.current_category.checkVarietyConcTable(link_combo.getSelectedItem().toString());
+				if (vc == null)
+					return;
+				if (var instanceof VarietyVariable) {
+					var.setHist(Integer.parseInt(h_size.getText()));
+					var.setValue(Float.parseFloat(i_val.getText()));
+					var.setLinkConcentration(vc);
+				} else if (var instanceof VarietyParameter) {
+					var.setValue(Float.parseFloat(i_val.getText()));
+					var.setLinkConcentration(vc);
+				}
+			}
+		} else {
+			if (v instanceof StateVariable) {
+				v.setHist(Integer.parseInt(h_size.getText()));
+				v.setValue(Float.parseFloat(i_val.getText()));
+			} else if (v instanceof Parameter) {
+				v.setValue(Float.parseFloat(i_val.getText()));
+			}
+		}
+	}
+	
+	private boolean validate_variable(boolean exists) {
+		// Check there is something to add it to
+		if (this.current_category == null)
+			return false;
+		// Check that the variable has a name
+		if (var_name.getText().equals("")) {
+			JOptionPane.showMessageDialog(this, "Variable must have a name");
+			return false;
+		}
+		// Check it contains no disallowed characters
+		char[] chars = var_name.getText().toCharArray();
+		for (int i = 0; i < chars.length; i++) {
+			if (!(Character.isLetterOrDigit(chars[i]) || chars[i] == '_')) {
+				JOptionPane.showMessageDialog(this, "Variable name cannot contain '" 
+						+ chars[i] + "'");
+				return false;
+			}
+		}
+		// Check the name is unique if it is not an existing variable
+		if (!exists && current_category.checkAllVariableTables(var_name.getText()) != null) {
+			JOptionPane.showMessageDialog(this, "A variable of that name already exists");
+			return false;
+		}
+		// Check the name is not unique if it is an existing variable
+		if (exists && current_category.checkAllVariableTables(var_name.getText()) == null) {
+			JOptionPane.showMessageDialog(this, "No variable of that name exists");
+			return false;
+		}
+		// Check that history has a legal value
+		switch (current_selection) {
+		case GROUPVAR :
+		case FOODVAR :
+			try {
+				int hist = Integer.parseInt(h_size.getText());
+				if (hist < 0) {
+					JOptionPane.showMessageDialog(this, "History size must be 0 or higher");
+					return false;
+				}
+			} catch (NumberFormatException n) {
+				JOptionPane.showMessageDialog(this, "Invalid history size");
+				return false;
+			}
+		}
+		// Check that initial value is legal
+		switch (current_selection) {
+		case GROUPVAR :
+		case GROUPPARAM :
+		case FOODPARAM :
+		case FOODVAR :
+			try {
+				Float.parseFloat(i_val.getText());
+			} catch (NumberFormatException n) {
+				JOptionPane.showMessageDialog(this, "Invalid variable initial value");
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	public void display(VariableType v) {
 		// Fill in the variable name and description
 		var_name.setText(v.getName());

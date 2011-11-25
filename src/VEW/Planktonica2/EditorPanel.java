@@ -81,6 +81,7 @@ public class EditorPanel extends JPanel implements Observer {
 		c.gridx = 0;
 		c.gridy = 0;
 		syntax = new JTextPane();
+		this.syntax.setEnabled(false);
 		final JPanel no_wrap_syntax = new JPanel(new BorderLayout());
 		no_wrap_syntax.add(syntax);
 		JScrollPane scroll_pane_syntax = new JScrollPane(no_wrap_syntax);
@@ -111,7 +112,6 @@ public class EditorPanel extends JPanel implements Observer {
 		syntax.setFont(font);
 		syntax.setContentType("text/html");
 		syntax.setText("<html><PRE></PRE></html>");
-		syntax.setEnabled(true);
 		
 		auto_complete = new AutocompleteBox(syntax,controller);
 		
@@ -276,6 +276,8 @@ public class EditorPanel extends JPanel implements Observer {
 			file_text = file_text.replaceAll("\"","&quot;");
 			source += file_text;
 			source += "</PRE></html>";
+			syntax.setEnabled(true);
+			preview.setVisible(false);
 			syntax.setText(source);
 			highlight_syntax();
 			syntax.setCaretPosition(0);
@@ -284,6 +286,14 @@ public class EditorPanel extends JPanel implements Observer {
 					+ "</PRE></html>");
 		}
 	}
+	
+	public void clear() {
+		this.syntax.setEnabled(false);
+		this.syntax.setText("<html><PRE></PRE></html>");
+		this.preview.setVisible(false);
+		this.error_log.setText("<html><PRE></PRE></html>");
+	}
+	
 	
 /*	
 static class CompileListener implements ActionListener {
@@ -454,7 +464,6 @@ class TypingListener implements KeyListener {
 	public void keyTyped(KeyEvent e) {}
 
 }
-
 
 	
 }

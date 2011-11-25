@@ -27,6 +27,7 @@ import VEW.Planktonica2.ControllerStructure.SelectableItem;
 import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.Planktonica2.model.Catagory;
 import VEW.Planktonica2.model.GlobalVariable;
+import VEW.Planktonica2.model.Unit;
 import VEW.Planktonica2.model.VariableType;
 import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
@@ -347,7 +348,11 @@ public class AutocompleteBox {
 					text += parent.getExpr_functions().get(name);
 				} else if (this.parent.getCurrent_catagory() != null) {
 					VariableType v = this.parent.getCurrent_catagory().checkAllVariableTables(name);
-					text += v.getDesc();
+					text += v.getDesc() + "\n";
+					text += "<b>Units:</b>";
+					for (Unit u : v.getUnits()) {
+						text += u.format();
+					}
 				}
 				text += "</PRE></html>";
 				parent.getDescription().setText(text);

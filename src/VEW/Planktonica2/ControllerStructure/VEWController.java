@@ -118,6 +118,11 @@ public abstract class VEWController extends Observable {
 		display.updateVariablePanel(variable);
 	}
 
+	public void update_category(Catagory cat) {
+		this.setChanged();
+		this.notifyObservers(cat);
+	}
+
 	
 
 	
