@@ -30,14 +30,12 @@ public class Function implements BuildFromXML, BuildToXML {
 	public Function(Collection<Stage> stages, String file_path, Catagory parent) {
 		this.source_file_path = get_path(file_path);
 		this.availableStages = stages;
-		this.setParentName(parent.name);
 		this.parent = parent;
 	}
 
 	public Function(String file_path, Catagory parent) {
 		this.source_file_path = get_path(file_path);
 		this.availableStages = null;
-		this.setParentName(parent.name);
 		this.parent = parent;
 	}
 
@@ -268,14 +266,6 @@ public class Function implements BuildFromXML, BuildToXML {
 		if (author != null)
 			funcTag.addTag(new XMLTag("author", author));
 		return funcTag;
-	}
-
-	public void setParentName(String parentName) {
-		this.parentName = parentName;
-	}
-
-	public String getParentName() {
-		return parentName;
 	}
 
 	@Override

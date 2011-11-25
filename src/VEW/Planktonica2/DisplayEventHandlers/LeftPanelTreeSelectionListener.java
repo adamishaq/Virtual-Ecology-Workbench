@@ -30,9 +30,9 @@ public class LeftPanelTreeSelectionListener implements TreeSelectionListener {
 			} else if (n.getUserObject() instanceof Function) {
 				
 				Function f = (Function) n.getUserObject();
-				//controller.setSelectedItem(f);
+				controller.setSelectedItem(f.getParent());
 				String file_path = f.getSource_code();
-				file_path += f.getParentName();
+				file_path += f.getParent().getName();
 				file_path += "\\";
 				file_path += f.getName();
 				file_path += ".bacon";

@@ -6,7 +6,6 @@ import java.util.prefs.BackingStoreException;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import VEW.Planktonica2.Display;
 import VEW.Planktonica2.model.Catagory;
 import VEW.Planktonica2.model.Function;
 import VEW.Planktonica2.model.Model;
@@ -17,7 +16,7 @@ public abstract class VEWController extends Observable {
 	
 	protected Model model;
 	protected String currentSourcePath;
-	protected Display display;
+	protected Function currentlySelectedFunction;
 	
 	/**
 	 * 
@@ -67,8 +66,8 @@ public abstract class VEWController extends Observable {
 		
 	}
 	
-	private String getSelectedFunction() {
-		return display.get_selected_function();
+	private Function getSelectedFunction() {
+		return currentlySelectedFunction;
 	}
 	
 	public Function getFunctionAtIndex(int functionNo) {
@@ -92,7 +91,6 @@ public abstract class VEWController extends Observable {
 			this.setChanged();
 			this.notifyObservers(i);
 		}
-		this.display.update_vars(i);
 		
 	}
 	
@@ -103,11 +101,17 @@ public abstract class VEWController extends Observable {
 	 */
 	protected abstract boolean setInternalSelectedItem(SelectableItem i);
 	 
-	public abstract Collection<SelectableItem> getSelectables();
-
-	public void setDisplay(Display disp) {
-		this.display = disp;
+	
+	
+	public Function getCurrentlySelectedFunction() {
+		return currentlySelectedFunction;
 	}
+
+	public void setCurrentlySelectedFunction(Function currentlySelectedFunction) {
+		this.currentlySelectedFunction = currentlySelectedFunction;
+	}
+
+	public abstract Collection<SelectableItem> getSelectables();
 
 	public void load_source(String filePath) {
 		this.currentSourcePath = filePath;
@@ -115,13 +119,11 @@ public abstract class VEWController extends Observable {
 		this.notifyObservers(new SourcePath(filePath));
 	}
 
+	
 	public void updateVariablePanel(VariableType variable) {
-		display.updateVariablePanel(variable);
+		
+		this.notifyObservers(variable);
+		
 	}
 
-	
-
-	
-
-	
 }

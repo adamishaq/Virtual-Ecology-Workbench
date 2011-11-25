@@ -2,6 +2,9 @@ package VEW.UIComponents;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -9,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.Planktonica2.DisplayEventHandlers.AddVarListener;
 import VEW.Planktonica2.DisplayEventHandlers.VarTypeListener;
 import VEW.Planktonica2.model.Local;
@@ -20,7 +24,7 @@ import VEW.Planktonica2.model.VarietyLocal;
 import VEW.Planktonica2.model.VarietyParameter;
 import VEW.Planktonica2.model.VarietyVariable;
 
-public class VariableEditorPanel extends JPanel {
+public class VariableEditorPanel extends JPanel implements Observer {
 
 	private static final long serialVersionUID = 1484036714507019850L;
 	
@@ -40,8 +44,12 @@ public class VariableEditorPanel extends JPanel {
 	private JLabel fs_link = new JLabel("Food-Set Link :");
 	private JComboBox  link_combo = new JComboBox();
 	private JButton add_var = new JButton("Add");
+
+	private VEWController controller;
 	
-	public VariableEditorPanel() {
+	public VariableEditorPanel(VEWController c) {
+		this.controller = c;
+		controller.addObserver(this);
 		this.initialize();
 	}
 
@@ -261,5 +269,15 @@ public class VariableEditorPanel extends JPanel {
 			i_val.setText(String.valueOf(vv.getValue()));
 			// TODO link_combo
 		}
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		
+		if (arg instanceof VariableType) {
+			
+			display((VariableType) arg);
+		}
+		
 	}
 }

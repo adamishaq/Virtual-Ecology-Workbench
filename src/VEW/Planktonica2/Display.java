@@ -7,6 +7,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.io.File;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -24,9 +27,8 @@ import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
 import VEW.Planktonica2.DisplayEventHandlers.VariableSelectionEventHandler;
 import VEW.Planktonica2.model.Catagory;
-import VEW.Planktonica2.model.VariableType;
 
-public abstract class Display extends JSplitPane {
+public abstract class Display extends JSplitPane implements Observer {
 
 	private static final long serialVersionUID = -3961634639923671255L;
 	
@@ -75,7 +77,7 @@ public abstract class Display extends JSplitPane {
 	protected Display(VEWController controller, Dimension initialSize) {
 		super(JSplitPane.HORIZONTAL_SPLIT);
 		this.controller = controller;
-		this.controller.setDisplay(this);
+		controller.addObserver(this);
 		initialiseGUI(initialSize);
 		
 		fillGUI();
@@ -89,8 +91,6 @@ public abstract class Display extends JSplitPane {
 	protected abstract void populateAncilaryFuncPane ();
 	
 	protected abstract void populateButtonPane ();
-	 
-	public abstract void updateVariablePanel(VariableType v);
 	
 	protected void defaultPopulateButtonPane () {
 		
@@ -417,5 +417,17 @@ public abstract class Display extends JSplitPane {
 
 	public String get_selected_function() {
 		return tree.getSelectionPath().getLastPathComponent().toString();
+	}
+	
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		
+		if (o instanceof VEWController && arg instanceof SelectableItem) {
+			
+			this.update_vars((SelectableItem) arg);
+			
+		}
+		
 	}
 }
