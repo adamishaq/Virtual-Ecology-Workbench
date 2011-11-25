@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import VEW.Common.XML.XMLTag;
+import VEW.XMLCompiler.ANTLR.CompilerException;
 
 public class Chemical extends Catagory {
 
@@ -25,23 +26,26 @@ public class Chemical extends Catagory {
 	
 	@Override
 	public BuildFromXML build(XMLTag tag) {
-		
+		baseTag = tag;
 		// name
 		XMLTag nameTag = tag.getTag(XMLTagEnum.NAME.xmlTag());
 		if (nameTag != null) {
 			this.name = nameTag.getValue();
+			nameTag.removeFromParent();
 		}
 		
 		// value
 		XMLTag valueTag = tag.getTag(XMLTagEnum.VALUE.xmlTag());
 		if (valueTag != null) {
 			this.value = valueTag.getValue();
+			valueTag.removeFromParent();
 		}
 		
 		// pigment
 		XMLTag pigmentValue = tag.getTag(XMLTagEnum.PIGMENT.xmlTag());
 		if (pigmentValue != null) {
 			this.pigment = Boolean.valueOf(pigmentValue.getValue());
+			pigmentValue.removeFromParent();
 		}
 		
 		
@@ -52,6 +56,7 @@ public class Chemical extends Catagory {
 			Spectrum s = new Spectrum ();
 			s.build(t);
 			this.spectrum.add(s);
+			t.removeFromParent();
 
 		}
 		
@@ -65,6 +70,7 @@ public class Chemical extends Catagory {
 			Function f = new Function (file_path, this);
 			f.build(t);
 			functions.add(f);
+			t.removeFromParent();
 		}
 
 		// parameters
@@ -74,6 +80,7 @@ public class Chemical extends Catagory {
 			Parameter p = new Parameter(this);
 			p.build(t);
 			paramTable.put(p.getName(), p);
+			t.removeFromParent();
 		}
 
 		// local
@@ -83,6 +90,7 @@ public class Chemical extends Catagory {
 			Local l = new Local(this);
 			l.build(t);
 			localVarTable.put(l.getName(), l);
+			t.removeFromParent();
 		}
 
 		// variables
@@ -92,6 +100,7 @@ public class Chemical extends Catagory {
 			StateVariable v = new StateVariable(this);
 			v.build(t);
 			stateVarTable.put(v.getName(), v);
+			t.removeFromParent();
 		}
 
 
@@ -99,16 +108,16 @@ public class Chemical extends Catagory {
 	}
 	
 	@Override
-	public XMLTag buildToXML() {
-		XMLTag chemicalTag = super.buildToXML();
-		chemicalTag.setName("chemical");
-		chemicalTag.addTag("pigment", pigment);
+	public XMLTag buildToXML() throws CompilerException {
+		super.buildToXML();
+		baseTag.setName("chemical");
+		baseTag.addTag("pigment", pigment);
 		Iterator<Spectrum> spectrumIter = spectrum.iterator();
 		while (spectrumIter.hasNext()) {
 			Spectrum spectrum = spectrumIter.next();
-			chemicalTag.addTag(spectrum.buildToXML());
+			baseTag.addTag(spectrum.buildToXML());
 		}
-		return chemicalTag;
+		return baseTag;
 	}
 
 		

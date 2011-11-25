@@ -9,6 +9,8 @@ public class Stage implements BuildFromXML, BuildToXML {
 	private String name;
 	private String comment;
 	
+	private XMLTag baseTag;
+	
 	public Stage() {
 		name = null;
 		comment = null;
@@ -18,7 +20,7 @@ public class Stage implements BuildFromXML, BuildToXML {
 	
 	@Override
 	public BuildFromXML build(XMLTag tag) {
-		
+		baseTag = tag;
 		String logValue = tag.getAttribute("log");
 		if (logValue != null) {
 			this.log = Boolean.valueOf(logValue);
@@ -32,11 +34,13 @@ public class Stage implements BuildFromXML, BuildToXML {
 		XMLTag nameTag = tag.getTag("name"); 
 		if (nameTag != null) {
 			this.name = nameTag.getValue();
+			nameTag.removeFromParent();
 		}
 		
 		XMLTag commentTag = tag.getTag("comment");
 		if (commentTag != null) {
 			this.comment = commentTag.getValue();
+			commentTag.removeFromParent();
 		}
 		
 		return this;
@@ -83,16 +87,18 @@ public class Stage implements BuildFromXML, BuildToXML {
 
 	@Override
 	public XMLTag buildToXML() {
-		XMLTag stageTag = new XMLTag("stage");
+		if (baseTag == null) {
+			baseTag = new XMLTag("stage");
+		}
 		if (log != null)
-			stageTag.setAttribute("log", Boolean.toString(log));
+			baseTag.setAttribute("log", Boolean.toString(log));
 		if (closure != null)
-			stageTag.setAttribute("closure", Boolean.toString(closure));
+			baseTag.setAttribute("closure", Boolean.toString(closure));
 		if (name != null)
-			stageTag.addTag("name", name);
+			baseTag.addTag("name", name);
 		if (comment != null)
-			stageTag.addTag("comment", comment);
-		return stageTag;
+			baseTag.addTag("comment", comment);
+		return baseTag;
 	}
 
 	

@@ -11,8 +11,6 @@ public class ConstructedASTree {
 	private ASTree tree;
 	private ArrayList<Exception> exceptions;
 	private List<XMLTag> tagList;
-	private Catagory parentCategory;
-	
 	public ConstructedASTree(ASTree _tree, ArrayList<Exception> _excep) {
 		tree = _tree;
 		exceptions = new ArrayList<Exception>(_excep);

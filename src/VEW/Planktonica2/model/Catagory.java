@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import VEW.Common.XML.XMLTag;
 import VEW.Planktonica2.ControllerStructure.SelectableItem;
+import VEW.XMLCompiler.ANTLR.CompilerException;
 import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 import VEW.XMLCompiler.ASTNodes.SymbolTable;
 
@@ -22,6 +23,8 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 	protected SymbolTable<VarietyParameter> varietyParamTable;
 	protected SymbolTable<VarietyConcentration> varietyConcTable;
 	protected SymbolTable<VarietyLocal> varietyLocalTable;
+	
+	protected XMLTag baseTag;
 	
 	public Catagory() {
 		
@@ -223,20 +226,22 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		return this.getName();
 	}
 	
-	public XMLTag buildToXML() {
-		XMLTag tag = new XMLTag("placeholder");
-		tag.addTag(new XMLTag("name", name));
-		for(Function f: functions) {
-			tag.addTag(f.buildToXML());
+	public XMLTag buildToXML() throws CompilerException{
+		if (baseTag == null) {
+			baseTag = new XMLTag("placeholder");
 		}
-		buildVariableTableToXML(tag, stateVarTable);
-		buildVariableTableToXML(tag, paramTable);
-		buildVariableTableToXML(tag, localVarTable);
-		buildVariableTableToXML(tag, varietyStateTable);
-		buildVariableTableToXML(tag, varietyParamTable);
-		buildVariableTableToXML(tag, varietyConcTable);
-		buildVariableTableToXML(tag, varietyLocalTable);
-		return tag;
+		baseTag.addTag(new XMLTag("name", name));
+		for(Function f: functions) {
+			baseTag.addTag(f.buildToXML());
+		}
+		buildVariableTableToXML(baseTag, stateVarTable);
+		buildVariableTableToXML(baseTag, paramTable);
+		buildVariableTableToXML(baseTag, localVarTable);
+		buildVariableTableToXML(baseTag, varietyStateTable);
+		buildVariableTableToXML(baseTag, varietyParamTable);
+		buildVariableTableToXML(baseTag, varietyConcTable);
+		buildVariableTableToXML(baseTag, varietyLocalTable);
+		return baseTag;
 	}
 	
 	private <V extends VariableType> void buildVariableTableToXML(XMLTag tag, SymbolTable<V> table) {
