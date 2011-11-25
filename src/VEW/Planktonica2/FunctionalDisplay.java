@@ -9,8 +9,6 @@ import VEW.UIComponents.VariableEditorPanel;
 public class FunctionalDisplay extends Display {
 
 	private static final long serialVersionUID = -6094339463447273188L;
-	private EditorPanel editorPanel;
-	private VariableEditorPanel variablePanel;
 	private StageEditorPanel stageEditor;
 	
 	private FunctionalGroupController funcController;
@@ -34,9 +32,9 @@ public class FunctionalDisplay extends Display {
 	protected void populateAncilaryFuncPane() {
 		
 		// editor tab
-		this.addTabToAncilary("Editor", editorPanel = new EditorPanel (this.controller));
+		this.addTabToAncilary("Editor", new EditorPanel (this.controller));
 		// variable tab
-		this.addTabToAncilary("Variable", variablePanel = new VariableEditorPanel (this.controller));
+		this.addTabToAncilary("Variable", new VariableEditorPanel (this.controller));
 		// edit stages
 		stageEditor = null;
 		if (funcController == null) {

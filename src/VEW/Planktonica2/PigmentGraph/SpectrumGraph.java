@@ -3,7 +3,8 @@ package VEW.Planktonica2.PigmentGraph;
 import java.awt.Color;
 import java.text.DecimalFormat;
 
-import VEW.Planktonica2.ControllerStructure.GraphModel;
+
+import VEW.Common.Graph.GraphModel;
 import VEW.Planktonica2.model.Spectrum;
 import VEW.Planktonica2.model.WaveLengthIntensityPair;
 
@@ -58,7 +59,7 @@ public class SpectrumGraph implements GraphModel {
 	@Override
 	public String getYAxisValue(int y) {
 		
-		DecimalFormat format = new DecimalFormat("0.0#E00");
+		DecimalFormat format = new DecimalFormat("0.00E00");
 		
 		double markerSize = (maxDataValue() / ((double) yAxisSize()));
 		markerSize *= y;
@@ -83,7 +84,9 @@ public class SpectrumGraph implements GraphModel {
 	@Override
 	public double getValue(int x) {
 		try {
-			return spec.getSpectrumValue(x).getIntensity();
+			double intensity = spec.getSpectrumValue(x).getIntensity();
+			double max = maxDataValue();
+			return (max > 0) ? intensity / max : 0.0;
 		} catch (IndexOutOfBoundsException i) {
 			return 0.0;
 		}

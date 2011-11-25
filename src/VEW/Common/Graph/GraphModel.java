@@ -1,4 +1,4 @@
-package VEW.Planktonica2.ControllerStructure;
+package VEW.Common.Graph;
 
 import java.awt.Color;
 
@@ -33,11 +33,10 @@ public interface GraphModel {
 	
 	
 	/**
-	 * Gets the y value on a certain value x
+	 * Gets the y value on a certain value x as a percentage of the maximum value
 	 * 
-	 * @param x
-	 * @param y
-	 * @return
+	 * @param x the x value
+	 * @return y / maximumValue
 	 */
 	public double getValue(int x);
 	

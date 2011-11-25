@@ -53,27 +53,6 @@ public class Spectrum implements BuildFromXML, BuildToXML, Iterable<WaveLengthIn
 		return this;
 	}
 	
-	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public WaveLengthIntensityPair getSpectrumValue(int index) {
-		return values.get(index);
-	}
-
-	public void setValue(int index, double intensity) {
-		values.set(index, new WaveLengthIntensityPair(index, intensity));
-	}
-
-	public int getNumberValues() {
-		return values.size();
-	}
-
 	@Override
 	public XMLTag buildToXML() {
 		XMLTag spectrumTag = new XMLTag("spectrum");
@@ -95,7 +74,7 @@ public class Spectrum implements BuildFromXML, BuildToXML, Iterable<WaveLengthIn
 	private String buildGraphValuesString() {
 		String graphValsString = GRAPH_VALUES + "{";
 		for (int n = 0; n < values.size(); n++) {
-			graphValsString += "{" + n + "," + values.get(n) + "}";
+			graphValsString += "{" + n + "," + values.get(n).getIntensity() + "}";
 			if (n != values.size() - 1) {
 				graphValsString += ",";
 			}
@@ -103,6 +82,28 @@ public class Spectrum implements BuildFromXML, BuildToXML, Iterable<WaveLengthIn
 		return graphValsString + "}";
 	}
 
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public WaveLengthIntensityPair getSpectrumValue(int index) {
+		return values.get(index);
+	}
+
+	public void setValue(int index, double intensity) {
+		values.set(index, new WaveLengthIntensityPair(index, intensity));
+	}
+
+	public int getNumberValues() {
+		return values.size();
+	}
+
+	
 
 	@Override
 	public Iterator<WaveLengthIntensityPair> iterator() {

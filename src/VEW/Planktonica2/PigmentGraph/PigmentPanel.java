@@ -4,21 +4,29 @@ package VEW.Planktonica2.PigmentGraph;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import VEW.Common.Graph.BarChartDrawer;
+import VEW.Common.Graph.GraphModel;
 import VEW.Planktonica2.ControllerStructure.ChemicalController;
-import VEW.Planktonica2.ControllerStructure.GraphModel;
+import VEW.Planktonica2.model.Chemical;
 import VEW.Planktonica2.model.NullSpectrum;
 import VEW.Planktonica2.model.Spectrum;
 
-public class PigmentPanel extends JPanel {
+public class PigmentPanel extends JPanel implements Observer {
 
 
 	private static final long serialVersionUID = 1040209636264981879L;
 
 	private JComboBox graphType;
+	private BarChartDrawer pigmentGraph;
 	
 	public static final String Pigment_CHI = "Chi";
 	public static final String Pigment_e = "e";
@@ -34,7 +42,7 @@ public class PigmentPanel extends JPanel {
 
 	public PigmentPanel(ChemicalController controller) {
 		this.controller = controller;
-
+		controller.addObserver(this);
 		initilizeGUI();
 	}
 
@@ -47,11 +55,11 @@ public class PigmentPanel extends JPanel {
 		graphType.addItem(Pigment_e);
 		graphType.setSelectedIndex(0);
 		
+		
+		
 		Spectrum toDraw = new NullSpectrum();
 		
-		
-		GraphModel graphData = new SpectrumGraph(toDraw, 10);
-		BarChartDrawer pigmentGraph = new BarChartDrawer(graphData, this.graphWidth, this.graphHeight);
+		drawNewGraph(toDraw);
 
 		JCheckBox doPigments = new JCheckBox("Chemical has pigmentation?");
 		doPigments.addItemListener(new ChemicalHasPigmentListener(this.controller));
@@ -65,6 +73,39 @@ public class PigmentPanel extends JPanel {
 		dataScroller.setPreferredSize(new Dimension(150,250));
 		add(dataScroller,"West");
 		add(pigmentGraph,"Center");
+	}
+	
+	/**
+	 * Draws a graph of the given spectrum.
+	 * @param s the spectrum to be drawn
+	 */
+	private void drawNewGraph (Spectrum s) {
+		if (s == null) {
+			s = new NullSpectrum();
+		}
+		GraphModel graphData = new SpectrumGraph(s, 10);
+		if (pigmentGraph == null) {
+			pigmentGraph = new BarChartDrawer(graphData, this.graphWidth, this.graphHeight);
+		}
+		pigmentGraph.setGraphModel(graphData);
+		this.repaint();
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		
+		if (arg instanceof Chemical) {
+			Chemical c = (Chemical) arg;
+			for (Spectrum s : c.getSpectrum()) {
+				if (s.getName().equals((String) graphType.getSelectedItem())) {
+					drawNewGraph(s);
+					return;
+				}
+			}
+			
+			drawNewGraph(new NullSpectrum());
+		}
+		
 	}
 
 	/*public PigmentPanel(Planktonica p) {

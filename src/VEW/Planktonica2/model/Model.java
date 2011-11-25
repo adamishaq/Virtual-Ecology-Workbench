@@ -2,9 +2,6 @@ package VEW.Planktonica2.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.prefs.BackingStoreException;
 
 import VEW.Common.XML.XMLFile;
@@ -14,7 +11,6 @@ public class Model implements BuildFromXML {
 
 	private Collection<Chemical> chemicals;
 	private Collection<FunctionalGroup> functionalGroups;
-	private Catagory current_category;
 	
 	private XMLFile file;
 
@@ -57,14 +53,6 @@ public class Model implements BuildFromXML {
 			Chemical c = new Chemical (file.getFileName());
 			c.build(t);
 			chemicals.add(c);
-		}
-
-		if (!functionalGroups.isEmpty()) {
-			Iterator<FunctionalGroup> i = functionalGroups.iterator();
-			current_category = i.next();
-		} else if (!chemicals.isEmpty()) {
-			Iterator<Chemical> i = chemicals.iterator();
-			current_category = i.next();
 		}
 
 		return this;

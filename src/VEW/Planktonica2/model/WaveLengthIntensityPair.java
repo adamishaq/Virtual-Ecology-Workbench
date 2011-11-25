@@ -11,7 +11,8 @@ import java.awt.Color;
 public class WaveLengthIntensityPair {
 
 	public static final double[] wavelengths = new double[] {300,357.5,387.5,412.5,437.5,462.5,487.5,512.5,537.5,562.5,587.5,612.5,
-			637.5,662.5,687.5,712.5,737.5,787.5,900,1100,1300,1500,1700,1900,2100,2300};
+			637.5,662.5,687.5,712.5,737.5,787.5,900,1100,1300,1500,1700,1900,2100};
+	public static final double maxWavelength = 2300;
 	
 	private int wavelengthIndex;
 	private double intensity;
