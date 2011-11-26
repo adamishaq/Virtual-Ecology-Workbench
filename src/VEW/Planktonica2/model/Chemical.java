@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import VEW.Common.XML.XMLTag;
-import VEW.XMLCompiler.ANTLR.CompilerException;
 
 public class Chemical extends Catagory {
 
@@ -108,7 +107,7 @@ public class Chemical extends Catagory {
 	}
 	
 	@Override
-	public XMLTag buildToXML() throws CompilerException {
+	public XMLTag buildToXML() throws XMLWriteBackException {
 		super.buildToXML();
 		baseTag.setName("chemical");
 		baseTag.addTag("pigment", pigment);
@@ -119,6 +118,8 @@ public class Chemical extends Catagory {
 		}
 		return baseTag;
 	}
+	
+	
 
 		
 	public String getValue() {

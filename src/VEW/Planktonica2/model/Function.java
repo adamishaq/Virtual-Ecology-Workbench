@@ -249,7 +249,7 @@ public class Function implements BuildFromXML, BuildToXML {
 	}
 
 	@Override
-	public XMLTag buildToXML() throws CompilerException {
+	public XMLTag buildToXML() throws XMLWriteBackException {
 		if (baseTag == null) {
 			baseTag = new XMLTag("function");
 		}
@@ -259,16 +259,21 @@ public class Function implements BuildFromXML, BuildToXML {
 			Stage stage = stageIter.next();
 			baseTag.addTag(new XMLTag("calledin", stage.getName()));
 		}
-		List<XMLTag> equationTags = compileFunction();
-		for (XMLTag eqTag : equationTags) {
-			baseTag.addTag(eqTag);
+		List<XMLTag> equationTags;
+		try {
+			equationTags = compileFunction();
+			for (XMLTag eqTag : equationTags) {
+				baseTag.addTag(eqTag);
+			}
+			if (archiveName != null)
+				baseTag.addTag(new XMLTag("archivename", archiveName));
+			if (comment != null)
+				baseTag.addTag(new XMLTag("comment", comment));
+			if (author != null)
+				baseTag.addTag(new XMLTag("author", author));
+		} catch (CompilerException e) {
+			throw new XMLWriteBackException(e);
 		}
-		if (archiveName != null)
-			baseTag.addTag(new XMLTag("archivename", archiveName));
-		if (comment != null)
-			baseTag.addTag(new XMLTag("comment", comment));
-		if (author != null)
-			baseTag.addTag(new XMLTag("author", author));
 		return baseTag;
 	}
 
@@ -285,7 +290,7 @@ public class Function implements BuildFromXML, BuildToXML {
 		return this.getName();
 	}
 	
-	public List<XMLTag> compileFunction() throws CompilerException{
+	public List<XMLTag> compileFunction() throws CompilerException {
 		String parentPath = source_file_path + parentName + "\\" + name + ".bacon";
 		String sourceCode = "";
 		try {
@@ -299,6 +304,10 @@ public class Function implements BuildFromXML, BuildToXML {
 			e.printStackTrace();
 			return null;
 		}
+		return compileSource(sourceCode);
+	}
+	
+	private List<XMLTag> compileSource(String sourceCode) throws CompilerException {
 		BACONCompiler compiler = new BACONCompiler(this, sourceCode);
 		return compiler.compile();
 	}
@@ -313,8 +322,8 @@ public class Function implements BuildFromXML, BuildToXML {
 		return sourceCode;
 	}
 	
-	public void compileCodeForFunction(String code) {
-		
+	public void compileCodeForFunction(String code) throws CompilerException {
+		compileSource(code);
 	}
 
 	public Catagory getParent() {

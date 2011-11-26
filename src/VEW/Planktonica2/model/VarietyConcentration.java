@@ -13,7 +13,7 @@ public class VarietyConcentration extends VariableType {
 	}
 	
 	@Override
-	public XMLTag buildToXML() {
+	public XMLTag buildToXML() throws XMLWriteBackException {
 		XMLTag varTag = super.buildToXML();
 		varTag.setName("varietyconcentration");
 		return varTag;
