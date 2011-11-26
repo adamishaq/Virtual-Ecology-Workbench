@@ -432,6 +432,11 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		var_name.setCaretPosition(0);
 		var_desc.setText(v.getDesc());
 		var_desc.setCaretPosition(0);
+		String units = "";
+		for (Unit u : v.getUnits()) {
+			units += u.format();
+		}
+		unit_string.setText(units);
 		// Check what type of variable it is
 		if (v instanceof StateVariable) {
 			type_combo.setSelectedIndex(0);
@@ -462,6 +467,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			i_val.setText(String.valueOf(vv.getValue()));
 			update_link_combo(vv);
 		}
+		this.validate();
 	}
 
 	private void update_link_combo(Variety v) {

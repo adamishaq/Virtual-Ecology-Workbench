@@ -182,9 +182,46 @@ public class EditorPanel extends JPanel implements Observer {
 		}
 	}
 	
-	public void preview() {
-		// Clear all error lines
+	public void check() {
 		syntax_highlighter.clear_flags();
+		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
+		try {
+			ConstructedASTree ct = p.getAST();
+			ct.getTree().check();
+			if (ct.getExceptions().isEmpty()) {
+				String latex = "\\begin{array}{lr}";
+				latex += ct.getTree().generateLatex();
+				latex += "\\end{array}";
+				preview.setVisible(true);
+				preview.update_preview(latex);
+				error_log.setText("<html><PRE>Check succeeded!</PRE></html>");
+			} else {
+				String errors = "<html><PRE>Errors in source file:\n";
+				errors += "<font color=#FF0000>";
+				for (Exception t : ct.getExceptions()) {
+					syntax_highlighter.flag_line(t);
+					if (t instanceof TreeWalkerException) {
+						TreeWalkerException twe = (TreeWalkerException) t;
+						errors += twe.getError() + "\n";
+					} else if (t instanceof SemanticCheckException) {
+						SemanticCheckException sce = (SemanticCheckException) t;
+						errors += sce.getError() + "\n";
+					} else {
+						errors += "Unknown error\n";
+					}
+				}
+				errors += "</font>";
+				errors += "</PRE></html>";
+				error_log.setText(errors);
+			}
+			highlight_syntax();
+		} catch (RecognitionException e) {
+			System.out.println("RECOGNITION EXCEPTION");
+			e.printStackTrace();
+		}
+	}
+	
+	public void preview() {
 		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
 		//System.out.println(syntax_highlighter.getPlainText(syntax.getText()));
 		try {
