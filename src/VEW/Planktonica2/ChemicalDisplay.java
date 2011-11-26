@@ -14,6 +14,7 @@ public class ChemicalDisplay extends Display {
 		super(controller, initialSize);
 	}
 
+	
 	@Override
 	protected String getCategoryName() {
 		return "chemical";
@@ -23,9 +24,9 @@ public class ChemicalDisplay extends Display {
 	protected void populateAncilaryFuncPane() {
 
 		// editor tab
-		this.addTabToAncilary("Editor", new EditorPanel (this.controller));
-		// variable tab
-		this.addTabToAncilary("Variable", new VariableEditorPanel (this.controller));
+		this.addTabToAncilary("Editor", this.editorPanel = new EditorPanel (this.controller));
+		
+		this.addTabToAncilary("Variable", variablePanel = new VariableEditorPanel (this.controller));
 		// pigment tab
 		this.addTabToAncilary("Pigment Display", new PigmentPanel ((ChemicalController) this.controller));
 		

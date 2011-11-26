@@ -23,7 +23,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.BadLocationException;
 
+import VEW.Planktonica2.ControllerStructure.SelectableItem;
+import VEW.Planktonica2.ControllerStructure.VEWController;
+import VEW.Planktonica2.model.Catagory;
 import VEW.Planktonica2.model.GlobalVariable;
+import VEW.Planktonica2.model.Unit;
+import VEW.Planktonica2.model.VariableType;
 import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
 
@@ -35,12 +40,15 @@ public class AutocompleteBox {
 	JTextPane target;
 	private String current_word;
 	private int caret_position;
+	private Catagory current_catagory;
 
 	private HashMap<String,String> rule_functions 
 		= new HashMap<String,String>();
 	
 	private HashMap<String,String> expr_functions 
 		= new HashMap<String,String>();
+	
+	private VEWController controller;
 	
 	public HashMap<String, String> getRule_functions() {
 		return rule_functions;
@@ -66,7 +74,16 @@ public class AutocompleteBox {
 		return description;
 	}
 	
-	public AutocompleteBox(JTextPane text) {
+	public void setCurrent_catagory(Catagory current_catagory) {
+		this.current_catagory = current_catagory;
+	}
+
+	public Catagory getCurrent_catagory() {
+		return current_catagory;
+	}
+
+	public AutocompleteBox(JTextPane text, VEWController controller) {
+		this.controller = controller;
 		// Set up the list view
 		JScrollPane scroll_list = new JScrollPane(list); 
 		scroll_list.setPreferredSize(new Dimension(150,100));
@@ -250,18 +267,33 @@ public class AutocompleteBox {
 
 	private ArrayList<String> find_suggestions() {
 		ArrayList<String> suggestions = new ArrayList<String>();
-		String[] globals 
-			= AmbientVariableTables.getTables().getAllVariableNames();
-		for (int i = 0; i < globals.length; i++)
-			suggestions.add(globals[i]);
-		Object[] funcs = rule_functions.keySet().toArray();
-		for (int i = 0; i < funcs.length; i++)
-			suggestions.add(funcs[i].toString());
-		funcs = expr_functions.keySet().toArray();
-		for (int i = 0; i < funcs.length; i++)
-			suggestions.add(funcs[i].toString());
+		// Get all global variables
+		add_to_suggestions(suggestions, AmbientVariableTables.getTables().getAllVariableNames());
+		// Get all possible rules
+		add_to_suggestions(suggestions, rule_functions.keySet().toArray());
+		// Get all functions usable in [expr]s
+		add_to_suggestions(suggestions, expr_functions.keySet().toArray());
+		// Get the currently selected functional group/chemical and extract it's variables
+		SelectableItem si = this.controller.getSelectedItem();
+		if (si instanceof Catagory) {
+			Catagory c = (Catagory) si;
+			this.current_catagory = c;
+			add_to_suggestions(suggestions, c.get_state_vars());
+			add_to_suggestions(suggestions, c.get_params());
+			add_to_suggestions(suggestions, c.get_local_vars());
+			add_to_suggestions(suggestions, c.get_variety_concs());
+			add_to_suggestions(suggestions, c.get_variety_states());
+			add_to_suggestions(suggestions, c.get_variety_params());
+			add_to_suggestions(suggestions, c.get_variety_locals());
+		}
 		return suggestions;
 	}
+
+	private void add_to_suggestions(ArrayList<String> suggestions, Object[] strings) {
+		for (int i = 0; i < strings.length; i++)
+			suggestions.add(strings[i].toString());
+	}
+	
 	
 	private boolean is_letter_or_number(String keyVal) {
 		return (keyVal.length() == 1 && Character.isLetterOrDigit(keyVal.charAt(0)));
@@ -314,6 +346,13 @@ public class AutocompleteBox {
 					text += parent.getRule_functions().get(name);
 				} else if (parent.getExpr_functions().get(name) != null) {
 					text += parent.getExpr_functions().get(name);
+				} else if (this.parent.getCurrent_catagory() != null) {
+					VariableType v = this.parent.getCurrent_catagory().checkAllVariableTables(name);
+					text += v.getDesc() + "\n";
+					text += "<b>Units:</b>";
+					for (Unit u : v.getUnits()) {
+						text += u.format();
+					}
 				}
 				text += "</PRE></html>";
 				parent.getDescription().setText(text);

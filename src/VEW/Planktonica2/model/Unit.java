@@ -48,6 +48,9 @@ public class Unit {
 		return size + "," + name + "," + exponent;
 	}
 	
-	
+	public String format() {
+		// TODO - fully format
+		return name; //+ "^" + (size*exponent); 
+	}
 	
 }

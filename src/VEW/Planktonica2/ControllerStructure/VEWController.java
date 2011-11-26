@@ -10,8 +10,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import VEW.Common.XML.XMLFile;
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.Display;
-import VEW.Planktonica2.EditorPanel;
 import VEW.Planktonica2.model.Catagory;
 import VEW.Planktonica2.model.Function;
 import VEW.Planktonica2.model.Model;
@@ -51,7 +49,7 @@ public abstract class VEWController extends Observable {
 		SelectableItem i = getSelectedItem();
 		if (i instanceof Catagory) {
 			Catagory c = (Catagory) i;
-			return c.checkAccessableVariableTable(selectedVariable);
+			return c.checkAllVariableTables(selectedVariable);
 		}
 		return null;
 		
@@ -158,6 +156,12 @@ public abstract class VEWController extends Observable {
 		
 		this.notifyObservers(variable);
 		
+	}
+
+
+	public void update_category(Catagory cat) {
+		this.setChanged();
+		this.notifyObservers(cat);
 	}
 
 }

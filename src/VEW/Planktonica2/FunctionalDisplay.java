@@ -32,16 +32,12 @@ public class FunctionalDisplay extends Display {
 	protected void populateAncilaryFuncPane() {
 		
 		// editor tab
-		this.addTabToAncilary("Editor", new EditorPanel (this.controller));
+		this.addTabToAncilary("Editor", this.editorPanel = new EditorPanel (this.controller));
 		// variable tab
-		this.addTabToAncilary("Variable", new VariableEditorPanel (this.controller));
+		this.addTabToAncilary("Variable", this.variablePanel = new VariableEditorPanel (this.controller));
 		// edit stages
-		stageEditor = null;
-		if (funcController == null) {
-			stageEditor = new StageEditorPanel((FunctionalGroupController) this.controller);
-		} else {
-			stageEditor = new StageEditorPanel(funcController);
-		}
+		stageEditor = new StageEditorPanel((FunctionalGroupController) this.controller);
+
 		
 		this.addTabToAncilary("Edit Stages", stageEditor);
 		
