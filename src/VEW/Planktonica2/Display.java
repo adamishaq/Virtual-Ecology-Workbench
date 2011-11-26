@@ -25,6 +25,7 @@ import javax.swing.tree.TreeSelectionModel;
 import VEW.Planktonica2.ControllerStructure.SelectableItem;
 import VEW.Planktonica2.ControllerStructure.SourcePath;
 import VEW.Planktonica2.ControllerStructure.VEWController;
+import VEW.Planktonica2.DisplayEventHandlers.CheckButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.CompileButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
 import VEW.Planktonica2.DisplayEventHandlers.VariableSelectionEventHandler;
@@ -63,9 +64,14 @@ public abstract class Display extends JSplitPane implements Observer {
 	protected JButton addFunction;
 	protected JButton removeFunction;
 	protected JButton renameFunction;
-	protected JButton editFunction;
-	protected JButton copyFunction;
+	//protected JButton editFunction;
+	//protected JButton copyFunction;
+	
+	// Compiler buttons
 	protected JButton compileButton;
+	protected JButton checkButton;
+	protected JButton previewButton;
+	protected JButton saveButton;
 
 	protected JList list;
 	
@@ -121,7 +127,7 @@ public abstract class Display extends JSplitPane implements Observer {
 		
 		initialiseButtons();
 		
-		//setButtonToolTips();
+		setButtonToolTips();
 		
 		this.addItemButtons(this.buttonPane);
 		this.addFunctionButtons(this.buttonPane);
@@ -262,6 +268,7 @@ public abstract class Display extends JSplitPane implements Observer {
 		itemPanel.add(removeInstance);
 		//itemPanel.add(copyInstance);
 		itemPanel.add(compileButton);
+		itemPanel.add(checkButton);
 	}
 	
 	
@@ -270,9 +277,9 @@ public abstract class Display extends JSplitPane implements Observer {
 		functionPanel.add(downFunc);
 		functionPanel.add(addFunction);
 		functionPanel.add(renameFunction);
-		functionPanel.add(editFunction);
+		//functionPanel.add(editFunction);
 		functionPanel.add(removeFunction);
-		functionPanel.add(copyFunction);
+		//functionPanel.add(copyFunction);
 	}
 	
 	private void initialiseButtons() {
@@ -309,16 +316,20 @@ public abstract class Display extends JSplitPane implements Observer {
 		
 		renameFunction = new JButton(new ImageIcon(IconRoot + "rename.gif"));
 		renameFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
-		
+		/*
 		editFunction = new JButton(new ImageIcon(IconRoot + "edit.gif"));
 		editFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
 		
 		copyFunction = new JButton(new ImageIcon(IconRoot + "copy.gif"));		
 		copyFunction.setPreferredSize(STANDARD_BUTTON_SIZE);	
-		
-		compileButton = new JButton(new ImageIcon(IconRoot + "copy.gif"));		
+		*/
+		compileButton = new JButton(new ImageIcon(IconRoot + "compile.gif"));		
 		compileButton.setPreferredSize(STANDARD_BUTTON_SIZE);
 		compileButton.addActionListener(new CompileButtonListener(this.editorPanel));
+		
+		checkButton = new JButton(new ImageIcon(IconRoot + "compile.gif"));		
+		checkButton.setPreferredSize(STANDARD_BUTTON_SIZE);
+		checkButton.addActionListener(new CheckButtonListener(this.editorPanel));
 		
 	}
 	
@@ -335,8 +346,8 @@ public abstract class Display extends JSplitPane implements Observer {
 			downFunc.setToolTipText("Move " + currentFunction + " down?");
 			removeFunction.setToolTipText("Remove " + currentFunction + "?");
 			renameFunction.setToolTipText("Rename " + currentFunction + "?");
-			editFunction.setToolTipText("Edit " + currentFunction + "?");
-			copyFunction.setToolTipText("Copy " + currentFunction + "?");
+			//editFunction.setToolTipText("Edit " + currentFunction + "?");
+			//copyFunction.setToolTipText("Copy " + currentFunction + "?");
 		}
 		
 		String currentItem = ""; // = getCurrentItem();
@@ -351,7 +362,8 @@ public abstract class Display extends JSplitPane implements Observer {
 			addFunction.setToolTipText("Add a new function to " + currentItem + "?");
 		}
 		
-		
+		compileButton.setToolTipText("Compile the current model");
+		checkButton.setToolTipText("Check the current source file");
 		
 	}
 	
@@ -388,8 +400,8 @@ public abstract class Display extends JSplitPane implements Observer {
 		addFunction.setEnabled(false);
 		removeFunction.setEnabled(false);
 		renameFunction.setEnabled(false);
-		editFunction.setEnabled(false);
-		copyFunction.setEnabled(false);
+		//editFunction.setEnabled(false);
+		//copyFunction.setEnabled(false);
 	}
 
 
