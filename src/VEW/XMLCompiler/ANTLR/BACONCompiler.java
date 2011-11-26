@@ -5,7 +5,7 @@ import java.util.List;
 import org.antlr.runtime.RecognitionException;
 
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.model.Function;
+import VEW.Planktonica2.Model.Function;
 import VEW.XMLCompiler.ASTNodes.ConstructedASTree;
 
 public class BACONCompiler {

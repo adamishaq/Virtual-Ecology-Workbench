@@ -8,8 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.model.FunctionalGroup;
-import VEW.Planktonica2.model.XMLTagEnum;
+import VEW.Planktonica2.Model.FunctionalGroup;
+import VEW.Planktonica2.Model.XMLTagEnum;
 
 public class FunctionalGroupTest {
 

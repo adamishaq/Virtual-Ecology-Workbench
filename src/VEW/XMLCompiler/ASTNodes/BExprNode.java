@@ -1,6 +1,6 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import VEW.Planktonica2.model.Type;
+import VEW.Planktonica2.Model.Type;
 
 
 public abstract class BExprNode extends ASTree{

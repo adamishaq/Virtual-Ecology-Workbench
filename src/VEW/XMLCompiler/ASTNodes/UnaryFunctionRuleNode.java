@@ -1,9 +1,9 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import VEW.Planktonica2.model.Catagory;
-import VEW.Planktonica2.model.Chemical;
-import VEW.Planktonica2.model.FunctionalGroup;
-import VEW.Planktonica2.model.Stage;
+import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.Chemical;
+import VEW.Planktonica2.Model.FunctionalGroup;
+import VEW.Planktonica2.Model.Stage;
 
 public class UnaryFunctionRuleNode extends RuleNode {
 

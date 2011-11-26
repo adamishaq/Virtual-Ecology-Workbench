@@ -16,9 +16,9 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
 import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
-import VEW.Planktonica2.model.Function;
-import VEW.Planktonica2.model.FunctionalGroup;
-import VEW.Planktonica2.model.Stage;
+import VEW.Planktonica2.Model.Function;
+import VEW.Planktonica2.Model.FunctionalGroup;
+import VEW.Planktonica2.Model.Stage;
 
 public class StageEditorPanel extends JPanel {
 

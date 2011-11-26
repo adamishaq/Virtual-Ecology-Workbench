@@ -3,7 +3,7 @@ package VEW.Planktonica2;
 import java.awt.Dimension;
 import VEW.Planktonica2.ControllerStructure.ChemicalController;
 import VEW.Planktonica2.PigmentGraph.PigmentPanel;
-import VEW.UIComponents.VariableEditorPanel;
+import VEW.Planktonica2.UIComponents.VariableEditorPanel;
 
 public class ChemicalDisplay extends Display {
 

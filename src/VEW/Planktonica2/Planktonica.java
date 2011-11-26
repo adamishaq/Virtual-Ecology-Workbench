@@ -11,7 +11,7 @@ import VEW.Common.XML.XMLFile;
 import VEW.Controller2.VEWController2;
 import VEW.Planktonica2.ControllerStructure.ChemicalController;
 import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
-import VEW.Planktonica2.model.Model;
+import VEW.Planktonica2.Model.Model;
 /**
  * VEW Planktonica display for editing functional groups and chemicals, based on MVC OO design principle
  * 

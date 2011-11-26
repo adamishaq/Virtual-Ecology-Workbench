@@ -4,8 +4,8 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import VEW.Planktonica2.ControllerStructure.VEWController;
-import VEW.Planktonica2.model.Catagory;
-import VEW.Planktonica2.model.Function;
+import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.Function;
 
 public class LeftPanelTreeSelectionListener implements TreeSelectionListener {
 

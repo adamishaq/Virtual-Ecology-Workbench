@@ -5,8 +5,8 @@ import java.text.DecimalFormat;
 
 
 import VEW.Common.Graph.GraphModel;
-import VEW.Planktonica2.model.Spectrum;
-import VEW.Planktonica2.model.WaveLengthIntensityPair;
+import VEW.Planktonica2.Model.Spectrum;
+import VEW.Planktonica2.Model.WaveLengthIntensityPair;
 
 public class SpectrumGraph implements GraphModel {
 	

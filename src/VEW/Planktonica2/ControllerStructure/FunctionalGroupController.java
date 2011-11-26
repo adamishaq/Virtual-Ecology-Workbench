@@ -2,9 +2,10 @@ package VEW.Planktonica2.ControllerStructure;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import VEW.Planktonica2.model.FunctionalGroup;
-import VEW.Planktonica2.model.Model;
-import VEW.Planktonica2.model.Stage;
+
+import VEW.Planktonica2.Model.FunctionalGroup;
+import VEW.Planktonica2.Model.Model;
+import VEW.Planktonica2.Model.Stage;
 
 public class FunctionalGroupController extends VEWController {
 

@@ -2,7 +2,7 @@ package VEW.XMLCompiler.ANTLR;
 
 import java.util.List;
 
-import VEW.Planktonica2.model.Function;
+import VEW.Planktonica2.Model.Function;
 
 public class CompilerException extends Exception {
 

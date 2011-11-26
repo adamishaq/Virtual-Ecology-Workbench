@@ -15,9 +15,9 @@ import javax.swing.JScrollPane;
 import VEW.Common.Graph.BarChartDrawer;
 import VEW.Common.Graph.GraphModel;
 import VEW.Planktonica2.ControllerStructure.ChemicalController;
-import VEW.Planktonica2.model.Chemical;
-import VEW.Planktonica2.model.NullSpectrum;
-import VEW.Planktonica2.model.Spectrum;
+import VEW.Planktonica2.Model.Chemical;
+import VEW.Planktonica2.Model.NullSpectrum;
+import VEW.Planktonica2.Model.Spectrum;
 
 public class PigmentPanel extends JPanel implements Observer {
 

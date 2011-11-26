@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import javax.swing.JCheckBox;
 import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
 import VEW.Planktonica2.StageEditor.StageEditorPanel;
-import VEW.UIComponents.VariableEditorPanel;
+import VEW.Planktonica2.UIComponents.VariableEditorPanel;
 
 public class FunctionalDisplay extends Display {
 

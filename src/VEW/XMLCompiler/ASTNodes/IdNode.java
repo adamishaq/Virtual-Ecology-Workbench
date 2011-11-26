@@ -1,9 +1,9 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import VEW.Planktonica2.model.Catagory;
-import VEW.Planktonica2.model.Local;
-import VEW.Planktonica2.model.VariableType;
-import VEW.Planktonica2.model.VarietyLocal;
+import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.Local;
+import VEW.Planktonica2.Model.VariableType;
+import VEW.Planktonica2.Model.VarietyLocal;
 
 public class IdNode extends ExprNode {
 	

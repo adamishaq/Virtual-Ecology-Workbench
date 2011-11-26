@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.model.Catagory;
+import VEW.Planktonica2.Model.Catagory;
 
 public class ConstructedASTree {
 	

@@ -3,7 +3,7 @@ package VEW.XMLCompiler.ASTNodes;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import VEW.Planktonica2.model.Catagory;
+import VEW.Planktonica2.Model.Catagory;
 
 
 public class AssignListNode extends ASTree {

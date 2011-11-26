@@ -1,8 +1,8 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import VEW.Planktonica2.model.GlobalVariable;
-import VEW.Planktonica2.model.Type;
-import VEW.Planktonica2.model.Unit;
+import VEW.Planktonica2.Model.GlobalVariable;
+import VEW.Planktonica2.Model.Type;
+import VEW.Planktonica2.Model.Unit;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -2,10 +2,11 @@ package VEW.Planktonica2.ControllerStructure;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import VEW.Planktonica2.model.Chemical;
-import VEW.Planktonica2.model.Model;
-import VEW.Planktonica2.model.NullSpectrum;
-import VEW.Planktonica2.model.Spectrum;
+
+import VEW.Planktonica2.Model.Chemical;
+import VEW.Planktonica2.Model.Model;
+import VEW.Planktonica2.Model.NullSpectrum;
+import VEW.Planktonica2.Model.Spectrum;
 
 public class ChemicalController extends VEWController {
 

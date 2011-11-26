@@ -26,10 +26,10 @@ import org.antlr.runtime.RecognitionException;
 
 import VEW.Planktonica2.ControllerStructure.SourcePath;
 import VEW.Planktonica2.ControllerStructure.VEWController;
-import VEW.UIComponents.AutocompleteBox;
-import VEW.UIComponents.BACONFilter;
-import VEW.UIComponents.LatexPreview;
-import VEW.UIComponents.SyntaxHighlighter;
+import VEW.Planktonica2.UIComponents.AutocompleteBox;
+import VEW.Planktonica2.UIComponents.BACONFilter;
+import VEW.Planktonica2.UIComponents.LatexPreview;
+import VEW.Planktonica2.UIComponents.SyntaxHighlighter;
 import VEW.XMLCompiler.ANTLR.ANTLRParser;
 import VEW.XMLCompiler.ASTNodes.ConstructedASTree;
 import VEW.XMLCompiler.ASTNodes.SemanticCheckException;
@@ -187,7 +187,7 @@ public class EditorPanel extends JPanel implements Observer {
 		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
 		try {
 			ConstructedASTree ct = p.getAST();
-			ct.getTree().check();
+			ct.getTree().check(controller.getCurrentlySelectedFunction().getParent(), ct);
 			if (ct.getExceptions().isEmpty()) {
 				String latex = "\\begin{array}{lr}";
 				latex += ct.getTree().generateLatex();

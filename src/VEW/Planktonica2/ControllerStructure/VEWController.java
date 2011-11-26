@@ -10,10 +10,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import VEW.Common.XML.XMLFile;
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.model.Catagory;
-import VEW.Planktonica2.model.Function;
-import VEW.Planktonica2.model.Model;
-import VEW.Planktonica2.model.VariableType;
+import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.Function;
+import VEW.Planktonica2.Model.Model;
+import VEW.Planktonica2.Model.VariableType;
+import VEW.Planktonica2.Model.XMLWriteBackException;
 import VEW.XMLCompiler.ANTLR.CompilerException;
 
 
@@ -126,12 +127,7 @@ public abstract class VEWController extends Observable {
 			tag = model.buildToXML();
 			//TODO make sure multiple compiler errors are collated
 		}
-		catch (CompilerException ex) {
-			List<Exception> exceptions = ex.getContainedExceptions();
-			for (Exception e : exceptions) {
-				System.out.println(e.getMessage());
-			}
-			
+		catch (XMLWriteBackException ex) {
 			ex.printStackTrace();
 		}
 		if (!(tag instanceof XMLFile)) {

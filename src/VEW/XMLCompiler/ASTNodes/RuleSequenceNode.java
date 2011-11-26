@@ -1,6 +1,6 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import VEW.Planktonica2.model.Catagory;
+import VEW.Planktonica2.Model.Catagory;
 
 public class RuleSequenceNode extends ASTree {
 	
