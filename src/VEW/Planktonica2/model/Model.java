@@ -8,7 +8,6 @@ import java.util.prefs.BackingStoreException;
 
 import VEW.Common.XML.XMLFile;
 import VEW.Common.XML.XMLTag;
-import VEW.XMLCompiler.ANTLR.CompilerException;
 
 public class Model implements BuildFromXML, BuildToXML {
 
@@ -100,14 +99,27 @@ public class Model implements BuildFromXML, BuildToXML {
 	}
 
 	@Override
-	public XMLTag buildToXML() throws CompilerException {
+	public XMLTag buildToXML() throws XMLWriteBackException {
+		XMLWriteBackException collectedExceptions = new XMLWriteBackException();
 		for (FunctionalGroup fGroup : functionalGroups) {
-			file.addTag(fGroup.buildToXML());
+			try {
+				file.addTag(fGroup.buildToXML());
+			}
+			catch (XMLWriteBackException ex) {
+				collectedExceptions.addCompilerException(ex.getCompilerExceptions());
+			}
 		}
 		for (Chemical chem : chemicals) {
-			file.addTag(chem.buildToXML());
+			try {
+				file.addTag(chem.buildToXML());
+			}
+			catch (XMLWriteBackException ex) {
+				collectedExceptions.addCompilerException(ex.getCompilerExceptions());
+			}
 		}
-		
+		if (collectedExceptions.hasExceptions()) {
+			throw collectedExceptions;
+		}
 		return file;
 	}
 

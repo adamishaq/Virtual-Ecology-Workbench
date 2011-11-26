@@ -56,7 +56,7 @@ public class Spectrum implements BuildFromXML, BuildToXML, Iterable<WaveLengthIn
 	}
 	
 	@Override
-	public XMLTag buildToXML() {
+	public XMLTag buildToXML() throws XMLWriteBackException {
 		if (baseTag == null) {
 			baseTag = new XMLTag("spectrum");
 		}

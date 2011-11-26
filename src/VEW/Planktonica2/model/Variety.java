@@ -22,7 +22,7 @@ public class Variety extends VariableType {
 	}
 	
 	@Override
-	public XMLTag buildToXML() {
+	public XMLTag buildToXML() throws XMLWriteBackException {
 		XMLTag varTag = super.buildToXML();
 		varTag.setAttribute("link", linkConcentration.getName());
 		return varTag;

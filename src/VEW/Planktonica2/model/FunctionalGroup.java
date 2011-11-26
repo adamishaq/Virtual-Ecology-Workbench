@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import VEW.Common.XML.XMLTag;
-import VEW.XMLCompiler.ANTLR.CompilerException;
 import VEW.XMLCompiler.ASTNodes.SymbolTable;
 
 public class FunctionalGroup extends Catagory {
@@ -140,7 +139,7 @@ public class FunctionalGroup extends Catagory {
 	}
 	
 	@Override
-	public XMLTag buildToXML() throws CompilerException {
+	public XMLTag buildToXML() throws XMLWriteBackException {
 		super.buildToXML();
 		baseTag.setName("functionalgroup");
 		Collection<Stage> stages = stageTable.values();

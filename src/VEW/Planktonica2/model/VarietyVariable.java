@@ -9,7 +9,7 @@ public class VarietyVariable extends Variety {
 	}
 	
 	@Override
-	public XMLTag buildToXML() {
+	public XMLTag buildToXML() throws XMLWriteBackException {
 		XMLTag varTag = super.buildToXML();
 		varTag.setName("varietyvariable");
 		return varTag;

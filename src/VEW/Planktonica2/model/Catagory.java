@@ -6,7 +6,6 @@ import java.util.Iterator;
 
 import VEW.Common.XML.XMLTag;
 import VEW.Planktonica2.ControllerStructure.SelectableItem;
-import VEW.XMLCompiler.ANTLR.CompilerException;
 import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 import VEW.XMLCompiler.ASTNodes.SymbolTable;
 
@@ -234,13 +233,22 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		return this.getName();
 	}
 	
-	public XMLTag buildToXML() throws CompilerException{
+	public XMLTag buildToXML() throws XMLWriteBackException{
+		XMLWriteBackException collectedExceptions = new XMLWriteBackException();
 		if (baseTag == null) {
 			baseTag = new XMLTag("placeholder");
 		}
 		baseTag.addTag(new XMLTag("name", name));
 		for(Function f: functions) {
-			baseTag.addTag(f.buildToXML());
+			try {
+				baseTag.addTag(f.buildToXML());
+			}
+			catch (XMLWriteBackException ex) {
+				collectedExceptions.addCompilerException(ex.getCompilerExceptions());
+			}
+		}
+		if (collectedExceptions.hasExceptions()) {
+			throw collectedExceptions;
 		}
 		buildVariableTableToXML(baseTag, stateVarTable);
 		buildVariableTableToXML(baseTag, paramTable);
@@ -252,7 +260,7 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		return baseTag;
 	}
 	
-	private <V extends VariableType> void buildVariableTableToXML(XMLTag tag, SymbolTable<V> table) {
+	private <V extends VariableType> void buildVariableTableToXML(XMLTag tag, SymbolTable<V> table) throws XMLWriteBackException {
 		Collection<V> vals = table.values();
 		Iterator<V> iter = vals.iterator();
 		while(iter.hasNext()) {

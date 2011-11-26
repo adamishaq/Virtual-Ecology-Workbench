@@ -86,7 +86,7 @@ public class Stage implements BuildFromXML, BuildToXML {
 	}
 
 	@Override
-	public XMLTag buildToXML() {
+	public XMLTag buildToXML() throws XMLWriteBackException {
 		if (baseTag == null) {
 			baseTag = new XMLTag("stage");
 		}

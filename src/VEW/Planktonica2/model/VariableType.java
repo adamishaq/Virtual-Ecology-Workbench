@@ -119,7 +119,7 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 		}
 	}
 
-	public XMLTag buildToXML() {
+	public XMLTag buildToXML() throws XMLWriteBackException {
 		XMLTag tag = new XMLTag("placeholder");
 		tag.addTag(new XMLTag("name", name));
 		if (desc != null)

@@ -9,7 +9,7 @@ public class VarietyParameter extends Variety {
 	}
 	
 	@Override
-	public XMLTag buildToXML() {
+	public XMLTag buildToXML() throws XMLWriteBackException {
 		XMLTag varTag = super.buildToXML();
 		varTag.setName("varietyparameter");
 		return varTag;

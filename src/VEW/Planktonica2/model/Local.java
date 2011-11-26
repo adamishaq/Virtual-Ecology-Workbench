@@ -8,7 +8,7 @@ public class Local extends VariableType {
 		super(catagory);
 	}
 	
-	public XMLTag buildToXML() {
+	public XMLTag buildToXML() throws XMLWriteBackException {
 		XMLTag varTag = super.buildToXML();
 		varTag.setName("local");
 		return varTag;
