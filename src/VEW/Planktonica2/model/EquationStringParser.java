@@ -8,12 +8,6 @@ import VEW.Common.StringTools;
 
 public class EquationStringParser {
 	private String equationString;
-	/*
-	public static void main(String[] args) {
-		String eqString = "\\assign{\\var{C_pmax},\\conditional{\\greater{\\var{C_N$Pool},\\var{C_pmax}},\\var{C_N$Pool},\\var{C_pmax}}}";
-		EquationStringParser parser = new EquationStringParser(eqString);
-		System.out.print(parser.parseRuleString(eqString));
-	}*/
 	
 	public EquationStringParser(String equationString) {
 		this.equationString = equationString;
@@ -151,7 +145,7 @@ public class EquationStringParser {
 		String exprName = ruleParts[0];
 		String argString = extractArgs(ruleParts[1]);
 		if (exprName.equals("\\var")) {
-			exprCode = argString.replace('$', '_');
+			exprCode = argString.replace('$', '_').replace(" ", "");
 		}
 		else if (exprName.equals("\\val")) {
 			String[] valArgs = splitArgs(argString, 2);
@@ -252,7 +246,7 @@ public class EquationStringParser {
 		String var = new String();
 		String[] ruleParts = extractRuleType(argsString);
 		if (ruleParts[0].equals("\\var"))
-			var = extractArgs(ruleParts[1]).replace('$', '_');
+			var = extractArgs(ruleParts[1]).replace('$', '_').replace(" ", "");
 		return var;
 	}
 

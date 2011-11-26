@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g 2011-11-25 17:14:50
+// $ANTLR 3.4 C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g 2011-11-25 17:51:50
 
 package VEW.XMLCompiler.ANTLR;
 
@@ -110,8 +110,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = RULENAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:10: ( ( '\"' ) ( LETTER | DIGIT | '_' | IGNORE | ',' | '-' )* ( '\"' ) )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:12: ( '\"' ) ( LETTER | DIGIT | '_' | IGNORE | ',' | '-' )* ( '\"' )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:10: ( ( '\"' ) ( LETTER | DIGIT | '_' | IGNORE | ',' | '-' | ':' )* ( '\"' ) )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:12: ( '\"' ) ( LETTER | DIGIT | '_' | IGNORE | ',' | '-' | ':' )* ( '\"' )
             {
             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:12: ( '\"' )
             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:13: '\"'
@@ -121,10 +121,10 @@ public class BACONLexer extends Lexer {
             }
 
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:17: ( LETTER | DIGIT | '_' | IGNORE | ',' | '-' )*
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:17: ( LETTER | DIGIT | '_' | IGNORE | ',' | '-' | ':' )*
             loop1:
             do {
-                int alt1=7;
+                int alt1=8;
                 switch ( input.LA(1) ) {
                 case 'A':
                 case 'B':
@@ -218,6 +218,11 @@ public class BACONLexer extends Lexer {
                     alt1=6;
                     }
                     break;
+                case ':':
+                    {
+                    alt1=7;
+                    }
+                    break;
 
                 }
 
@@ -267,6 +272,13 @@ public class BACONLexer extends Lexer {
 
             	    }
             	    break;
+            	case 7 :
+            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:50: ':'
+            	    {
+            	    match(':'); 
+
+            	    }
+            	    break;
 
             	default :
             	    break loop1;
@@ -274,8 +286,8 @@ public class BACONLexer extends Lexer {
             } while (true);
 
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:51: ( '\"' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:52: '\"'
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:55: ( '\"' )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:56: '\"'
             {
             match('\"'); 
 
@@ -3074,7 +3086,7 @@ public class BACONLexer extends Lexer {
             "\1\12\1\5\1\23\2\43\1\3\2\43\1\21\1\22\1\42\1\41\1\11\1\43\1"+
             "\7\1\20\1\4\1\6\1\24\1\13\3\43\uff85\46",
             "\1\47\3\uffff\1\47\22\uffff\1\47\1\uffff\1\47\11\uffff\2\47"+
-            "\2\uffff\12\47\7\uffff\32\47\4\uffff\1\47\1\uffff\32\47",
+            "\2\uffff\13\47\6\uffff\32\47\4\uffff\1\47\1\uffff\32\47",
             "",
             "\1\51\7\uffff\1\52",
             "\1\55\3\uffff\1\56\2\uffff\1\54",

@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.model.Equation;
 import VEW.Planktonica2.model.Function;
 import VEW.Planktonica2.model.Stage;
 import VEW.Planktonica2.model.XMLTagEnum;
@@ -95,26 +94,6 @@ public class FunctionsTest {
 
 		assertNotNull(f.getArchiveName());
 		assertEquals(f.getArchiveName(), "herrow");
-
-
-		assertNotNull(f.getEquations());
-
-		Equation [] equations = new Equation [2];
-
-		equations = f.getEquations().toArray(equations);
-
-		assertEquals(equations.length, 2);
-
-		assertNotNull(equations[0]);
-		assertNotNull(equations[1]);
-
-		if (!equations[0].getName().equals("e1")) {
-			assertEquals(equations[0].getName(), "e2");
-		}
-
-		if (!equations[1].getName().equals("e2")) {
-			assertEquals(equations[1].getName(), "e1");
-		}
 
 
 	}

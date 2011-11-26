@@ -2,12 +2,15 @@ package VEW.Planktonica2.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.prefs.BackingStoreException;
 
 import VEW.Common.XML.XMLFile;
 import VEW.Common.XML.XMLTag;
+import VEW.XMLCompiler.ANTLR.CompilerException;
 
-public class Model implements BuildFromXML {
+public class Model implements BuildFromXML, BuildToXML {
 
 	private Collection<Chemical> chemicals;
 	private Collection<FunctionalGroup> functionalGroups;
@@ -45,6 +48,7 @@ public class Model implements BuildFromXML {
 			FunctionalGroup f = new FunctionalGroup (file.getFileName());
 			f.build(t);
 			functionalGroups.add(f);
+			t.removeFromParent();
 		}
 
 		tags = tag.getTags(XMLTagEnum.CHEMICAL.xmlTag());
@@ -53,6 +57,7 @@ public class Model implements BuildFromXML {
 			Chemical c = new Chemical (file.getFileName());
 			c.build(t);
 			chemicals.add(c);
+			t.removeFromParent();
 		}
 
 		return this;
@@ -93,6 +98,19 @@ public class Model implements BuildFromXML {
 	public void removeAllFunctionalGroups() {
 		functionalGroups = new ArrayList<FunctionalGroup> ();
 	}
+
+	@Override
+	public XMLTag buildToXML() throws CompilerException {
+		for (FunctionalGroup fGroup : functionalGroups) {
+			file.addTag(fGroup.buildToXML());
+		}
+		for (Chemical chem : chemicals) {
+			file.addTag(chem.buildToXML());
+		}
+		
+		return file;
+	}
+
 	
 	
 }

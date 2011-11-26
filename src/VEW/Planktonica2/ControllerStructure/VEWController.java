@@ -1,15 +1,22 @@
 package VEW.Planktonica2.ControllerStructure;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Observable;
 import java.util.prefs.BackingStoreException;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+
+import VEW.Common.XML.XMLFile;
+import VEW.Common.XML.XMLTag;
+import VEW.Planktonica2.Display;
+import VEW.Planktonica2.EditorPanel;
 import VEW.Planktonica2.model.Catagory;
 import VEW.Planktonica2.model.Function;
 import VEW.Planktonica2.model.Model;
 import VEW.Planktonica2.model.VariableType;
+import VEW.XMLCompiler.ANTLR.CompilerException;
 
 
 public abstract class VEWController extends Observable {
@@ -111,7 +118,34 @@ public abstract class VEWController extends Observable {
 		this.currentlySelectedFunction = currentlySelectedFunction;
 	}
 
+
 	public abstract Collection<SelectableItem> getSelectables();
+
+	
+	public void writeBackToXMLFile() {
+		XMLTag tag = null;
+		try {
+			tag = model.buildToXML();
+			//TODO make sure multiple compiler errors are collated
+		}
+		catch (CompilerException ex) {
+			List<Exception> exceptions = ex.getContainedExceptions();
+			for (Exception e : exceptions) {
+				System.out.println(e.getMessage());
+			}
+			
+			ex.printStackTrace();
+		}
+		if (!(tag instanceof XMLFile)) {
+			//TODO something has gone really wrong
+		}
+		XMLFile xmlFile = (XMLFile) tag;
+		String fileName = xmlFile.getFileName();
+		String newName = fileName.substring(0, fileName.lastIndexOf('\\')) + "testFile.xml";
+		xmlFile.setFileName(newName);
+		xmlFile.write();
+	}
+
 
 	public void load_source(String filePath) {
 		this.currentSourcePath = filePath;

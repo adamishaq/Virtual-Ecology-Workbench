@@ -1,13 +1,20 @@
 package VEW.Planktonica2.model;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import VEW.Common.XML.XMLTag;
+import VEW.XMLCompiler.ANTLR.BACONCompiler;
+import VEW.XMLCompiler.ANTLR.CompilerException;
 
 public class Function implements BuildFromXML, BuildToXML {
 
@@ -23,8 +30,9 @@ public class Function implements BuildFromXML, BuildToXML {
 	private String parentName;
 	private Catagory parent;
 	
-	private Collection <Equation> equations;
 	private String source_file_path;
+	
+	private XMLTag baseTag;
 
 	
 	public Function(Collection<Stage> stages, String file_path, Catagory parent) {
@@ -42,10 +50,11 @@ public class Function implements BuildFromXML, BuildToXML {
 	
 	@Override
 	public BuildFromXML build(XMLTag tag) {
-		
+		baseTag = tag;
 		XMLTag nameTag = tag.getTag(XMLTagEnum.NAME.xmlTag());
 		if (nameTag != null) {
 			this.name = nameTag.getValue();
+			nameTag.removeFromParent();
 		}
 		
 		XMLTag [] xmlTags = null;
@@ -55,39 +64,35 @@ public class Function implements BuildFromXML, BuildToXML {
 			this.calledIn = new ArrayList<Stage> (xmlTags.length);
 
 			for (XMLTag t : xmlTags) {
-
 				Stage s = getStageFromList(t.getValue());
 
 				if (s != null) {
 					calledIn.add(s);
+					t.removeFromParent();
 				}
 				//TODO: if stage does not exist thrown an exception
 			}
-		}
-		
+		}	
 		
 		xmlTags = tag.getTags(XMLTagEnum.EQUATION.xmlTag());
-		this.equations = new ArrayList <Equation> (xmlTags.length);
-		for (XMLTag t : xmlTags) {
-			Equation e = new Equation();
-			e.build(t);
-			equations.add(e);
-		}
 		createSourceFile(xmlTags);
 		
 		XMLTag authorTag = tag.getTag(XMLTagEnum.AUTHOR.xmlTag());
 		if (authorTag != null) {
 			this.author = authorTag.getValue();
+			authorTag.removeFromParent();
 		}
 		
 		XMLTag commentTag = tag.getTag(XMLTagEnum.COMMENT.xmlTag());
 		if (commentTag != null) {
 			this.comment = commentTag.getValue();
+			commentTag.removeFromParent();
 		}
 		
 		XMLTag archiveTag = tag.getTag(XMLTagEnum.ARCHIVE_NAME.xmlTag());
 		if (archiveTag != null) {
 			this.archiveName = archiveTag.getValue();
+			archiveTag.removeFromParent();
 		}
 		
 		
@@ -102,6 +107,9 @@ public class Function implements BuildFromXML, BuildToXML {
 		}
 		File sourceFile = new File(parentPath + name + ".bacon");
 		if (sourceFile.exists()) {
+			for (XMLTag equationTag: xmlTags) {
+				equationTag.removeFromParent();
+			}
 			return;
 		}
 		String sourceCode = "";
@@ -112,6 +120,7 @@ public class Function implements BuildFromXML, BuildToXML {
 			String eq = eqTag.getValue();
 			EquationStringParser parser = new EquationStringParser(eq);
 			sourceCode += "\"" + name + "\": " + parser.parseEquationString() + "\n\n";
+			equationTag.removeFromParent();
 		}
 		try {
 			FileWriter writer = new FileWriter(sourceFile);
@@ -223,14 +232,6 @@ public class Function implements BuildFromXML, BuildToXML {
 		this.author = author;
 	}
 
-	public Collection<Equation> getEquations() {
-		return equations;
-	}
-
-	public void setEquations(Collection<Equation> equations) {
-		this.equations = equations;
-	}
-
 	public void setSource_code(String source_code) {
 		this.source_file_path = source_code;
 	}
@@ -246,26 +247,27 @@ public class Function implements BuildFromXML, BuildToXML {
 	}
 
 	@Override
-	public XMLTag buildToXML() {
-		XMLTag funcTag = new XMLTag("function");
-		funcTag.addTag("name", name);
-		Iterator<Equation> eqIter = equations.iterator();
-		while (eqIter.hasNext()) {
-			Equation eq = eqIter.next();
-			funcTag.addTag(eq.buildToXML());
+	public XMLTag buildToXML() throws CompilerException {
+		if (baseTag == null) {
+			baseTag = new XMLTag("function");
 		}
+		baseTag.addTag("name", name);
 		Iterator<Stage> stageIter = calledIn.iterator();
 		while (stageIter.hasNext()) {
 			Stage stage = stageIter.next();
-			funcTag.addTag(new XMLTag("calledin", stage.getName()));
+			baseTag.addTag(new XMLTag("calledin", stage.getName()));
+		}
+		List<XMLTag> equationTags = compileFunction();
+		for (XMLTag eqTag : equationTags) {
+			baseTag.addTag(eqTag);
 		}
 		if (archiveName != null)
-			funcTag.addTag(new XMLTag("archivename", archiveName));
+			baseTag.addTag(new XMLTag("archivename", archiveName));
 		if (comment != null)
-			funcTag.addTag(new XMLTag("comment", comment));
+			baseTag.addTag(new XMLTag("comment", comment));
 		if (author != null)
-			funcTag.addTag(new XMLTag("author", author));
-		return funcTag;
+			baseTag.addTag(new XMLTag("author", author));
+		return baseTag;
 	}
 
 	@Override
@@ -273,8 +275,32 @@ public class Function implements BuildFromXML, BuildToXML {
 		return this.getName();
 	}
 	
-	public void compileFunction() {
-		
+	public List<XMLTag> compileFunction() throws CompilerException{
+		String parentPath = source_file_path + parentName + "\\" + name + ".bacon";
+		String sourceCode = "";
+		try {
+			sourceCode = readSourceFile(parentPath);
+		} catch (FileNotFoundException e) {
+			// TODO File does not exist, bah
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			// TODO Some IO issue
+			e.printStackTrace();
+			return null;
+		}
+		BACONCompiler compiler = new BACONCompiler(this, sourceCode);
+		return compiler.compile();
+	}
+
+	private String readSourceFile(String parentPath) throws FileNotFoundException, IOException {
+		FileInputStream fStream = new FileInputStream(parentPath);
+		BufferedReader buffReader = new BufferedReader(new InputStreamReader(fStream));
+		String sourceCode = "";
+		String line = new String();
+		while ((line = buffReader.readLine()) != null) 
+			sourceCode += line + '\n';
+		return sourceCode;
 	}
 	
 	public void compileCodeForFunction(String code) {

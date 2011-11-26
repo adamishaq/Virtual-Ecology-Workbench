@@ -20,7 +20,7 @@ public class BACONCompiler {
 		tree = null;
 	}
 	
-	public List<XMLTag> compile() {
+	public List<XMLTag> compile() throws CompilerException{
 		ANTLRParser parser = new ANTLRParser(code);
 		ConstructedASTree tree = null;
 		try {
@@ -29,11 +29,11 @@ public class BACONCompiler {
 			e.printStackTrace();
 		}
 		if (tree.hasExceptions()) {
-			return null;
+			throw new CompilerException(function, tree.getExceptions());
 		}
 		tree.checkTree(function.getParent());
 		if (tree.hasExceptions()) {
-			return null;
+			throw new CompilerException(function, tree.getExceptions());
 		}
 		return tree.compileTree();
 	}

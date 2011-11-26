@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import VEW.Common.XML.XMLTag;
+import VEW.XMLCompiler.ANTLR.CompilerException;
 import VEW.XMLCompiler.ASTNodes.SymbolTable;
 
 public class FunctionalGroup extends Catagory {
@@ -29,17 +30,19 @@ public class FunctionalGroup extends Catagory {
 	
 	@Override
 	public BuildFromXML build(XMLTag xmlTag) {
-		
+		baseTag = xmlTag;
 		// name
 		XMLTag nameTag = xmlTag.getTag(XMLTagEnum.NAME.xmlTag());
 		if (nameTag != null) {
 			this.name = nameTag.getValue();
+			nameTag.removeFromParent();
 		}
 		
 		// invis
 		XMLTag invisValue = xmlTag.getTag(XMLTagEnum.INVISIBLE.xmlTag());
 		if (invisValue != null) {
 			this.invisible = Boolean.valueOf(invisValue.getValue());
+			invisValue.removeFromParent();
 		}
 		
 		// stages
@@ -49,6 +52,7 @@ public class FunctionalGroup extends Catagory {
 			Stage s = new Stage ();
 			s.build(t);
 			stageTable.put(s.getName(), s);
+			t.removeFromParent();
 		}
 		
 		// functions
@@ -58,6 +62,7 @@ public class FunctionalGroup extends Catagory {
 			Function f = new Function (stageTable.values(),file_path,this);
 			f.build(t);
 			functions.add(f);
+			t.removeFromParent();
 		}
 		
 		// parameters
@@ -67,6 +72,7 @@ public class FunctionalGroup extends Catagory {
 			Parameter p = new Parameter(this);
 			p.build(t);
 			paramTable.put(p.getName(), p);
+			t.removeFromParent();
 		}
 		
 		// local
@@ -76,6 +82,7 @@ public class FunctionalGroup extends Catagory {
 			Local l = new Local(this);
 			l.build(t);
 			localVarTable.put(l.getName(), l);
+			t.removeFromParent();
 		}
 		
 		// variables
@@ -85,6 +92,7 @@ public class FunctionalGroup extends Catagory {
 			StateVariable v = new StateVariable(this);
 			v.build(t);
 			stateVarTable.put(v.getName(), v);
+			t.removeFromParent();
 		}
 		
 		// variety concentration
@@ -94,6 +102,7 @@ public class FunctionalGroup extends Catagory {
 			VarietyConcentration vc = new VarietyConcentration(this);
 			vc.build(t);
 			varietyConcTable.put(vc.getName(), vc);
+			t.removeFromParent();
 		}
 		
 		// variety variable
@@ -103,6 +112,7 @@ public class FunctionalGroup extends Catagory {
 			VarietyVariable vv = new VarietyVariable(this);
 			vv.build(t);
 			varietyStateTable.put(vv.getName(), vv);
+			t.removeFromParent();
 		}
 		
 		// variety locals
@@ -112,6 +122,7 @@ public class FunctionalGroup extends Catagory {
 			VarietyLocal vl = new VarietyLocal(this);
 			vl.build(t);
 			varietyLocalTable.put(vl.getName(), vl);
+			t.removeFromParent();
 		}
 		
 		// variety parameter
@@ -121,6 +132,7 @@ public class FunctionalGroup extends Catagory {
 			VarietyParameter vp = new VarietyParameter(this);
 			vp.build(t);
 			varietyParamTable.put(vp.getName(), vp);
+			t.removeFromParent();
 		}
 		
 		
@@ -128,16 +140,16 @@ public class FunctionalGroup extends Catagory {
 	}
 	
 	@Override
-	public XMLTag buildToXML() {
-		XMLTag tag = super.buildToXML();
-		tag.setName("functionalgroup");
+	public XMLTag buildToXML() throws CompilerException {
+		super.buildToXML();
+		baseTag.setName("functionalgroup");
 		Collection<Stage> stages = stageTable.values();
 		Iterator<Stage> iter = stages.iterator();
 		while (iter.hasNext()) {
 			Stage st = iter.next();
-			tag.addTag(st.buildToXML());
+			baseTag.addTag(st.buildToXML());
 		}
-		return tag;
+		return baseTag;
 	}
 
 	

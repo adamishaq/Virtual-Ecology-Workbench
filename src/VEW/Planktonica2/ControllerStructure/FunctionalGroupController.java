@@ -8,7 +8,6 @@ import VEW.Planktonica2.model.Stage;
 
 public class FunctionalGroupController extends VEWController {
 
-	private Collection <FunctionalGroup> functionalGroups;
 	
 	private FunctionalGroup currentFG;
 	
@@ -16,8 +15,6 @@ public class FunctionalGroupController extends VEWController {
 	
 	public FunctionalGroupController(Model m) {
 		super(m);
-		
-		functionalGroups = this.model.getFunctionalGroups();
 		
 	}
 
@@ -47,7 +44,7 @@ public class FunctionalGroupController extends VEWController {
 	
 	public void setSelectedFunctionalGroup (FunctionalGroup f) {
 	
-		if (functionalGroups.contains(f)) {
+		if (getFunctionalGroups().contains(f)) {
 			this.currentFG = f;
 			return;
 		}
@@ -61,7 +58,7 @@ public class FunctionalGroupController extends VEWController {
 	
 
 	private FunctionalGroup matchFGOnName(FunctionalGroup toMatch) {
-		for (FunctionalGroup f : functionalGroups) {
+		for (FunctionalGroup f : getFunctionalGroups()) {
 			if (f.getName().equals(toMatch.getName())) {
 				return f;
 			}
@@ -79,13 +76,13 @@ public class FunctionalGroupController extends VEWController {
 	}
 	
 	public Collection<FunctionalGroup> getFunctionalGroups() {
-		return this.functionalGroups;
+		return this.model.getFunctionalGroups();
 	}
 
 	@Override
 	public Collection<SelectableItem> getSelectables() {
-		Collection<SelectableItem> c = new ArrayList<SelectableItem> (functionalGroups.size());
-		for (FunctionalGroup f : functionalGroups) {
+		Collection<SelectableItem> c = new ArrayList<SelectableItem> (getFunctionalGroups().size());
+		for (FunctionalGroup f : getFunctionalGroups()) {
 			c.add(f);
 		}
 		return c;

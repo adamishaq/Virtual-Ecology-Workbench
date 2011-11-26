@@ -8,17 +8,18 @@ import VEW.Common.XML.XMLTag;
 public class Spectrum implements BuildFromXML, BuildToXML, Iterable<WaveLengthIntensityPair> {
 	
 	protected String name;
-
-	
 	protected ArrayList<WaveLengthIntensityPair> values;
 	protected final String GRAPH_VALUES = "\\graphvals";
+	private XMLTag baseTag;
+
 
 	@Override
 	public BuildFromXML build(XMLTag tag) {
-		
+		baseTag = tag;
 		XMLTag nameTag = tag.getTag(XMLTagEnum.NAME.xmlTag());
 		if (nameTag != null) {
 			this.name = nameTag.getValue();
+			nameTag.removeFromParent();
 		}
 		
 		
@@ -49,17 +50,20 @@ public class Spectrum implements BuildFromXML, BuildToXML, Iterable<WaveLengthIn
 				}
 			}
 		}
+		equationTag.removeFromParent();
 		
 		return this;
 	}
 	
 	@Override
 	public XMLTag buildToXML() {
-		XMLTag spectrumTag = new XMLTag("spectrum");
-		spectrumTag.addTag("name", name);
+		if (baseTag == null) {
+			baseTag = new XMLTag("spectrum");
+		}
+		baseTag.addTag("name", name);
 		XMLTag eqTag = buildGraphValuesXML();
-		spectrumTag.addTag(eqTag);
-		return spectrumTag;
+		baseTag.addTag(eqTag);
+		return baseTag;
 	}
 
 

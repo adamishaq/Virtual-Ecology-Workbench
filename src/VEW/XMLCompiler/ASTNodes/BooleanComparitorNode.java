@@ -62,7 +62,7 @@ public class BooleanComparitorNode extends BExprNode {
 			right = rExpr.generateLatex();
 		switch (comparitor) {
 		case EQUALS        : op = " = "; break; 
-		case NEQUALS       : op = " \\neq" ; break; 
+		case NEQUALS       : op = " \\neq " ; break; 
 		case GREATERTHAN   : op = " > "; break; 
 		case LESSTHAN      : op = " < "; break; 
 		case GREATEREQUALS : op = " \\geq "; break;

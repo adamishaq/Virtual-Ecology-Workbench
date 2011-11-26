@@ -4,7 +4,6 @@ package VEW.Planktonica2.PigmentGraph;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.util.Observable;
 import java.util.Observer;
 
