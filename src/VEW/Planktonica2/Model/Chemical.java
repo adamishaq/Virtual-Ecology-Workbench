@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import VEW.Common.XML.XMLTag;
+import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
 public class Chemical extends Catagory {
 
@@ -101,7 +102,8 @@ public class Chemical extends Catagory {
 			stateVarTable.put(v.getName(), v);
 			t.removeFromParent();
 		}
-
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		tables.addChemical(name);
 
 		return this;
 	}
