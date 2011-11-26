@@ -91,7 +91,7 @@ public static String getTokenFromType(int ttype) {
 }
 
 @lexer::header {
-package VEW.XMLCompiler.ANTLR.output;
+package VEW.XMLCompiler.ANTLR;
 }
 
 // Rules
@@ -219,15 +219,15 @@ rule
 
 rule2
 	: assign
-	| IF bExpr THEN rule -> ^(IF bExpr rule)
+	| IF bExpr (NEWLINE)? THEN rule -> ^(IF bExpr rule)
 	| UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^(UPTAKE VAR expr)
 	| RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^(RELEASE VAR expr)
 	| INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^(INGEST VAR expr expr)
 	| CHANGE LBRACKET VAR RBRACKET -> ^(CHANGE VAR)
 	| PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^(PCHANGE VAR expr)
 	| DIVIDE LBRACKET expr RBRACKET -> ^(DIVIDE expr)
-	| CREATE LBRACKET VAR COMMA expr RBRACKET 
-		(WITH LSQUARE assignList RSQUARE)? -> ^(CREATE VAR expr (assignList)?)
+	| CREATE LBRACKET VAR COMMA expr RBRACKET
+		((NEWLINE)? WITH LSQUARE assignList RSQUARE)? -> ^(CREATE VAR expr (assignList)?)
 	| LBRACKET rule2 RBRACKET -> rule2
 	;
 
@@ -257,7 +257,7 @@ expr4
 	| unaryPrimitives LBRACKET expr RBRACKET -> ^(unaryPrimitives expr)
 	| FLOAT
 	| VAR
-	| IF bExpr THEN expr ELSE expr -> ^(IF bExpr expr expr)
+	| IF bExpr (NEWLINE)? THEN expr (NEWLINE)? ELSE expr -> ^(IF bExpr expr expr)
 	| binPrim LBRACKET expr COMMA expr RBRACKET -> ^(binPrim expr expr)
 	| VARHIST LBRACKET VAR COMMA expr RBRACKET -> ^(VARHIST VAR expr)
 	| vOp LBRACKET expr RBRACKET -> ^(vOp expr)

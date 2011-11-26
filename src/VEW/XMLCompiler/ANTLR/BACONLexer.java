@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g 2011-11-10 12:53:42
+// $ANTLR 3.4 C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g 2011-11-26 18:53:13
 
 package VEW.XMLCompiler.ANTLR;
 
@@ -100,25 +100,25 @@ public class BACONLexer extends Lexer {
     public BACONLexer(CharStream input, RecognizerSharedState state) {
         super(input,state);
     }
-    public String getGrammarFileName() { return "C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g"; }
+    public String getGrammarFileName() { return "C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g"; }
 
     // $ANTLR start "RULENAME"
     public final void mRULENAME() throws RecognitionException {
         try {
             int _type = RULENAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:97:10: ( ( '\"' ) ( LETTER | DIGIT | '_' | IGNORE )* ( '\"' ) )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:97:12: ( '\"' ) ( LETTER | DIGIT | '_' | IGNORE )* ( '\"' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:98:10: ( ( '\"' ) ( LETTER | DIGIT | '_' | IGNORE )* ( '\"' ) )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:98:12: ( '\"' ) ( LETTER | DIGIT | '_' | IGNORE )* ( '\"' )
             {
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:97:12: ( '\"' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:97:13: '\"'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:98:12: ( '\"' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:98:13: '\"'
             {
             match('\"'); 
 
             }
 
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:97:17: ( LETTER | DIGIT | '_' | IGNORE )*
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:98:17: ( LETTER | DIGIT | '_' | IGNORE )*
             loop1:
             do {
                 int alt1=5;
@@ -210,7 +210,7 @@ public class BACONLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:97:18: LETTER
+            	    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:98:18: LETTER
             	    {
             	    mLETTER(); 
 
@@ -218,7 +218,7 @@ public class BACONLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:97:25: DIGIT
+            	    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:98:25: DIGIT
             	    {
             	    mDIGIT(); 
 
@@ -226,14 +226,14 @@ public class BACONLexer extends Lexer {
             	    }
             	    break;
             	case 3 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:97:31: '_'
+            	    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:98:31: '_'
             	    {
             	    match('_'); 
 
             	    }
             	    break;
             	case 4 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:97:35: IGNORE
+            	    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:98:35: IGNORE
             	    {
             	    mIGNORE(); 
 
@@ -247,8 +247,8 @@ public class BACONLexer extends Lexer {
             } while (true);
 
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:97:43: ( '\"' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:97:44: '\"'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:98:43: ( '\"' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:98:44: '\"'
             {
             match('\"'); 
 
@@ -271,18 +271,18 @@ public class BACONLexer extends Lexer {
         try {
             int _type = COLON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:98:10: ( ( ':' ) ( IGNORE )* ( NEWLINE )? )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:98:12: ( ':' ) ( IGNORE )* ( NEWLINE )?
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:10: ( ( ':' ) ( IGNORE )* ( NEWLINE )? )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:12: ( ':' ) ( IGNORE )* ( NEWLINE )?
             {
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:98:12: ( ':' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:98:13: ':'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:12: ( ':' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:13: ':'
             {
             match(':'); 
 
             }
 
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:98:17: ( IGNORE )*
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:17: ( IGNORE )*
             loop2:
             do {
                 int alt2=2;
@@ -295,7 +295,7 @@ public class BACONLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:98:18: IGNORE
+            	    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:18: IGNORE
             	    {
             	    mIGNORE(); 
 
@@ -309,7 +309,7 @@ public class BACONLexer extends Lexer {
             } while (true);
 
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:98:26: ( NEWLINE )?
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:26: ( NEWLINE )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -318,7 +318,7 @@ public class BACONLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:98:27: NEWLINE
+                    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:27: NEWLINE
                     {
                     mNEWLINE(); 
 
@@ -345,8 +345,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = IF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:102:6: ( 'if' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:102:8: 'if'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:103:6: ( 'if' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:103:8: 'if'
             {
             match("if"); 
 
@@ -368,8 +368,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = THEN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:103:6: ( 'then' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:103:8: 'then'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:104:6: ( 'then' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:104:8: 'then'
             {
             match("then"); 
 
@@ -391,8 +391,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = ELSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:104:6: ( 'else' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:104:8: 'else'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:105:6: ( 'else' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:105:8: 'else'
             {
             match("else"); 
 
@@ -414,8 +414,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = UPTAKE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:107:12: ( 'uptake' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:107:14: 'uptake'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:108:12: ( 'uptake' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:108:14: 'uptake'
             {
             match("uptake"); 
 
@@ -437,8 +437,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = RELEASE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:108:12: ( 'release' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:108:14: 'release'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:109:12: ( 'release' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:109:14: 'release'
             {
             match("release"); 
 
@@ -460,8 +460,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = INGEST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:109:12: ( 'ingest' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:109:14: 'ingest'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:110:12: ( 'ingest' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:110:14: 'ingest'
             {
             match("ingest"); 
 
@@ -483,8 +483,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = CHANGE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:110:12: ( 'change' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:110:14: 'change'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:111:12: ( 'change' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:111:14: 'change'
             {
             match("change"); 
 
@@ -506,8 +506,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = PCHANGE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:111:12: ( 'pchange' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:111:14: 'pchange'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:112:12: ( 'pchange' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:112:14: 'pchange'
             {
             match("pchange"); 
 
@@ -529,8 +529,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = DIVIDE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:112:11: ( 'divide' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:112:13: 'divide'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:113:11: ( 'divide' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:113:13: 'divide'
             {
             match("divide"); 
 
@@ -552,8 +552,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = INTEGRATE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:113:12: ( 'integrate' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:113:14: 'integrate'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:114:12: ( 'integrate' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:114:14: 'integrate'
             {
             match("integrate"); 
 
@@ -575,8 +575,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = CREATE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:116:8: ( 'create' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:116:10: 'create'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:117:8: ( 'create' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:117:10: 'create'
             {
             match("create"); 
 
@@ -598,8 +598,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = WITH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:117:6: ( 'with' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:117:8: 'with'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:118:6: ( 'with' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:118:8: 'with'
             {
             match("with"); 
 
@@ -621,8 +621,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = LSQUARE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:118:9: ( '[' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:118:11: '['
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:119:9: ( '[' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:119:11: '['
             {
             match('['); 
 
@@ -642,8 +642,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = RSQUARE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:119:9: ( ']' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:119:11: ']'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:120:9: ( ']' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:120:11: ']'
             {
             match(']'); 
 
@@ -663,8 +663,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = COMMA;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:120:8: ( ',' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:120:10: ','
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:121:8: ( ',' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:121:10: ','
             {
             match(','); 
 
@@ -684,8 +684,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = ABS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:123:8: ( 'abs' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:123:10: 'abs'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:124:8: ( 'abs' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:124:10: 'abs'
             {
             match("abs"); 
 
@@ -707,8 +707,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = ACOS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:124:8: ( 'acos' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:124:10: 'acos'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:125:8: ( 'acos' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:125:10: 'acos'
             {
             match("acos"); 
 
@@ -730,8 +730,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = ASIN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:125:8: ( 'asin' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:125:10: 'asin'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:126:8: ( 'asin' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:126:10: 'asin'
             {
             match("asin"); 
 
@@ -753,8 +753,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = ATAN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:126:8: ( 'atan' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:126:10: 'atan'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:127:8: ( 'atan' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:127:10: 'atan'
             {
             match("atan"); 
 
@@ -776,8 +776,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = SIN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:127:8: ( 'sin' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:127:10: 'sin'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:128:8: ( 'sin' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:128:10: 'sin'
             {
             match("sin"); 
 
@@ -799,8 +799,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = COS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:128:8: ( 'cos' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:128:10: 'cos'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:129:8: ( 'cos' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:129:10: 'cos'
             {
             match("cos"); 
 
@@ -822,8 +822,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = TAN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:129:8: ( 'tan' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:129:10: 'tan'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:130:8: ( 'tan' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:130:10: 'tan'
             {
             match("tan"); 
 
@@ -845,8 +845,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = EXP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:130:8: ( 'exp' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:130:10: 'exp'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:131:8: ( 'exp' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:131:10: 'exp'
             {
             match("exp"); 
 
@@ -868,8 +868,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = LN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:131:8: ( 'ln' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:131:10: 'ln'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:132:8: ( 'ln' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:132:10: 'ln'
             {
             match("ln"); 
 
@@ -891,8 +891,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = LOGTEN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:132:8: ( 'log10' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:132:10: 'log10'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:133:8: ( 'log10' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:133:10: 'log10'
             {
             match("log10"); 
 
@@ -914,8 +914,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = RND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:133:8: ( 'rnd' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:133:10: 'rnd'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:134:8: ( 'rnd' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:134:10: 'rnd'
             {
             match("rnd"); 
 
@@ -937,8 +937,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = SQRT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:134:8: ( 'sqrt' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:134:10: 'sqrt'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:135:8: ( 'sqrt' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:135:10: 'sqrt'
             {
             match("sqrt"); 
 
@@ -960,8 +960,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = MAX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:135:8: ( 'max' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:135:10: 'max'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:136:8: ( 'max' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:136:10: 'max'
             {
             match("max"); 
 
@@ -983,8 +983,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = MIN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:136:8: ( 'min' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:136:10: 'min'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:137:8: ( 'min' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:137:10: 'min'
             {
             match("min"); 
 
@@ -1006,8 +1006,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = DENSITYAT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:139:13: ( 'densityAt' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:139:15: 'densityAt'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:140:13: ( 'densityAt' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:140:15: 'densityAt'
             {
             match("densityAt"); 
 
@@ -1029,8 +1029,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = DEPTHFORFI;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:140:13: ( 'depthForFI' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:140:15: 'depthForFI'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:141:13: ( 'depthForFI' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:141:15: 'depthForFI'
             {
             match("depthForFI"); 
 
@@ -1052,8 +1052,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = DEPTHFORVI;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:141:13: ( 'depthForVI' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:141:15: 'depthForVI'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:142:13: ( 'depthForVI' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:142:15: 'depthForVI'
             {
             match("depthForVI"); 
 
@@ -1075,8 +1075,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = FULLIRRADAT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:142:13: ( 'fullIrradAt' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:142:15: 'fullIrradAt'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:143:13: ( 'fullIrradAt' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:143:15: 'fullIrradAt'
             {
             match("fullIrradAt"); 
 
@@ -1098,8 +1098,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = SALINITYAT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:143:13: ( 'salinityAt' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:143:15: 'salinityAt'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:144:13: ( 'salinityAt' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:144:15: 'salinityAt'
             {
             match("salinityAt"); 
 
@@ -1121,8 +1121,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = TEMPAT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:144:13: ( 'temperatureAt' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:144:15: 'temperatureAt'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:145:13: ( 'temperatureAt' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:145:15: 'temperatureAt'
             {
             match("temperatureAt"); 
 
@@ -1144,8 +1144,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = UVIRRADAT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:145:13: ( 'UVIrradAt' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:145:15: 'UVIrradAt'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:146:13: ( 'UVIrradAt' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:146:15: 'UVIrradAt'
             {
             match("UVIrradAt"); 
 
@@ -1167,8 +1167,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = VARHIST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:146:13: ( 'varhist' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:146:15: 'varhist'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:147:13: ( 'varhist' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:147:15: 'varhist'
             {
             match("varhist"); 
 
@@ -1188,8 +1188,8 @@ public class BACONLexer extends Lexer {
     // $ANTLR start "DIGIT"
     public final void mDIGIT() throws RecognitionException {
         try {
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:149:16: ( ( '0' .. '9' ) )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:150:16: ( ( '0' .. '9' ) )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
                 input.consume();
@@ -1216,14 +1216,14 @@ public class BACONLexer extends Lexer {
         try {
             int _type = FLOAT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:151:5: ( ( DIGIT )+ '.' ( DIGIT )* | '.' ( DIGIT )+ | ( DIGIT )+ )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:152:5: ( ( DIGIT )+ '.' ( DIGIT )* | '.' ( DIGIT )+ | ( DIGIT )+ )
             int alt8=3;
             alt8 = dfa8.predict(input);
             switch (alt8) {
                 case 1 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:151:9: ( DIGIT )+ '.' ( DIGIT )*
+                    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:152:9: ( DIGIT )+ '.' ( DIGIT )*
                     {
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:151:9: ( DIGIT )+
+                    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:152:9: ( DIGIT )+
                     int cnt4=0;
                     loop4:
                     do {
@@ -1237,7 +1237,7 @@ public class BACONLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
+                    	    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
                     	    {
                     	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
                     	        input.consume();
@@ -1264,7 +1264,7 @@ public class BACONLexer extends Lexer {
 
                     match('.'); 
 
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:151:22: ( DIGIT )*
+                    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:152:22: ( DIGIT )*
                     loop5:
                     do {
                         int alt5=2;
@@ -1277,7 +1277,7 @@ public class BACONLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
+                    	    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
                     	    {
                     	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
                     	        input.consume();
@@ -1301,11 +1301,11 @@ public class BACONLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:152:9: '.' ( DIGIT )+
+                    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:153:9: '.' ( DIGIT )+
                     {
                     match('.'); 
 
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:152:13: ( DIGIT )+
+                    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:153:13: ( DIGIT )+
                     int cnt6=0;
                     loop6:
                     do {
@@ -1319,7 +1319,7 @@ public class BACONLexer extends Lexer {
 
                         switch (alt6) {
                     	case 1 :
-                    	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
+                    	    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
                     	    {
                     	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
                     	        input.consume();
@@ -1347,9 +1347,9 @@ public class BACONLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:153:9: ( DIGIT )+
+                    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:154:9: ( DIGIT )+
                     {
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:153:9: ( DIGIT )+
+                    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:154:9: ( DIGIT )+
                     int cnt7=0;
                     loop7:
                     do {
@@ -1363,7 +1363,7 @@ public class BACONLexer extends Lexer {
 
                         switch (alt7) {
                     	case 1 :
-                    	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
+                    	    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
                     	    {
                     	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
                     	        input.consume();
@@ -1406,8 +1406,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = EQUALS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:156:10: ( '=' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:156:12: '='
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:157:10: ( '=' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:157:12: '='
             {
             match('='); 
 
@@ -1427,8 +1427,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = PLUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:157:10: ( '+' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:157:12: '+'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:158:10: ( '+' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:158:12: '+'
             {
             match('+'); 
 
@@ -1448,8 +1448,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = MINUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:158:10: ( '-' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:158:12: '-'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:159:10: ( '-' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:159:12: '-'
             {
             match('-'); 
 
@@ -1469,8 +1469,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = MUL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:159:10: ( '*' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:159:12: '*'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:160:10: ( '*' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:160:12: '*'
             {
             match('*'); 
 
@@ -1490,8 +1490,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = DIV;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:160:10: ( '/' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:160:12: '/'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:161:10: ( '/' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:161:12: '/'
             {
             match('/'); 
 
@@ -1511,8 +1511,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = POW;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:161:10: ( '^' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:161:12: '^'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:162:10: ( '^' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:162:12: '^'
             {
             match('^'); 
 
@@ -1532,8 +1532,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = LBRACKET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:162:10: ( '(' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:162:12: '('
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:163:10: ( '(' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:163:12: '('
             {
             match('('); 
 
@@ -1553,8 +1553,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = RBRACKET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:163:10: ( ')' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:163:12: ')'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:164:10: ( ')' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:164:12: ')'
             {
             match(')'); 
 
@@ -1574,8 +1574,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = GREATEREQUALS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:166:15: ( '>=' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:166:17: '>='
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:167:15: ( '>=' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:167:17: '>='
             {
             match(">="); 
 
@@ -1597,8 +1597,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = LESSEQUALS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:167:15: ( '<=' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:167:17: '<='
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:168:15: ( '<=' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:168:17: '<='
             {
             match("<="); 
 
@@ -1620,8 +1620,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = NEQUALS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:168:15: ( '<>' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:168:17: '<>'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:169:15: ( '<>' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:169:17: '<>'
             {
             match("<>"); 
 
@@ -1643,8 +1643,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = GREATERTHAN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:169:15: ( '>' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:169:17: '>'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:170:15: ( '>' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:170:17: '>'
             {
             match('>'); 
 
@@ -1664,8 +1664,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = LESSTHAN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:170:15: ( '<' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:170:17: '<'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:171:15: ( '<' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:171:17: '<'
             {
             match('<'); 
 
@@ -1685,8 +1685,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = AND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:171:15: ( 'and' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:171:18: 'and'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:172:15: ( 'and' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:172:18: 'and'
             {
             match("and"); 
 
@@ -1708,8 +1708,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = OR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:172:15: ( 'or' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:172:17: 'or'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:173:15: ( 'or' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:173:17: 'or'
             {
             match("or"); 
 
@@ -1731,8 +1731,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = NOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:173:15: ( 'not' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:173:17: 'not'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:174:15: ( 'not' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:174:17: 'not'
             {
             match("not"); 
 
@@ -1754,8 +1754,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = ALL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:177:7: ( 'all' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:177:9: 'all'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:178:7: ( 'all' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:178:9: 'all'
             {
             match("all"); 
 
@@ -1777,8 +1777,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = SOME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:178:7: ( 'some' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:178:9: 'some'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:179:7: ( 'some' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:179:9: 'some'
             {
             match("some"); 
 
@@ -1800,8 +1800,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = NONE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:179:7: ( 'none' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:179:9: 'none'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:180:7: ( 'none' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:180:9: 'none'
             {
             match("none"); 
 
@@ -1823,8 +1823,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = VAVERAGE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:180:10: ( 'average' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:180:12: 'average'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:181:10: ( 'average' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:181:12: 'average'
             {
             match("average"); 
 
@@ -1846,8 +1846,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = VPRODUCT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:181:10: ( 'product' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:181:12: 'product'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:182:10: ( 'product' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:182:12: 'product'
             {
             match("product"); 
 
@@ -1869,8 +1869,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = VSUM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:182:7: ( 'sum' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:182:9: 'sum'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:183:7: ( 'sum' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:183:9: 'sum'
             {
             match("sum"); 
 
@@ -1890,8 +1890,8 @@ public class BACONLexer extends Lexer {
     // $ANTLR start "LETTER"
     public final void mLETTER() throws RecognitionException {
         try {
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:185:17: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:186:17: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -1918,8 +1918,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = VAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:186:5: ( ( LETTER ) ( LETTER | DIGIT | '_' )* )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:186:7: ( LETTER ) ( LETTER | DIGIT | '_' )*
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:187:5: ( ( LETTER ) ( LETTER | DIGIT | '_' )* )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:187:7: ( LETTER ) ( LETTER | DIGIT | '_' )*
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -1931,7 +1931,7 @@ public class BACONLexer extends Lexer {
             }
 
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:186:15: ( LETTER | DIGIT | '_' )*
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:187:15: ( LETTER | DIGIT | '_' )*
             loop9:
             do {
                 int alt9=2;
@@ -1944,7 +1944,7 @@ public class BACONLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
+            	    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
             	    {
             	    if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
             	        input.consume();
@@ -1979,11 +1979,11 @@ public class BACONLexer extends Lexer {
     // $ANTLR start "COMMENT"
     public final void mCOMMENT() throws RecognitionException {
         try {
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:189:18: ( ( '//' ) (~ '\\n' )* )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:189:20: ( '//' ) (~ '\\n' )*
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:190:18: ( ( '//' ) (~ '\\n' )* )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:190:20: ( '//' ) (~ '\\n' )*
             {
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:189:20: ( '//' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:189:21: '//'
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:190:20: ( '//' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:190:21: '//'
             {
             match("//"); 
 
@@ -1992,7 +1992,7 @@ public class BACONLexer extends Lexer {
             }
 
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:189:26: (~ '\\n' )*
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:190:26: (~ '\\n' )*
             loop10:
             do {
                 int alt10=2;
@@ -2005,7 +2005,7 @@ public class BACONLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
+            	    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
             	    {
             	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '\t')||(input.LA(1) >= '\u000B' && input.LA(1) <= '\uFFFF') ) {
             	        input.consume();
@@ -2041,10 +2041,10 @@ public class BACONLexer extends Lexer {
         try {
             int _type = NEWLINE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:192:9: ( ( COMMENT | ( ( '\\n' ) ( IGNORE )* ) )+ )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:192:11: ( COMMENT | ( ( '\\n' ) ( IGNORE )* ) )+
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:193:9: ( ( COMMENT | ( ( '\\n' ) ( IGNORE )* ) )+ )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:193:11: ( COMMENT | ( ( '\\n' ) ( IGNORE )* ) )+
             {
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:192:11: ( COMMENT | ( ( '\\n' ) ( IGNORE )* ) )+
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:193:11: ( COMMENT | ( ( '\\n' ) ( IGNORE )* ) )+
             int cnt12=0;
             loop12:
             do {
@@ -2061,7 +2061,7 @@ public class BACONLexer extends Lexer {
 
                 switch (alt12) {
             	case 1 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:192:12: COMMENT
+            	    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:193:12: COMMENT
             	    {
             	    mCOMMENT(); 
 
@@ -2069,20 +2069,20 @@ public class BACONLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:192:20: ( ( '\\n' ) ( IGNORE )* )
+            	    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:193:20: ( ( '\\n' ) ( IGNORE )* )
             	    {
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:192:20: ( ( '\\n' ) ( IGNORE )* )
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:192:21: ( '\\n' ) ( IGNORE )*
+            	    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:193:20: ( ( '\\n' ) ( IGNORE )* )
+            	    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:193:21: ( '\\n' ) ( IGNORE )*
             	    {
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:192:21: ( '\\n' )
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:192:22: '\\n'
+            	    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:193:21: ( '\\n' )
+            	    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:193:22: '\\n'
             	    {
             	    match('\n'); 
 
             	    }
 
 
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:192:27: ( IGNORE )*
+            	    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:193:27: ( IGNORE )*
             	    loop11:
             	    do {
             	        int alt11=2;
@@ -2095,7 +2095,7 @@ public class BACONLexer extends Lexer {
 
             	        switch (alt11) {
             	    	case 1 :
-            	    	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:192:28: IGNORE
+            	    	    // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:193:28: IGNORE
             	    	    {
             	    	    mIGNORE(); 
 
@@ -2141,8 +2141,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = IGNORE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:193:9: ( ( ' ' | '\\t' | '\\r' ) )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:193:11: ( ' ' | '\\t' | '\\r' )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:194:9: ( ( ' ' | '\\t' | '\\r' ) )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:194:11: ( ' ' | '\\t' | '\\r' )
             {
             if ( input.LA(1)=='\t'||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -2172,11 +2172,11 @@ public class BACONLexer extends Lexer {
         try {
             int _type = UNKNOWN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:196:9: ( ( . ) )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:196:11: ( . )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:197:9: ( ( . ) )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:197:11: ( . )
             {
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:196:11: ( . )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:196:12: .
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:197:11: ( . )
+            // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:197:12: .
             {
             matchAny(); 
 
@@ -2195,12 +2195,12 @@ public class BACONLexer extends Lexer {
     // $ANTLR end "UNKNOWN"
 
     public void mTokens() throws RecognitionException {
-        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:8: ( RULENAME | COLON | IF | THEN | ELSE | UPTAKE | RELEASE | INGEST | CHANGE | PCHANGE | DIVIDE | INTEGRATE | CREATE | WITH | LSQUARE | RSQUARE | COMMA | ABS | ACOS | ASIN | ATAN | SIN | COS | TAN | EXP | LN | LOGTEN | RND | SQRT | MAX | MIN | DENSITYAT | DEPTHFORFI | DEPTHFORVI | FULLIRRADAT | SALINITYAT | TEMPAT | UVIRRADAT | VARHIST | FLOAT | EQUALS | PLUS | MINUS | MUL | DIV | POW | LBRACKET | RBRACKET | GREATEREQUALS | LESSEQUALS | NEQUALS | GREATERTHAN | LESSTHAN | AND | OR | NOT | ALL | SOME | NONE | VAVERAGE | VPRODUCT | VSUM | VAR | NEWLINE | IGNORE | UNKNOWN )
+        // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:8: ( RULENAME | COLON | IF | THEN | ELSE | UPTAKE | RELEASE | INGEST | CHANGE | PCHANGE | DIVIDE | INTEGRATE | CREATE | WITH | LSQUARE | RSQUARE | COMMA | ABS | ACOS | ASIN | ATAN | SIN | COS | TAN | EXP | LN | LOGTEN | RND | SQRT | MAX | MIN | DENSITYAT | DEPTHFORFI | DEPTHFORVI | FULLIRRADAT | SALINITYAT | TEMPAT | UVIRRADAT | VARHIST | FLOAT | EQUALS | PLUS | MINUS | MUL | DIV | POW | LBRACKET | RBRACKET | GREATEREQUALS | LESSEQUALS | NEQUALS | GREATERTHAN | LESSTHAN | AND | OR | NOT | ALL | SOME | NONE | VAVERAGE | VPRODUCT | VSUM | VAR | NEWLINE | IGNORE | UNKNOWN )
         int alt13=66;
         alt13 = dfa13.predict(input);
         switch (alt13) {
             case 1 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:10: RULENAME
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:10: RULENAME
                 {
                 mRULENAME(); 
 
@@ -2208,7 +2208,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 2 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:19: COLON
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:19: COLON
                 {
                 mCOLON(); 
 
@@ -2216,7 +2216,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 3 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:25: IF
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:25: IF
                 {
                 mIF(); 
 
@@ -2224,7 +2224,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 4 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:28: THEN
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:28: THEN
                 {
                 mTHEN(); 
 
@@ -2232,7 +2232,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 5 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:33: ELSE
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:33: ELSE
                 {
                 mELSE(); 
 
@@ -2240,7 +2240,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 6 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:38: UPTAKE
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:38: UPTAKE
                 {
                 mUPTAKE(); 
 
@@ -2248,7 +2248,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 7 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:45: RELEASE
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:45: RELEASE
                 {
                 mRELEASE(); 
 
@@ -2256,7 +2256,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 8 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:53: INGEST
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:53: INGEST
                 {
                 mINGEST(); 
 
@@ -2264,7 +2264,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 9 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:60: CHANGE
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:60: CHANGE
                 {
                 mCHANGE(); 
 
@@ -2272,7 +2272,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 10 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:67: PCHANGE
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:67: PCHANGE
                 {
                 mPCHANGE(); 
 
@@ -2280,7 +2280,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 11 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:75: DIVIDE
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:75: DIVIDE
                 {
                 mDIVIDE(); 
 
@@ -2288,7 +2288,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 12 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:82: INTEGRATE
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:82: INTEGRATE
                 {
                 mINTEGRATE(); 
 
@@ -2296,7 +2296,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 13 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:92: CREATE
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:92: CREATE
                 {
                 mCREATE(); 
 
@@ -2304,7 +2304,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 14 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:99: WITH
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:99: WITH
                 {
                 mWITH(); 
 
@@ -2312,7 +2312,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 15 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:104: LSQUARE
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:104: LSQUARE
                 {
                 mLSQUARE(); 
 
@@ -2320,7 +2320,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 16 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:112: RSQUARE
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:112: RSQUARE
                 {
                 mRSQUARE(); 
 
@@ -2328,7 +2328,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 17 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:120: COMMA
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:120: COMMA
                 {
                 mCOMMA(); 
 
@@ -2336,7 +2336,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 18 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:126: ABS
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:126: ABS
                 {
                 mABS(); 
 
@@ -2344,7 +2344,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 19 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:130: ACOS
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:130: ACOS
                 {
                 mACOS(); 
 
@@ -2352,7 +2352,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 20 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:135: ASIN
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:135: ASIN
                 {
                 mASIN(); 
 
@@ -2360,7 +2360,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 21 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:140: ATAN
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:140: ATAN
                 {
                 mATAN(); 
 
@@ -2368,7 +2368,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 22 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:145: SIN
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:145: SIN
                 {
                 mSIN(); 
 
@@ -2376,7 +2376,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 23 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:149: COS
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:149: COS
                 {
                 mCOS(); 
 
@@ -2384,7 +2384,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 24 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:153: TAN
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:153: TAN
                 {
                 mTAN(); 
 
@@ -2392,7 +2392,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 25 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:157: EXP
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:157: EXP
                 {
                 mEXP(); 
 
@@ -2400,7 +2400,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 26 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:161: LN
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:161: LN
                 {
                 mLN(); 
 
@@ -2408,7 +2408,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 27 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:164: LOGTEN
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:164: LOGTEN
                 {
                 mLOGTEN(); 
 
@@ -2416,7 +2416,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 28 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:171: RND
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:171: RND
                 {
                 mRND(); 
 
@@ -2424,7 +2424,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 29 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:175: SQRT
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:175: SQRT
                 {
                 mSQRT(); 
 
@@ -2432,7 +2432,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 30 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:180: MAX
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:180: MAX
                 {
                 mMAX(); 
 
@@ -2440,7 +2440,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 31 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:184: MIN
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:184: MIN
                 {
                 mMIN(); 
 
@@ -2448,7 +2448,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 32 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:188: DENSITYAT
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:188: DENSITYAT
                 {
                 mDENSITYAT(); 
 
@@ -2456,7 +2456,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 33 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:198: DEPTHFORFI
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:198: DEPTHFORFI
                 {
                 mDEPTHFORFI(); 
 
@@ -2464,7 +2464,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 34 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:209: DEPTHFORVI
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:209: DEPTHFORVI
                 {
                 mDEPTHFORVI(); 
 
@@ -2472,7 +2472,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 35 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:220: FULLIRRADAT
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:220: FULLIRRADAT
                 {
                 mFULLIRRADAT(); 
 
@@ -2480,7 +2480,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 36 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:232: SALINITYAT
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:232: SALINITYAT
                 {
                 mSALINITYAT(); 
 
@@ -2488,7 +2488,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 37 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:243: TEMPAT
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:243: TEMPAT
                 {
                 mTEMPAT(); 
 
@@ -2496,7 +2496,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 38 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:250: UVIRRADAT
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:250: UVIRRADAT
                 {
                 mUVIRRADAT(); 
 
@@ -2504,7 +2504,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 39 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:260: VARHIST
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:260: VARHIST
                 {
                 mVARHIST(); 
 
@@ -2512,7 +2512,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 40 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:268: FLOAT
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:268: FLOAT
                 {
                 mFLOAT(); 
 
@@ -2520,7 +2520,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 41 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:274: EQUALS
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:274: EQUALS
                 {
                 mEQUALS(); 
 
@@ -2528,7 +2528,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 42 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:281: PLUS
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:281: PLUS
                 {
                 mPLUS(); 
 
@@ -2536,7 +2536,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 43 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:286: MINUS
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:286: MINUS
                 {
                 mMINUS(); 
 
@@ -2544,7 +2544,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 44 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:292: MUL
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:292: MUL
                 {
                 mMUL(); 
 
@@ -2552,7 +2552,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 45 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:296: DIV
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:296: DIV
                 {
                 mDIV(); 
 
@@ -2560,7 +2560,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 46 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:300: POW
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:300: POW
                 {
                 mPOW(); 
 
@@ -2568,7 +2568,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 47 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:304: LBRACKET
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:304: LBRACKET
                 {
                 mLBRACKET(); 
 
@@ -2576,7 +2576,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 48 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:313: RBRACKET
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:313: RBRACKET
                 {
                 mRBRACKET(); 
 
@@ -2584,7 +2584,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 49 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:322: GREATEREQUALS
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:322: GREATEREQUALS
                 {
                 mGREATEREQUALS(); 
 
@@ -2592,7 +2592,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 50 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:336: LESSEQUALS
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:336: LESSEQUALS
                 {
                 mLESSEQUALS(); 
 
@@ -2600,7 +2600,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 51 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:347: NEQUALS
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:347: NEQUALS
                 {
                 mNEQUALS(); 
 
@@ -2608,7 +2608,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 52 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:355: GREATERTHAN
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:355: GREATERTHAN
                 {
                 mGREATERTHAN(); 
 
@@ -2616,7 +2616,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 53 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:367: LESSTHAN
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:367: LESSTHAN
                 {
                 mLESSTHAN(); 
 
@@ -2624,7 +2624,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 54 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:376: AND
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:376: AND
                 {
                 mAND(); 
 
@@ -2632,7 +2632,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 55 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:380: OR
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:380: OR
                 {
                 mOR(); 
 
@@ -2640,7 +2640,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 56 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:383: NOT
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:383: NOT
                 {
                 mNOT(); 
 
@@ -2648,7 +2648,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 57 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:387: ALL
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:387: ALL
                 {
                 mALL(); 
 
@@ -2656,7 +2656,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 58 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:391: SOME
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:391: SOME
                 {
                 mSOME(); 
 
@@ -2664,7 +2664,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 59 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:396: NONE
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:396: NONE
                 {
                 mNONE(); 
 
@@ -2672,7 +2672,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 60 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:401: VAVERAGE
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:401: VAVERAGE
                 {
                 mVAVERAGE(); 
 
@@ -2680,7 +2680,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 61 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:410: VPRODUCT
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:410: VPRODUCT
                 {
                 mVPRODUCT(); 
 
@@ -2688,7 +2688,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 62 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:419: VSUM
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:419: VSUM
                 {
                 mVSUM(); 
 
@@ -2696,7 +2696,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 63 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:424: VAR
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:424: VAR
                 {
                 mVAR(); 
 
@@ -2704,7 +2704,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 64 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:428: NEWLINE
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:428: NEWLINE
                 {
                 mNEWLINE(); 
 
@@ -2712,7 +2712,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 65 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:436: IGNORE
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:436: IGNORE
                 {
                 mIGNORE(); 
 
@@ -2720,7 +2720,7 @@ public class BACONLexer extends Lexer {
                 }
                 break;
             case 66 :
-                // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:443: UNKNOWN
+                // C:\\Users\\Adam\\Documents\\Imperial\\First_Term\\Workspace\\VirtualEcology\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:1:443: UNKNOWN
                 {
                 mUNKNOWN(); 
 
@@ -2785,7 +2785,7 @@ public class BACONLexer extends Lexer {
             this.transition = DFA8_transition;
         }
         public String getDescription() {
-            return "150:1: FLOAT : ( ( DIGIT )+ '.' ( DIGIT )* | '.' ( DIGIT )+ | ( DIGIT )+ );";
+            return "151:1: FLOAT : ( ( DIGIT )+ '.' ( DIGIT )* | '.' ( DIGIT )+ | ( DIGIT )+ );";
         }
     }
     static final String DFA13_eotS =
