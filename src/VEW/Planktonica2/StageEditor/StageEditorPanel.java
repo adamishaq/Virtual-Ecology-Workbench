@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.Collection;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -42,7 +43,6 @@ public class StageEditorPanel extends JPanel {
 		
 		TableModel headerData = new RowModel(this.controller);
         TableModel data = new StageTableModel(this.controller, m);
-
         JTable table = new JTable(data);
         table.setColumnModel(m);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -254,19 +254,18 @@ public class StageEditorPanel extends JPanel {
 			if (aValue instanceof Boolean) {
 				boolean isCalled = (Boolean) aValue;
 				
-				String stageName = this.getColumnName(x);
+				String stageName = this.getColumnName(y-1);
 				
 				Stage selected = this.controller.getStage(stageName);
-				Function f = controller.getFunctionAtIndex(y);
+				Function f = controller.getFunctionAtIndex(x);
 				
 				if (isCalled) {
 					// add to list of CalledIn
 					f.addToCalledIn(selected);
-					
-				} else if (!isCalled) {
+				} 
+				else {
 					// remove from list
 					f.removeFromCalledIn(selected);
-					
 				}
 			}
 			
@@ -286,6 +285,11 @@ public class StageEditorPanel extends JPanel {
 				return "";
 			}
 			
+		}
+		
+		@Override
+		public boolean isCellEditable(int rowIndex, int columnIndex) {
+			return true;
 		}
 	}
 
