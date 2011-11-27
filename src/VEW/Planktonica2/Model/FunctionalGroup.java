@@ -37,7 +37,7 @@ public class FunctionalGroup extends Catagory {
 		Type floatType = tables.checkTypeTable("$float");
 		Collection<Unit>units = new ArrayList<Unit>();
 		units.add(new Unit(0, "m", 1));
-		StateVariable z = new StateVariable("z", "Depth", floatType, units);
+		StateVariable z = new StateVariable("z", "Depth", floatType, units, new Float(0), 2, false);
 		stateVarTable.put("z", z);
 	}
 
@@ -59,11 +59,11 @@ public class FunctionalGroup extends Catagory {
 		String varName = chemName + "_ingested";
 		String varDescription = chemName + " incoming pool";
 		StateVariable chemVar = new StateVariable(varName, varDescription,
-													floatType, units);
+													floatType, units, null, null, false);
 		stateVarTable.put(varName, chemVar);
 		varName = chemName + "_pool";
 		varDescription = chemName + " internal pool";
-		chemVar = new StateVariable(varName, varDescription, floatType, units);
+		chemVar = new StateVariable(varName, varDescription, floatType, units, null, null, false);
 		stateVarTable.put(varName, chemVar);
 	}
 	
@@ -108,7 +108,7 @@ public class FunctionalGroup extends Catagory {
 		tags = xmlTag.getTags(XMLTagEnum.PARAMETER.xmlTag());
 		
 		for (XMLTag t : tags) {
-			Parameter p = new Parameter(this);
+			Parameter p = new Parameter();
 			p.build(t);
 			paramTable.put(p.getName(), p);
 			t.removeFromParent();
@@ -118,7 +118,7 @@ public class FunctionalGroup extends Catagory {
 		tags = xmlTag.getTags(XMLTagEnum.LOCAL.xmlTag());
 		
 		for (XMLTag t : tags) {
-			Local l = new Local(this);
+			Local l = new Local();
 			l.build(t);
 			localVarTable.put(l.getName(), l);
 			t.removeFromParent();
@@ -128,7 +128,7 @@ public class FunctionalGroup extends Catagory {
 		tags = xmlTag.getTags(XMLTagEnum.VARIABLE.xmlTag());
 		
 		for (XMLTag t : tags) {
-			StateVariable v = new StateVariable(this);
+			StateVariable v = new StateVariable();
 			v.build(t);
 			stateVarTable.put(v.getName(), v);
 			t.removeFromParent();
@@ -138,7 +138,7 @@ public class FunctionalGroup extends Catagory {
 		tags = xmlTag.getTags(XMLTagEnum.VARIETY_CONCENTRATION.xmlTag());
 		
 		for (XMLTag t : tags) {
-			VarietyConcentration vc = new VarietyConcentration(this);
+			VarietyConcentration vc = new VarietyConcentration();
 			vc.build(t);
 			varietyConcTable.put(vc.getName(), vc);
 			t.removeFromParent();

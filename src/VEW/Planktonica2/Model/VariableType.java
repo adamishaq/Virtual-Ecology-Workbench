@@ -10,7 +10,6 @@ import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
 public abstract class VariableType implements BuildFromXML, BuildToXML {
 
-	protected Catagory parentCatagory;
 	private String name;
 	private String desc;
 	private Float value;
@@ -19,28 +18,28 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 	private Collection<Unit> units;
 	private boolean assignedTo;
 	private boolean readFrom;
+	private boolean editable;
 	
-	public VariableType(Catagory parentCatagory, Type type) {
-		this.parentCatagory = parentCatagory;
-		this.type = type;
-		this.assignedTo = false;
-		this.readFrom = false;
-	}
-	
-	public VariableType(Catagory parentCatagory) {
-		this.parentCatagory = parentCatagory;
-		this.assignedTo = false;
-		this.readFrom = false;
+	public VariableType() {
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
-		setVarType(floatType);
+		initialiseVariable("", "", floatType, null, null, null, true);
 	}
 	
-	public VariableType(String name, String desc, Type type, Collection<Unit> units) {
+	public VariableType(String name, String desc, Type type, Collection<Unit> units, Float value,
+								Integer hist, boolean editable) {
+		initialiseVariable(name, desc, type, units, value, hist, editable);
+	}
+	
+	private void initialiseVariable(String name, String desc, Type type, Collection<Unit> units, Float value,
+										Integer hist, boolean editable) {
+		this.assignedTo = false;
+		this.readFrom = false;
 		this.name = name;
 		this.desc = desc;
 		this.type = type;
 		this.units = units;
+		this.editable = editable;
 	}
 	
 	
@@ -210,6 +209,10 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 	
 	public void setRead(boolean read) {
 		readFrom = read;
+	}
+	
+	public boolean isEditable() {
+		return editable;
 	}
 	
 	

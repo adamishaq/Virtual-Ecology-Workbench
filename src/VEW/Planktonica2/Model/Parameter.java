@@ -4,8 +4,8 @@ import VEW.Common.XML.XMLTag;
 
 public class Parameter extends VariableType {
 
-	public Parameter(Catagory catagory) {
-		super(catagory);
+	public Parameter() {
+		super();
 	}
 	
 	public XMLTag buildToXML() throws XMLWriteBackException {

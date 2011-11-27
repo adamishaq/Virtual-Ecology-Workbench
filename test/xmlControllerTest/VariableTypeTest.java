@@ -74,13 +74,13 @@ public class VariableTypeTest {
 	@Test
 	public void test() {
 		FunctionalGroup func = new FunctionalGroup("");
-		Parameter p = new Parameter(func);
+		Parameter p = new Parameter();
 		p.build(p1);
 		
-		Local l = new Local(func);
+		Local l = new Local();
 		l.build(l1);
 		
-		StateVariable v = new StateVariable(func);
+		StateVariable v = new StateVariable();
 		v.build(v1);
 		
 		

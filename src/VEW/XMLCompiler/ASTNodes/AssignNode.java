@@ -38,7 +38,7 @@ public class AssignNode extends RuleNode {
 	
 	private void checkTypeCompatibility(Type varType, ConstructedASTree enclosingTree) {
 		Type exprType = expr.getExprType();
-		if (varType instanceof VarietyType && !(exprType instanceof VarietyType)) {
+		if (exprType instanceof VarietyType && !(varType instanceof VarietyType)) {
 			enclosingTree.addSemanticException(
 					new SemanticCheckException("Cannot assign a variety value to a scalar value",line_number));
 		}

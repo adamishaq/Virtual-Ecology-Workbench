@@ -77,7 +77,7 @@ public class Chemical extends Catagory {
 		tags = tag.getTags(XMLTagEnum.PARAMETER.xmlTag());
 
 		for (XMLTag t : tags) {
-			Parameter p = new Parameter(this);
+			Parameter p = new Parameter();
 			p.build(t);
 			paramTable.put(p.getName(), p);
 			t.removeFromParent();
@@ -87,7 +87,7 @@ public class Chemical extends Catagory {
 		tags = tag.getTags(XMLTagEnum.LOCAL.xmlTag());
 
 		for (XMLTag t : tags) {
-			Local l = new Local(this);
+			Local l = new Local();
 			l.build(t);
 			localVarTable.put(l.getName(), l);
 			t.removeFromParent();
@@ -97,7 +97,7 @@ public class Chemical extends Catagory {
 		tags = tag.getTags(XMLTagEnum.VARIABLE.xmlTag());
 
 		for (XMLTag t : tags) {
-			StateVariable v = new StateVariable(this);
+			StateVariable v = new StateVariable();
 			v.build(t);
 			stateVarTable.put(v.getName(), v);
 			t.removeFromParent();
