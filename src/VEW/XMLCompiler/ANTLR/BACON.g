@@ -225,7 +225,7 @@ rule
 
 rule2
 	: assign
-	| IF bExpr (NEWLINE)? THEN (NEWLINE)? rule (NEWLINE?) -> ^(IF bExpr rule)
+	| IF bExpr (NEWLINE)? THEN (NEWLINE)? rule -> ^(IF bExpr rule)
 	| UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^(UPTAKE VAR expr)
 	| RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^(RELEASE VAR expr)
 	| INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^(INGEST VAR expr expr)
