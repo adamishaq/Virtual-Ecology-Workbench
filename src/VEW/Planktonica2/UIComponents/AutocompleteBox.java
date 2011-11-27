@@ -41,6 +41,7 @@ public class AutocompleteBox {
 	private String current_word;
 	private int caret_position;
 	private Catagory current_catagory;
+	private boolean visible = false;
 
 	private HashMap<String,String> rule_functions 
 		= new HashMap<String,String>();
@@ -200,6 +201,7 @@ public class AutocompleteBox {
 	}
 	
 	public void show_suggestions(KeyEvent e) {
+		this.visible = true;
 		String key_val = KeyEvent.getKeyText(e.getKeyCode());
 		if (key_val.equals("Minus") && e.isShiftDown())
 			key_val = "_";
@@ -253,7 +255,7 @@ public class AutocompleteBox {
 			target.requestFocus();
 		} else if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN){
 			// Give focus to the list box if it is visible
-			if (list.isVisible() && !current_word.equals("")) {
+			if (visible && acbox.isVisible() && !current_word.equals("")) {
 				list.requestFocus();
 				list.setSelectedIndex(0);
 				target.setCaretPosition(caret_position);
@@ -304,6 +306,7 @@ public class AutocompleteBox {
 	}
 	
 	public void hide_suggestions() {
+		this.visible = false;
 		description.setText("");
 		acbox.setVisible(false);
 	}

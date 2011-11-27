@@ -31,6 +31,7 @@ import VEW.Planktonica2.DisplayEventHandlers.AddFunctionButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.CheckButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.CompileButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
+import VEW.Planktonica2.DisplayEventHandlers.SaveButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.VariableSelectionEventHandler;
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.VariableType;
@@ -269,6 +270,7 @@ public abstract class Display extends JSplitPane implements Observer {
 		//itemPanel.add(copyInstance);
 		itemPanel.add(compileButton);
 		itemPanel.add(checkButton);
+		itemPanel.add(saveButton);
 	}
 	
 	
@@ -333,6 +335,10 @@ public abstract class Display extends JSplitPane implements Observer {
 		checkButton.setPreferredSize(STANDARD_BUTTON_SIZE);
 		checkButton.addActionListener(new CheckButtonListener(this.editorPanel));
 		
+		saveButton = new JButton(new ImageIcon(IconRoot + "compile.gif"));
+		saveButton.setPreferredSize(STANDARD_BUTTON_SIZE);
+		saveButton.addActionListener(new SaveButtonListener(this.editorPanel));
+		
 	}
 	
 	protected void setButtonToolTips() {
@@ -366,6 +372,7 @@ public abstract class Display extends JSplitPane implements Observer {
 		
 		compileButton.setToolTipText("Compile the current model");
 		checkButton.setToolTipText("Check the current source file");
+		saveButton.setToolTipText("Save the current source file");
 		
 	}
 	

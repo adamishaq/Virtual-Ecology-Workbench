@@ -248,6 +248,8 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		if (!validate_variable(false))
 			return;
 		// Construct the variable
+		ArrayList<Unit> units = new ArrayList<Unit>();
+		units.add(new Unit(0,unit_string.getText(),0));
 		switch (current_selection) {
 		case GROUPVAR :
 			StateVariable v = new StateVariable(this.current_category);
@@ -255,6 +257,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			v.setDesc(var_desc.getText());
 			v.setHist(Integer.parseInt(h_size.getText()));
 			v.setValue(Float.parseFloat(i_val.getText()));
+			v.setUnits(units);
 			current_category.addToStateVarTable(v);
 			break;
 		case GROUPPARAM :
@@ -262,12 +265,14 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			p.setName(var_name.getText());
 			p.setDesc(var_desc.getText());
 			p.setValue(Float.parseFloat(i_val.getText()));
+			p.setUnits(units);
 			current_category.addToParamTable(p);
 			break;
 		case LOCALVAR :
 			Local l = new Local(this.current_category);
 			l.setName(var_name.getText());
 			l.setDesc(var_desc.getText());
+			l.setUnits(units);
 			current_category.addToLocalTable(l);
 			break;
 		case FOODPARAM :
@@ -277,6 +282,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 				vp.setName(var_name.getText());
 				vp.setDesc(var_desc.getText());
 				vp.setValue(Float.parseFloat(i_val.getText()));
+				vp.setUnits(units);
 				// Check the food set link actually exists
 				VarietyConcentration vc =
 					this.current_category.checkVarietyConcTable(link_combo.getSelectedItem().toString());
@@ -294,6 +300,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 				vv.setDesc(var_desc.getText());
 				vv.setHist(Integer.parseInt(h_size.getText()));
 				vv.setValue(Float.parseFloat(i_val.getText()));
+				vv.setUnits(units);
 				// Check the food set link actually exists
 				VarietyConcentration vc =
 					this.current_category.checkVarietyConcTable(link_combo.getSelectedItem().toString());
@@ -309,6 +316,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 				VarietyConcentration vc = new VarietyConcentration((FunctionalGroup) this.current_category);
 				vc.setName(var_name.getText());
 				vc.setDesc(var_desc.getText());
+				vc.setUnits(units);
 				current_category.addToVarietyConcTable(vc);
 			}
 			break;
@@ -318,6 +326,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 				VarietyLocal vl = new VarietyLocal((FunctionalGroup) this.current_category);
 				vl.setName(var_name.getText());
 				vl.setDesc(var_desc.getText());
+				vl.setUnits(units);
 				// Check the food set link actually exists
 				VarietyConcentration vc =
 					this.current_category.checkVarietyConcTable(link_combo.getSelectedItem().toString());
@@ -336,6 +345,12 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		if (!validate_variable(true))
 			return;
 		VariableType v = current_category.checkAllVariableTables(var_name.getText());
+		if (v != null) {
+			v = current_category.removeFromTables(var_name.getText());
+			if (v != null)
+				construct_variable();
+		}
+		/*
 		v.setDesc(var_desc.getText());
 		ArrayList<Unit> units = new ArrayList<Unit>();
 		units.add(new Unit(0,unit_string.getText(),0));
@@ -364,7 +379,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			} else if (v instanceof Parameter) {
 				v.setValue(Float.parseFloat(i_val.getText()));
 			}
-		}
+		}*/
 	}
 	
 	private boolean validate_variable(boolean exists) {

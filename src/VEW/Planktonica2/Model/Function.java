@@ -51,6 +51,8 @@ public class Function implements BuildFromXML, BuildToXML {
 		this.availableStages = null;
 		this.parent = parent;
 		this.name = name;
+		this.calledIn = new ArrayList<Stage>();
+		this.availableStages = new ArrayList<Stage>();
 	}
 	
 	@Override

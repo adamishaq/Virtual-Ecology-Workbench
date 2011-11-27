@@ -61,16 +61,33 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		if (conc != null) return conc;
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		var = tables.checkGlobalVariableTables(variableName);
-		return var;
-	}
-	
-	public VariableType checkAllVariableTables(String variableName) {
-		VariableType var = checkAccessableVariableTable(variableName);
 		if (var != null) return var;
 		var = checkParameterTable(variableName);
 		if (var != null) return var;
 		var = checkVarietyParamTable(variableName);
 		return var;
+	}
+	
+	public VariableType checkAllVariableTables(String variableName) {
+		VariableType var = checkAccessableVariableTable(variableName);	
+		return var;
+	}
+	
+	public VariableType removeFromTables(String variableName) {
+		StateVariable sVar = checkStateVariableTable(variableName);
+		if (sVar != null) return stateVarTable.remove(variableName);
+		Local localVar = checkLocalVarTable(variableName);
+		if (localVar != null) return localVarTable.remove(variableName);
+		VarietyLocal varLocal = checkVarietyLocalTable(variableName);
+		if (varLocal != null) return varietyLocalTable.remove(variableName);
+		VarietyVariable varState = checkVarietyStateTable(variableName);
+		if (varState != null) return varietyStateTable.remove(variableName);
+		VarietyConcentration conc = checkVarietyConcTable(variableName);
+		if (conc != null) return varietyConcTable.remove(variableName);
+		VariableType var = checkParameterTable(variableName);
+		if (var != null) return paramTable.remove(variableName);
+		var = checkVarietyParamTable(variableName);
+		return varietyParamTable.remove(variableName);
 	}
 	
 	public String getName() {

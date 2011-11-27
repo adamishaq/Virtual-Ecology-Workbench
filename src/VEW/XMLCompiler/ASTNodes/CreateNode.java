@@ -48,7 +48,8 @@ public class CreateNode extends RuleNode {
 							line_number));
 		}
 		//TODO assign list checking may need to be more complex, not sure yet
-		assignList.check(enclosingCategory, enclosingTree);
+		if (assignList != null)
+			assignList.check(enclosingCategory, enclosingTree);
 
 	}
 
