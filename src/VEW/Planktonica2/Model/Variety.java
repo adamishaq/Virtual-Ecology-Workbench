@@ -1,6 +1,7 @@
 package VEW.Planktonica2.Model;
 
 import VEW.Common.XML.XMLTag;
+import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
 public class Variety extends VariableType {
 
@@ -9,6 +10,9 @@ public class Variety extends VariableType {
 	
 	public Variety (Catagory catagory) {
 		super(catagory);
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		Type floatType = (Type) tables.checkTypeTable("$float");
+		setVarType(new VarietyType("float", floatType));
 	}
 
 	

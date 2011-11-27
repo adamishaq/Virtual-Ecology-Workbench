@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import VEW.Common.XML.XMLTag;
+import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
 
 public abstract class VariableType implements BuildFromXML, BuildToXML {
@@ -30,6 +31,9 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 		this.parentCatagory = parentCatagory;
 		this.assignedTo = false;
 		this.readFrom = false;
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		Type floatType = (Type) tables.checkTypeTable("$float");
+		setVarType(floatType);
 	}
 	
 	public VariableType(String name, String desc, Type type, Collection<Unit> units) {
