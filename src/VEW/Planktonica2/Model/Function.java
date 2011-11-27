@@ -27,7 +27,6 @@ public class Function implements BuildFromXML, BuildToXML {
 	private String comment;
 	private String author;
 	
-	private String parentName;
 	private Catagory parent;
 	
 	private String source_file_path;
@@ -106,7 +105,7 @@ public class Function implements BuildFromXML, BuildToXML {
 	}
 	
 	private void createSourceFile(XMLTag[] xmlTags) {
-		String parentPath = source_file_path + parentName + "\\";
+		String parentPath = source_file_path + parent.getName() + "\\";
 		File parentDirectory = new File(parentPath);
 		if (!parentDirectory.exists()) {
 			parentDirectory.mkdir();
@@ -287,7 +286,7 @@ public class Function implements BuildFromXML, BuildToXML {
 	}
 	
 	public List<XMLTag> compileFunction() throws CompilerException {
-		String parentPath = source_file_path + parentName + "\\" + name + ".bacon";
+		String parentPath = source_file_path + parent.getName() + "\\" + name + ".bacon";
 		String sourceCode = "";
 		try {
 			sourceCode = readSourceFile(parentPath);

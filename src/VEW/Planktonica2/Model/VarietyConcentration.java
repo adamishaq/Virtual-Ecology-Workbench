@@ -1,9 +1,16 @@
 package VEW.Planktonica2.Model;
 
+import java.util.Collection;
+
 import VEW.Common.XML.XMLTag;
 import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
 public class VarietyConcentration extends VariableType {
+
+	public VarietyConcentration(String name, String desc, Type type,
+			Collection<Unit> units) {
+		super(name, desc, type, units);
+	}
 
 	public VarietyConcentration(FunctionalGroup funcGroup) {
 		super(funcGroup);

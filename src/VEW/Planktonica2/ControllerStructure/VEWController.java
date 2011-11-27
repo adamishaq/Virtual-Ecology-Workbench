@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
 import java.util.Observable;
 import java.util.prefs.BackingStoreException;
 
@@ -22,7 +21,6 @@ import VEW.Planktonica2.Model.FunctionalGroup;
 import VEW.Planktonica2.Model.Model;
 import VEW.Planktonica2.Model.VariableType;
 import VEW.Planktonica2.Model.XMLWriteBackException;
-import VEW.XMLCompiler.ANTLR.CompilerException;
 
 
 public abstract class VEWController extends Observable {

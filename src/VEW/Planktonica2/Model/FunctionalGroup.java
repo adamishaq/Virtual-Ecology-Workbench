@@ -1,9 +1,11 @@
 package VEW.Planktonica2.Model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 import VEW.Common.XML.XMLTag;
+import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 import VEW.XMLCompiler.ASTNodes.SymbolTable;
 
 public class FunctionalGroup extends Catagory {
@@ -32,6 +34,44 @@ public class FunctionalGroup extends Catagory {
 	
 	private void initialiseFuncTables() {
 		stageTable = new SymbolTable<Stage>();
+		addInitialChemicalStateVariables();
+		addInitialStateVariables();
+	}
+
+
+	private void addInitialStateVariables() {
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		Type floatType = tables.checkTypeTable("$float");
+		Collection<Unit>units = new ArrayList<Unit>();
+		units.add(new Unit(0, "m", 1));
+		StateVariable z = new StateVariable("z", "Depth", floatType, units);
+		stateVarTable.put("z", z);
+	}
+
+
+	private void addInitialChemicalStateVariables() {
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		Collection<String> chemicalNames = tables.retrieveChemicalBaseNames();
+		for (String chemName : chemicalNames) {
+			addChemicalStateVariables(chemName);
+		}
+	}
+
+
+	public void addChemicalStateVariables(String chemName) {
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		Collection<Unit> units = new ArrayList<Unit>();
+		units.add(new Unit(0, "mol", 1));
+		Type floatType = tables.checkTypeTable("$float");
+		String varName = chemName + "_ingested";
+		String varDescription = chemName + " incoming pool";
+		StateVariable chemVar = new StateVariable(varName, varDescription,
+													floatType, units);
+		stateVarTable.put(varName, chemVar);
+		varName = chemName + "_pool";
+		varDescription = chemName + " internal pool";
+		chemVar = new StateVariable(varName, varDescription, floatType, units);
+		stateVarTable.put(varName, chemVar);
 	}
 	
 	@Override

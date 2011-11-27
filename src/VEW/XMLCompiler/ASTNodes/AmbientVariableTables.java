@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class AmbientVariableTables {
-	
+
 	private static AmbientVariableTables tables;
 	private SymbolTable<Type> typeTable;
 	private SymbolTable<GlobalVariable> physicsVarTable;
 	private SymbolTable<GlobalVariable> waterColumnVarTable;
-	//private SymbolTable chemicalTable;
+	private SymbolTable<GlobalVariable> chemicalTable;
 	private SymbolTable<GlobalVariable> systemVarTable;
 	
 	private AmbientVariableTables() {
@@ -21,6 +21,12 @@ public class AmbientVariableTables {
 		initialisePhysicsVarTable();
 		initialiseWaterColumnVarTable();
 		initialiseSystemVarTable();
+		initialiseChemicalTable();
+	}
+
+	private void initialiseChemicalTable() {
+		chemicalTable = new SymbolTable<GlobalVariable>();
+		
 	}
 
 	private void initialiseTypeTable() {
@@ -106,6 +112,9 @@ public class AmbientVariableTables {
 		if (obj != null)
 			return obj;
 		obj = checkSystemTable(key);
+		if (obj != null)
+			return obj;
+		obj = checkChemicalTable(key);
 		return obj;
 	}
 	
@@ -124,6 +133,19 @@ public class AmbientVariableTables {
 	public GlobalVariable checkPhysicsTable(String key) {
 		return physicsVarTable.get(key);
 	}
+	
+	public GlobalVariable checkChemicalTable(String key) {
+		return chemicalTable.get(key);
+	}
+	
+	public void addChemical(String chemicalName) {
+		Type floatType = (Type) typeTable.get("$float");
+		String description = "The concentration of " + chemicalName + " in solution";
+		Collection<Unit> units = new ArrayList<Unit>();
+		units.add(new Unit(0, "mol", 1));
+		GlobalVariable chemicalVar = new GlobalVariable(chemicalName, description, floatType, units);
+		chemicalTable.put(chemicalName + "_conc", chemicalVar);
+	}
 
 	public static AmbientVariableTables getTables() {
 		if (tables == null) {
@@ -132,12 +154,28 @@ public class AmbientVariableTables {
 		return tables;
 	}
 	
+	public void destroyVariableTables() {
+		chemicalTable = null;
+		physicsVarTable = null;
+		systemVarTable = null;
+		waterColumnVarTable = null;
+		typeTable = null;
+		tables = null;
+	}
+	
+	public static void destroyAmbientVariableTable() {
+		if (tables != null) {
+			tables.destroyVariableTables();
+		}
+	}
+	
 	public String[] getAllVariableNames() {
 		Object[] sys_vars = systemVarTable.keySet().toArray();
 		Object[] water_vars = waterColumnVarTable.keySet().toArray();
 		Object[] phys_vars = physicsVarTable.keySet().toArray();
+		Object[] chem_vars = chemicalTable.keySet().toArray();
 		String [] all_vars = new String[(sys_vars.length 
-				+ water_vars.length + phys_vars.length)];
+				+ water_vars.length + phys_vars.length + chem_vars.length)];
 		int pos = 0;
 		for (int i = 0; i < sys_vars.length; i++) {
 			all_vars[pos] = (String) sys_vars[i];
@@ -151,7 +189,20 @@ public class AmbientVariableTables {
 			all_vars[pos] = (String) phys_vars[i];
 			pos++;
 		}
+		for (int i = 0; i < chem_vars.length; i++) {
+			all_vars[pos] = (String) chem_vars[i];
+			pos++;
+		}
 		return all_vars;
+	}
+	
+	public Collection<String> retrieveChemicalBaseNames() {
+		Collection<String> chemicalBaseNames = new ArrayList<String>(); 
+		Collection<GlobalVariable> chemicalVars = chemicalTable.values();
+		for (GlobalVariable chemical : chemicalVars) {
+			chemicalBaseNames.add(chemical.getName());
+		}
+		return chemicalBaseNames;
 	}
 	
 }

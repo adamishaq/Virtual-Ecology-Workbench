@@ -239,10 +239,10 @@ public class StageEditorPanel extends JPanel {
 				
 			} else {
 				
-				String stageName = this.getColumnName(x);
+				String stageName = this.getColumnName(y-1);
 				
 				Stage selected = this.controller.getStage(stageName);
-				Function f = this.controller.getFunctionAtIndex(y);
+				Function f = this.controller.getFunctionAtIndex(x);
 				
 				// called in holds a referrence to the origional stage
 				return f.isCalledIn(selected);
