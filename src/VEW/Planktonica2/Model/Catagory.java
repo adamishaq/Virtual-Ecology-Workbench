@@ -164,6 +164,9 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		return this.functions.get(functionNo);
 	}
 	
+	public void addFunction(String filepath, String name) {
+		this.functions.add(new Function(filepath,name,this));
+	}
 	
 	public String[] get_state_vars() {
 		Object[] vars = stateVarTable.keySet().toArray();

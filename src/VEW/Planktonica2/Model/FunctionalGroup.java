@@ -22,6 +22,13 @@ public class FunctionalGroup extends Catagory {
 		initialiseFuncTables();
 	}
 
+	public FunctionalGroup (String name, String file_path) {
+		super();
+		invisible = true;
+		this.name = name;
+		this.file_path = file_path;
+		initialiseFuncTables();
+	}
 	
 	private void initialiseFuncTables() {
 		stageTable = new SymbolTable<Stage>();

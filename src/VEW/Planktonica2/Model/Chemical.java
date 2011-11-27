@@ -23,6 +23,12 @@ public class Chemical extends Catagory {
 		this.file_path = _file_path;
 	}
 	
+	public Chemical(String name, String filePath) {
+		super();
+		this.file_path = filePath;
+		this.name = name;
+	}
+
 	@Override
 	public BuildFromXML build(XMLTag tag) {
 		baseTag = tag;

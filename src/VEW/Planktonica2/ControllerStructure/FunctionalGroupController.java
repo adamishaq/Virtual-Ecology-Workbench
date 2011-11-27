@@ -90,7 +90,12 @@ public class FunctionalGroupController extends VEWController {
 	}
 
 	
-
+	public void addCategoryToModel(String name) {
+		FunctionalGroup new_fg = new FunctionalGroup(name,model.getFilePath());
+		model.addFunctionalGroup(new_fg);
+		this.setChanged();
+		this.notifyObservers(new NewCategoryEvent(new_fg));
+	}
 	
 	
 	

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import VEW.Planktonica2.Model.Chemical;
+import VEW.Planktonica2.Model.FunctionalGroup;
 import VEW.Planktonica2.Model.Model;
 import VEW.Planktonica2.Model.NullSpectrum;
 import VEW.Planktonica2.Model.Spectrum;
@@ -79,6 +80,13 @@ public class ChemicalController extends VEWController {
 		
 		getSelectedChemical().setPigment(b);
 		
+	}
+	
+	public void addCategoryToModel(String name) {
+		Chemical c = new Chemical(name,model.getFilePath());
+		model.addChemical(c);
+		this.setChanged();
+		this.notifyObservers(new NewCategoryEvent(c));
 	}
 	
 }
