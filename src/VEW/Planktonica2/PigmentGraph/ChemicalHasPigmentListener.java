@@ -8,10 +8,12 @@ import VEW.Planktonica2.ControllerStructure.ChemicalController;
 public class ChemicalHasPigmentListener implements ItemListener {
 
 	private ChemicalController controller;
+	private PigmentPanel pigmentPanel;
 	
-	public ChemicalHasPigmentListener(ChemicalController c) {
+	public ChemicalHasPigmentListener(ChemicalController c, PigmentPanel pigmentPanel) {
 		super();
 		this.controller = c;
+		this.pigmentPanel = pigmentPanel;
 		
 	}
 
@@ -19,6 +21,9 @@ public class ChemicalHasPigmentListener implements ItemListener {
 	public void itemStateChanged(ItemEvent event) {
 
 		controller.chemicalHasPigment(event.getStateChange() == ItemEvent.SELECTED);
+
+		this.pigmentPanel.repaint();
+		this.pigmentPanel.redrawGraph();
 		
 	}
 

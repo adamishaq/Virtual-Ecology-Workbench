@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.Collection;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -14,7 +15,6 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
-
 import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
 import VEW.Planktonica2.Model.Function;
 import VEW.Planktonica2.Model.FunctionalGroup;
@@ -69,8 +69,8 @@ public class StageEditorPanel extends JPanel {
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         JTableHeader corner = rowHeader.getTableHeader();
-        corner.setReorderingAllowed(false);
         corner.setResizingAllowed(false);
+        corner.setReorderingAllowed(false);
 
         scrollPane.setCorner(JScrollPane.UPPER_LEFT_CORNER, corner);
 
@@ -81,6 +81,7 @@ public class StageEditorPanel extends JPanel {
         new RowHeaderResizer(scrollPane).setEnabled(true);
 
         this.add(scrollPane);
+        
 	}
 	
 	private class RowModel extends AbstractTableModel implements Observer {
@@ -164,7 +165,16 @@ public class StageEditorPanel extends JPanel {
 				}
 			}
 			
+			
+			
 		}
+		
+		@Override
+		public void moveColumn(int from, int to) {
+			super.moveColumn(from, from);
+		}
+		
+
 
 		@Override
 		public void update(Observable obs, Object arg) {
@@ -239,10 +249,10 @@ public class StageEditorPanel extends JPanel {
 				
 			} else {
 				
-				String stageName = this.getColumnName(x);
+				String stageName = this.getColumnName(y - 1);
 				
 				Stage selected = this.controller.getStage(stageName);
-				Function f = this.controller.getFunctionAtIndex(y);
+				Function f = this.controller.getFunctionAtIndex(x);
 				
 				// called in holds a referrence to the origional stage
 				return f.isCalledIn(selected);
@@ -288,7 +298,5 @@ public class StageEditorPanel extends JPanel {
 			
 		}
 	}
-
-	
 	
 }

@@ -4,11 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 
 import javax.swing.JPanel;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
-public class BarChartDrawer extends JPanel {
+public class BarChartDrawer extends JPanel implements TableModelListener {
 
 	private static final long serialVersionUID = 1936730250947297049L;
 	private GraphModel data;
@@ -21,6 +24,27 @@ public class BarChartDrawer extends JPanel {
 	private Color axisColor = Color.BLACK;
 	private int charWidth = 7;
 	private int charHeight = 10;
+	
+	/**
+	 * creates a new bar chart which can be drawn into an area.
+	 * 
+	 * @param graphData the data with thich 
+	 * @param graphWidth the width of the graph panel
+	 * @param graphHeight the height of the graph panel
+	 * @param topIndent the gap between the top of the panel and top of the y axis 
+	 * @param rightIndent the gap between the end of the x axis and the right of the panel
+	 * @param bottomIndent the gap between the bottom of the panel and the x axis. Should be enough to fit the x axis labels.
+	 * @param leftIndent the gap between the left of the panel and the y axis. Should be enough to fit the y axis lables.
+	 */
+	public BarChartDrawer(GraphModel graphData, int graphWidth, int graphHeight, int topIndent, int rightIndent, int bottomIndent, int leftIndent) {
+		this.data = graphData;
+		this.graphWidth = graphWidth;
+		this.graphHeight = graphHeight;
+		this.topIndent = topIndent;
+		this.rightIndent = rightIndent;
+		this.bottomIndent = bottomIndent;
+		this.leftIndent = leftIndent;
+	}
 	
 	public BarChartDrawer(GraphModel graphData, int graphWidth, int graphHeight) {
 		super();
@@ -50,15 +74,38 @@ public class BarChartDrawer extends JPanel {
 		drawXAxis(g, colWidth);
 		
 		
-		plotPoints();
+		plotPoints(g, colWidth);
 		
 		
 	}
 
-	private void plotPoints() {
+	private void plotPoints(Graphics g, int colWidth) {
+		
+		Graphics2D g2d = (Graphics2D) g;
+		// Stores the color so it can be restored on method exit.
+		Color origCol = g2d.getColor();
+		
+		int max = data.xAxisSize();
 		
 		
 		
+		for (int x = 0; x < max; x++) {
+			double y = data.getValue(x);
+			
+			// make rectangle
+			int leftPointOfBar = this.leftIndent + x * colWidth;
+			int barHeight = (int) Math.ceil((graphHeight - topIndent - bottomIndent) * y);
+			Rectangle bar = new Rectangle(leftPointOfBar, graphHeight - bottomIndent - barHeight, colWidth, barHeight);
+			
+			
+			g2d.setColor(data.getColumnColor(x));
+			g2d.fill(bar);
+			g2d.setColor(Color.BLACK);
+			g2d.draw(bar);
+			
+		}
+		
+		g2d.setColor(origCol);
 	}
 
 	private void drawYAxis(Graphics g, int rowHeight) {
@@ -100,7 +147,8 @@ public class BarChartDrawer extends JPanel {
 	}
 	
 	private void drawVerticalString (String message, int x, int y, Graphics g, double angle) {
-		Graphics2D g2D = (Graphics2D)g;
+		
+		Graphics2D g2D = (Graphics2D) g;
 
 
 		// Create a rotation transformation for the font.
@@ -124,6 +172,14 @@ public class BarChartDrawer extends JPanel {
 		g2D.drawString(message, x, y - 5);
 		// put the original font back
 		g2D.setFont(theFont);
+	}
+
+	
+	@Override
+	public void tableChanged(TableModelEvent arg0) {
+		
+		this.repaint();
+		
 	}
 
 

@@ -2,8 +2,6 @@ package VEW.Planktonica2.Model;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.prefs.BackingStoreException;
 
 import VEW.Common.XML.XMLFile;
