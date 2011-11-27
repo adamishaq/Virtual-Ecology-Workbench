@@ -126,7 +126,7 @@ public class Function implements BuildFromXML, BuildToXML {
 			String name = nameTag.getValue();
 			String eq = eqTag.getValue();
 			EquationStringParser parser = new EquationStringParser(eq);
-			sourceCode += "\"" + name + "\": " + parser.parseEquationString() + "\n\n";
+			sourceCode += "\"" + name + "\":\n  " + parser.parseEquationString() + "\n\n";
 			equationTag.removeFromParent();
 		}
 		try {
