@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g 2011-11-27 20:23:13
+// $ANTLR 3.4 C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g 2011-11-27 20:27:47
 
 package VEW.XMLCompiler.ANTLR;
 import java.util.Map;
@@ -872,7 +872,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
     // $ANTLR start "rule2"
-    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:226:1: rule2 : ( assign | IF bExpr ( NEWLINE )? THEN ( NEWLINE )? rule -> ^( IF bExpr rule ) | UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^( UPTAKE VAR expr ) | RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^( RELEASE VAR expr ) | INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^( INGEST VAR expr expr ) | CHANGE LBRACKET VAR RBRACKET -> ^( CHANGE VAR ) | PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^( PCHANGE VAR expr ) | DIVIDE LBRACKET expr RBRACKET -> ^( DIVIDE expr ) | CREATE LBRACKET VAR COMMA expr RBRACKET ( NEWLINE )? ( WITH LSQUARE assignList RSQUARE )? -> ^( CREATE VAR expr ( assignList )? ) | LBRACKET rule2 RBRACKET -> rule2 );
+    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:226:1: rule2 : ( assign | IF bExpr ( NEWLINE )? THEN ( NEWLINE )? rule -> ^( IF bExpr rule ) | UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^( UPTAKE VAR expr ) | RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^( RELEASE VAR expr ) | INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^( INGEST VAR expr expr ) | CHANGE LBRACKET VAR RBRACKET -> ^( CHANGE VAR ) | PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^( PCHANGE VAR expr ) | DIVIDE LBRACKET expr RBRACKET -> ^( DIVIDE expr ) | CREATE LBRACKET VAR COMMA expr RBRACKET ( ( NEWLINE )? WITH LSQUARE assignList RSQUARE )? -> ^( CREATE VAR expr ( assignList )? ) | LBRACKET rule2 RBRACKET -> rule2 );
     public final BACONParser.rule2_return rule2() throws RecognitionException {
         BACONParser.rule2_return retval = new BACONParser.rule2_return();
         retval.start = input.LT(1);
@@ -1017,7 +1017,7 @@ public TreeAdaptor getTreeAdaptor() {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return retval; }
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:227:2: ( assign | IF bExpr ( NEWLINE )? THEN ( NEWLINE )? rule -> ^( IF bExpr rule ) | UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^( UPTAKE VAR expr ) | RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^( RELEASE VAR expr ) | INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^( INGEST VAR expr expr ) | CHANGE LBRACKET VAR RBRACKET -> ^( CHANGE VAR ) | PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^( PCHANGE VAR expr ) | DIVIDE LBRACKET expr RBRACKET -> ^( DIVIDE expr ) | CREATE LBRACKET VAR COMMA expr RBRACKET ( NEWLINE )? ( WITH LSQUARE assignList RSQUARE )? -> ^( CREATE VAR expr ( assignList )? ) | LBRACKET rule2 RBRACKET -> rule2 )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:227:2: ( assign | IF bExpr ( NEWLINE )? THEN ( NEWLINE )? rule -> ^( IF bExpr rule ) | UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^( UPTAKE VAR expr ) | RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^( RELEASE VAR expr ) | INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^( INGEST VAR expr expr ) | CHANGE LBRACKET VAR RBRACKET -> ^( CHANGE VAR ) | PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^( PCHANGE VAR expr ) | DIVIDE LBRACKET expr RBRACKET -> ^( DIVIDE expr ) | CREATE LBRACKET VAR COMMA expr RBRACKET ( ( NEWLINE )? WITH LSQUARE assignList RSQUARE )? -> ^( CREATE VAR expr ( assignList )? ) | LBRACKET rule2 RBRACKET -> rule2 )
             int alt12=10;
             switch ( input.LA(1) ) {
             case VAR:
@@ -1163,7 +1163,7 @@ public TreeAdaptor getTreeAdaptor() {
                     if ( state.backtracking==0 ) stream_rule.add(rule22.getTree());
 
                     // AST REWRITE
-                    // elements: bExpr, rule, IF
+                    // elements: rule, IF, bExpr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1299,7 +1299,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: RELEASE, expr, VAR
+                    // elements: VAR, RELEASE, expr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1379,7 +1379,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: INGEST, expr, expr, VAR
+                    // elements: expr, VAR, INGEST, expr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1439,7 +1439,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: CHANGE, VAR
+                    // elements: VAR, CHANGE
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1506,7 +1506,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: expr, VAR, PCHANGE
+                    // elements: VAR, expr, PCHANGE
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1602,7 +1602,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
                     break;
                 case 9 :
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:235:4: CREATE LBRACKET VAR COMMA expr RBRACKET ( NEWLINE )? ( WITH LSQUARE assignList RSQUARE )?
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:235:4: CREATE LBRACKET VAR COMMA expr RBRACKET ( ( NEWLINE )? WITH LSQUARE assignList RSQUARE )?
                     {
                     CREATE57=(Token)match(input,CREATE,FOLLOW_CREATE_in_rule21246); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_CREATE.add(CREATE57);
@@ -1631,38 +1631,45 @@ public TreeAdaptor getTreeAdaptor() {
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET62);
 
 
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:235:44: ( NEWLINE )?
-                    int alt10=2;
-                    int LA10_0 = input.LA(1);
-
-                    if ( (LA10_0==NEWLINE) ) {
-                        alt10=1;
-                    }
-                    switch (alt10) {
-                        case 1 :
-                            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:235:45: NEWLINE
-                            {
-                            NEWLINE63=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rule21259); if (state.failed) return retval; 
-                            if ( state.backtracking==0 ) stream_NEWLINE.add(NEWLINE63);
-
-
-                            }
-                            break;
-
-                    }
-
-
-                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:236:3: ( WITH LSQUARE assignList RSQUARE )?
+                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:236:3: ( ( NEWLINE )? WITH LSQUARE assignList RSQUARE )?
                     int alt11=2;
                     int LA11_0 = input.LA(1);
 
-                    if ( (LA11_0==WITH) ) {
+                    if ( (LA11_0==NEWLINE) ) {
+                        int LA11_1 = input.LA(2);
+
+                        if ( (LA11_1==WITH) ) {
+                            alt11=1;
+                        }
+                    }
+                    else if ( (LA11_0==WITH) ) {
                         alt11=1;
                     }
                     switch (alt11) {
                         case 1 :
-                            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:236:4: WITH LSQUARE assignList RSQUARE
+                            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:236:4: ( NEWLINE )? WITH LSQUARE assignList RSQUARE
                             {
+                            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:236:4: ( NEWLINE )?
+                            int alt10=2;
+                            int LA10_0 = input.LA(1);
+
+                            if ( (LA10_0==NEWLINE) ) {
+                                alt10=1;
+                            }
+                            switch (alt10) {
+                                case 1 :
+                                    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:236:5: NEWLINE
+                                    {
+                                    NEWLINE63=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rule21262); if (state.failed) return retval; 
+                                    if ( state.backtracking==0 ) stream_NEWLINE.add(NEWLINE63);
+
+
+                                    }
+                                    break;
+
+                            }
+
+
                             WITH64=(Token)match(input,WITH,FOLLOW_WITH_in_rule21266); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_WITH.add(WITH64);
 
@@ -1689,7 +1696,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: VAR, assignList, expr, CREATE
+                    // elements: VAR, CREATE, expr, assignList
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1701,9 +1708,9 @@ public TreeAdaptor getTreeAdaptor() {
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
 
                     root_0 = (Object)adaptor.nil();
-                    // 236:38: -> ^( CREATE VAR expr ( assignList )? )
+                    // 236:49: -> ^( CREATE VAR expr ( assignList )? )
                     {
-                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:236:41: ^( CREATE VAR expr ( assignList )? )
+                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:236:52: ^( CREATE VAR expr ( assignList )? )
                         {
                         Object root_1 = (Object)adaptor.nil();
                         root_1 = (Object)adaptor.becomeRoot(
@@ -1716,7 +1723,7 @@ public TreeAdaptor getTreeAdaptor() {
 
                         adaptor.addChild(root_1, stream_expr.nextTree());
 
-                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:236:59: ( assignList )?
+                        // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:236:70: ( assignList )?
                         if ( stream_assignList.hasNext() ) {
                             adaptor.addChild(root_1, stream_assignList.nextTree());
 
@@ -2898,7 +2905,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: binPrim, expr, expr
+                    // elements: expr, binPrim, expr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2963,7 +2970,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: VARHIST, VAR, expr
+                    // elements: expr, VARHIST, VAR
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3359,7 +3366,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: bExpr, NOT
+                    // elements: NOT, bExpr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3462,7 +3469,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: vBOp, bExpr
+                    // elements: bExpr, vBOp
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4282,7 +4289,7 @@ public TreeAdaptor getTreeAdaptor() {
     public static final BitSet FOLLOW_COMMA_in_rule21252 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
     public static final BitSet FOLLOW_expr_in_rule21254 = new BitSet(new long[]{0x0400000000000000L});
     public static final BitSet FOLLOW_RBRACKET_in_rule21256 = new BitSet(new long[]{0x0008000000000002L,0x0000000000020000L});
-    public static final BitSet FOLLOW_NEWLINE_in_rule21259 = new BitSet(new long[]{0x0000000000000002L,0x0000000000020000L});
+    public static final BitSet FOLLOW_NEWLINE_in_rule21262 = new BitSet(new long[]{0x0000000000000000L,0x0000000000020000L});
     public static final BitSet FOLLOW_WITH_in_rule21266 = new BitSet(new long[]{0x0000100000000000L});
     public static final BitSet FOLLOW_LSQUARE_in_rule21268 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
     public static final BitSet FOLLOW_assignList_in_rule21270 = new BitSet(new long[]{0x2000000000000000L});
