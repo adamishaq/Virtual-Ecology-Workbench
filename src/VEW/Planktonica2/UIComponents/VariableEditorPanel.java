@@ -252,7 +252,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		units.add(new Unit(0,unit_string.getText(),0));
 		switch (current_selection) {
 		case GROUPVAR :
-			StateVariable v = new StateVariable(this.current_category);
+			StateVariable v = new StateVariable();
 			v.setName(var_name.getText());
 			v.setDesc(var_desc.getText());
 			v.setHist(Integer.parseInt(h_size.getText()));
@@ -261,7 +261,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			current_category.addToStateVarTable(v);
 			break;
 		case GROUPPARAM :
-			Parameter p = new Parameter(this.current_category);
+			Parameter p = new Parameter();
 			p.setName(var_name.getText());
 			p.setDesc(var_desc.getText());
 			p.setValue(Float.parseFloat(i_val.getText()));
@@ -269,7 +269,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			current_category.addToParamTable(p);
 			break;
 		case LOCALVAR :
-			Local l = new Local(this.current_category);
+			Local l = new Local();
 			l.setName(var_name.getText());
 			l.setDesc(var_desc.getText());
 			l.setUnits(units);
@@ -313,7 +313,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		case FOODSET :
 			// Make sure the currently selected category is not a chemical
 			if (this.current_category instanceof FunctionalGroup) {
-				VarietyConcentration vc = new VarietyConcentration((FunctionalGroup) this.current_category);
+				VarietyConcentration vc = new VarietyConcentration();
 				vc.setName(var_name.getText());
 				vc.setDesc(var_desc.getText());
 				vc.setUnits(units);

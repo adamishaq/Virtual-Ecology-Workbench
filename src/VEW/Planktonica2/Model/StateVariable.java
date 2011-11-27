@@ -6,13 +6,18 @@ import VEW.Common.XML.XMLTag;
 
 public class StateVariable extends VariableType {
 
-	public StateVariable(Catagory catagory) {
-		super(catagory);
+	public StateVariable() {
+		super();
 	}
 	
-	public StateVariable(String name, String desc, Type type, Collection<Unit> units) {
-		super(name, desc, type, units);
+	
+
+	public StateVariable(String name, String desc, Type type,
+			Collection<Unit> units, Float value, Integer hist, boolean editable) {
+		super(name, desc, type, units, value, hist, editable);
 	}
+
+
 
 	public XMLTag buildToXML() throws XMLWriteBackException {
 		XMLTag varTag = super.buildToXML();

@@ -20,7 +20,7 @@ public class FoodLinks {
 	@Test
 	public void testMultiplicationWithSameLinks() {
 		FunctionalGroup group = new FunctionalGroup("");
-		VarietyConcentration foodSet = new VarietyConcentration(group);
+		VarietyConcentration foodSet = new VarietyConcentration();
 		foodSet.setName("foodset");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = tables.checkTypeTable("$float");
@@ -46,13 +46,13 @@ public class FoodLinks {
 	@Test
 	public void testMultiplicationWithDifferentLinks() {
 		FunctionalGroup group = new FunctionalGroup("");
-		VarietyConcentration foodSet1 = new VarietyConcentration(group);
+		VarietyConcentration foodSet1 = new VarietyConcentration();
 		foodSet1.setName("foodset1");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = tables.checkTypeTable("$float");
 		foodSet1.setVarType(new VarietyType("float", floatType));
 		group.addToVarietyConcTable(foodSet1);
-		VarietyConcentration foodSet2 = new VarietyConcentration(group);
+		VarietyConcentration foodSet2 = new VarietyConcentration();
 		foodSet2.setName("foodset1");
 		foodSet2.setVarType(new VarietyType("float", floatType));
 		group.addToVarietyConcTable(foodSet2);

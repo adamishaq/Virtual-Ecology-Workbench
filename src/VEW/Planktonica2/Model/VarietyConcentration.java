@@ -6,13 +6,15 @@ import VEW.Common.XML.XMLTag;
 
 public class VarietyConcentration extends VariableType {
 
+	
+
 	public VarietyConcentration(String name, String desc, Type type,
-			Collection<Unit> units) {
-		super(name, desc, type, units);
+			Collection<Unit> units, Float value, Integer hist, boolean editable) {
+		super(name, desc, type, units, value, hist, editable);
 	}
 
-	public VarietyConcentration(FunctionalGroup funcGroup) {
-		super(funcGroup);
+	public VarietyConcentration() {
+		super();
 	}
 	
 	@Override

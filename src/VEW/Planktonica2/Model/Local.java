@@ -4,8 +4,8 @@ import VEW.Common.XML.XMLTag;
 
 
 public class Local extends VariableType {
-	public Local(Catagory catagory) {
-		super(catagory);
+	public Local() {
+		super();
 	}
 	
 	public XMLTag buildToXML() throws XMLWriteBackException {
