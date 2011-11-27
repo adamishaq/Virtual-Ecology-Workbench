@@ -38,6 +38,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 	
 	private VarType current_selection = VarType.GROUPVAR;
 	private Catagory current_category;
+	private VariableType current_variable;
 	private VEWController controller;
 	private HashMap<String,Integer> food_sets = new HashMap<String,Integer>();
 	
@@ -259,6 +260,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			v.setValue(Float.parseFloat(i_val.getText()));
 			v.setUnits(units);
 			current_category.addToStateVarTable(v);
+			this.current_variable = v;
 			break;
 		case GROUPPARAM :
 			Parameter p = new Parameter();
@@ -267,6 +269,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			p.setValue(Float.parseFloat(i_val.getText()));
 			p.setUnits(units);
 			current_category.addToParamTable(p);
+			this.current_variable = p;
 			break;
 		case LOCALVAR :
 			Local l = new Local();
@@ -274,6 +277,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			l.setDesc(var_desc.getText());
 			l.setUnits(units);
 			current_category.addToLocalTable(l);
+			this.current_variable = l;
 			break;
 		case FOODPARAM :
 			// Make sure the currently selected category is not a chemical
@@ -290,6 +294,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 					return;
 				vp.setLinkConcentration(vc);
 				current_category.addToVarietyParamTable(vp);
+				this.current_variable = vp;
 			}
 			break;
 		case FOODVAR :
@@ -308,6 +313,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 					return;
 				vv.setLinkConcentration(vc);
 				current_category.addToVarietyStateTable(vv);
+				this.current_variable = vv;
 			}
 			break;
 		case FOODSET :
@@ -318,6 +324,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 				vc.setDesc(var_desc.getText());
 				vc.setUnits(units);
 				current_category.addToVarietyConcTable(vc);
+				this.current_variable = vc;
 			}
 			break;
 		case FOODLOCAL :
@@ -334,6 +341,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 					return;
 				vl.setLinkConcentration(vc);
 				current_category.addToVarietyLocalTable(vl);
+				this.current_variable = vl;
 			}
 			break;
 		}
@@ -345,8 +353,14 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		if (!validate_variable(true))
 			return;
 		VariableType v = current_category.checkAllVariableTables(var_name.getText());
+		if (v == null)
+			v = this.current_variable;
+		if (!v.isEditable()) {
+			JOptionPane.showMessageDialog(this, "This is a built-in variable and cannot be edited");
+			return;
+		}
 		if (v != null) {
-			v = current_category.removeFromTables(var_name.getText());
+			v = current_category.removeFromTables(v.getName());
 			if (v != null)
 				construct_variable();
 		}
@@ -404,12 +418,12 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		if (!exists && current_category.checkAllVariableTables(var_name.getText()) != null) {
 			JOptionPane.showMessageDialog(this, "A variable of that name already exists");
 			return false;
-		}
+		}/*
 		// Check the name is not unique if it is an existing variable
 		if (exists && current_category.checkAllVariableTables(var_name.getText()) == null) {
 			JOptionPane.showMessageDialog(this, "No variable of that name exists");
 			return false;
-		}
+		}*/
 		// Check that history has a legal value
 		switch (current_selection) {
 		case GROUPVAR :
@@ -442,6 +456,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 	}
 	
 	public void display(VariableType v) {
+		this.current_variable = v;
 		// Fill in the variable name and description
 		var_name.setText(v.getName());
 		var_name.setCaretPosition(0);

@@ -31,6 +31,7 @@ import VEW.Planktonica2.DisplayEventHandlers.AddFunctionButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.CheckButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.CompileButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
+import VEW.Planktonica2.DisplayEventHandlers.RenameFunctionListener;
 import VEW.Planktonica2.DisplayEventHandlers.SaveButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.VariableSelectionEventHandler;
 import VEW.Planktonica2.Model.Catagory;
@@ -307,6 +308,7 @@ public abstract class Display extends JSplitPane implements Observer {
 		
 		renameInstance = new JButton(new ImageIcon(IconRoot + "rename.gif"));
 		renameInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
+		renameInstance.addActionListener(new RenameFunctionListener(this));
 		
 		copyInstance = new JButton(new ImageIcon(IconRoot + "copy.gif"));
 		copyInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
@@ -486,6 +488,10 @@ public abstract class Display extends JSplitPane implements Observer {
 
 	public void addFunction(String name) {
 		controller.addFunction(this,name);
+	}
+
+	public void rename_function() {
+		
 	}
 	
 }
