@@ -10,7 +10,7 @@ public class SymbolTableRemove {
 
 	@Test
 	public void test() {
-		SymbolTable symTab = new SymbolTable();
+		SymbolTable<Integer> symTab = new SymbolTable<Integer>();
 		symTab.put("Test", new Integer(10));
 		Integer m = (Integer) symTab.remove("Test");
 		assertTrue(m != null);

@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g 2011-11-25 17:51:50
+// $ANTLR 3.4 C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g 2011-11-27 20:03:13
 
 package VEW.XMLCompiler.ANTLR;
 
@@ -110,8 +110,8 @@ public class BACONLexer extends Lexer {
         try {
             int _type = RULENAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:10: ( ( '\"' ) ( LETTER | DIGIT | '_' | IGNORE | ',' | '-' | ':' )* ( '\"' ) )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:12: ( '\"' ) ( LETTER | DIGIT | '_' | IGNORE | ',' | '-' | ':' )* ( '\"' )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:10: ( ( '\"' ) (~ '\"' )* ( '\"' ) )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:12: ( '\"' ) (~ '\"' )* ( '\"' )
             {
             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:12: ( '\"' )
             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:13: '\"'
@@ -121,161 +121,30 @@ public class BACONLexer extends Lexer {
             }
 
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:17: ( LETTER | DIGIT | '_' | IGNORE | ',' | '-' | ':' )*
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:17: (~ '\"' )*
             loop1:
             do {
-                int alt1=8;
-                switch ( input.LA(1) ) {
-                case 'A':
-                case 'B':
-                case 'C':
-                case 'D':
-                case 'E':
-                case 'F':
-                case 'G':
-                case 'H':
-                case 'I':
-                case 'J':
-                case 'K':
-                case 'L':
-                case 'M':
-                case 'N':
-                case 'O':
-                case 'P':
-                case 'Q':
-                case 'R':
-                case 'S':
-                case 'T':
-                case 'U':
-                case 'V':
-                case 'W':
-                case 'X':
-                case 'Y':
-                case 'Z':
-                case 'a':
-                case 'b':
-                case 'c':
-                case 'd':
-                case 'e':
-                case 'f':
-                case 'g':
-                case 'h':
-                case 'i':
-                case 'j':
-                case 'k':
-                case 'l':
-                case 'm':
-                case 'n':
-                case 'o':
-                case 'p':
-                case 'q':
-                case 'r':
-                case 's':
-                case 't':
-                case 'u':
-                case 'v':
-                case 'w':
-                case 'x':
-                case 'y':
-                case 'z':
-                    {
-                    alt1=1;
-                    }
-                    break;
-                case '0':
-                case '1':
-                case '2':
-                case '3':
-                case '4':
-                case '5':
-                case '6':
-                case '7':
-                case '8':
-                case '9':
-                    {
-                    alt1=2;
-                    }
-                    break;
-                case '_':
-                    {
-                    alt1=3;
-                    }
-                    break;
-                case '\t':
-                case '\r':
-                case ' ':
-                    {
-                    alt1=4;
-                    }
-                    break;
-                case ',':
-                    {
-                    alt1=5;
-                    }
-                    break;
-                case '-':
-                    {
-                    alt1=6;
-                    }
-                    break;
-                case ':':
-                    {
-                    alt1=7;
-                    }
-                    break;
+                int alt1=2;
+                int LA1_0 = input.LA(1);
 
+                if ( ((LA1_0 >= '\u0000' && LA1_0 <= '!')||(LA1_0 >= '#' && LA1_0 <= '\uFFFF')) ) {
+                    alt1=1;
                 }
+
 
                 switch (alt1) {
             	case 1 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:18: LETTER
+            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:
             	    {
-            	    mLETTER(); 
-
-
+            	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '!')||(input.LA(1) >= '#' && input.LA(1) <= '\uFFFF') ) {
+            	        input.consume();
             	    }
-            	    break;
-            	case 2 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:25: DIGIT
-            	    {
-            	    mDIGIT(); 
-
-
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        recover(mse);
+            	        throw mse;
             	    }
-            	    break;
-            	case 3 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:31: '_'
-            	    {
-            	    match('_'); 
 
-            	    }
-            	    break;
-            	case 4 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:35: IGNORE
-            	    {
-            	    mIGNORE(); 
-
-
-            	    }
-            	    break;
-            	case 5 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:42: ','
-            	    {
-            	    match(','); 
-
-            	    }
-            	    break;
-            	case 6 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:46: '-'
-            	    {
-            	    match('-'); 
-
-            	    }
-            	    break;
-            	case 7 :
-            	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:50: ':'
-            	    {
-            	    match(':'); 
 
             	    }
             	    break;
@@ -286,8 +155,8 @@ public class BACONLexer extends Lexer {
             } while (true);
 
 
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:55: ( '\"' )
-            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:56: '\"'
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:24: ( '\"' )
+            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:99:25: '\"'
             {
             match('\"'); 
 
@@ -3017,53 +2886,53 @@ public class BACONLexer extends Lexer {
     static final String DFA18_eofS =
         "\u0122\uffff";
     static final String DFA18_minS =
-        "\1\0\1\11\1\uffff\1\146\1\141\1\154\1\160\1\145\1\150\1\143\1\145"+
-        "\1\151\3\uffff\1\142\1\141\1\156\1\141\1\165\1\141\1\126\1\60\4"+
-        "\uffff\1\57\3\uffff\2\75\1\162\1\157\6\uffff\1\60\1\147\1\uffff"+
-        "\1\145\1\156\1\155\1\163\1\160\1\164\1\154\1\144\1\141\1\145\1\163"+
-        "\1\150\1\157\1\166\1\156\1\164\3\uffff\1\163\1\157\1\151\1\141\1"+
-        "\144\1\154\1\145\1\156\1\162\1\154\2\155\1\60\1\147\1\170\1\156"+
-        "\1\154\1\163\1\162\1\111\17\uffff\1\60\1\156\2\uffff\2\145\1\156"+
-        "\1\60\1\160\1\145\1\60\1\141\1\145\1\60\1\156\1\141\1\60\1\141\1"+
-        "\144\1\151\1\163\1\164\1\150\1\60\1\163\2\156\2\60\1\162\1\60\1"+
-        "\164\1\151\1\145\1\60\1\uffff\1\61\2\60\1\154\1\111\1\150\1\162"+
-        "\1\uffff\1\60\1\145\1\163\1\147\1\60\1\uffff\1\145\1\60\1\uffff"+
-        "\1\153\1\141\1\uffff\1\147\1\164\1\uffff\1\156\1\165\1\144\1\151"+
-        "\1\150\1\60\1\uffff\3\60\2\uffff\1\141\1\uffff\1\60\1\156\1\60\1"+
-        "\uffff\1\60\2\uffff\1\111\1\162\1\151\1\162\1\uffff\1\60\1\164\1"+
-        "\162\1\uffff\1\162\1\uffff\1\145\1\163\2\145\1\147\1\143\1\145\1"+
-        "\164\1\106\4\uffff\1\147\1\uffff\1\151\1\uffff\1\60\2\162\1\163"+
-        "\1\141\1\uffff\1\60\2\141\1\60\1\145\2\60\1\145\1\164\1\60\1\171"+
-        "\1\157\1\145\1\164\1\uffff\1\162\1\141\1\164\1\144\1\uffff\2\164"+
-        "\1\uffff\1\60\2\uffff\2\60\1\uffff\1\101\1\162\1\60\1\171\1\141"+
-        "\1\144\1\60\1\101\1\145\1\165\3\uffff\1\164\1\106\1\uffff\1\101"+
-        "\1\144\1\101\1\uffff\1\164\1\60\1\162\1\60\2\111\1\164\1\101\1\164"+
-        "\1\60\1\uffff\1\145\1\uffff\3\60\1\164\1\60\1\uffff\1\101\3\uffff"+
-        "\1\60\1\uffff\1\164\1\uffff\1\60\1\uffff";
+        "\2\0\1\uffff\1\146\1\141\1\154\1\160\1\145\1\150\1\143\1\145\1\151"+
+        "\3\uffff\1\142\1\141\1\156\1\141\1\165\1\141\1\126\1\60\4\uffff"+
+        "\1\57\3\uffff\2\75\1\162\1\157\6\uffff\1\60\1\147\1\uffff\1\145"+
+        "\1\156\1\155\1\163\1\160\1\164\1\154\1\144\1\141\1\145\1\163\1\150"+
+        "\1\157\1\166\1\156\1\164\3\uffff\1\163\1\157\1\151\1\141\1\144\1"+
+        "\154\1\145\1\156\1\162\1\154\2\155\1\60\1\147\1\170\1\156\1\154"+
+        "\1\163\1\162\1\111\17\uffff\1\60\1\156\2\uffff\2\145\1\156\1\60"+
+        "\1\160\1\145\1\60\1\141\1\145\1\60\1\156\1\141\1\60\1\141\1\144"+
+        "\1\151\1\163\1\164\1\150\1\60\1\163\2\156\2\60\1\162\1\60\1\164"+
+        "\1\151\1\145\1\60\1\uffff\1\61\2\60\1\154\1\111\1\150\1\162\1\uffff"+
+        "\1\60\1\145\1\163\1\147\1\60\1\uffff\1\145\1\60\1\uffff\1\153\1"+
+        "\141\1\uffff\1\147\1\164\1\uffff\1\156\1\165\1\144\1\151\1\150\1"+
+        "\60\1\uffff\3\60\2\uffff\1\141\1\uffff\1\60\1\156\1\60\1\uffff\1"+
+        "\60\2\uffff\1\111\1\162\1\151\1\162\1\uffff\1\60\1\164\1\162\1\uffff"+
+        "\1\162\1\uffff\1\145\1\163\2\145\1\147\1\143\1\145\1\164\1\106\4"+
+        "\uffff\1\147\1\uffff\1\151\1\uffff\1\60\2\162\1\163\1\141\1\uffff"+
+        "\1\60\2\141\1\60\1\145\2\60\1\145\1\164\1\60\1\171\1\157\1\145\1"+
+        "\164\1\uffff\1\162\1\141\1\164\1\144\1\uffff\2\164\1\uffff\1\60"+
+        "\2\uffff\2\60\1\uffff\1\101\1\162\1\60\1\171\1\141\1\144\1\60\1"+
+        "\101\1\145\1\165\3\uffff\1\164\1\106\1\uffff\1\101\1\144\1\101\1"+
+        "\uffff\1\164\1\60\1\162\1\60\2\111\1\164\1\101\1\164\1\60\1\uffff"+
+        "\1\145\1\uffff\3\60\1\164\1\60\1\uffff\1\101\3\uffff\1\60\1\uffff"+
+        "\1\164\1\uffff\1\60\1\uffff";
     static final String DFA18_maxS =
-        "\1\uffff\1\172\1\uffff\1\156\1\150\1\170\1\160\1\156\2\162\2\151"+
-        "\3\uffff\1\166\1\165\1\157\1\151\1\165\1\151\1\126\1\71\4\uffff"+
-        "\1\57\3\uffff\1\75\1\76\1\162\1\157\6\uffff\1\172\1\164\1\uffff"+
-        "\1\145\1\156\1\155\1\163\1\160\1\164\1\154\1\144\1\141\1\145\1\163"+
-        "\1\150\1\157\1\166\1\160\1\164\3\uffff\1\163\1\157\1\151\1\141\1"+
-        "\144\1\154\1\145\1\156\1\162\1\154\2\155\1\172\1\147\1\170\1\156"+
-        "\1\154\1\163\1\162\1\111\17\uffff\1\172\1\164\2\uffff\2\145\1\156"+
-        "\1\172\1\160\1\145\1\172\1\141\1\145\1\172\1\156\1\141\1\172\1\141"+
-        "\1\144\1\151\1\163\1\164\1\150\1\172\1\163\2\156\2\172\1\162\1\172"+
-        "\1\164\1\151\1\145\1\172\1\uffff\1\61\2\172\1\154\1\111\1\150\1"+
-        "\162\1\uffff\1\172\1\145\1\163\1\147\1\172\1\uffff\1\145\1\172\1"+
-        "\uffff\1\153\1\141\1\uffff\1\147\1\164\1\uffff\1\156\1\165\1\144"+
-        "\1\151\1\150\1\172\1\uffff\3\172\2\uffff\1\141\1\uffff\1\172\1\156"+
-        "\1\172\1\uffff\1\60\2\uffff\1\111\1\162\1\151\1\162\1\uffff\1\172"+
-        "\1\164\1\162\1\uffff\1\162\1\uffff\1\145\1\163\2\145\1\147\1\143"+
-        "\1\145\1\164\1\106\4\uffff\1\147\1\uffff\1\151\1\uffff\1\172\2\162"+
-        "\1\163\1\141\1\uffff\1\172\2\141\1\172\1\145\2\172\1\145\1\164\1"+
-        "\172\1\171\1\157\1\145\1\164\1\uffff\1\162\1\141\1\164\1\144\1\uffff"+
-        "\2\164\1\uffff\1\172\2\uffff\2\172\1\uffff\1\101\1\162\1\172\1\171"+
-        "\1\141\1\144\1\172\1\101\1\145\1\165\3\uffff\1\164\1\126\1\uffff"+
-        "\1\101\1\144\1\101\1\uffff\1\164\1\172\1\162\1\172\2\111\1\164\1"+
-        "\101\1\164\1\172\1\uffff\1\145\1\uffff\3\172\1\164\1\172\1\uffff"+
-        "\1\101\3\uffff\1\172\1\uffff\1\164\1\uffff\1\172\1\uffff";
+        "\2\uffff\1\uffff\1\156\1\150\1\170\1\160\1\156\2\162\2\151\3\uffff"+
+        "\1\166\1\165\1\157\1\151\1\165\1\151\1\126\1\71\4\uffff\1\57\3\uffff"+
+        "\1\75\1\76\1\162\1\157\6\uffff\1\172\1\164\1\uffff\1\145\1\156\1"+
+        "\155\1\163\1\160\1\164\1\154\1\144\1\141\1\145\1\163\1\150\1\157"+
+        "\1\166\1\160\1\164\3\uffff\1\163\1\157\1\151\1\141\1\144\1\154\1"+
+        "\145\1\156\1\162\1\154\2\155\1\172\1\147\1\170\1\156\1\154\1\163"+
+        "\1\162\1\111\17\uffff\1\172\1\164\2\uffff\2\145\1\156\1\172\1\160"+
+        "\1\145\1\172\1\141\1\145\1\172\1\156\1\141\1\172\1\141\1\144\1\151"+
+        "\1\163\1\164\1\150\1\172\1\163\2\156\2\172\1\162\1\172\1\164\1\151"+
+        "\1\145\1\172\1\uffff\1\61\2\172\1\154\1\111\1\150\1\162\1\uffff"+
+        "\1\172\1\145\1\163\1\147\1\172\1\uffff\1\145\1\172\1\uffff\1\153"+
+        "\1\141\1\uffff\1\147\1\164\1\uffff\1\156\1\165\1\144\1\151\1\150"+
+        "\1\172\1\uffff\3\172\2\uffff\1\141\1\uffff\1\172\1\156\1\172\1\uffff"+
+        "\1\60\2\uffff\1\111\1\162\1\151\1\162\1\uffff\1\172\1\164\1\162"+
+        "\1\uffff\1\162\1\uffff\1\145\1\163\2\145\1\147\1\143\1\145\1\164"+
+        "\1\106\4\uffff\1\147\1\uffff\1\151\1\uffff\1\172\2\162\1\163\1\141"+
+        "\1\uffff\1\172\2\141\1\172\1\145\2\172\1\145\1\164\1\172\1\171\1"+
+        "\157\1\145\1\164\1\uffff\1\162\1\141\1\164\1\144\1\uffff\2\164\1"+
+        "\uffff\1\172\2\uffff\2\172\1\uffff\1\101\1\162\1\172\1\171\1\141"+
+        "\1\144\1\172\1\101\1\145\1\165\3\uffff\1\164\1\126\1\uffff\1\101"+
+        "\1\144\1\101\1\uffff\1\164\1\172\1\162\1\172\2\111\1\164\1\101\1"+
+        "\164\1\172\1\uffff\1\145\1\uffff\3\172\1\164\1\172\1\uffff\1\101"+
+        "\3\uffff\1\172\1\uffff\1\164\1\uffff\1\172\1\uffff";
     static final String DFA18_acceptS =
         "\2\uffff\1\2\11\uffff\1\17\1\20\1\21\10\uffff\1\51\1\52\1\53\1\55"+
         "\1\uffff\1\57\1\60\1\61\4\uffff\1\100\1\101\1\102\1\103\1\1\1\2"+
@@ -3078,15 +2947,14 @@ public class BACONLexer extends Lexer {
         "\50\12\uffff\1\14\1\uffff\1\40\5\uffff\1\47\1\uffff\1\41\1\42\1"+
         "\45\1\uffff\1\44\1\uffff\1\43\1\uffff\1\46";
     static final String DFA18_specialS =
-        "\1\0\u0121\uffff}>";
+        "\1\0\1\1\u0120\uffff}>";
     static final String[] DFA18_transitionS = {
             "\11\46\1\45\1\44\2\46\1\45\22\46\1\45\1\46\1\1\5\46\1\35\1\36"+
             "\1\32\1\31\1\16\1\26\1\46\1\33\12\27\1\2\1\46\1\40\1\30\1\37"+
             "\2\46\24\43\1\25\5\43\1\14\1\46\1\15\1\34\2\46\1\17\1\43\1\10"+
             "\1\12\1\5\1\23\2\43\1\3\2\43\1\21\1\22\1\42\1\41\1\11\1\43\1"+
             "\7\1\20\1\4\1\6\1\24\1\13\3\43\uff85\46",
-            "\1\47\3\uffff\1\47\22\uffff\1\47\1\uffff\1\47\11\uffff\2\47"+
-            "\2\uffff\13\47\6\uffff\32\47\4\uffff\1\47\1\uffff\32\47",
+            "\0\47",
             "",
             "\1\51\7\uffff\1\52",
             "\1\55\3\uffff\1\56\2\uffff\1\54",
@@ -3494,6 +3362,17 @@ public class BACONLexer extends Lexer {
                         else if ( (LA18_0=='\t'||LA18_0=='\r'||LA18_0==' ') ) {s = 37;}
 
                         else if ( ((LA18_0 >= '\u0000' && LA18_0 <= '\b')||(LA18_0 >= '\u000B' && LA18_0 <= '\f')||(LA18_0 >= '\u000E' && LA18_0 <= '\u001F')||LA18_0=='!'||(LA18_0 >= '#' && LA18_0 <= '\'')||LA18_0=='.'||LA18_0==';'||(LA18_0 >= '?' && LA18_0 <= '@')||LA18_0=='\\'||(LA18_0 >= '_' && LA18_0 <= '`')||(LA18_0 >= '{' && LA18_0 <= '\uFFFF')) ) {s = 38;}
+
+                        if ( s>=0 ) return s;
+                        break;
+
+                    case 1 : 
+                        int LA18_1 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA18_1 >= '\u0000' && LA18_1 <= '\uFFFF')) ) {s = 39;}
+
+                        else s = 38;
 
                         if ( s>=0 ) return s;
                         break;

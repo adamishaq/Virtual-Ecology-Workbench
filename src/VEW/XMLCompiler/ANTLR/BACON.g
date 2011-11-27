@@ -96,7 +96,7 @@ package VEW.XMLCompiler.ANTLR;
 }
 
 // Rules
-RULENAME : ('"')(LETTER|DIGIT|'_'|IGNORE|','|'-'|':')*('"');	
+RULENAME : ('"')(~'"')*('"');	
 COLON    : (':')(IGNORE)*(NEWLINE)?;
 
 // Keywords

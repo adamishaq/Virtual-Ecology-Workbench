@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g 2011-11-25 17:51:50
+// $ANTLR 3.4 C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g 2011-11-27 20:03:12
 
 package VEW.XMLCompiler.ANTLR;
 import java.util.Map;
@@ -246,7 +246,7 @@ public TreeAdaptor getTreeAdaptor() {
                 case 1 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:209:5: NEWLINE
                     {
-                    NEWLINE1=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rules951); if (state.failed) return retval; 
+                    NEWLINE1=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rules940); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_NEWLINE.add(NEWLINE1);
 
 
@@ -256,7 +256,7 @@ public TreeAdaptor getTreeAdaptor() {
             }
 
 
-            pushFollow(FOLLOW_pair_in_rules955);
+            pushFollow(FOLLOW_pair_in_rules944);
             pair2=pair();
 
             state._fsp--;
@@ -284,11 +284,11 @@ public TreeAdaptor getTreeAdaptor() {
             	case 1 :
             	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:209:21: NEWLINE pair
             	    {
-            	    NEWLINE3=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rules958); if (state.failed) return retval; 
+            	    NEWLINE3=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rules947); if (state.failed) return retval; 
             	    if ( state.backtracking==0 ) stream_NEWLINE.add(NEWLINE3);
 
 
-            	    pushFollow(FOLLOW_pair_in_rules960);
+            	    pushFollow(FOLLOW_pair_in_rules949);
             	    pair4=pair();
 
             	    state._fsp--;
@@ -315,7 +315,7 @@ public TreeAdaptor getTreeAdaptor() {
                 case 1 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:209:37: NEWLINE
                     {
-                    NEWLINE5=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rules965); if (state.failed) return retval; 
+                    NEWLINE5=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rules954); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_NEWLINE.add(NEWLINE5);
 
 
@@ -475,14 +475,14 @@ public TreeAdaptor getTreeAdaptor() {
                 case 1 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:213:4: ruleName rule2
                     {
-                    pushFollow(FOLLOW_ruleName_in_pair991);
+                    pushFollow(FOLLOW_ruleName_in_pair980);
                     ruleName6=ruleName();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_ruleName.add(ruleName6.getTree());
 
-                    pushFollow(FOLLOW_rule2_in_pair993);
+                    pushFollow(FOLLOW_rule2_in_pair982);
                     rule27=rule2();
 
                     state._fsp--;
@@ -532,7 +532,7 @@ public TreeAdaptor getTreeAdaptor() {
                     root_0 = (Object)adaptor.nil();
 
 
-                    pushFollow(FOLLOW_rule_in_pair1008);
+                    pushFollow(FOLLOW_rule_in_pair997);
                     rule8=rule();
 
                     state._fsp--;
@@ -628,11 +628,11 @@ public TreeAdaptor getTreeAdaptor() {
                 case 1 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:218:4: RULENAME COLON ( NEWLINE )?
                     {
-                    RULENAME9=(Token)match(input,RULENAME,FOLLOW_RULENAME_in_ruleName1020); if (state.failed) return retval; 
+                    RULENAME9=(Token)match(input,RULENAME,FOLLOW_RULENAME_in_ruleName1009); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RULENAME.add(RULENAME9);
 
 
-                    COLON10=(Token)match(input,COLON,FOLLOW_COLON_in_ruleName1022); if (state.failed) return retval; 
+                    COLON10=(Token)match(input,COLON,FOLLOW_COLON_in_ruleName1011); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COLON.add(COLON10);
 
 
@@ -647,7 +647,7 @@ public TreeAdaptor getTreeAdaptor() {
                         case 1 :
                             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:218:20: NEWLINE
                             {
-                            NEWLINE11=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_ruleName1025); if (state.failed) return retval; 
+                            NEWLINE11=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_ruleName1014); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_NEWLINE.add(NEWLINE11);
 
 
@@ -687,11 +687,11 @@ public TreeAdaptor getTreeAdaptor() {
                 case 2 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:219:4: VAR COLON ( NEWLINE )?
                     {
-                    VAR12=(Token)match(input,VAR,FOLLOW_VAR_in_ruleName1036); if (state.failed) return retval; 
+                    VAR12=(Token)match(input,VAR,FOLLOW_VAR_in_ruleName1025); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_VAR.add(VAR12);
 
 
-                    COLON13=(Token)match(input,COLON,FOLLOW_COLON_in_ruleName1038); if (state.failed) return retval; 
+                    COLON13=(Token)match(input,COLON,FOLLOW_COLON_in_ruleName1027); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COLON.add(COLON13);
 
 
@@ -706,7 +706,7 @@ public TreeAdaptor getTreeAdaptor() {
                         case 1 :
                             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:219:15: NEWLINE
                             {
-                            NEWLINE14=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_ruleName1041); if (state.failed) return retval; 
+                            NEWLINE14=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_ruleName1030); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_NEWLINE.add(NEWLINE14);
 
 
@@ -797,7 +797,7 @@ public TreeAdaptor getTreeAdaptor() {
             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:223:2: ( rule2 -> ^( RULE rule2 ) )
             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:223:4: rule2
             {
-            pushFollow(FOLLOW_rule2_in_rule1058);
+            pushFollow(FOLLOW_rule2_in_rule1047);
             rule215=rule2();
 
             state._fsp--;
@@ -1088,7 +1088,7 @@ public TreeAdaptor getTreeAdaptor() {
                     root_0 = (Object)adaptor.nil();
 
 
-                    pushFollow(FOLLOW_assign_in_rule21077);
+                    pushFollow(FOLLOW_assign_in_rule21066);
                     assign16=assign();
 
                     state._fsp--;
@@ -1100,11 +1100,11 @@ public TreeAdaptor getTreeAdaptor() {
                 case 2 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:228:4: IF bExpr ( NEWLINE )? THEN ( NEWLINE )? rule ( ( NEWLINE )? )
                     {
-                    IF17=(Token)match(input,IF,FOLLOW_IF_in_rule21082); if (state.failed) return retval; 
+                    IF17=(Token)match(input,IF,FOLLOW_IF_in_rule21071); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_IF.add(IF17);
 
 
-                    pushFollow(FOLLOW_bExpr_in_rule21084);
+                    pushFollow(FOLLOW_bExpr_in_rule21073);
                     bExpr18=bExpr();
 
                     state._fsp--;
@@ -1122,7 +1122,7 @@ public TreeAdaptor getTreeAdaptor() {
                         case 1 :
                             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:228:14: NEWLINE
                             {
-                            NEWLINE19=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rule21087); if (state.failed) return retval; 
+                            NEWLINE19=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rule21076); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_NEWLINE.add(NEWLINE19);
 
 
@@ -1132,7 +1132,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
 
 
-                    THEN20=(Token)match(input,THEN,FOLLOW_THEN_in_rule21091); if (state.failed) return retval; 
+                    THEN20=(Token)match(input,THEN,FOLLOW_THEN_in_rule21080); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_THEN.add(THEN20);
 
 
@@ -1147,7 +1147,7 @@ public TreeAdaptor getTreeAdaptor() {
                         case 1 :
                             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:228:30: NEWLINE
                             {
-                            NEWLINE21=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rule21094); if (state.failed) return retval; 
+                            NEWLINE21=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rule21083); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_NEWLINE.add(NEWLINE21);
 
 
@@ -1157,7 +1157,7 @@ public TreeAdaptor getTreeAdaptor() {
                     }
 
 
-                    pushFollow(FOLLOW_rule_in_rule21098);
+                    pushFollow(FOLLOW_rule_in_rule21087);
                     rule22=rule();
 
                     state._fsp--;
@@ -1178,7 +1178,7 @@ public TreeAdaptor getTreeAdaptor() {
                         case 1 :
                             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:228:46: NEWLINE
                             {
-                            NEWLINE23=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rule21101); if (state.failed) return retval; 
+                            NEWLINE23=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rule21090); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_NEWLINE.add(NEWLINE23);
 
 
@@ -1192,7 +1192,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: IF, bExpr, rule
+                    // elements: IF, rule, bExpr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1231,35 +1231,35 @@ public TreeAdaptor getTreeAdaptor() {
                 case 3 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:229:4: UPTAKE LBRACKET VAR COMMA expr RBRACKET
                     {
-                    UPTAKE24=(Token)match(input,UPTAKE,FOLLOW_UPTAKE_in_rule21118); if (state.failed) return retval; 
+                    UPTAKE24=(Token)match(input,UPTAKE,FOLLOW_UPTAKE_in_rule21107); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_UPTAKE.add(UPTAKE24);
 
 
-                    LBRACKET25=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21120); if (state.failed) return retval; 
+                    LBRACKET25=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21109); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET25);
 
 
-                    VAR26=(Token)match(input,VAR,FOLLOW_VAR_in_rule21122); if (state.failed) return retval; 
+                    VAR26=(Token)match(input,VAR,FOLLOW_VAR_in_rule21111); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_VAR.add(VAR26);
 
 
-                    COMMA27=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21124); if (state.failed) return retval; 
+                    COMMA27=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21113); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COMMA.add(COMMA27);
 
 
-                    pushFollow(FOLLOW_expr_in_rule21126);
+                    pushFollow(FOLLOW_expr_in_rule21115);
                     expr28=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr28.getTree());
 
-                    RBRACKET29=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21128); if (state.failed) return retval; 
+                    RBRACKET29=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21117); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET29);
 
 
                     // AST REWRITE
-                    // elements: UPTAKE, VAR, expr
+                    // elements: expr, UPTAKE, VAR
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1300,30 +1300,30 @@ public TreeAdaptor getTreeAdaptor() {
                 case 4 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:230:4: RELEASE LBRACKET VAR COMMA expr RBRACKET
                     {
-                    RELEASE30=(Token)match(input,RELEASE,FOLLOW_RELEASE_in_rule21143); if (state.failed) return retval; 
+                    RELEASE30=(Token)match(input,RELEASE,FOLLOW_RELEASE_in_rule21132); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RELEASE.add(RELEASE30);
 
 
-                    LBRACKET31=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21145); if (state.failed) return retval; 
+                    LBRACKET31=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21134); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET31);
 
 
-                    VAR32=(Token)match(input,VAR,FOLLOW_VAR_in_rule21147); if (state.failed) return retval; 
+                    VAR32=(Token)match(input,VAR,FOLLOW_VAR_in_rule21136); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_VAR.add(VAR32);
 
 
-                    COMMA33=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21149); if (state.failed) return retval; 
+                    COMMA33=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21138); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COMMA.add(COMMA33);
 
 
-                    pushFollow(FOLLOW_expr_in_rule21151);
+                    pushFollow(FOLLOW_expr_in_rule21140);
                     expr34=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr34.getTree());
 
-                    RBRACKET35=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21153); if (state.failed) return retval; 
+                    RBRACKET35=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21142); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET35);
 
 
@@ -1369,46 +1369,46 @@ public TreeAdaptor getTreeAdaptor() {
                 case 5 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:231:4: INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET
                     {
-                    INGEST36=(Token)match(input,INGEST,FOLLOW_INGEST_in_rule21168); if (state.failed) return retval; 
+                    INGEST36=(Token)match(input,INGEST,FOLLOW_INGEST_in_rule21157); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_INGEST.add(INGEST36);
 
 
-                    LBRACKET37=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21170); if (state.failed) return retval; 
+                    LBRACKET37=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21159); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET37);
 
 
-                    VAR38=(Token)match(input,VAR,FOLLOW_VAR_in_rule21172); if (state.failed) return retval; 
+                    VAR38=(Token)match(input,VAR,FOLLOW_VAR_in_rule21161); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_VAR.add(VAR38);
 
 
-                    COMMA39=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21174); if (state.failed) return retval; 
+                    COMMA39=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21163); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COMMA.add(COMMA39);
 
 
-                    pushFollow(FOLLOW_expr_in_rule21176);
+                    pushFollow(FOLLOW_expr_in_rule21165);
                     expr40=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr40.getTree());
 
-                    COMMA41=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21178); if (state.failed) return retval; 
+                    COMMA41=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21167); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COMMA.add(COMMA41);
 
 
-                    pushFollow(FOLLOW_expr_in_rule21180);
+                    pushFollow(FOLLOW_expr_in_rule21169);
                     expr42=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr42.getTree());
 
-                    RBRACKET43=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21182); if (state.failed) return retval; 
+                    RBRACKET43=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21171); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET43);
 
 
                     // AST REWRITE
-                    // elements: expr, INGEST, VAR, expr
+                    // elements: expr, expr, VAR, INGEST
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1451,19 +1451,19 @@ public TreeAdaptor getTreeAdaptor() {
                 case 6 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:232:4: CHANGE LBRACKET VAR RBRACKET
                     {
-                    CHANGE44=(Token)match(input,CHANGE,FOLLOW_CHANGE_in_rule21199); if (state.failed) return retval; 
+                    CHANGE44=(Token)match(input,CHANGE,FOLLOW_CHANGE_in_rule21188); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_CHANGE.add(CHANGE44);
 
 
-                    LBRACKET45=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21201); if (state.failed) return retval; 
+                    LBRACKET45=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21190); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET45);
 
 
-                    VAR46=(Token)match(input,VAR,FOLLOW_VAR_in_rule21203); if (state.failed) return retval; 
+                    VAR46=(Token)match(input,VAR,FOLLOW_VAR_in_rule21192); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_VAR.add(VAR46);
 
 
-                    RBRACKET47=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21205); if (state.failed) return retval; 
+                    RBRACKET47=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21194); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET47);
 
 
@@ -1507,35 +1507,35 @@ public TreeAdaptor getTreeAdaptor() {
                 case 7 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:233:4: PCHANGE LBRACKET VAR COMMA expr RBRACKET
                     {
-                    PCHANGE48=(Token)match(input,PCHANGE,FOLLOW_PCHANGE_in_rule21218); if (state.failed) return retval; 
+                    PCHANGE48=(Token)match(input,PCHANGE,FOLLOW_PCHANGE_in_rule21207); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_PCHANGE.add(PCHANGE48);
 
 
-                    LBRACKET49=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21220); if (state.failed) return retval; 
+                    LBRACKET49=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21209); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET49);
 
 
-                    VAR50=(Token)match(input,VAR,FOLLOW_VAR_in_rule21222); if (state.failed) return retval; 
+                    VAR50=(Token)match(input,VAR,FOLLOW_VAR_in_rule21211); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_VAR.add(VAR50);
 
 
-                    COMMA51=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21224); if (state.failed) return retval; 
+                    COMMA51=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21213); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COMMA.add(COMMA51);
 
 
-                    pushFollow(FOLLOW_expr_in_rule21226);
+                    pushFollow(FOLLOW_expr_in_rule21215);
                     expr52=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr52.getTree());
 
-                    RBRACKET53=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21228); if (state.failed) return retval; 
+                    RBRACKET53=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21217); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET53);
 
 
                     // AST REWRITE
-                    // elements: VAR, expr, PCHANGE
+                    // elements: PCHANGE, expr, VAR
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1576,27 +1576,27 @@ public TreeAdaptor getTreeAdaptor() {
                 case 8 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:234:4: DIVIDE LBRACKET expr RBRACKET
                     {
-                    DIVIDE54=(Token)match(input,DIVIDE,FOLLOW_DIVIDE_in_rule21243); if (state.failed) return retval; 
+                    DIVIDE54=(Token)match(input,DIVIDE,FOLLOW_DIVIDE_in_rule21232); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_DIVIDE.add(DIVIDE54);
 
 
-                    LBRACKET55=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21245); if (state.failed) return retval; 
+                    LBRACKET55=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21234); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET55);
 
 
-                    pushFollow(FOLLOW_expr_in_rule21247);
+                    pushFollow(FOLLOW_expr_in_rule21236);
                     expr56=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr56.getTree());
 
-                    RBRACKET57=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21249); if (state.failed) return retval; 
+                    RBRACKET57=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21238); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET57);
 
 
                     // AST REWRITE
-                    // elements: DIVIDE, expr
+                    // elements: expr, DIVIDE
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1633,30 +1633,30 @@ public TreeAdaptor getTreeAdaptor() {
                 case 9 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:235:4: CREATE LBRACKET VAR COMMA expr RBRACKET ( NEWLINE )? ( WITH LSQUARE assignList RSQUARE )?
                     {
-                    CREATE58=(Token)match(input,CREATE,FOLLOW_CREATE_in_rule21262); if (state.failed) return retval; 
+                    CREATE58=(Token)match(input,CREATE,FOLLOW_CREATE_in_rule21251); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_CREATE.add(CREATE58);
 
 
-                    LBRACKET59=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21264); if (state.failed) return retval; 
+                    LBRACKET59=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21253); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET59);
 
 
-                    VAR60=(Token)match(input,VAR,FOLLOW_VAR_in_rule21266); if (state.failed) return retval; 
+                    VAR60=(Token)match(input,VAR,FOLLOW_VAR_in_rule21255); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_VAR.add(VAR60);
 
 
-                    COMMA61=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21268); if (state.failed) return retval; 
+                    COMMA61=(Token)match(input,COMMA,FOLLOW_COMMA_in_rule21257); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COMMA.add(COMMA61);
 
 
-                    pushFollow(FOLLOW_expr_in_rule21270);
+                    pushFollow(FOLLOW_expr_in_rule21259);
                     expr62=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr62.getTree());
 
-                    RBRACKET63=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21272); if (state.failed) return retval; 
+                    RBRACKET63=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21261); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET63);
 
 
@@ -1671,7 +1671,7 @@ public TreeAdaptor getTreeAdaptor() {
                         case 1 :
                             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:235:45: NEWLINE
                             {
-                            NEWLINE64=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rule21275); if (state.failed) return retval; 
+                            NEWLINE64=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_rule21264); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_NEWLINE.add(NEWLINE64);
 
 
@@ -1692,22 +1692,22 @@ public TreeAdaptor getTreeAdaptor() {
                         case 1 :
                             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:236:4: WITH LSQUARE assignList RSQUARE
                             {
-                            WITH65=(Token)match(input,WITH,FOLLOW_WITH_in_rule21282); if (state.failed) return retval; 
+                            WITH65=(Token)match(input,WITH,FOLLOW_WITH_in_rule21271); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_WITH.add(WITH65);
 
 
-                            LSQUARE66=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_rule21284); if (state.failed) return retval; 
+                            LSQUARE66=(Token)match(input,LSQUARE,FOLLOW_LSQUARE_in_rule21273); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_LSQUARE.add(LSQUARE66);
 
 
-                            pushFollow(FOLLOW_assignList_in_rule21286);
+                            pushFollow(FOLLOW_assignList_in_rule21275);
                             assignList67=assignList();
 
                             state._fsp--;
                             if (state.failed) return retval;
                             if ( state.backtracking==0 ) stream_assignList.add(assignList67.getTree());
 
-                            RSQUARE68=(Token)match(input,RSQUARE,FOLLOW_RSQUARE_in_rule21288); if (state.failed) return retval; 
+                            RSQUARE68=(Token)match(input,RSQUARE,FOLLOW_RSQUARE_in_rule21277); if (state.failed) return retval; 
                             if ( state.backtracking==0 ) stream_RSQUARE.add(RSQUARE68);
 
 
@@ -1718,7 +1718,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: CREATE, assignList, expr, VAR
+                    // elements: expr, VAR, assignList, CREATE
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1766,18 +1766,18 @@ public TreeAdaptor getTreeAdaptor() {
                 case 10 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:237:4: LBRACKET rule2 RBRACKET
                     {
-                    LBRACKET69=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21310); if (state.failed) return retval; 
+                    LBRACKET69=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_rule21299); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET69);
 
 
-                    pushFollow(FOLLOW_rule2_in_rule21312);
+                    pushFollow(FOLLOW_rule2_in_rule21301);
                     rule270=rule2();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_rule2.add(rule270.getTree());
 
-                    RBRACKET71=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21314); if (state.failed) return retval; 
+                    RBRACKET71=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_rule21303); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET71);
 
 
@@ -1866,15 +1866,15 @@ public TreeAdaptor getTreeAdaptor() {
             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:241:2: ( VAR EQUALS expr -> ^( ASSIGN VAR expr ) )
             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:241:4: VAR EQUALS expr
             {
-            VAR72=(Token)match(input,VAR,FOLLOW_VAR_in_assign1329); if (state.failed) return retval; 
+            VAR72=(Token)match(input,VAR,FOLLOW_VAR_in_assign1318); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_VAR.add(VAR72);
 
 
-            EQUALS73=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_assign1331); if (state.failed) return retval; 
+            EQUALS73=(Token)match(input,EQUALS,FOLLOW_EQUALS_in_assign1320); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_EQUALS.add(EQUALS73);
 
 
-            pushFollow(FOLLOW_expr_in_assign1333);
+            pushFollow(FOLLOW_expr_in_assign1322);
             expr74=expr();
 
             state._fsp--;
@@ -1982,7 +1982,7 @@ public TreeAdaptor getTreeAdaptor() {
             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:245:2: ( assign ( NEWLINE )? ( COMMA assign ( NEWLINE )? )* -> ^( ASSIGNLIST assign ( assign )* ) )
             // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:245:4: assign ( NEWLINE )? ( COMMA assign ( NEWLINE )? )*
             {
-            pushFollow(FOLLOW_assign_in_assignList1354);
+            pushFollow(FOLLOW_assign_in_assignList1343);
             assign75=assign();
 
             state._fsp--;
@@ -2000,7 +2000,7 @@ public TreeAdaptor getTreeAdaptor() {
                 case 1 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:245:12: NEWLINE
                     {
-                    NEWLINE76=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_assignList1357); if (state.failed) return retval; 
+                    NEWLINE76=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_assignList1346); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_NEWLINE.add(NEWLINE76);
 
 
@@ -2025,11 +2025,11 @@ public TreeAdaptor getTreeAdaptor() {
             	case 1 :
             	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:245:23: COMMA assign ( NEWLINE )?
             	    {
-            	    COMMA77=(Token)match(input,COMMA,FOLLOW_COMMA_in_assignList1362); if (state.failed) return retval; 
+            	    COMMA77=(Token)match(input,COMMA,FOLLOW_COMMA_in_assignList1351); if (state.failed) return retval; 
             	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA77);
 
 
-            	    pushFollow(FOLLOW_assign_in_assignList1364);
+            	    pushFollow(FOLLOW_assign_in_assignList1353);
             	    assign78=assign();
 
             	    state._fsp--;
@@ -2047,7 +2047,7 @@ public TreeAdaptor getTreeAdaptor() {
             	        case 1 :
             	            // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:245:37: NEWLINE
             	            {
-            	            NEWLINE79=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_assignList1367); if (state.failed) return retval; 
+            	            NEWLINE79=(Token)match(input,NEWLINE,FOLLOW_NEWLINE_in_assignList1356); if (state.failed) return retval; 
             	            if ( state.backtracking==0 ) stream_NEWLINE.add(NEWLINE79);
 
 
@@ -2167,7 +2167,7 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (Object)adaptor.nil();
 
 
-            pushFollow(FOLLOW_expr2_in_expr1397);
+            pushFollow(FOLLOW_expr2_in_expr1386);
             expr280=expr2();
 
             state._fsp--;
@@ -2189,14 +2189,14 @@ public TreeAdaptor getTreeAdaptor() {
             	case 1 :
             	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:249:38: lowPrecMathOp ^ expr2
             	    {
-            	    pushFollow(FOLLOW_lowPrecMathOp_in_expr1411);
+            	    pushFollow(FOLLOW_lowPrecMathOp_in_expr1400);
             	    lowPrecMathOp81=lowPrecMathOp();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
             	    if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot(lowPrecMathOp81.getTree(), root_0);
 
-            	    pushFollow(FOLLOW_expr2_in_expr1414);
+            	    pushFollow(FOLLOW_expr2_in_expr1403);
             	    expr282=expr2();
 
             	    state._fsp--;
@@ -2273,7 +2273,7 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (Object)adaptor.nil();
 
 
-            pushFollow(FOLLOW_expr3_in_expr21428);
+            pushFollow(FOLLOW_expr3_in_expr21417);
             expr383=expr3();
 
             state._fsp--;
@@ -2295,14 +2295,14 @@ public TreeAdaptor getTreeAdaptor() {
             	case 1 :
             	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:253:38: medPrecMathOp ^ expr3
             	    {
-            	    pushFollow(FOLLOW_medPrecMathOp_in_expr21442);
+            	    pushFollow(FOLLOW_medPrecMathOp_in_expr21431);
             	    medPrecMathOp84=medPrecMathOp();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
             	    if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot(medPrecMathOp84.getTree(), root_0);
 
-            	    pushFollow(FOLLOW_expr3_in_expr21446);
+            	    pushFollow(FOLLOW_expr3_in_expr21435);
             	    expr385=expr3();
 
             	    state._fsp--;
@@ -2379,7 +2379,7 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (Object)adaptor.nil();
 
 
-            pushFollow(FOLLOW_expr4_in_expr31460);
+            pushFollow(FOLLOW_expr4_in_expr31449);
             expr486=expr4();
 
             state._fsp--;
@@ -2401,14 +2401,14 @@ public TreeAdaptor getTreeAdaptor() {
             	case 1 :
             	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:257:38: highPrecMathOp ^ expr4
             	    {
-            	    pushFollow(FOLLOW_highPrecMathOp_in_expr31474);
+            	    pushFollow(FOLLOW_highPrecMathOp_in_expr31463);
             	    highPrecMathOp87=highPrecMathOp();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
             	    if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot(highPrecMathOp87.getTree(), root_0);
 
-            	    pushFollow(FOLLOW_expr4_in_expr31477);
+            	    pushFollow(FOLLOW_expr4_in_expr31466);
             	    expr488=expr4();
 
             	    state._fsp--;
@@ -2636,18 +2636,18 @@ public TreeAdaptor getTreeAdaptor() {
                 case 1 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:262:5: LBRACKET expr RBRACKET
                     {
-                    LBRACKET89=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_expr41493); if (state.failed) return retval; 
+                    LBRACKET89=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_expr41482); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET89);
 
 
-                    pushFollow(FOLLOW_expr_in_expr41495);
+                    pushFollow(FOLLOW_expr_in_expr41484);
                     expr90=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr90.getTree());
 
-                    RBRACKET91=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_expr41497); if (state.failed) return retval; 
+                    RBRACKET91=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_expr41486); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET91);
 
 
@@ -2679,30 +2679,30 @@ public TreeAdaptor getTreeAdaptor() {
                 case 2 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:263:4: unaryPrimitives LBRACKET expr RBRACKET
                     {
-                    pushFollow(FOLLOW_unaryPrimitives_in_expr41506);
+                    pushFollow(FOLLOW_unaryPrimitives_in_expr41495);
                     unaryPrimitives92=unaryPrimitives();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_unaryPrimitives.add(unaryPrimitives92.getTree());
 
-                    LBRACKET93=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_expr41508); if (state.failed) return retval; 
+                    LBRACKET93=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_expr41497); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET93);
 
 
-                    pushFollow(FOLLOW_expr_in_expr41510);
+                    pushFollow(FOLLOW_expr_in_expr41499);
                     expr94=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr94.getTree());
 
-                    RBRACKET95=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_expr41512); if (state.failed) return retval; 
+                    RBRACKET95=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_expr41501); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET95);
 
 
                     // AST REWRITE
-                    // elements: unaryPrimitives, expr
+                    // elements: expr, unaryPrimitives
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2737,11 +2737,11 @@ public TreeAdaptor getTreeAdaptor() {
                 case 3 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:264:4: MINUS expr
                     {
-                    MINUS96=(Token)match(input,MINUS,FOLLOW_MINUS_in_expr41525); if (state.failed) return retval; 
+                    MINUS96=(Token)match(input,MINUS,FOLLOW_MINUS_in_expr41514); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_MINUS.add(MINUS96);
 
 
-                    pushFollow(FOLLOW_expr_in_expr41527);
+                    pushFollow(FOLLOW_expr_in_expr41516);
                     expr97=expr();
 
                     state._fsp--;
@@ -2789,7 +2789,7 @@ public TreeAdaptor getTreeAdaptor() {
                     root_0 = (Object)adaptor.nil();
 
 
-                    FLOAT98=(Token)match(input,FLOAT,FOLLOW_FLOAT_in_expr41540); if (state.failed) return retval;
+                    FLOAT98=(Token)match(input,FLOAT,FOLLOW_FLOAT_in_expr41529); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     FLOAT98_tree = 
                     (Object)adaptor.create(FLOAT98)
@@ -2805,7 +2805,7 @@ public TreeAdaptor getTreeAdaptor() {
                     root_0 = (Object)adaptor.nil();
 
 
-                    VAR99=(Token)match(input,VAR,FOLLOW_VAR_in_expr41545); if (state.failed) return retval;
+                    VAR99=(Token)match(input,VAR,FOLLOW_VAR_in_expr41534); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     VAR99_tree = 
                     (Object)adaptor.create(VAR99)
@@ -2818,33 +2818,33 @@ public TreeAdaptor getTreeAdaptor() {
                 case 6 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:267:4: IF bExpr THEN expr ELSE expr
                     {
-                    IF100=(Token)match(input,IF,FOLLOW_IF_in_expr41550); if (state.failed) return retval; 
+                    IF100=(Token)match(input,IF,FOLLOW_IF_in_expr41539); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_IF.add(IF100);
 
 
-                    pushFollow(FOLLOW_bExpr_in_expr41552);
+                    pushFollow(FOLLOW_bExpr_in_expr41541);
                     bExpr101=bExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_bExpr.add(bExpr101.getTree());
 
-                    THEN102=(Token)match(input,THEN,FOLLOW_THEN_in_expr41554); if (state.failed) return retval; 
+                    THEN102=(Token)match(input,THEN,FOLLOW_THEN_in_expr41543); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_THEN.add(THEN102);
 
 
-                    pushFollow(FOLLOW_expr_in_expr41556);
+                    pushFollow(FOLLOW_expr_in_expr41545);
                     expr103=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr103.getTree());
 
-                    ELSE104=(Token)match(input,ELSE,FOLLOW_ELSE_in_expr41558); if (state.failed) return retval; 
+                    ELSE104=(Token)match(input,ELSE,FOLLOW_ELSE_in_expr41547); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_ELSE.add(ELSE104);
 
 
-                    pushFollow(FOLLOW_expr_in_expr41560);
+                    pushFollow(FOLLOW_expr_in_expr41549);
                     expr105=expr();
 
                     state._fsp--;
@@ -2852,7 +2852,7 @@ public TreeAdaptor getTreeAdaptor() {
                     if ( state.backtracking==0 ) stream_expr.add(expr105.getTree());
 
                     // AST REWRITE
-                    // elements: bExpr, expr, IF, expr
+                    // elements: bExpr, IF, expr, expr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2893,41 +2893,41 @@ public TreeAdaptor getTreeAdaptor() {
                 case 7 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:268:4: binPrim LBRACKET expr COMMA expr RBRACKET
                     {
-                    pushFollow(FOLLOW_binPrim_in_expr41577);
+                    pushFollow(FOLLOW_binPrim_in_expr41566);
                     binPrim106=binPrim();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_binPrim.add(binPrim106.getTree());
 
-                    LBRACKET107=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_expr41579); if (state.failed) return retval; 
+                    LBRACKET107=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_expr41568); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET107);
 
 
-                    pushFollow(FOLLOW_expr_in_expr41581);
+                    pushFollow(FOLLOW_expr_in_expr41570);
                     expr108=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr108.getTree());
 
-                    COMMA109=(Token)match(input,COMMA,FOLLOW_COMMA_in_expr41583); if (state.failed) return retval; 
+                    COMMA109=(Token)match(input,COMMA,FOLLOW_COMMA_in_expr41572); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COMMA.add(COMMA109);
 
 
-                    pushFollow(FOLLOW_expr_in_expr41585);
+                    pushFollow(FOLLOW_expr_in_expr41574);
                     expr110=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr110.getTree());
 
-                    RBRACKET111=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_expr41587); if (state.failed) return retval; 
+                    RBRACKET111=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_expr41576); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET111);
 
 
                     // AST REWRITE
-                    // elements: binPrim, expr, expr
+                    // elements: expr, binPrim, expr
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2964,35 +2964,35 @@ public TreeAdaptor getTreeAdaptor() {
                 case 8 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:269:4: VARHIST LBRACKET VAR COMMA expr RBRACKET
                     {
-                    VARHIST112=(Token)match(input,VARHIST,FOLLOW_VARHIST_in_expr41602); if (state.failed) return retval; 
+                    VARHIST112=(Token)match(input,VARHIST,FOLLOW_VARHIST_in_expr41591); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_VARHIST.add(VARHIST112);
 
 
-                    LBRACKET113=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_expr41604); if (state.failed) return retval; 
+                    LBRACKET113=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_expr41593); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET113);
 
 
-                    VAR114=(Token)match(input,VAR,FOLLOW_VAR_in_expr41606); if (state.failed) return retval; 
+                    VAR114=(Token)match(input,VAR,FOLLOW_VAR_in_expr41595); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_VAR.add(VAR114);
 
 
-                    COMMA115=(Token)match(input,COMMA,FOLLOW_COMMA_in_expr41608); if (state.failed) return retval; 
+                    COMMA115=(Token)match(input,COMMA,FOLLOW_COMMA_in_expr41597); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_COMMA.add(COMMA115);
 
 
-                    pushFollow(FOLLOW_expr_in_expr41610);
+                    pushFollow(FOLLOW_expr_in_expr41599);
                     expr116=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr116.getTree());
 
-                    RBRACKET117=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_expr41612); if (state.failed) return retval; 
+                    RBRACKET117=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_expr41601); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET117);
 
 
                     // AST REWRITE
-                    // elements: VARHIST, VAR, expr
+                    // elements: VAR, expr, VARHIST
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3033,30 +3033,30 @@ public TreeAdaptor getTreeAdaptor() {
                 case 9 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:270:4: vOp LBRACKET expr RBRACKET
                     {
-                    pushFollow(FOLLOW_vOp_in_expr41627);
+                    pushFollow(FOLLOW_vOp_in_expr41616);
                     vOp118=vOp();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_vOp.add(vOp118.getTree());
 
-                    LBRACKET119=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_expr41629); if (state.failed) return retval; 
+                    LBRACKET119=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_expr41618); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET119);
 
 
-                    pushFollow(FOLLOW_expr_in_expr41631);
+                    pushFollow(FOLLOW_expr_in_expr41620);
                     expr120=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_expr.add(expr120.getTree());
 
-                    RBRACKET121=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_expr41633); if (state.failed) return retval; 
+                    RBRACKET121=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_expr41622); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET121);
 
 
                     // AST REWRITE
-                    // elements: vOp, expr
+                    // elements: expr, vOp
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3149,7 +3149,7 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (Object)adaptor.nil();
 
 
-            pushFollow(FOLLOW_bExpr2_in_bExpr1653);
+            pushFollow(FOLLOW_bExpr2_in_bExpr1642);
             bExpr2122=bExpr2();
 
             state._fsp--;
@@ -3171,14 +3171,14 @@ public TreeAdaptor getTreeAdaptor() {
             	case 1 :
             	    // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:275:12: lowPrecBoolOp ^ bExpr2
             	    {
-            	    pushFollow(FOLLOW_lowPrecBoolOp_in_bExpr1656);
+            	    pushFollow(FOLLOW_lowPrecBoolOp_in_bExpr1645);
             	    lowPrecBoolOp123=lowPrecBoolOp();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
             	    if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot(lowPrecBoolOp123.getTree(), root_0);
 
-            	    pushFollow(FOLLOW_bExpr2_in_bExpr1659);
+            	    pushFollow(FOLLOW_bExpr2_in_bExpr1648);
             	    bExpr2124=bExpr2();
 
             	    state._fsp--;
@@ -3342,21 +3342,21 @@ public TreeAdaptor getTreeAdaptor() {
                     root_0 = (Object)adaptor.nil();
 
 
-                    pushFollow(FOLLOW_expr_in_bExpr21683);
+                    pushFollow(FOLLOW_expr_in_bExpr21672);
                     expr125=expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, expr125.getTree());
 
-                    pushFollow(FOLLOW_comparators_in_bExpr21685);
+                    pushFollow(FOLLOW_comparators_in_bExpr21674);
                     comparators126=comparators();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) root_0 = (Object)adaptor.becomeRoot(comparators126.getTree(), root_0);
 
-                    pushFollow(FOLLOW_expr_in_bExpr21688);
+                    pushFollow(FOLLOW_expr_in_bExpr21677);
                     expr127=expr();
 
                     state._fsp--;
@@ -3368,22 +3368,22 @@ public TreeAdaptor getTreeAdaptor() {
                 case 2 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:280:4: NOT LBRACKET bExpr RBRACKET
                     {
-                    NOT128=(Token)match(input,NOT,FOLLOW_NOT_in_bExpr21693); if (state.failed) return retval; 
+                    NOT128=(Token)match(input,NOT,FOLLOW_NOT_in_bExpr21682); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_NOT.add(NOT128);
 
 
-                    LBRACKET129=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_bExpr21695); if (state.failed) return retval; 
+                    LBRACKET129=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_bExpr21684); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET129);
 
 
-                    pushFollow(FOLLOW_bExpr_in_bExpr21697);
+                    pushFollow(FOLLOW_bExpr_in_bExpr21686);
                     bExpr130=bExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_bExpr.add(bExpr130.getTree());
 
-                    RBRACKET131=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_bExpr21699); if (state.failed) return retval; 
+                    RBRACKET131=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_bExpr21688); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET131);
 
 
@@ -3425,18 +3425,18 @@ public TreeAdaptor getTreeAdaptor() {
                 case 3 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:281:4: LBRACKET bExpr RBRACKET
                     {
-                    LBRACKET132=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_bExpr21712); if (state.failed) return retval; 
+                    LBRACKET132=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_bExpr21701); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET132);
 
 
-                    pushFollow(FOLLOW_bExpr_in_bExpr21714);
+                    pushFollow(FOLLOW_bExpr_in_bExpr21703);
                     bExpr133=bExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_bExpr.add(bExpr133.getTree());
 
-                    RBRACKET134=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_bExpr21716); if (state.failed) return retval; 
+                    RBRACKET134=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_bExpr21705); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET134);
 
 
@@ -3468,25 +3468,25 @@ public TreeAdaptor getTreeAdaptor() {
                 case 4 :
                     // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:282:4: vBOp LBRACKET bExpr RBRACKET
                     {
-                    pushFollow(FOLLOW_vBOp_in_bExpr21725);
+                    pushFollow(FOLLOW_vBOp_in_bExpr21714);
                     vBOp135=vBOp();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_vBOp.add(vBOp135.getTree());
 
-                    LBRACKET136=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_bExpr21727); if (state.failed) return retval; 
+                    LBRACKET136=(Token)match(input,LBRACKET,FOLLOW_LBRACKET_in_bExpr21716); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET136);
 
 
-                    pushFollow(FOLLOW_bExpr_in_bExpr21729);
+                    pushFollow(FOLLOW_bExpr_in_bExpr21718);
                     bExpr137=bExpr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_bExpr.add(bExpr137.getTree());
 
-                    RBRACKET138=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_bExpr21731); if (state.failed) return retval; 
+                    RBRACKET138=(Token)match(input,RBRACKET,FOLLOW_RBRACKET_in_bExpr21720); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET138);
 
 
@@ -3802,7 +3802,7 @@ public TreeAdaptor getTreeAdaptor() {
             root_0 = (Object)adaptor.nil();
 
 
-            POW142=(Token)match(input,POW,FOLLOW_POW_in_highPrecMathOp1901); if (state.failed) return retval;
+            POW142=(Token)match(input,POW,FOLLOW_POW_in_highPrecMathOp1890); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             POW142_tree = 
             (Object)adaptor.create(POW142)
@@ -4212,13 +4212,13 @@ public TreeAdaptor getTreeAdaptor() {
         // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:279:4: ( expr comparators )
         // C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g:279:5: expr comparators
         {
-        pushFollow(FOLLOW_expr_in_synpred1_BACON1675);
+        pushFollow(FOLLOW_expr_in_synpred1_BACON1664);
         expr();
 
         state._fsp--;
         if (state.failed) return ;
 
-        pushFollow(FOLLOW_comparators_in_synpred1_BACON1677);
+        pushFollow(FOLLOW_comparators_in_synpred1_BACON1666);
         comparators();
 
         state._fsp--;
@@ -4249,146 +4249,146 @@ public TreeAdaptor getTreeAdaptor() {
 
  
 
-    public static final BitSet FOLLOW_NEWLINE_in_rules951 = new BitSet(new long[]{0x8880005401042000L,0x0000000000000A00L});
-    public static final BitSet FOLLOW_pair_in_rules955 = new BitSet(new long[]{0x0008000000000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_rules958 = new BitSet(new long[]{0x8880005401042000L,0x0000000000000A00L});
-    public static final BitSet FOLLOW_pair_in_rules960 = new BitSet(new long[]{0x0008000000000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_rules965 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleName_in_pair991 = new BitSet(new long[]{0x0880005401042000L,0x0000000000000A00L});
-    public static final BitSet FOLLOW_rule2_in_pair993 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule_in_pair1008 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULENAME_in_ruleName1020 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_COLON_in_ruleName1022 = new BitSet(new long[]{0x0008000000000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_ruleName1025 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_VAR_in_ruleName1036 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_COLON_in_ruleName1038 = new BitSet(new long[]{0x0008000000000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_ruleName1041 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule2_in_rule1058 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_assign_in_rule21077 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IF_in_rule21082 = new BitSet(new long[]{0x1030EC64C83A0970L,0x000000000001FC7EL});
-    public static final BitSet FOLLOW_bExpr_in_rule21084 = new BitSet(new long[]{0x0008000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_NEWLINE_in_rule21087 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_THEN_in_rule21091 = new BitSet(new long[]{0x0888005401042000L,0x0000000000000A00L});
-    public static final BitSet FOLLOW_NEWLINE_in_rule21094 = new BitSet(new long[]{0x0880005401042000L,0x0000000000000A00L});
-    public static final BitSet FOLLOW_rule_in_rule21098 = new BitSet(new long[]{0x0008000000000002L});
-    public static final BitSet FOLLOW_NEWLINE_in_rule21101 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_UPTAKE_in_rule21118 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_rule21120 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
-    public static final BitSet FOLLOW_VAR_in_rule21122 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_COMMA_in_rule21124 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr_in_rule21126 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_rule21128 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RELEASE_in_rule21143 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_rule21145 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
-    public static final BitSet FOLLOW_VAR_in_rule21147 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_COMMA_in_rule21149 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr_in_rule21151 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_rule21153 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INGEST_in_rule21168 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_rule21170 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
-    public static final BitSet FOLLOW_VAR_in_rule21172 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_COMMA_in_rule21174 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr_in_rule21176 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_COMMA_in_rule21178 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr_in_rule21180 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_rule21182 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CHANGE_in_rule21199 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_rule21201 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
-    public static final BitSet FOLLOW_VAR_in_rule21203 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_rule21205 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PCHANGE_in_rule21218 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_rule21220 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
-    public static final BitSet FOLLOW_VAR_in_rule21222 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_COMMA_in_rule21224 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr_in_rule21226 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_rule21228 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DIVIDE_in_rule21243 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_rule21245 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr_in_rule21247 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_rule21249 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CREATE_in_rule21262 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_rule21264 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
-    public static final BitSet FOLLOW_VAR_in_rule21266 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_COMMA_in_rule21268 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr_in_rule21270 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_rule21272 = new BitSet(new long[]{0x0008000000000002L,0x0000000000020000L});
-    public static final BitSet FOLLOW_NEWLINE_in_rule21275 = new BitSet(new long[]{0x0000000000000002L,0x0000000000020000L});
-    public static final BitSet FOLLOW_WITH_in_rule21282 = new BitSet(new long[]{0x0000100000000000L});
-    public static final BitSet FOLLOW_LSQUARE_in_rule21284 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
-    public static final BitSet FOLLOW_assignList_in_rule21286 = new BitSet(new long[]{0x2000000000000000L});
-    public static final BitSet FOLLOW_RSQUARE_in_rule21288 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LBRACKET_in_rule21310 = new BitSet(new long[]{0x0880005401042000L,0x0000000000000A00L});
-    public static final BitSet FOLLOW_rule2_in_rule21312 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_rule21314 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_VAR_in_assign1329 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_EQUALS_in_assign1331 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr_in_assign1333 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_assign_in_assignList1354 = new BitSet(new long[]{0x0008000000008002L});
-    public static final BitSet FOLLOW_NEWLINE_in_assignList1357 = new BitSet(new long[]{0x0000000000008002L});
-    public static final BitSet FOLLOW_COMMA_in_assignList1362 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
-    public static final BitSet FOLLOW_assign_in_assignList1364 = new BitSet(new long[]{0x0008000000008002L});
-    public static final BitSet FOLLOW_NEWLINE_in_assignList1367 = new BitSet(new long[]{0x0000000000008002L});
-    public static final BitSet FOLLOW_expr2_in_expr1397 = new BitSet(new long[]{0x0100800000000002L});
-    public static final BitSet FOLLOW_lowPrecMathOp_in_expr1411 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr2_in_expr1414 = new BitSet(new long[]{0x0100800000000002L});
-    public static final BitSet FOLLOW_expr3_in_expr21428 = new BitSet(new long[]{0x0001000000800002L});
-    public static final BitSet FOLLOW_medPrecMathOp_in_expr21442 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr3_in_expr21446 = new BitSet(new long[]{0x0001000000800002L});
-    public static final BitSet FOLLOW_expr4_in_expr31460 = new BitSet(new long[]{0x0200000000000002L});
-    public static final BitSet FOLLOW_highPrecMathOp_in_expr31474 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr4_in_expr31477 = new BitSet(new long[]{0x0200000000000002L});
-    public static final BitSet FOLLOW_LBRACKET_in_expr41493 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr_in_expr41495 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_expr41497 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_unaryPrimitives_in_expr41506 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_expr41508 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr_in_expr41510 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_expr41512 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MINUS_in_expr41525 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr_in_expr41527 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FLOAT_in_expr41540 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_VAR_in_expr41545 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IF_in_expr41550 = new BitSet(new long[]{0x1030EC64C83A0970L,0x000000000001FC7EL});
-    public static final BitSet FOLLOW_bExpr_in_expr41552 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_THEN_in_expr41554 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr_in_expr41556 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_ELSE_in_expr41558 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr_in_expr41560 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_binPrim_in_expr41577 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_expr41579 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr_in_expr41581 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_COMMA_in_expr41583 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr_in_expr41585 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_expr41587 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_VARHIST_in_expr41602 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_expr41604 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
-    public static final BitSet FOLLOW_VAR_in_expr41606 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_COMMA_in_expr41608 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr_in_expr41610 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_expr41612 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_vOp_in_expr41627 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_expr41629 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr_in_expr41631 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_expr41633 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_bExpr2_in_bExpr1653 = new BitSet(new long[]{0x0040000000000082L});
-    public static final BitSet FOLLOW_lowPrecBoolOp_in_bExpr1656 = new BitSet(new long[]{0x1030EC64C83A0970L,0x000000000001FC7EL});
-    public static final BitSet FOLLOW_bExpr2_in_bExpr1659 = new BitSet(new long[]{0x0040000000000082L});
-    public static final BitSet FOLLOW_expr_in_bExpr21683 = new BitSet(new long[]{0x0004018304000000L});
-    public static final BitSet FOLLOW_comparators_in_bExpr21685 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
-    public static final BitSet FOLLOW_expr_in_bExpr21688 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NOT_in_bExpr21693 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_bExpr21695 = new BitSet(new long[]{0x1030EC64C83A0970L,0x000000000001FC7EL});
-    public static final BitSet FOLLOW_bExpr_in_bExpr21697 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_bExpr21699 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LBRACKET_in_bExpr21712 = new BitSet(new long[]{0x1030EC64C83A0970L,0x000000000001FC7EL});
-    public static final BitSet FOLLOW_bExpr_in_bExpr21714 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_bExpr21716 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_vBOp_in_bExpr21725 = new BitSet(new long[]{0x0000004000000000L});
-    public static final BitSet FOLLOW_LBRACKET_in_bExpr21727 = new BitSet(new long[]{0x1030EC64C83A0970L,0x000000000001FC7EL});
-    public static final BitSet FOLLOW_bExpr_in_bExpr21729 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_RBRACKET_in_bExpr21731 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_POW_in_highPrecMathOp1901 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_expr_in_synpred1_BACON1675 = new BitSet(new long[]{0x0004018304000000L});
-    public static final BitSet FOLLOW_comparators_in_synpred1_BACON1677 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_rules940 = new BitSet(new long[]{0x8880005401042000L,0x0000000000000A00L});
+    public static final BitSet FOLLOW_pair_in_rules944 = new BitSet(new long[]{0x0008000000000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_rules947 = new BitSet(new long[]{0x8880005401042000L,0x0000000000000A00L});
+    public static final BitSet FOLLOW_pair_in_rules949 = new BitSet(new long[]{0x0008000000000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_rules954 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleName_in_pair980 = new BitSet(new long[]{0x0880005401042000L,0x0000000000000A00L});
+    public static final BitSet FOLLOW_rule2_in_pair982 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule_in_pair997 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULENAME_in_ruleName1009 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_COLON_in_ruleName1011 = new BitSet(new long[]{0x0008000000000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_ruleName1014 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_VAR_in_ruleName1025 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_COLON_in_ruleName1027 = new BitSet(new long[]{0x0008000000000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_ruleName1030 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule2_in_rule1047 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_assign_in_rule21066 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IF_in_rule21071 = new BitSet(new long[]{0x1030EC64C83A0970L,0x000000000001FC7EL});
+    public static final BitSet FOLLOW_bExpr_in_rule21073 = new BitSet(new long[]{0x0008000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_NEWLINE_in_rule21076 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_THEN_in_rule21080 = new BitSet(new long[]{0x0888005401042000L,0x0000000000000A00L});
+    public static final BitSet FOLLOW_NEWLINE_in_rule21083 = new BitSet(new long[]{0x0880005401042000L,0x0000000000000A00L});
+    public static final BitSet FOLLOW_rule_in_rule21087 = new BitSet(new long[]{0x0008000000000002L});
+    public static final BitSet FOLLOW_NEWLINE_in_rule21090 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_UPTAKE_in_rule21107 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_rule21109 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_VAR_in_rule21111 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_COMMA_in_rule21113 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_rule21115 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_rule21117 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RELEASE_in_rule21132 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_rule21134 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_VAR_in_rule21136 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_COMMA_in_rule21138 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_rule21140 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_rule21142 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INGEST_in_rule21157 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_rule21159 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_VAR_in_rule21161 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_COMMA_in_rule21163 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_rule21165 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_COMMA_in_rule21167 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_rule21169 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_rule21171 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CHANGE_in_rule21188 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_rule21190 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_VAR_in_rule21192 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_rule21194 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PCHANGE_in_rule21207 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_rule21209 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_VAR_in_rule21211 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_COMMA_in_rule21213 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_rule21215 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_rule21217 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DIVIDE_in_rule21232 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_rule21234 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_rule21236 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_rule21238 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CREATE_in_rule21251 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_rule21253 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_VAR_in_rule21255 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_COMMA_in_rule21257 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_rule21259 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_rule21261 = new BitSet(new long[]{0x0008000000000002L,0x0000000000020000L});
+    public static final BitSet FOLLOW_NEWLINE_in_rule21264 = new BitSet(new long[]{0x0000000000000002L,0x0000000000020000L});
+    public static final BitSet FOLLOW_WITH_in_rule21271 = new BitSet(new long[]{0x0000100000000000L});
+    public static final BitSet FOLLOW_LSQUARE_in_rule21273 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_assignList_in_rule21275 = new BitSet(new long[]{0x2000000000000000L});
+    public static final BitSet FOLLOW_RSQUARE_in_rule21277 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LBRACKET_in_rule21299 = new BitSet(new long[]{0x0880005401042000L,0x0000000000000A00L});
+    public static final BitSet FOLLOW_rule2_in_rule21301 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_rule21303 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_VAR_in_assign1318 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_EQUALS_in_assign1320 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_assign1322 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_assign_in_assignList1343 = new BitSet(new long[]{0x0008000000008002L});
+    public static final BitSet FOLLOW_NEWLINE_in_assignList1346 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_COMMA_in_assignList1351 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_assign_in_assignList1353 = new BitSet(new long[]{0x0008000000008002L});
+    public static final BitSet FOLLOW_NEWLINE_in_assignList1356 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_expr2_in_expr1386 = new BitSet(new long[]{0x0100800000000002L});
+    public static final BitSet FOLLOW_lowPrecMathOp_in_expr1400 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr2_in_expr1403 = new BitSet(new long[]{0x0100800000000002L});
+    public static final BitSet FOLLOW_expr3_in_expr21417 = new BitSet(new long[]{0x0001000000800002L});
+    public static final BitSet FOLLOW_medPrecMathOp_in_expr21431 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr3_in_expr21435 = new BitSet(new long[]{0x0001000000800002L});
+    public static final BitSet FOLLOW_expr4_in_expr31449 = new BitSet(new long[]{0x0200000000000002L});
+    public static final BitSet FOLLOW_highPrecMathOp_in_expr31463 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr4_in_expr31466 = new BitSet(new long[]{0x0200000000000002L});
+    public static final BitSet FOLLOW_LBRACKET_in_expr41482 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_expr41484 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_expr41486 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_unaryPrimitives_in_expr41495 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_expr41497 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_expr41499 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_expr41501 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MINUS_in_expr41514 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_expr41516 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FLOAT_in_expr41529 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_VAR_in_expr41534 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IF_in_expr41539 = new BitSet(new long[]{0x1030EC64C83A0970L,0x000000000001FC7EL});
+    public static final BitSet FOLLOW_bExpr_in_expr41541 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_THEN_in_expr41543 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_expr41545 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_ELSE_in_expr41547 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_expr41549 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_binPrim_in_expr41566 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_expr41568 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_expr41570 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_COMMA_in_expr41572 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_expr41574 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_expr41576 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_VARHIST_in_expr41591 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_expr41593 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000800L});
+    public static final BitSet FOLLOW_VAR_in_expr41595 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_COMMA_in_expr41597 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_expr41599 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_expr41601 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_vOp_in_expr41616 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_expr41618 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_expr41620 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_expr41622 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_bExpr2_in_bExpr1642 = new BitSet(new long[]{0x0040000000000082L});
+    public static final BitSet FOLLOW_lowPrecBoolOp_in_bExpr1645 = new BitSet(new long[]{0x1030EC64C83A0970L,0x000000000001FC7EL});
+    public static final BitSet FOLLOW_bExpr2_in_bExpr1648 = new BitSet(new long[]{0x0040000000000082L});
+    public static final BitSet FOLLOW_expr_in_bExpr21672 = new BitSet(new long[]{0x0004018304000000L});
+    public static final BitSet FOLLOW_comparators_in_bExpr21674 = new BitSet(new long[]{0x1000EC64C83A0930L,0x000000000001FC76L});
+    public static final BitSet FOLLOW_expr_in_bExpr21677 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NOT_in_bExpr21682 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_bExpr21684 = new BitSet(new long[]{0x1030EC64C83A0970L,0x000000000001FC7EL});
+    public static final BitSet FOLLOW_bExpr_in_bExpr21686 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_bExpr21688 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LBRACKET_in_bExpr21701 = new BitSet(new long[]{0x1030EC64C83A0970L,0x000000000001FC7EL});
+    public static final BitSet FOLLOW_bExpr_in_bExpr21703 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_bExpr21705 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_vBOp_in_bExpr21714 = new BitSet(new long[]{0x0000004000000000L});
+    public static final BitSet FOLLOW_LBRACKET_in_bExpr21716 = new BitSet(new long[]{0x1030EC64C83A0970L,0x000000000001FC7EL});
+    public static final BitSet FOLLOW_bExpr_in_bExpr21718 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_RBRACKET_in_bExpr21720 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_POW_in_highPrecMathOp1890 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_expr_in_synpred1_BACON1664 = new BitSet(new long[]{0x0004018304000000L});
+    public static final BitSet FOLLOW_comparators_in_synpred1_BACON1666 = new BitSet(new long[]{0x0000000000000002L});
 
 }
