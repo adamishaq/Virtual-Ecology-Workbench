@@ -77,10 +77,6 @@ public abstract class VEWController extends Observable {
 		
 	}
 	
-	private Function getSelectedFunction() {
-		return currentlySelectedFunction;
-	}
-	
 	public Function getFunctionAtIndex(int functionNo) {
 		return getSelectedItem().getFunctionAtIndex(functionNo);
 	}
@@ -159,13 +155,24 @@ public abstract class VEWController extends Observable {
 		
 	}
 
+	public void updateVariableDisplay() {
+		this.setChanged();
+		this.notifyObservers(new NewVariableEvent());
+	}
 
 	public void update_category(Catagory cat) {
 		this.setChanged();
 		this.notifyObservers(cat);
 	}
 
-	public void addCategory(Display d,String name) {
+	public void addCategory(Display d) {
+		String categorytype = this instanceof FunctionalGroupController ? "Functional Group" : "Chemical";
+		String name = JOptionPane.showInputDialog(d,
+	        	"Choose a name for the new " + categorytype,
+	            "Name Functional Group", 1);
+	        if (name == null) {
+	        	return;
+	        }
 		// Check name uniqueness
 		for (FunctionalGroup f : this.model.getFunctionalGroups()) {
 			if (f.getName().equals(name)) {
