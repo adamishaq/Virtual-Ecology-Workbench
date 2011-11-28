@@ -17,13 +17,7 @@ public class AddCategoryButtonListener implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent event) {
-        String name = JOptionPane.showInputDialog(parent,
-        	"Choose a name for the new functional group",
-            "Name Functional Group", 1);
-        if (name != null) {
-        	parent.addCategory(name);
-        }
-        
+        parent.addCategory();
 	}
 	
 }

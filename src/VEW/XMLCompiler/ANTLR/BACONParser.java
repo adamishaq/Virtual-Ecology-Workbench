@@ -119,6 +119,10 @@ public class BACONParser extends Parser {
 
     }
 
+    @Override
+    public void emitErrorMessage(String message) {
+    }
+    
 protected TreeAdaptor adaptor = new CommonTreeAdaptor();
 
 public void setTreeAdaptor(TreeAdaptor adaptor) {

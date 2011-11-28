@@ -23,6 +23,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
 import VEW.Planktonica2.ControllerStructure.NewCategoryEvent;
+import VEW.Planktonica2.ControllerStructure.NewVariableEvent;
 import VEW.Planktonica2.ControllerStructure.SelectableItem;
 import VEW.Planktonica2.ControllerStructure.SourcePath;
 import VEW.Planktonica2.ControllerStructure.VEWController;
@@ -115,6 +116,9 @@ public abstract class Display extends JSplitPane implements Observer {
 			this.ancilaryFuncPane.setSelectedIndex(1);
 		} else if (arg instanceof NewCategoryEvent) {
 			update_functions(((NewCategoryEvent)arg).getNew_category());
+		} else if (arg instanceof NewVariableEvent) {
+			SelectableItem s = controller.getSelectedItem();
+			this.update_vars(s);
 		}
 		
 	}
@@ -333,11 +337,11 @@ public abstract class Display extends JSplitPane implements Observer {
 		compileButton.setPreferredSize(STANDARD_BUTTON_SIZE);
 		compileButton.addActionListener(new CompileButtonListener(this.editorPanel));
 		
-		checkButton = new JButton(new ImageIcon(IconRoot + "compile.gif"));		
+		checkButton = new JButton(new ImageIcon(IconRoot + "check.png"));		
 		checkButton.setPreferredSize(STANDARD_BUTTON_SIZE);
 		checkButton.addActionListener(new CheckButtonListener(this.editorPanel));
 		
-		saveButton = new JButton(new ImageIcon(IconRoot + "compile.gif"));
+		saveButton = new JButton(new ImageIcon(IconRoot + "save.png"));
 		saveButton.setPreferredSize(STANDARD_BUTTON_SIZE);
 		saveButton.addActionListener(new SaveButtonListener(this.editorPanel));
 		
@@ -482,8 +486,8 @@ public abstract class Display extends JSplitPane implements Observer {
 		return tree.getSelectionPath().getLastPathComponent().toString();
 	}
 	
-	public void addCategory(String name) {
-		controller.addCategory(this,name);	
+	public void addCategory() {
+		controller.addCategory(this);	
 	}
 
 	public void addFunction(String name) {

@@ -28,6 +28,7 @@ public class Chemical extends Catagory {
 		super();
 		this.file_path = filePath;
 		this.name = name;
+		this.spectrum = new ArrayList<Spectrum>();
 	}
 
 	@Override

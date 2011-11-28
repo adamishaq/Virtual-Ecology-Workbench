@@ -26,9 +26,9 @@ public class AssignNode extends RuleNode {
 			enclosingTree.addSemanticException(
 				new SemanticCheckException(idName + " is not an assignable variable",line_number));
 		} else if ((var instanceof VarietyLocal || var instanceof Local) && var.isAssignedTo()) {
-			enclosingTree.addSemanticException(
+			/*enclosingTree.addSemanticException(
 				new SemanticCheckException(idName + " has already been assigned to in a previous rule",line_number));
-		} else {
+		*/} else {
 			expr.check(enclosingCategory, enclosingTree);
 			checkTypeCompatibility(var.getVarType(), enclosingTree);
 			assignVar = var;
