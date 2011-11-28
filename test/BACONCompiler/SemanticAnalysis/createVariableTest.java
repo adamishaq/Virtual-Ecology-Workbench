@@ -15,7 +15,7 @@ public class createVariableTest {
 		SymbolTable<Type> topSymTable = new SymbolTable<Type>();
 		topSymTable.put("$float", new Type("float"));
 		Type floatType = (Type) topSymTable.get("$float");
-		GlobalVariable var = new GlobalVariable("TestVar", "desc", floatType, null);
+		GlobalVariable var = new GlobalVariable("TestVar", "desc", floatType, null, null, null, false);
 		SymbolTable<GlobalVariable> table = new SymbolTable<GlobalVariable>(topSymTable);
 		table.put("TestVar", var);
 		GlobalVariable retrievedVar = (GlobalVariable) table.get("TestVar");
@@ -28,8 +28,8 @@ public class createVariableTest {
 		SymbolTable<Type> topSymTable = new SymbolTable<Type>();
 		topSymTable.put("$foodSet", new Type("foodSet"));
 		Type floatType = (Type) topSymTable.get("$foodSet");
-		GlobalVariable var = new GlobalVariable("TestSet", "desc", floatType, null);
-		SymbolTable table = new SymbolTable(topSymTable);
+		GlobalVariable var = new GlobalVariable("TestSet", "desc", floatType, null, null, null, false);
+		SymbolTable<GlobalVariable> table = new SymbolTable<GlobalVariable>(topSymTable);
 		table.put("TestSet", var);
 		GlobalVariable retrievedVar = (GlobalVariable) table.get("TestSet");
 		Type type = retrievedVar.getVarType();
@@ -41,8 +41,8 @@ public class createVariableTest {
 		SymbolTable<Type> topSymTable = new SymbolTable<Type>();
 		topSymTable.put("$vector", new Type("vector"));
 		Type floatType = (Type) topSymTable.get("$vector");
-		GlobalVariable var = new GlobalVariable("Vector", "desc", floatType, null);
-		SymbolTable table = new SymbolTable(topSymTable);
+		GlobalVariable var = new GlobalVariable("Vector", "desc", floatType, null, null, null, false);
+		SymbolTable<GlobalVariable> table = new SymbolTable<GlobalVariable>(topSymTable);
 		table.put("Vector", var);
 		GlobalVariable retrievedVar = (GlobalVariable) table.get("Vector");
 		Type type = retrievedVar.getVarType();

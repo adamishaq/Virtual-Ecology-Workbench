@@ -6,6 +6,7 @@ import java.util.prefs.BackingStoreException;
 
 import VEW.Common.XML.XMLFile;
 import VEW.Common.XML.XMLTag;
+import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
 public class Model implements BuildFromXML, BuildToXML {
 
@@ -15,10 +16,18 @@ public class Model implements BuildFromXML, BuildToXML {
 	private XMLFile file;
 
 	public Model (XMLFile f) {
+		AmbientVariableTables.destroyAmbientVariableTable();
 		this.functionalGroups = new ArrayList<FunctionalGroup>();
 		this.chemicals = new ArrayList<Chemical>();
 		
 		file = f;
+	}
+	
+	public String getFilePath() {
+		String filepath = file.getFileName();
+		filepath = filepath.substring(0, filepath.lastIndexOf('\\'));
+		filepath += "\\";
+		return filepath;
 	}
 	
 	public void buildFromFile() throws BackingStoreException {
@@ -38,22 +47,21 @@ public class Model implements BuildFromXML, BuildToXML {
 	
 	@Override
 	public BuildFromXML build(XMLTag tag) {
-
-		XMLTag [] tags = tag.getTags(XMLTagEnum.FUNCTIONAL_GROUP.xmlTag());
-
-		for(XMLTag t : tags) {
-			FunctionalGroup f = new FunctionalGroup (file.getFileName());
-			f.build(t);
-			functionalGroups.add(f);
-			t.removeFromParent();
-		}
-
-		tags = tag.getTags(XMLTagEnum.CHEMICAL.xmlTag());
+		XMLTag [] tags = tag.getTags(XMLTagEnum.CHEMICAL.xmlTag());
 
 		for(XMLTag t : tags) {
 			Chemical c = new Chemical (file.getFileName());
 			c.build(t);
 			chemicals.add(c);
+			t.removeFromParent();
+		}
+		
+		tags = tag.getTags(XMLTagEnum.FUNCTIONAL_GROUP.xmlTag());
+
+		for(XMLTag t : tags) {
+			FunctionalGroup f = new FunctionalGroup (file.getFileName());
+			f.build(t);
+			functionalGroups.add(f);
 			t.removeFromParent();
 		}
 

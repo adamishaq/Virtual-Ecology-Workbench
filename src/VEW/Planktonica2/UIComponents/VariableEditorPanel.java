@@ -38,6 +38,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 	
 	private VarType current_selection = VarType.GROUPVAR;
 	private Catagory current_category;
+	private VariableType current_variable;
 	private VEWController controller;
 	private HashMap<String,Integer> food_sets = new HashMap<String,Integer>();
 	
@@ -248,27 +249,35 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		if (!validate_variable(false))
 			return;
 		// Construct the variable
+		ArrayList<Unit> units = new ArrayList<Unit>();
+		units.add(new Unit(0,unit_string.getText(),0));
 		switch (current_selection) {
 		case GROUPVAR :
-			StateVariable v = new StateVariable(this.current_category);
+			StateVariable v = new StateVariable();
 			v.setName(var_name.getText());
 			v.setDesc(var_desc.getText());
 			v.setHist(Integer.parseInt(h_size.getText()));
 			v.setValue(Float.parseFloat(i_val.getText()));
+			v.setUnits(units);
 			current_category.addToStateVarTable(v);
+			this.current_variable = v;
 			break;
 		case GROUPPARAM :
-			Parameter p = new Parameter(this.current_category);
+			Parameter p = new Parameter();
 			p.setName(var_name.getText());
 			p.setDesc(var_desc.getText());
 			p.setValue(Float.parseFloat(i_val.getText()));
+			p.setUnits(units);
 			current_category.addToParamTable(p);
+			this.current_variable = p;
 			break;
 		case LOCALVAR :
-			Local l = new Local(this.current_category);
+			Local l = new Local();
 			l.setName(var_name.getText());
 			l.setDesc(var_desc.getText());
+			l.setUnits(units);
 			current_category.addToLocalTable(l);
+			this.current_variable = l;
 			break;
 		case FOODPARAM :
 			// Make sure the currently selected category is not a chemical
@@ -277,6 +286,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 				vp.setName(var_name.getText());
 				vp.setDesc(var_desc.getText());
 				vp.setValue(Float.parseFloat(i_val.getText()));
+				vp.setUnits(units);
 				// Check the food set link actually exists
 				VarietyConcentration vc =
 					this.current_category.checkVarietyConcTable(link_combo.getSelectedItem().toString());
@@ -284,6 +294,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 					return;
 				vp.setLinkConcentration(vc);
 				current_category.addToVarietyParamTable(vp);
+				this.current_variable = vp;
 			}
 			break;
 		case FOODVAR :
@@ -294,6 +305,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 				vv.setDesc(var_desc.getText());
 				vv.setHist(Integer.parseInt(h_size.getText()));
 				vv.setValue(Float.parseFloat(i_val.getText()));
+				vv.setUnits(units);
 				// Check the food set link actually exists
 				VarietyConcentration vc =
 					this.current_category.checkVarietyConcTable(link_combo.getSelectedItem().toString());
@@ -301,15 +313,18 @@ public class VariableEditorPanel extends JPanel implements Observer {
 					return;
 				vv.setLinkConcentration(vc);
 				current_category.addToVarietyStateTable(vv);
+				this.current_variable = vv;
 			}
 			break;
 		case FOODSET :
 			// Make sure the currently selected category is not a chemical
 			if (this.current_category instanceof FunctionalGroup) {
-				VarietyConcentration vc = new VarietyConcentration((FunctionalGroup) this.current_category);
+				VarietyConcentration vc = new VarietyConcentration();
 				vc.setName(var_name.getText());
 				vc.setDesc(var_desc.getText());
+				vc.setUnits(units);
 				current_category.addToVarietyConcTable(vc);
+				this.current_variable = vc;
 			}
 			break;
 		case FOODLOCAL :
@@ -318,6 +333,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 				VarietyLocal vl = new VarietyLocal((FunctionalGroup) this.current_category);
 				vl.setName(var_name.getText());
 				vl.setDesc(var_desc.getText());
+				vl.setUnits(units);
 				// Check the food set link actually exists
 				VarietyConcentration vc =
 					this.current_category.checkVarietyConcTable(link_combo.getSelectedItem().toString());
@@ -325,6 +341,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 					return;
 				vl.setLinkConcentration(vc);
 				current_category.addToVarietyLocalTable(vl);
+				this.current_variable = vl;
 			}
 			break;
 		}
@@ -336,6 +353,18 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		if (!validate_variable(true))
 			return;
 		VariableType v = current_category.checkAllVariableTables(var_name.getText());
+		if (v == null)
+			v = this.current_variable;
+		if (!v.isEditable()) {
+			JOptionPane.showMessageDialog(this, "This is a built-in variable and cannot be edited");
+			return;
+		}
+		if (v != null) {
+			v = current_category.removeFromTables(v.getName());
+			if (v != null)
+				construct_variable();
+		}
+		/*
 		v.setDesc(var_desc.getText());
 		ArrayList<Unit> units = new ArrayList<Unit>();
 		units.add(new Unit(0,unit_string.getText(),0));
@@ -364,7 +393,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			} else if (v instanceof Parameter) {
 				v.setValue(Float.parseFloat(i_val.getText()));
 			}
-		}
+		}*/
 	}
 	
 	private boolean validate_variable(boolean exists) {
@@ -389,12 +418,12 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		if (!exists && current_category.checkAllVariableTables(var_name.getText()) != null) {
 			JOptionPane.showMessageDialog(this, "A variable of that name already exists");
 			return false;
-		}
+		}/*
 		// Check the name is not unique if it is an existing variable
 		if (exists && current_category.checkAllVariableTables(var_name.getText()) == null) {
 			JOptionPane.showMessageDialog(this, "No variable of that name exists");
 			return false;
-		}
+		}*/
 		// Check that history has a legal value
 		switch (current_selection) {
 		case GROUPVAR :
@@ -427,6 +456,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 	}
 	
 	public void display(VariableType v) {
+		this.current_variable = v;
 		// Fill in the variable name and description
 		var_name.setText(v.getName());
 		var_name.setCaretPosition(0);

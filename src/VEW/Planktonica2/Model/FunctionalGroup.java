@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import VEW.Common.XML.XMLTag;
+import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 import VEW.XMLCompiler.ASTNodes.SymbolTable;
 
 public class FunctionalGroup extends Catagory {
@@ -25,9 +26,54 @@ public class FunctionalGroup extends Catagory {
 		initialiseFuncTables();
 	}
 
+	public FunctionalGroup (String name, String file_path) {
+		super();
+		invisible = true;
+		this.name = name;
+		this.file_path = file_path;
+		initialiseFuncTables();
+	}
 	
 	private void initialiseFuncTables() {
 		stageTable = new SymbolTable<Stage>();
+		addInitialChemicalStateVariables();
+		addInitialStateVariables();
+	}
+
+
+	private void addInitialStateVariables() {
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		Type floatType = tables.checkTypeTable("$float");
+		Collection<Unit>units = new ArrayList<Unit>();
+		units.add(new Unit(0, "m", 1));
+		StateVariable z = new StateVariable("z", "Depth", floatType, units, new Float(0), 2, false);
+		stateVarTable.put("z", z);
+	}
+
+
+	private void addInitialChemicalStateVariables() {
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		Collection<String> chemicalNames = tables.retrieveChemicalBaseNames();
+		for (String chemName : chemicalNames) {
+			addChemicalStateVariables(chemName);
+		}
+	}
+
+
+	public void addChemicalStateVariables(String chemName) {
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		Collection<Unit> units = new ArrayList<Unit>();
+		units.add(new Unit(0, "mol", 1));
+		Type floatType = tables.checkTypeTable("$float");
+		String varName = chemName + "_ingested";
+		String varDescription = chemName + " incoming pool";
+		StateVariable chemVar = new StateVariable(varName, varDescription,
+													floatType, units, null, null, false);
+		stateVarTable.put(varName, chemVar);
+		varName = chemName + "_pool";
+		varDescription = chemName + " internal pool";
+		chemVar = new StateVariable(varName, varDescription, floatType, units, null, null, false);
+		stateVarTable.put(varName, chemVar);
 	}
 	
 	@Override
@@ -71,7 +117,7 @@ public class FunctionalGroup extends Catagory {
 		tags = xmlTag.getTags(XMLTagEnum.PARAMETER.xmlTag());
 		
 		for (XMLTag t : tags) {
-			Parameter p = new Parameter(this);
+			Parameter p = new Parameter();
 			p.build(t);
 			paramTable.put(p.getName(), p);
 			t.removeFromParent();
@@ -81,7 +127,7 @@ public class FunctionalGroup extends Catagory {
 		tags = xmlTag.getTags(XMLTagEnum.LOCAL.xmlTag());
 		
 		for (XMLTag t : tags) {
-			Local l = new Local(this);
+			Local l = new Local();
 			l.build(t);
 			localVarTable.put(l.getName(), l);
 			t.removeFromParent();
@@ -91,7 +137,7 @@ public class FunctionalGroup extends Catagory {
 		tags = xmlTag.getTags(XMLTagEnum.VARIABLE.xmlTag());
 		
 		for (XMLTag t : tags) {
-			StateVariable v = new StateVariable(this);
+			StateVariable v = new StateVariable();
 			v.build(t);
 			stateVarTable.put(v.getName(), v);
 			t.removeFromParent();
@@ -101,7 +147,7 @@ public class FunctionalGroup extends Catagory {
 		tags = xmlTag.getTags(XMLTagEnum.VARIETY_CONCENTRATION.xmlTag());
 		
 		for (XMLTag t : tags) {
-			VarietyConcentration vc = new VarietyConcentration(this);
+			VarietyConcentration vc = new VarietyConcentration();
 			vc.build(t);
 			varietyConcTable.put(vc.getName(), vc);
 			t.removeFromParent();
@@ -222,16 +268,17 @@ public class FunctionalGroup extends Catagory {
 
 
 	private void addPredatorSizeVariable() {
-		StateVariable sizePred = new StateVariable(this);
 		
-		sizePred.setCodeName("SysVars.getPredSize()");
-		sizePred.setName(this.predVarName);
-		sizePred.setDesc("Size of predator");
-		sizePred.setValue(3);
-		sizePred.setHist(1);
 		ArrayList<Unit> units = new ArrayList<Unit> ();
 		units.add(new Unit (-3, "m", 1));
-		sizePred.setUnits(units);
+		
+		float value = 3;
+		Type t = AmbientVariableTables.getTables().checkTypeTable("$float");
+		
+		StateVariable sizePred = new StateVariable(this.predVarName, "Size of predator", t, units, value, 1, false);
+		
+		sizePred.setCodeName("SysVars.getPredSize()");
+		
 		
 		this.addToStateVarTable(sizePred);
 	}

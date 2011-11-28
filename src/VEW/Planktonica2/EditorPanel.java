@@ -12,7 +12,9 @@ import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -26,6 +28,7 @@ import org.antlr.runtime.RecognitionException;
 
 import VEW.Planktonica2.ControllerStructure.SourcePath;
 import VEW.Planktonica2.ControllerStructure.VEWController;
+import VEW.Planktonica2.Model.Function;
 import VEW.Planktonica2.UIComponents.AutocompleteBox;
 import VEW.Planktonica2.UIComponents.BACONFilter;
 import VEW.Planktonica2.UIComponents.LatexPreview;
@@ -187,7 +190,8 @@ public class EditorPanel extends JPanel implements Observer {
 		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
 		try {
 			ConstructedASTree ct = p.getAST();
-			ct.getTree().check(controller.getCurrentlySelectedFunction().getParent(), ct);
+			if (ct.getExceptions().isEmpty())
+				ct.getTree().check(controller.getCurrentlySelectedFunction().getParent(), ct);
 			if (ct.getExceptions().isEmpty()) {
 				String latex = "\\begin{array}{lr}";
 				latex += ct.getTree().generateLatex();
@@ -321,6 +325,25 @@ public class EditorPanel extends JPanel implements Observer {
 		} catch (Exception e) {
 			syntax.setText("<html><head></head><PRE>Could not find source file " + filePath
 					+ "</PRE></html>");
+		}
+	}
+	
+	public void save() {
+		Function f = controller.getCurrentlySelectedFunction();
+		String file_path = f.getSource_code();
+		file_path += f.getParent().getName();
+		file_path += "\\";
+		file_path += f.getName();
+		file_path += ".bacon";
+		try {
+			FileOutputStream fstream = new FileOutputStream(file_path);
+			PrintStream out = new PrintStream(fstream);
+			out.print(syntax_highlighter.getPlainText(syntax.getText()));
+			out.close();
+			error_log.setText("Save successful");
+		} catch (Exception e) {
+			error_log.setText("<html><head></head><PRE>Error when saving to file " 
+					+ file_path + "</PRE></html>");
 		}
 	}
 	

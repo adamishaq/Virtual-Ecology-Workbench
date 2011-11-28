@@ -96,7 +96,7 @@ package VEW.XMLCompiler.ANTLR;
 }
 
 // Rules
-RULENAME : ('"')(LETTER|DIGIT|'_'|IGNORE|','|'-'|':')*('"');	
+RULENAME : ('"')(~'"')*('"');	
 COLON    : (':')(IGNORE)*(NEWLINE)?;
 
 // Keywords
@@ -225,15 +225,15 @@ rule
 
 rule2
 	: assign
-	| IF bExpr (NEWLINE)? THEN (NEWLINE)? rule (NEWLINE?) -> ^(IF bExpr rule)
+	| IF bExpr (NEWLINE)? THEN (NEWLINE)? rule -> ^(IF bExpr rule)
 	| UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^(UPTAKE VAR expr)
 	| RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^(RELEASE VAR expr)
 	| INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^(INGEST VAR expr expr)
 	| CHANGE LBRACKET VAR RBRACKET -> ^(CHANGE VAR)
 	| PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^(PCHANGE VAR expr)
 	| DIVIDE LBRACKET expr RBRACKET -> ^(DIVIDE expr)
-	| CREATE LBRACKET VAR COMMA expr RBRACKET (NEWLINE)?
-		(WITH LSQUARE assignList RSQUARE)? -> ^(CREATE VAR expr (assignList)?)
+	| CREATE LBRACKET VAR COMMA expr RBRACKET
+		((NEWLINE)? WITH LSQUARE assignList RSQUARE)? -> ^(CREATE VAR expr (assignList)?)
 	| LBRACKET rule2 RBRACKET -> rule2
 	;
 

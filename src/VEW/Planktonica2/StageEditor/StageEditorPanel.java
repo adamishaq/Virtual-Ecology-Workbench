@@ -40,7 +40,6 @@ public class StageEditorPanel extends JPanel {
 		
 		TableModel headerData = new RowModel(this.controller);
         TableModel data = new StageTableModel(this.controller, m);
-
         JTable table = new JTable(data);
         table.setColumnModel(m);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -241,10 +240,10 @@ public class StageEditorPanel extends JPanel {
 				return "No Selected Functional Group.";
 				
 			} else {
-				
 				String stageName = this.getColumnName(y - 1);
 				
 				return this.controller.stageIsCalledIn(stageName, x);
+				
 			}
 		}
 		
@@ -253,10 +252,10 @@ public class StageEditorPanel extends JPanel {
 			if (aValue instanceof Boolean) {
 				boolean isCalled = (Boolean) aValue;
 				
-				String stageName = this.getColumnName(x);
-				
-				this.controller.setStageIsCalledIn(stageName, y, isCalled);
-				
+				String stageName = this.getColumnName(y-1);
+
+				this.controller.setStageIsCalledIn(stageName, y, isCalled);	
+
 			}
 			
 			this.fireTableCellUpdated(x, y);
@@ -275,6 +274,11 @@ public class StageEditorPanel extends JPanel {
 				return "";
 			}
 			
+		}
+		
+		@Override
+		public boolean isCellEditable(int rowIndex, int columnIndex) {
+			return true;
 		}
 	}
 	

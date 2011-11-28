@@ -27,7 +27,6 @@ public class Function implements BuildFromXML, BuildToXML {
 	private String comment;
 	private String author;
 	
-	private String parentName;
 	private Catagory parent;
 	
 	private String source_file_path;
@@ -47,6 +46,14 @@ public class Function implements BuildFromXML, BuildToXML {
 		this.parent = parent;
 	}
 
+	public Function(String file_path, String name, Catagory parent) {
+		this.source_file_path = file_path;
+		this.availableStages = null;
+		this.parent = parent;
+		this.name = name;
+		this.calledIn = new ArrayList<Stage>();
+		this.availableStages = new ArrayList<Stage>();
+	}
 	
 	@Override
 	public BuildFromXML build(XMLTag tag) {
@@ -100,7 +107,7 @@ public class Function implements BuildFromXML, BuildToXML {
 	}
 	
 	private void createSourceFile(XMLTag[] xmlTags) {
-		String parentPath = source_file_path + parentName + "\\";
+		String parentPath = source_file_path + parent.getName() + "\\";
 		File parentDirectory = new File(parentPath);
 		if (!parentDirectory.exists()) {
 			parentDirectory.mkdir();
@@ -119,7 +126,7 @@ public class Function implements BuildFromXML, BuildToXML {
 			String name = nameTag.getValue();
 			String eq = eqTag.getValue();
 			EquationStringParser parser = new EquationStringParser(eq);
-			sourceCode += "\"" + name + "\": " + parser.parseEquationString() + "\n\n";
+			sourceCode += "\"" + name + "\":\n  " + parser.parseEquationString() + "\n\n";
 			equationTag.removeFromParent();
 		}
 		try {
@@ -281,7 +288,7 @@ public class Function implements BuildFromXML, BuildToXML {
 	}
 	
 	public List<XMLTag> compileFunction() throws CompilerException {
-		String parentPath = source_file_path + parentName + "\\" + name + ".bacon";
+		String parentPath = source_file_path + parent.getName() + "\\" + name + ".bacon";
 		String sourceCode = "";
 		try {
 			sourceCode = readSourceFile(parentPath);

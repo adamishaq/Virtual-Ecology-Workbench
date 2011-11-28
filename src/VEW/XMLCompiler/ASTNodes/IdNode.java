@@ -21,13 +21,15 @@ public class IdNode extends ExprNode {
 			enclosingTree.addSemanticException(new SemanticCheckException("Unrecognized variable " + name,
 					line_number));
 		}
-		if ((v instanceof Local || v instanceof VarietyLocal) && !v.isAssignedTo()) {
+		else if ((v instanceof Local || v instanceof VarietyLocal) && !v.isAssignedTo()) {
 			enclosingTree.addSemanticException(
 					new SemanticCheckException("Local variable " + name + " has not been assigned to before reading",
 					line_number));
 		}
-		var = (VariableType) v;
-		exprType = var.getVarType();
+		else {
+			var = (VariableType) v;
+			exprType = var.getVarType();
+		}
 	}
 
 	@Override

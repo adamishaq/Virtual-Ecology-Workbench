@@ -22,14 +22,20 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
+import VEW.Planktonica2.ControllerStructure.NewCategoryEvent;
 import VEW.Planktonica2.ControllerStructure.SelectableItem;
 import VEW.Planktonica2.ControllerStructure.SourcePath;
 import VEW.Planktonica2.ControllerStructure.VEWController;
+import VEW.Planktonica2.DisplayEventHandlers.AddCategoryButtonListener;
+import VEW.Planktonica2.DisplayEventHandlers.AddFunctionButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.CheckButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.CompileButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
+import VEW.Planktonica2.DisplayEventHandlers.RenameFunctionListener;
+import VEW.Planktonica2.DisplayEventHandlers.SaveButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.VariableSelectionEventHandler;
 import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.VariableType;
 import VEW.Planktonica2.UIComponents.VariableEditorPanel;
 
 public abstract class Display extends JSplitPane implements Observer {
@@ -98,13 +104,17 @@ public abstract class Display extends JSplitPane implements Observer {
 			this.update_vars((SelectableItem)arg);
 		}
 		if (arg instanceof Catagory) {
-			Catagory f = (Catagory) arg;
+			Catagory f = (Catagory) controller.getSelectedItem();
 			this.variablePanel.update_selected_category(f);
 			//this.variablePanel.clear();
 			this.editorPanel.clear();
-		}
-		if (arg instanceof SourcePath) {
+		} else if (arg instanceof SourcePath) {
 			this.ancilaryFuncPane.setSelectedIndex(0);
+		} else if (arg instanceof VariableType) {
+			this.variablePanel.display((VariableType)arg);
+			this.ancilaryFuncPane.setSelectedIndex(1);
+		} else if (arg instanceof NewCategoryEvent) {
+			update_functions(((NewCategoryEvent)arg).getNew_category());
 		}
 		
 	}
@@ -261,6 +271,7 @@ public abstract class Display extends JSplitPane implements Observer {
 		//itemPanel.add(copyInstance);
 		itemPanel.add(compileButton);
 		itemPanel.add(checkButton);
+		itemPanel.add(saveButton);
 	}
 	
 	
@@ -290,18 +301,21 @@ public abstract class Display extends JSplitPane implements Observer {
 		
 		addInstance = new JButton(new ImageIcon(IconRoot+ "plus.gif"));
 		addInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
+		addInstance.addActionListener(new AddCategoryButtonListener(this));
 		
 		removeInstance = new JButton(new ImageIcon(IconRoot + "bin1.gif"));
 		removeInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
 		
 		renameInstance = new JButton(new ImageIcon(IconRoot + "rename.gif"));
 		renameInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
+		renameInstance.addActionListener(new RenameFunctionListener(this));
 		
 		copyInstance = new JButton(new ImageIcon(IconRoot + "copy.gif"));
 		copyInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
 		
 		addFunction = new JButton(new ImageIcon(IconRoot+ "plus.gif"));
 		addFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
+		addFunction.addActionListener(new AddFunctionButtonListener(this));
 		
 		removeFunction = new JButton(new ImageIcon(IconRoot + "bin1.gif"));
 		removeFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
@@ -323,21 +337,25 @@ public abstract class Display extends JSplitPane implements Observer {
 		checkButton.setPreferredSize(STANDARD_BUTTON_SIZE);
 		checkButton.addActionListener(new CheckButtonListener(this.editorPanel));
 		
+		saveButton = new JButton(new ImageIcon(IconRoot + "compile.gif"));
+		saveButton.setPreferredSize(STANDARD_BUTTON_SIZE);
+		saveButton.addActionListener(new SaveButtonListener(this.editorPanel));
+		
 	}
 	
 	protected void setButtonToolTips() {
 		
 		// TODO: set tool tips
 		
-		addInstance.setToolTipText("Add a new " + this.getCategoryName() + "?");
+		addInstance.setToolTipText("Add a new " + this.getCategoryName());
 		
 		String currentFunction = ""; // = getCurrentFunction();
 		
 		if (currentFunction != null) {
-			upFunc.setToolTipText("Move " + currentFunction + " up?");
-			downFunc.setToolTipText("Move " + currentFunction + " down?");
-			removeFunction.setToolTipText("Remove " + currentFunction + "?");
-			renameFunction.setToolTipText("Rename " + currentFunction + "?");
+			upFunc.setToolTipText("Move " + currentFunction + " up");
+			downFunc.setToolTipText("Move " + currentFunction + " down");
+			removeFunction.setToolTipText("Remove " + currentFunction);
+			renameFunction.setToolTipText("Rename " + currentFunction);
 			//editFunction.setToolTipText("Edit " + currentFunction + "?");
 			//copyFunction.setToolTipText("Copy " + currentFunction + "?");
 		}
@@ -351,11 +369,12 @@ public abstract class Display extends JSplitPane implements Observer {
 			removeInstance.setToolTipText("Remove " + currentItem + "?");
 			renameInstance.setToolTipText("Rename " + currentItem + "?");
 			copyInstance.setToolTipText("Copy " + currentItem + "?");
-			addFunction.setToolTipText("Add a new function to " + currentItem + "?");
+			addFunction.setToolTipText("Add a new function to " + currentItem);
 		}
 		
 		compileButton.setToolTipText("Compile the current model");
 		checkButton.setToolTipText("Check the current source file");
+		saveButton.setToolTipText("Save the current source file");
 		
 	}
 	
@@ -396,6 +415,16 @@ public abstract class Display extends JSplitPane implements Observer {
 		//copyFunction.setEnabled(false);
 	}
 
+	private void update_functions(Catagory c) {
+		fillFunctionTree();
+		DefaultTreeModel t = (DefaultTreeModel) this.tree.getModel();
+		t.setRoot(rootNode);
+		this.tree.validate();
+		// Set this to be focused
+		this.variablePanel.update_selected_category(c);
+		//this.variablePanel.clear();
+		this.editorPanel.clear();
+	}
 
 	public void update_vars(SelectableItem i) {
 		
@@ -451,6 +480,18 @@ public abstract class Display extends JSplitPane implements Observer {
 
 	public String get_selected_function() {
 		return tree.getSelectionPath().getLastPathComponent().toString();
+	}
+	
+	public void addCategory(String name) {
+		controller.addCategory(this,name);	
+	}
+
+	public void addFunction(String name) {
+		controller.addFunction(this,name);
+	}
+
+	public void rename_function() {
+		
 	}
 	
 }

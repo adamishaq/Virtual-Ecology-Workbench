@@ -1,16 +1,23 @@
 package VEW.Planktonica2.ControllerStructure;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Observable;
 import java.util.prefs.BackingStoreException;
 
+import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 
 import VEW.Common.XML.XMLFile;
 import VEW.Common.XML.XMLTag;
+import VEW.Planktonica2.Display;
 import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.Chemical;
 import VEW.Planktonica2.Model.Function;
+import VEW.Planktonica2.Model.FunctionalGroup;
 import VEW.Planktonica2.Model.Model;
 import VEW.Planktonica2.Model.VariableType;
 import VEW.Planktonica2.Model.XMLWriteBackException;
@@ -42,7 +49,7 @@ public abstract class VEWController extends Observable {
 	 */
 	public VariableType getVariable(String selectedVariable) {
 		
-		if (getSelectedItem() == null || getSelectedFunction () == null) {
+		if (getSelectedItem() == null) {
 			return null;
 		}
 		SelectableItem i = getSelectedItem();
@@ -147,7 +154,7 @@ public abstract class VEWController extends Observable {
 
 	
 	public void updateVariablePanel(VariableType variable) {
-		
+		this.setChanged();
 		this.notifyObservers(variable);
 		
 	}
@@ -166,5 +173,62 @@ public abstract class VEWController extends Observable {
 			return f.getName();
 		}
 	}
+
+	public void addCategory(Display d,String name) {
+		// Check name uniqueness
+		for (FunctionalGroup f : this.model.getFunctionalGroups()) {
+			if (f.getName().equals(name)) {
+				JOptionPane.showMessageDialog(d, "A Functional Group with that name already exists");
+				return;
+			}
+		}
+		for (Chemical c : this.model.getChemicals()) {
+			if (c.getName().equals(name)) {
+				JOptionPane.showMessageDialog(d, "A Chemical with that name already exists");
+				return;
+			}
+		}
+		// Add the new FG/Chemical
+		addCategoryToModel(name);
+	}
 	
+	public abstract void addCategoryToModel(String name);
+
+	public void addFunction(Display display, String name) {
+		if (this.getSelectedItem() == null)
+			return;
+		// Check name uniqueness
+		for (Function f : this.getSelectedItem().getFunctions()) {
+			if (f.getName().equals(name)) {
+				JOptionPane.showMessageDialog(display, "A function with that name already exists");
+				return;
+			}
+		}
+		Catagory c = (Catagory) this.getSelectedItem();
+		c.addFunction(model.getFilePath(), name);
+		addSourceFile(model.getFilePath() + c.getName() + "\\", name);
+		this.setChanged();
+		this.notifyObservers(new NewCategoryEvent(c));
+	}
+
+	private void addSourceFile(String parentPath, String name) {
+		File parentDirectory = new File(parentPath);
+		if (!parentDirectory.exists()) {
+			parentDirectory.mkdir();
+		}
+		File sourceFile = new File(parentPath + name + ".bacon");
+		if (sourceFile.exists()) {
+			return;
+		}
+		try {
+			FileWriter writer = new FileWriter(sourceFile);
+			writer.write("");
+			writer.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
 }

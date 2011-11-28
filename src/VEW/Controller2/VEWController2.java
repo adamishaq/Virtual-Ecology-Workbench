@@ -13,7 +13,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,6 +26,7 @@ import VEW.Scenario2.ClosureEditor;
 import VEW.Scenario2.InitialConditionsPanel;
 import VEW.Scenario2.ScenarioPanel2;
 import VEW.Scenario2.VerticalDiffusionDialog;
+import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
 public class VEWController2 extends JFrame {
   JButton saveChanges = new JButton("Save Changes");

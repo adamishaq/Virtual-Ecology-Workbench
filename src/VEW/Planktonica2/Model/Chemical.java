@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import VEW.Common.XML.XMLTag;
+import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
 public class Chemical extends Catagory {
 
@@ -23,6 +24,12 @@ public class Chemical extends Catagory {
 		this.file_path = _file_path;
 	}
 	
+	public Chemical(String name, String filePath) {
+		super();
+		this.file_path = filePath;
+		this.name = name;
+	}
+
 	@Override
 	public BuildFromXML build(XMLTag tag) {
 		baseTag = tag;
@@ -73,7 +80,7 @@ public class Chemical extends Catagory {
 		tags = tag.getTags(XMLTagEnum.PARAMETER.xmlTag());
 
 		for (XMLTag t : tags) {
-			Parameter p = new Parameter(this);
+			Parameter p = new Parameter();
 			p.build(t);
 			paramTable.put(p.getName(), p);
 			t.removeFromParent();
@@ -83,7 +90,7 @@ public class Chemical extends Catagory {
 		tags = tag.getTags(XMLTagEnum.LOCAL.xmlTag());
 
 		for (XMLTag t : tags) {
-			Local l = new Local(this);
+			Local l = new Local();
 			l.build(t);
 			localVarTable.put(l.getName(), l);
 			t.removeFromParent();
@@ -93,12 +100,13 @@ public class Chemical extends Catagory {
 		tags = tag.getTags(XMLTagEnum.VARIABLE.xmlTag());
 
 		for (XMLTag t : tags) {
-			StateVariable v = new StateVariable(this);
+			StateVariable v = new StateVariable();
 			v.build(t);
 			stateVarTable.put(v.getName(), v);
 			t.removeFromParent();
 		}
-
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		tables.addChemical(name);
 
 		return this;
 	}

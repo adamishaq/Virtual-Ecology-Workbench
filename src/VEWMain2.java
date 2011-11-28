@@ -1,5 +1,8 @@
 import java.io.File;
 
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+
 import VEW.Compiler2.ModelCompiler;
 import VEW.Controller2.TitlePage;
 import VEW.Controller2.VEWController2;
@@ -8,6 +11,20 @@ class VEWMain2 {
   private static int     CompileMode    = VEWController2.DontCompile;
   private static String  DefaultModel   = null;
   private static String  ModelDirectory = "modelTree";
+  
+	static {
+		try {
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+		        if ("Nimbus".equals(info.getName())) {
+		            UIManager.setLookAndFeel(info.getClassName());
+		            break;
+		        }
+		    }
+		} catch (Exception e) {
+		    // If Nimbus is not available, you can set the GUI to another look and feel.
+		}
+
+	}
   
   public static void tryDelete(File f) {
     if (f.exists()) {

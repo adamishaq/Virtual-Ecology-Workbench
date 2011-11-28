@@ -24,7 +24,7 @@ public class TestAssign {
 	@Test
 	public void testAssignToStateVariable() {
 		FunctionalGroup group = new FunctionalGroup("");
-		StateVariable stateVar = new StateVariable(group);
+		StateVariable stateVar = new StateVariable();
 		stateVar.setName("testVar");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		stateVar.setVarType(tables.checkTypeTable("$float"));
@@ -36,7 +36,7 @@ public class TestAssign {
 	@Test
 	public void testAssignToFoodSet() {
 		FunctionalGroup group = new FunctionalGroup("");
-		VarietyConcentration conc = new VarietyConcentration(group);
+		VarietyConcentration conc = new VarietyConcentration();
 		conc.setName("foodset");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = tables.checkTypeTable("$float");
@@ -52,7 +52,7 @@ public class TestAssign {
 	@Test
 	public void testAssignFromFoodSet() {
 		FunctionalGroup group = new FunctionalGroup("");
-		VarietyConcentration conc = new VarietyConcentration(group);
+		VarietyConcentration conc = new VarietyConcentration();
 		conc.setName("foodset");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
@@ -70,7 +70,7 @@ public class TestAssign {
 	@Test
 	public void testDoubleAssignToLocal() {
 		FunctionalGroup group = new FunctionalGroup("");
-		Local loc = new Local(group);
+		Local loc = new Local();
 		loc.setName("testLocal");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
@@ -88,7 +88,7 @@ public class TestAssign {
 	@Test
 	public void testScalarToVarietyAssign() {
 		FunctionalGroup group = new FunctionalGroup("");
-		StateVariable state = new StateVariable(group);
+		StateVariable state = new StateVariable();
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
 		state.setName("stateVar");
@@ -96,14 +96,18 @@ public class TestAssign {
 		group.addToStateVarTable(state);
 		VarietyVariable var = new VarietyVariable(group);
 		var.setName("varietyVar");
-		state.setVarType(new VarietyType("float", floatType));
+		var.setVarType(new VarietyType("float", floatType));
 		group.addToVarietyStateTable(var);
 		IdNode stateId = new IdNode("stateVar");
 		IdNode varietyId = new IdNode("varietyVar");
 		AssignNode assign = new AssignNode(varietyId, stateId);
-		assign.check(group, new ConstructedASTree(assign));
-		assign = new AssignNode(stateId, varietyId);
 		ConstructedASTree constr = new ConstructedASTree(assign);
+		assign.check(group, new ConstructedASTree(assign));
+		if (constr.hasExceptions()) {
+			fail("Should be able to assign scalar to variety");
+		}
+		assign = new AssignNode(stateId, varietyId);
+		constr = new ConstructedASTree(assign);
 		assign.check(group, constr);
 		if (!constr.hasExceptions())
 			fail("Should not be able to assign variety to scalar");
@@ -118,7 +122,7 @@ public class TestAssign {
 		assign.check(group, constr);
 		if (!constr.hasExceptions())
 			fail("Should not be able to assign to a global");
-		Local loc = new Local(group);
+		Local loc = new Local();
 		loc.setName("local");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
