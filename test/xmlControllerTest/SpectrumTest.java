@@ -1,14 +1,15 @@
 package xmlControllerTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.ControllerStructure.Spectrum;
-import VEW.Planktonica2.ControllerStructure.XMLTagEnum;
+import VEW.Planktonica2.Model.Spectrum;
+import VEW.Planktonica2.Model.XMLTagEnum;
 
 public class SpectrumTest {
 
@@ -51,11 +52,9 @@ public class SpectrumTest {
 
 		assertEquals(s.getName(), testName);
 
-		assertNotNull(s.getEquations());
+		assertNotNull(s.getNumberValues());
 
-		assertEquals(s.getEquations().size(), 25);
-
-		System.out.println(s.getEquations().toString());
+		assertEquals(s.getNumberValues(), 25);
 
 	}
 

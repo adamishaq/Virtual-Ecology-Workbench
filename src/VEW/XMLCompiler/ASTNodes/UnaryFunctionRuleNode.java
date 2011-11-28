@@ -1,6 +1,9 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import VEW.Planktonica2.ControllerStructure.*;
+import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.Chemical;
+import VEW.Planktonica2.Model.FunctionalGroup;
+import VEW.Planktonica2.Model.Stage;
 
 public class UnaryFunctionRuleNode extends RuleNode {
 
@@ -13,16 +16,18 @@ public class UnaryFunctionRuleNode extends RuleNode {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
 		//May change this into a change node
-		Catagory cata = getCatagory();
-		if (cata instanceof Chemical) {
-			throw new SemanticCheckException("Special functions cannot be called within chemical equations");
+		if (enclosingCategory instanceof Chemical) {
+			enclosingTree.addSemanticException(
+					new SemanticCheckException("Special functions cannot be called within chemical equations",
+							line_number));
 		}
-		FunctionalGroup group = (FunctionalGroup) cata;
+		FunctionalGroup group = (FunctionalGroup) enclosingCategory;
 		Stage stg = group.checkStageTable(idArg.getName());
 		if (stg == null) {
-			throw new SemanticCheckException(idArg.getName() + " is not a known stage");
+			enclosingTree.addSemanticException(
+					new SemanticCheckException(idArg.getName() + " is not a known stage",line_number));
 		}
 		//TODO some sort of warning system if multiple non conditional changes appear
 

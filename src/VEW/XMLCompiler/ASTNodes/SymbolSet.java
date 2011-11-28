@@ -44,6 +44,7 @@ public class SymbolSet {
     	symbolToUPrimitiveMap.put(BACONParser.TAN, UnaryPrimitive.TAN);
     	symbolToUPrimitiveMap.put(BACONParser.TEMPAT, UnaryPrimitive.TEMPAT);
     	symbolToUPrimitiveMap.put(BACONParser.UVIRRADAT, UnaryPrimitive.UVIRRADAT);
+    	symbolToUPrimitiveMap.put(BACONParser.VISIRRADAT, UnaryPrimitive.VISIRRADAT);
     }
     
     /**

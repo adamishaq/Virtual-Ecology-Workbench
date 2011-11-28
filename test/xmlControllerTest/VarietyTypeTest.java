@@ -1,19 +1,21 @@
 package xmlControllerTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.ControllerStructure.FunctionalGroup;
-import VEW.Planktonica2.ControllerStructure.Unit;
-import VEW.Planktonica2.ControllerStructure.VarietyConcentration;
-import VEW.Planktonica2.ControllerStructure.VarietyLocal;
-import VEW.Planktonica2.ControllerStructure.VarietyParameter;
-import VEW.Planktonica2.ControllerStructure.VarietyVariable;
-import VEW.Planktonica2.ControllerStructure.XMLTagEnum;
+import VEW.Planktonica2.Model.FunctionalGroup;
+import VEW.Planktonica2.Model.Unit;
+import VEW.Planktonica2.Model.VarietyConcentration;
+import VEW.Planktonica2.Model.VarietyLocal;
+import VEW.Planktonica2.Model.VarietyParameter;
+import VEW.Planktonica2.Model.VarietyVariable;
+import VEW.Planktonica2.Model.XMLTagEnum;
 
 public class VarietyTypeTest {
 
@@ -92,8 +94,8 @@ public class VarietyTypeTest {
 	
 	@Test
 	public void test() {
-		FunctionalGroup func = new FunctionalGroup();
-		VarietyConcentration conc = new VarietyConcentration(func);
+		FunctionalGroup func = new FunctionalGroup("");
+		VarietyConcentration conc = new VarietyConcentration();
 		conc.build(vc);
 		func.addToVarietyConcTable(conc);
 		
@@ -117,7 +119,7 @@ public class VarietyTypeTest {
 		assertEquals(l.getName(), "l1");
 		
 		assertNotNull(v.getValue());
-		assertEquals(v.getValue(), 2);
+		assertTrue(v.getValue() == 2);
 		
 		// checks l units
 		assertNotNull(l.getUnits());

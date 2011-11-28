@@ -1,6 +1,7 @@
 package xmlControllerTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,10 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.ControllerStructure.Equation;
-import VEW.Planktonica2.ControllerStructure.Function;
-import VEW.Planktonica2.ControllerStructure.Stage;
-import VEW.Planktonica2.ControllerStructure.XMLTagEnum;
+import VEW.Planktonica2.Model.Function;
+import VEW.Planktonica2.Model.Stage;
+import VEW.Planktonica2.Model.XMLTagEnum;
 
 public class FunctionsTest {
 
@@ -78,7 +78,7 @@ public class FunctionsTest {
 
 		stages.add(s);
 
-		Function f = new Function (stages);
+		Function f = new Function (stages, "", null);
 
 		f.build(function);
 
@@ -94,26 +94,6 @@ public class FunctionsTest {
 
 		assertNotNull(f.getArchiveName());
 		assertEquals(f.getArchiveName(), "herrow");
-
-
-		assertNotNull(f.getEquations());
-
-		Equation [] equations = new Equation [2];
-
-		equations = f.getEquations().toArray(equations);
-
-		assertEquals(equations.length, 2);
-
-		assertNotNull(equations[0]);
-		assertNotNull(equations[1]);
-
-		if (!equations[0].getName().equals("e1")) {
-			assertEquals(equations[0].getName(), "e2");
-		}
-
-		if (!equations[1].getName().equals("e2")) {
-			assertEquals(equations[1].getName(), "e1");
-		}
 
 
 	}

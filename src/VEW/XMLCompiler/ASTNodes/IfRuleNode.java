@@ -1,7 +1,9 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import VEW.Planktonica2.ControllerStructure.Type;
-import VEW.Planktonica2.ControllerStructure.VarietyType;
+import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.Type;
+import VEW.Planktonica2.Model.VarietyType;
+
 
 public class IfRuleNode extends RuleNode {
 	
@@ -14,14 +16,15 @@ public class IfRuleNode extends RuleNode {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
-		conditionExpr.check();
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
+		conditionExpr.check(enclosingCategory, enclosingTree);
 		Type condType = conditionExpr.getBExprType();
 		if (condType instanceof VarietyType) {
-			throw new SemanticCheckException("The condition must evaluate to a boolean");
+			enclosingTree.addSemanticException(
+					new SemanticCheckException("The condition must evaluate to a boolean",line_number));
 		}
 		rule.setInsideConditional(true);
-		rule.check();
+		rule.check(enclosingCategory, enclosingTree);
 	}
 
 	@Override

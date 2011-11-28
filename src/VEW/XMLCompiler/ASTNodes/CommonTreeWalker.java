@@ -1,13 +1,11 @@
 package VEW.XMLCompiler.ASTNodes;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.antlr.runtime.tree.CommonErrorNode;
 import org.antlr.runtime.tree.CommonTree;
 
-import org.antlr.runtime.CommonToken;
 import org.antlr.runtime.MismatchedTokenException;
 import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.Token;
@@ -23,7 +21,7 @@ import VEW.XMLCompiler.ANTLR.BACONParser;
  */
 public class CommonTreeWalker {
 	
-	private ArrayList<TreeWalkerException> exceptions;
+	private ArrayList<Exception> exceptions;
 	
 	private CommonTree antlrTree;
 	
@@ -33,7 +31,7 @@ public class CommonTreeWalker {
 	 */
 	public CommonTreeWalker(CommonTree antlrTree) {
 		this.antlrTree = antlrTree;
-		this.exceptions = new ArrayList<TreeWalkerException>();
+		exceptions = new ArrayList<Exception>();
 	}
 	
 	/**
@@ -66,7 +64,7 @@ public class CommonTreeWalker {
 				}
 			}
 		}
-		return new ConstructedASTree(constructedTree,exceptions);
+		return new ConstructedASTree(constructedTree, exceptions);
 	}
 
 	/*
@@ -310,6 +308,11 @@ public class CommonTreeWalker {
 				expr = constructBinOpNode(MathematicalOperator.POWER, tree);
 				break;
 			}
+			case(BACONParser.NEG) : {
+				ExprNode negExpr = constructExprNode((CommonTree)tree.getChild(0));
+				expr = new NegNode(negExpr);
+				break;
+			}
 			case(BACONParser.IF) : {
 				BExprNode ifCondNode = constructBExprNode((CommonTree)tree.getChild(0));
 				ExprNode thenExpr = constructExprNode((CommonTree)tree.getChild(1));
@@ -446,6 +449,10 @@ public class CommonTreeWalker {
 			return false;
 		}
 		return true;
+	}
+	
+	public void add_exception(Exception e) {
+		exceptions.add(e);
 	}
 
 }

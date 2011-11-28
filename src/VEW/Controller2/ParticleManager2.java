@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -159,9 +160,9 @@ public class ParticleManager2 extends JPanel {
   }
     
   
-  public ParticleManager2(JDialog jd, XMLTag _model) {
-    vc2 = (VEWController2) jd;
-    dd = new DateDialog(jd,1800); // 1800 only a temp.
+  public ParticleManager2(JFrame vewController2, XMLTag _model) {
+    vc2 = (VEWController2) vewController2;
+    dd = new DateDialog(vewController2,1800); // 1800 only a temp.
     model = _model;
     setLayout(new BorderLayout());
     ruleModel.setColumnCount(8);

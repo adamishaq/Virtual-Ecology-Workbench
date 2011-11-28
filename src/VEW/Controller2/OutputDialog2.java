@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -659,9 +660,9 @@ public class OutputDialog2 extends JPanel {
     
   }
   
-  public void initialiseInterface(JDialog parent) {
-    dateDialog = new DateDialog(parent,1800);
-    stageChooser = new StageChooser(parent);
+  public void initialiseInterface(JFrame vewController2) {
+    dateDialog = new DateDialog(vewController2,1800);
+    stageChooser = new StageChooser(vewController2);
     setLayout(new BorderLayout());
     JPanel variableChoice = new JPanel(new GridLayout(2,1));
       variableChoice.setBorder(new EtchedBorder());
@@ -751,10 +752,10 @@ public class OutputDialog2 extends JPanel {
       
   }
   
-  public OutputDialog2(JDialog parent, XMLTag _theModel) {
-    vc2 = (VEWController2) parent;
+  public OutputDialog2(JFrame vewController2, XMLTag _theModel) {
+    vc2 = (VEWController2) vewController2;
     theModel = _theModel;
-    initialiseInterface(parent);
+    initialiseInterface(vewController2);
   }
  
   public void structureChanged() {
@@ -1784,8 +1785,8 @@ public class OutputDialog2 extends JPanel {
     
     public String getResult() { return finalStages; }
     
-    public StageChooser(JDialog owner) {
-      super(owner,"Choose Stages",true);
+    public StageChooser(JFrame vewController2) {
+      super(vewController2,"Choose Stages",true);
       JScrollPane stageScroller = new JScrollPane(stageTable);
       stageScroller.setPreferredSize(new Dimension(300,200));
       getContentPane().setLayout(new BorderLayout());

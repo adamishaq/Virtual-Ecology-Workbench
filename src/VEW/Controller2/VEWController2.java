@@ -13,7 +13,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,8 +26,9 @@ import VEW.Scenario2.ClosureEditor;
 import VEW.Scenario2.InitialConditionsPanel;
 import VEW.Scenario2.ScenarioPanel2;
 import VEW.Scenario2.VerticalDiffusionDialog;
+import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
-public class VEWController2 extends JDialog {
+public class VEWController2 extends JFrame {
   JButton saveChanges = new JButton("Save Changes");
   JButton exitButton = new JButton("Exit");
   EventHandler eh = new EventHandler();
@@ -114,7 +114,7 @@ public class VEWController2 extends JDialog {
   }
   
   public VEWController2(JFrame parent, XMLFile xmlFile) {
-	  super(parent,"VEW Controller",true);
+	  super("VEW Controller");
 	  theModel = xmlFile;
 	  p = new Planktonica(this, theModel);
 	  sb2 = new SpeciesBuilder2(this, theModel);
@@ -186,7 +186,7 @@ public class VEWController2 extends JDialog {
   }
   
   public VEWController2(JFrame parent, String modelFile) {
-    super(parent,"VEW Controller",true);
+    super("VEW Controller");
     modelPath = modelFile;
     theModel = XMLFile.LoadFile(modelFile);
     p = new Planktonica(this, theModel);
@@ -305,7 +305,7 @@ public class VEWController2 extends JDialog {
     mainPanel.removeAll();
     mainPanel.add(_p,BorderLayout.CENTER);
     mainPanel.update(mainPanel.getGraphics());
-    VEWController2.this.pack();    
+    //VEWController2.this.pack();    
   }
   
   public boolean yellowLight(JLabel j) {

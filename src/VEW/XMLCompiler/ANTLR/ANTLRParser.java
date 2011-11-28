@@ -69,7 +69,7 @@ public class ANTLRParser {
 		ConstructedASTree ct = getAST();
 		ASTree t = ct.getTree();
 		if (ct.getExceptions().isEmpty()) {
-			t.check();
+			//t.check();
 		}
 		return t.generateXML();
 	}

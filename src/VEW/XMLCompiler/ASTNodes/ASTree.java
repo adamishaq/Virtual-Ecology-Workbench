@@ -1,19 +1,16 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import VEW.Planktonica2.ControllerStructure.Catagory;
+import VEW.Planktonica2.Model.Catagory;
 
 public abstract class ASTree {
-	protected Catagory enclosingCatagory;
 
-	public Catagory getCatagory() {
-		return enclosingCatagory;
+	protected int line_number;
+	
+	public int getLine() {
+		return line_number;
 	}
 	
-	public void setCatagory(Catagory catagory) {
-		enclosingCatagory = catagory;
-	}
-	
-	public abstract void check() throws SemanticCheckException;
+	public abstract void check(Catagory enclosingCategory, ConstructedASTree enclosingTree);
 	public abstract String generateXML();
 	public abstract String generateLatex();
 }

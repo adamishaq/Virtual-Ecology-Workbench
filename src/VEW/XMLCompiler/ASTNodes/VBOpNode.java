@@ -1,8 +1,9 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import VEW.Planktonica2.ControllerStructure.Chemical;
-import VEW.Planktonica2.ControllerStructure.Type;
-import VEW.Planktonica2.ControllerStructure.VarietyType;
+import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.Chemical;
+import VEW.Planktonica2.Model.Type;
+import VEW.Planktonica2.Model.VarietyType;
 
 public class VBOpNode extends BExprNode {
 	
@@ -15,19 +16,23 @@ public class VBOpNode extends BExprNode {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
-		if (getCatagory() instanceof Chemical) {
-			throw new SemanticCheckException("Variety operations cannot be called within chemical equations");
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
+		if (enclosingCategory instanceof Chemical) {
+			enclosingTree.addSemanticException(
+					new SemanticCheckException("Variety operations cannot be called within chemical equations",
+							line_number));
 		}
-		expression.check();
+		expression.check(enclosingCategory, enclosingTree);
 		Type exprType = expression.getBExprType();
 		if (!(exprType instanceof VarietyType)) {
-			throw new SemanticCheckException("The expression must be a vector");
+			enclosingTree.addSemanticException(
+					new SemanticCheckException("The expression must be a vector",line_number));
 		}
 		VarietyType varType = (VarietyType) exprType;
 		Type boolType = (Type) AmbientVariableTables.getTables().checkTypeTable("$boolean");
 		if (varType.getElementType() != boolType) {
-			throw new SemanticCheckException("The input for VBOp must be a vector of booleans");
+			enclosingTree.addSemanticException(
+					new SemanticCheckException("The input for VBOp must be a vector of booleans",line_number));
 		}
 		setBExprType(boolType);
 	}

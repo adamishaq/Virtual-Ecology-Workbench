@@ -1,6 +1,11 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import VEW.Planktonica2.ControllerStructure.*;
+import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.Local;
+import VEW.Planktonica2.Model.Type;
+import VEW.Planktonica2.Model.VariableType;
+import VEW.Planktonica2.Model.VarietyLocal;
+import VEW.Planktonica2.Model.VarietyType;
 
 public class AssignNode extends RuleNode {
 
@@ -14,26 +19,28 @@ public class AssignNode extends RuleNode {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
 		String idName = identifier.getName();
-		VariableType var = getCatagory().checkAssignableVariableTables(identifier.getName());
+		VariableType var = enclosingCategory.checkAssignableVariableTables(identifier.getName());
 		if (var == null) {
-			throw new SemanticCheckException(idName + " is not a assignable variable");
+			enclosingTree.addSemanticException(
+				new SemanticCheckException(idName + " is not an assignable variable",line_number));
+		} else if ((var instanceof VarietyLocal || var instanceof Local) && var.isAssignedTo()) {
+			/*enclosingTree.addSemanticException(
+				new SemanticCheckException(idName + " has already been assigned to in a previous rule",line_number));
+		*/} else {
+			expr.check(enclosingCategory, enclosingTree);
+			checkTypeCompatibility(var.getVarType(), enclosingTree);
+			assignVar = var;
+			assignVar.setAssigned(true);
 		}
-		if ((var instanceof VarietyLocal || var instanceof Local) && var.isAssignedTo()) {
-			throw new SemanticCheckException(idName + " has already been assigned to in a previous rule");
-		}
-		expr.check();
-		checkTypeCompatibility(var.getVarType());
-		assignVar = var;
-		assignVar.setAssigned(true);
-		
 	}
 	
-	private void checkTypeCompatibility(Type varType) throws SemanticCheckException{
+	private void checkTypeCompatibility(Type varType, ConstructedASTree enclosingTree) {
 		Type exprType = expr.getExprType();
-		if (varType instanceof VarietyType && !(exprType instanceof VarietyType)) {
-			throw new SemanticCheckException("Cannot assign a variety value to a scalar value");
+		if (exprType instanceof VarietyType && !(varType instanceof VarietyType)) {
+			enclosingTree.addSemanticException(
+					new SemanticCheckException("Cannot assign a variety value to a scalar value",line_number));
 		}
 	}
 
@@ -56,5 +63,4 @@ public class AssignNode extends RuleNode {
 	public VariableType getAssignVar() {
 		return assignVar;
 	}
-
 }

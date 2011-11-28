@@ -1,5 +1,7 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.Model.Catagory;
+
 public class VarHistNode extends ExprNode {
 
 	private IdNode identifier;
@@ -12,9 +14,9 @@ public class VarHistNode extends ExprNode {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
-		identifier.check();
-		expression.check();
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
+		identifier.check(enclosingCategory, enclosingTree);
+		expression.check(enclosingCategory, enclosingTree);
 		if (expression instanceof NumNode) {
 			//TODO some checking for variables out of history ranges
 		}

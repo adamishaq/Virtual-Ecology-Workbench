@@ -10,6 +10,7 @@ import java.util.GregorianCalendar;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -320,10 +321,10 @@ public class ParticleInitialiser extends JPanel {
     } else return true;
   }
   
-  public ParticleInitialiser(JDialog jd, XMLTag _theModel) {
-    yd = new YearDialog(jd);
+  public ParticleInitialiser(JFrame vewController2, XMLTag _theModel) {
+    yd = new YearDialog(vewController2);
     theModel = _theModel;
-    vc2 = (VEWController2) jd;
+    vc2 = (VEWController2) vewController2;
     dd = new DateDialog(vc2,1800);
     for (int i=0; i<500; i++) {
       topDepthCombo.addItem(String.valueOf(i));
@@ -716,8 +717,8 @@ public class ParticleInitialiser extends JPanel {
     public int firstYear() { return Integer.parseInt(year1.getSelectedItem().toString()); }
     public int lastYear() { return Integer.parseInt(year2.getSelectedItem().toString()); }
         
-    public YearDialog(JDialog parent) {
-      super(parent,"Select Years",true);
+    public YearDialog(JFrame vewController2) {
+      super(vewController2,"Select Years",true);
       YearEventHandler ye = new YearEventHandler();
       JPanel yearFlow = new JPanel(new FlowLayout(FlowLayout.CENTER));
       yearFlow.add(new JLabel("From"));

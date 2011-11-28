@@ -4,53 +4,55 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import VEW.Planktonica2.ControllerStructure.*;
-import VEW.XMLCompiler.ASTNodes.*;
+import VEW.Planktonica2.Model.FunctionalGroup;
+import VEW.Planktonica2.Model.Local;
+import VEW.Planktonica2.Model.StateVariable;
+import VEW.Planktonica2.Model.Type;
+import VEW.Planktonica2.Model.VarietyConcentration;
+import VEW.Planktonica2.Model.VarietyType;
+import VEW.Planktonica2.Model.VarietyVariable;
+import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
+import VEW.XMLCompiler.ASTNodes.AssignNode;
+import VEW.XMLCompiler.ASTNodes.ConstructedASTree;
+import VEW.XMLCompiler.ASTNodes.IdNode;
+import VEW.XMLCompiler.ASTNodes.NumNode;
+import VEW.XMLCompiler.ASTNodes.RuleSequenceNode;
+
 
 public class TestAssign {
 
 	@Test
 	public void testAssignToStateVariable() {
-		FunctionalGroup group = new FunctionalGroup();
-		StateVariable stateVar = new StateVariable(group);
+		FunctionalGroup group = new FunctionalGroup("");
+		StateVariable stateVar = new StateVariable();
 		stateVar.setName("testVar");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
-		stateVar.setVarType((Type) tables.checkTypeTable("$float"));
+		stateVar.setVarType(tables.checkTypeTable("$float"));
 		group.addToStateVarTable(stateVar);
 		AssignNode assign = new AssignNode(new IdNode("testVar"), new NumNode(10));
-		assign.setCatagory(group);
-		try {
-			assign.check();
-		}
-		catch (SemanticCheckException ex) {
-			fail();
-		}
+		assign.check(group, new ConstructedASTree(assign));
 	}
 	
 	@Test
 	public void testAssignToFoodSet() {
-		FunctionalGroup group = new FunctionalGroup();
-		VarietyConcentration conc = new VarietyConcentration(group);
+		FunctionalGroup group = new FunctionalGroup("");
+		VarietyConcentration conc = new VarietyConcentration();
 		conc.setName("foodset");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
-		Type floatType = (Type) tables.checkTypeTable("$float");
+		Type floatType = tables.checkTypeTable("$float");
 		conc.setVarType(new VarietyType("float", floatType));
 		group.addToVarietyConcTable(conc);
 		AssignNode assign = new AssignNode(new IdNode("foodset"), new NumNode(5));
-		assign.setCatagory(group);
-		try {
-			assign.check();
-		}
-		catch (SemanticCheckException ex) {
-			return;
-		}
-		fail();
+		ConstructedASTree constr = new ConstructedASTree(assign);
+		assign.check(group, constr);
+		if (!constr.hasExceptions())
+			fail();
 	}
 	
 	@Test
 	public void testAssignFromFoodSet() {
-		FunctionalGroup group = new FunctionalGroup();
-		VarietyConcentration conc = new VarietyConcentration(group);
+		FunctionalGroup group = new FunctionalGroup("");
+		VarietyConcentration conc = new VarietyConcentration();
 		conc.setName("foodset");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
@@ -61,21 +63,14 @@ public class TestAssign {
 		varState.setVarType(new VarietyType("float", floatType));
 		group.addToVarietyStateTable(varState);
 		IdNode id = new IdNode("foodset");
-		id.setCatagory(group);
 		AssignNode assign = new AssignNode(new IdNode("foodHappiness"), id);
-		assign.setCatagory(group);
-		try {
-			assign.check();
-		}
-		catch (SemanticCheckException ex) {
-			fail();
-		}
+		assign.check(group, new ConstructedASTree(assign));
 	}
 	
 	@Test
 	public void testDoubleAssignToLocal() {
-		FunctionalGroup group = new FunctionalGroup();
-		Local loc = new Local(group);
+		FunctionalGroup group = new FunctionalGroup("");
+		Local loc = new Local();
 		loc.setName("testLocal");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
@@ -83,22 +78,17 @@ public class TestAssign {
 		group.addToLocalTable(loc);
 		AssignNode assign1 = new AssignNode(new IdNode("testLocal"), new NumNode(5));
 		AssignNode assign2 = new AssignNode(new IdNode("testLocal"), new NumNode(4));
-		assign1.setCatagory(group);
-		assign2.setCatagory(group);
 		RuleSequenceNode seq = new RuleSequenceNode(assign1, new RuleSequenceNode(assign2));
-		try {
-			seq.check();
-		}
-		catch (SemanticCheckException ex) {
-			return;
-		}
-		fail();
+		ConstructedASTree constr = new ConstructedASTree(seq);
+		seq.check(group, constr);
+		if (!constr.hasExceptions())
+			fail();
 	}
 	
 	@Test
 	public void testScalarToVarietyAssign() {
-		FunctionalGroup group = new FunctionalGroup();
-		StateVariable state = new StateVariable(group);
+		FunctionalGroup group = new FunctionalGroup("");
+		StateVariable state = new StateVariable();
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
 		state.setName("stateVar");
@@ -106,61 +96,41 @@ public class TestAssign {
 		group.addToStateVarTable(state);
 		VarietyVariable var = new VarietyVariable(group);
 		var.setName("varietyVar");
-		state.setVarType(new VarietyType("float", floatType));
+		var.setVarType(new VarietyType("float", floatType));
 		group.addToVarietyStateTable(var);
 		IdNode stateId = new IdNode("stateVar");
-		stateId.setCatagory(group);
 		IdNode varietyId = new IdNode("varietyVar");
-		varietyId.setCatagory(group);
 		AssignNode assign = new AssignNode(varietyId, stateId);
-		assign.setCatagory(group);
-		try {
-			assign.check();
-		}
-		catch (SemanticCheckException ex) {
-			fail("Should not be able to assign scalar to variety");
+		ConstructedASTree constr = new ConstructedASTree(assign);
+		assign.check(group, new ConstructedASTree(assign));
+		if (constr.hasExceptions()) {
+			fail("Should be able to assign scalar to variety");
 		}
 		assign = new AssignNode(stateId, varietyId);
-		assign.setCatagory(group);
-		try {
-			assign.check();
+		constr = new ConstructedASTree(assign);
+		assign.check(group, constr);
+		if (!constr.hasExceptions())
 			fail("Should not be able to assign variety to scalar");
-		}
-		catch (SemanticCheckException ex) {
-			return;
-		}
 	}
 	
 	@Test
 	public void testAssignToAndFromGlobal() {
-		FunctionalGroup group = new FunctionalGroup();
+		FunctionalGroup group = new FunctionalGroup("");
 		IdNode id = new IdNode("Salinity");
-		id.setCatagory(group);
 		AssignNode assign = new AssignNode(id, new NumNode(5));
-		assign.setCatagory(group);
-		try {
-			assign.check();
+		ConstructedASTree constr = new ConstructedASTree(assign);
+		assign.check(group, constr);
+		if (!constr.hasExceptions())
 			fail("Should not be able to assign to a global");
-		}
-		catch (SemanticCheckException ex) {
-			
-		}
-		Local loc = new Local(group);
+		Local loc = new Local();
 		loc.setName("local");
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
 		loc.setVarType(floatType);
 		group.addToLocalTable(loc);
 		IdNode locId = new IdNode("local");
-		locId.setCatagory(group);
 		assign = new AssignNode(locId, id);
-		assign.setCatagory(group);
-		try {
-			assign.check();
-		}
-		catch (SemanticCheckException ex) {
-			fail("Should be able to assign the value of a global variable");
-		}
+		assign.check(group, new ConstructedASTree(assign));
 		
 		
 	}

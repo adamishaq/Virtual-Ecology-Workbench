@@ -1,3 +1,4 @@
+
 package xmlControllerTest;
 
 import static org.junit.Assert.*;
@@ -7,12 +8,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.ControllerStructure.FunctionalGroup;
-import VEW.Planktonica2.ControllerStructure.Local;
-import VEW.Planktonica2.ControllerStructure.Parameter;
-import VEW.Planktonica2.ControllerStructure.StateVariable;
-import VEW.Planktonica2.ControllerStructure.Unit;
-import VEW.Planktonica2.ControllerStructure.XMLTagEnum;
+import VEW.Planktonica2.Model.FunctionalGroup;
+import VEW.Planktonica2.Model.Local;
+import VEW.Planktonica2.Model.Parameter;
+import VEW.Planktonica2.Model.StateVariable;
+import VEW.Planktonica2.Model.Unit;
+import VEW.Planktonica2.Model.XMLTagEnum;
 
 public class VariableTypeTest {
 
@@ -72,14 +73,14 @@ public class VariableTypeTest {
 
 	@Test
 	public void test() {
-		FunctionalGroup func = new FunctionalGroup();
-		Parameter p = new Parameter(func);
+		FunctionalGroup func = new FunctionalGroup("");
+		Parameter p = new Parameter();
 		p.build(p1);
 		
-		Local l = new Local(func);
+		Local l = new Local();
 		l.build(l1);
 		
-		StateVariable v = new StateVariable(func);
+		StateVariable v = new StateVariable();
 		v.build(v1);
 		
 		
@@ -93,7 +94,7 @@ public class VariableTypeTest {
 		assertEquals(l.getName(), "l1");
 		
 		assertNotNull(v.getValue());
-		assertEquals(v.getValue(), 2);
+		assertTrue(v.getValue() == 2);
 		
 		// checks l units
 		assertNotNull(l.getUnits());

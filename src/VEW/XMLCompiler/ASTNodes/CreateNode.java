@@ -1,6 +1,13 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import VEW.Planktonica2.ControllerStructure.*;
+import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.Chemical;
+import VEW.Planktonica2.Model.FunctionalGroup;
+import VEW.Planktonica2.Model.Stage;
+import VEW.Planktonica2.Model.Type;
+import VEW.Planktonica2.Model.VarietyType;
+
+
 
 public class CreateNode extends RuleNode {
 
@@ -21,23 +28,28 @@ public class CreateNode extends RuleNode {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
-		Catagory cata = getCatagory();
-		if (cata instanceof Chemical) {
-			throw new SemanticCheckException("Special functions cannot be called within chemical equations");
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
+		if (enclosingCategory instanceof Chemical) {
+			enclosingTree.addSemanticException(
+					new SemanticCheckException("Special functions cannot be called within chemical equations",
+							line_number));
 		}
-		FunctionalGroup group = (FunctionalGroup) cata;
+		FunctionalGroup group = (FunctionalGroup) enclosingCategory;
 		Stage stage = group.checkStageTable(identifier.getName());
 		if (stage == null) {
-			throw new SemanticCheckException(identifier.getName() + " is not a valid stage");
+			enclosingTree.addSemanticException(
+					new SemanticCheckException(identifier.getName() + " is not a valid stage",line_number));
 		}
-		expression.check();
+		expression.check(enclosingCategory, enclosingTree);
 		Type numExprType = expression.getExprType();
 		if (numExprType instanceof VarietyType) {
-			throw new SemanticCheckException("The expression for number of offspring must evaluate to a scalar");
+			enclosingTree.addSemanticException(
+					new SemanticCheckException("The expression for number of offspring must evaluate to a scalar",
+							line_number));
 		}
 		//TODO assign list checking may need to be more complex, not sure yet
-		assignList.check();
+		if (assignList != null)
+			assignList.check(enclosingCategory, enclosingTree);
 
 	}
 

@@ -56,7 +56,7 @@ public class TitlePage extends JFrame {
 
   
   public TitlePage() {
-    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     File f = new File("jobs.xml.lock");
     if (f.exists()) { f.delete(); }
     f = new File("vew.xml");

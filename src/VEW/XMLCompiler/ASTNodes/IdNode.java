@@ -1,6 +1,9 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import VEW.Planktonica2.ControllerStructure.*;
+import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.Local;
+import VEW.Planktonica2.Model.VariableType;
+import VEW.Planktonica2.Model.VarietyLocal;
 
 public class IdNode extends ExprNode {
 	
@@ -12,20 +15,27 @@ public class IdNode extends ExprNode {
 	}
 
 	@Override
-	public void check() throws SemanticCheckException {
-		VariableType v = getCatagory().checkAccessableVariableTable(name);
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
+		VariableType v = enclosingCategory.checkAccessableVariableTable(name);
 		if (v == null) {
-			throw new SemanticCheckException("Unrecognized variable " + name);
+			enclosingTree.addSemanticException(new SemanticCheckException("Unrecognized variable " + name,
+					line_number));
 		}
-		if ((v instanceof Local || v instanceof VarietyLocal) && !v.isAssignedTo()) {
-			throw new SemanticCheckException("Local variable " + name + " has not been assigned to before reading");
+		else if ((v instanceof Local || v instanceof VarietyLocal) && !v.isAssignedTo()) {
+			/*enclosingTree.addSemanticException(
+					new SemanticCheckException("Local variable " + name + " has not been assigned to before reading",
+					line_number));*/
 		}
-		var = (VariableType) v;
-		exprType = var.getVarType();
+		else {
+			var = (VariableType) v;
+			exprType = var.getVarType();
+		}
 	}
 
 	@Override
 	public String generateXML() {
+		String var = name.replaceAll("FullIrradiance", "Full Irradiance");
+		var = var.replace("VisibleIrradiance", "Visible Irradiance");
 		return "\\var{" + name + "}";
 	}
 	

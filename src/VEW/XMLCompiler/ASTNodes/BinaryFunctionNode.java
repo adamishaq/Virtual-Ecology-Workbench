@@ -1,6 +1,13 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import VEW.Planktonica2.ControllerStructure.*;
+import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.Chemical;
+import VEW.Planktonica2.Model.FunctionalGroup;
+import VEW.Planktonica2.Model.GlobalVariable;
+import VEW.Planktonica2.Model.Stage;
+import VEW.Planktonica2.Model.Type;
+import VEW.Planktonica2.Model.VarietyType;
+
 
 public class BinaryFunctionNode extends RuleNode {
 
@@ -15,30 +22,38 @@ public class BinaryFunctionNode extends RuleNode {
 	}
 	
 	@Override
-	public void check() throws SemanticCheckException {
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
 		//Considering splitting this into three nodes
-		Catagory cata = getCatagory();
-		if (cata instanceof Chemical) {
-			throw new SemanticCheckException("Special functions cannot be called within chemical equations");
-		}
-		FunctionalGroup group = (FunctionalGroup) cata;
-		expArg.check();
-		Type expArgType = expArg.getExprType();
-		switch (binFunc) {
-			case UPTAKE : 
-			case RELEASE : {
-				//TODO Check id is a chemical
-				break;
-			}
-			case PCHANGE : {
-				Stage st = group.checkStageTable(idArg.getName());
-				if (st == null) {
-					throw new SemanticCheckException(idArg.getName() + " is not a stage");
+		if (enclosingCategory instanceof Chemical) {
+			enclosingTree.addSemanticException(
+				new SemanticCheckException("Special functions cannot be called within chemical equations",line_number));
+		} else {
+			FunctionalGroup group = (FunctionalGroup) enclosingCategory;
+			expArg.check(enclosingCategory, enclosingTree);
+			Type expArgType = expArg.getExprType();
+			switch (binFunc) {
+				case UPTAKE : 
+				case RELEASE : {
+					AmbientVariableTables tables = AmbientVariableTables.getTables();
+					GlobalVariable chem = tables.checkChemicalTable(idArg.getName());
+					if (chem == null) {
+						enclosingTree.addSemanticException(
+								new SemanticCheckException(idArg.getName() + " is not a chemical concentration",line_number));
+					}
+					break;
+				}
+				case PCHANGE : {
+					Stage st = group.checkStageTable(idArg.getName());
+					if (st == null) {
+						enclosingTree.addSemanticException(
+								new SemanticCheckException(idArg.getName() + " is not a stage",line_number));
+					}
 				}
 			}
-		}
-		if (expArgType instanceof VarietyType) {
-			throw new SemanticCheckException("The expression must evaluate to a scalar value");
+			if (expArgType instanceof VarietyType) {
+				enclosingTree.addSemanticException(
+						new SemanticCheckException("The expression must evaluate to a scalar value",line_number));
+			}
 		}
 		
 	}
@@ -68,7 +83,7 @@ public class BinaryFunctionNode extends RuleNode {
 		case RELEASE : func = "release"; break;
 		case PCHANGE : return "pchange(" + id + "," + exp + ")";
 		}
-		return func + "(" + exp + "," + id + ")";
+		return func + "(" + id + "," + exp + ")";
 	}
 	
 }
