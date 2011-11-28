@@ -3,6 +3,7 @@ package VEW.Planktonica2.ControllerStructure;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import VEW.Planktonica2.Model.Function;
 import VEW.Planktonica2.Model.FunctionalGroup;
 import VEW.Planktonica2.Model.Model;
 import VEW.Planktonica2.Model.Stage;
@@ -57,6 +58,12 @@ public class FunctionalGroupController extends VEWController {
 		
 	}
 	
+	public void setSelectedAsTopPredator(boolean isTopPredator) {
+		FunctionalGroup f = this.getSelectedFunctionalGroup();
+		for (FunctionalGroup g : this.getFunctionalGroups()) {
+			g.setTopPredator(g == f);
+		}
+	}
 
 	private FunctionalGroup matchFGOnName(FunctionalGroup toMatch) {
 		for (FunctionalGroup f : getFunctionalGroups()) {
@@ -90,8 +97,28 @@ public class FunctionalGroupController extends VEWController {
 	}
 
 	
+	public boolean stageIsCalledIn(String stageName, int functionIndex) {
+		
+		Stage selected = getStage(stageName);
+		Function f = getFunctionAtIndex(functionIndex);
+		
+		// called in holds a referrence to the origional stage
+		return f.isCalledIn(selected);
+	}
 
-	
+	public void setStageIsCalledIn(String stageName, int functionIndex, boolean isCalledIn) {
+		Stage selected = getStage(stageName);
+		Function f = getFunctionAtIndex(functionIndex);
+		
+		if (isCalledIn) {
+			// add to list of CalledIn
+			f.addToCalledIn(selected);
+			
+		} else {
+			// remove from list
+			f.removeFromCalledIn(selected);
+		}
+	}
 	
 	
 }

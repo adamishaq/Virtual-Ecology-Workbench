@@ -16,9 +16,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
-import VEW.Planktonica2.Model.Function;
 import VEW.Planktonica2.Model.FunctionalGroup;
-import VEW.Planktonica2.Model.Stage;
 
 public class StageEditorPanel extends JPanel {
 
@@ -108,12 +106,7 @@ public class StageEditorPanel extends JPanel {
 
 		@Override
 		public Object getValueAt(int x, int y) {
-			Function f = controller.getFunctionAtIndex(x);
-			if (f == null) {
-				return "";
-			} else {
-				return f.getName();
-			}
+			return controller.getFunctionalNameAtIndex(x);
 		}
 
 		
@@ -251,11 +244,7 @@ public class StageEditorPanel extends JPanel {
 				
 				String stageName = this.getColumnName(y - 1);
 				
-				Stage selected = this.controller.getStage(stageName);
-				Function f = this.controller.getFunctionAtIndex(x);
-				
-				// called in holds a referrence to the origional stage
-				return f.isCalledIn(selected);
+				return this.controller.stageIsCalledIn(stageName, x);
 			}
 		}
 		
@@ -266,18 +255,8 @@ public class StageEditorPanel extends JPanel {
 				
 				String stageName = this.getColumnName(x);
 				
-				Stage selected = this.controller.getStage(stageName);
-				Function f = controller.getFunctionAtIndex(y);
+				this.controller.setStageIsCalledIn(stageName, y, isCalled);
 				
-				if (isCalled) {
-					// add to list of CalledIn
-					f.addToCalledIn(selected);
-					
-				} else if (!isCalled) {
-					// remove from list
-					f.removeFromCalledIn(selected);
-					
-				}
 			}
 			
 			this.fireTableCellUpdated(x, y);

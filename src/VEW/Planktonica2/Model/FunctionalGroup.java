@@ -1,16 +1,19 @@
 package VEW.Planktonica2.Model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-
 import VEW.Common.XML.XMLTag;
 import VEW.XMLCompiler.ASTNodes.SymbolTable;
 
 public class FunctionalGroup extends Catagory {
 	
 
+	private final String predVarName = "S_t";
+	
 	private boolean invisible;
 	private String file_path;
+	private boolean predator;
 	
 	
 	private SymbolTable<Stage> stageTable;
@@ -134,6 +137,10 @@ public class FunctionalGroup extends Catagory {
 			t.removeFromParent();
 		}
 		
+		// predator
+		tags = xmlTag.getTags(XMLTagEnum.PREDATOR.xmlTag());
+		this.predator = tags != null && tags.length > 0 && tags[0].getValue().equals("true");
+		
 		
 		return this;
 	}
@@ -148,6 +155,11 @@ public class FunctionalGroup extends Catagory {
 			Stage st = iter.next();
 			baseTag.addTag(st.buildToXML());
 		}
+		
+		if (predator) {
+			baseTag.addTag("predator", "true");
+		}
+		
 		return baseTag;
 	}
 
@@ -187,6 +199,41 @@ public class FunctionalGroup extends Catagory {
 	public Collection<String> getStageNames() {
 		
 		return stageTable.keySet();
+	}
+
+
+	
+	public void setTopPredator(boolean b) {
+		this.predator = b;
+	
+		if (b) {
+			this.addPredatorSizeVariable();
+		} else {
+			this.removePredatorSizeVariable();
+		}
+		
+	}
+	
+	private void removePredatorSizeVariable() {
+		
+		this.stateVarTable.remove(predVarName);
+		
+	}
+
+
+	private void addPredatorSizeVariable() {
+		StateVariable sizePred = new StateVariable(this);
+		
+		sizePred.setCodeName("SysVars.getPredSize()");
+		sizePred.setName(this.predVarName);
+		sizePred.setDesc("Size of predator");
+		sizePred.setValue(3);
+		sizePred.setHist(1);
+		ArrayList<Unit> units = new ArrayList<Unit> ();
+		units.add(new Unit (-3, "m", 1));
+		sizePred.setUnits(units);
+		
+		this.addToStateVarTable(sizePred);
 	}
 
 

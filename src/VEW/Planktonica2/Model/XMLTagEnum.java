@@ -7,7 +7,7 @@ public enum XMLTagEnum {
 	DESCRIPTION("desc"), VALUE("value"), HIST("hist"), VARIETY_LINK("link"), LOCAL("local"), 
 	VARIABLE("variable"), VARIETY_CONCENTRATION("varietyconcentration"), VARIETY_VARIABLE("varietyvariable"),
 	VARIETY_LOCAL("varietylocal"), VARIETY_PARAM("varietyparameter"), PIGMENT("pigment"), SPECTRUM("spectrum"), 
-	GRAPH_VAL("eq"), UNIT("unit");
+	GRAPH_VAL("eq"), UNIT("unit"), PREDATOR("predator"), CODE_NAME("codename");
 	
 	
 	private final String tag;
