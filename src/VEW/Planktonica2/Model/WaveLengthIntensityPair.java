@@ -97,5 +97,15 @@ public class WaveLengthIntensityPair {
 	      g = g*255;
 	      return new Color((int)r,(int)g,(int)b);
 	    }
+
+	public double getNextWavelength() {
+		
+		int nextLength = this.getWavelengthIndex()+1;
+		if (nextLength >= wavelengths.length) {
+			return WaveLengthIntensityPair.maxWavelength;
+		} else {
+			return wavelengths[nextLength];
+		}
+	}
 	
 }

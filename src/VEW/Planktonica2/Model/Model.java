@@ -23,6 +23,13 @@ public class Model implements BuildFromXML, BuildToXML {
 		file = f;
 	}
 	
+	public String getFilePath() {
+		String filepath = file.getFileName();
+		filepath = filepath.substring(0, filepath.lastIndexOf('\\'));
+		filepath += "\\";
+		return filepath;
+	}
+	
 	public void buildFromFile() throws BackingStoreException {
 		BuildFromXML b = null;
 		

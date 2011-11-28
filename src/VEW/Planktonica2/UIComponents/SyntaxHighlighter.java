@@ -237,7 +237,7 @@ public class SyntaxHighlighter {
 		boolean in_tag = false;
 		for (int i = 0; i < chars.length; i++) {
 			if ((i < chars.length - 3) 
-					&& (Character.isLetterOrDigit(chars[i]) || chars[i] == '<' ||  chars[i] == '>')
+					&& (isLetterOrDigit(chars[i]) || chars[i] == '<' ||  chars[i] == '>')
 					&& chars[i+1] == '<' && chars[i+2] == 'f') {
 				// This is the start of a '<font>' tag
 				ignore = true;
@@ -263,7 +263,7 @@ public class SyntaxHighlighter {
 		boolean in_tag = false;
 		for (int i = chars.length - 1; i >= 0; i--) {
 			if ((i > 2) 
-				  && (Character.isLetterOrDigit(chars[i]) || chars[i] == '<' || chars[i] == '>') 
+				  && (isLetterOrDigit(chars[i]) || chars[i] == '<' || chars[i] == '>') 
 				  && chars[i-1] == '>' && chars[i-2] == 't') {
 				// This is the end of a '<font>' tag
 				ignore = true;
@@ -391,5 +391,8 @@ public class SyntaxHighlighter {
 		return plain_text;
 	}
 
+	private boolean isLetterOrDigit(char c) {
+		return (Character.isLetterOrDigit(c) || c == '_');
+	}
 
 }

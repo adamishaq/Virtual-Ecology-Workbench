@@ -83,6 +83,11 @@ public class SpectrumGraph implements GraphModel {
 
 	@Override
 	public double getValue(int x) {
+		
+		if (!spec.hasPigment()) {
+			return 0.0;
+		}
+		
 		try {
 			double intensity = spec.getSpectrumValue(x).getIntensity();
 			double max = maxDataValue();
@@ -94,7 +99,7 @@ public class SpectrumGraph implements GraphModel {
 
 	@Override
 	public Color getColumnColor(int x) {
-		return WaveLengthIntensityPair.RGBForWaveLength(getValue(x));
+		return WaveLengthIntensityPair.RGBForWaveLength(WaveLengthIntensityPair.wavelengths[x]);
 	}
 
 }

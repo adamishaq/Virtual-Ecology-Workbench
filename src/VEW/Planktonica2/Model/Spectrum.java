@@ -11,7 +11,8 @@ public class Spectrum implements BuildFromXML, BuildToXML, Iterable<WaveLengthIn
 	protected ArrayList<WaveLengthIntensityPair> values;
 	protected final String GRAPH_VALUES = "\\graphvals";
 	private XMLTag baseTag;
-
+	private boolean hasPigment;
+	
 
 	@Override
 	public BuildFromXML build(XMLTag tag) {
@@ -108,6 +109,14 @@ public class Spectrum implements BuildFromXML, BuildToXML, Iterable<WaveLengthIn
 	}
 
 	
+
+	public boolean hasPigment() {
+		return hasPigment;
+	}
+
+	public void setHasPigment(boolean hasPigment) {
+		this.hasPigment = hasPigment;
+	}
 
 	@Override
 	public Iterator<WaveLengthIntensityPair> iterator() {

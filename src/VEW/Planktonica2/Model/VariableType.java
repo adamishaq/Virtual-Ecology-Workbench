@@ -40,6 +40,8 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 		this.type = type;
 		this.units = units;
 		this.editable = editable;
+		this.value = value;
+		this.hist = hist;
 	}
 	
 	

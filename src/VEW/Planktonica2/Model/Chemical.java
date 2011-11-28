@@ -24,6 +24,12 @@ public class Chemical extends Catagory {
 		this.file_path = _file_path;
 	}
 	
+	public Chemical(String name, String filePath) {
+		super();
+		this.file_path = filePath;
+		this.name = name;
+	}
+
 	@Override
 	public BuildFromXML build(XMLTag tag) {
 		baseTag = tag;
@@ -39,15 +45,7 @@ public class Chemical extends Catagory {
 		if (valueTag != null) {
 			this.value = valueTag.getValue();
 			valueTag.removeFromParent();
-		}
-		
-		// pigment
-		XMLTag pigmentValue = tag.getTag(XMLTagEnum.PIGMENT.xmlTag());
-		if (pigmentValue != null) {
-			this.pigment = Boolean.valueOf(pigmentValue.getValue());
-			pigmentValue.removeFromParent();
-		}
-		
+		}		
 		
 		
 		XMLTag [] spectra = tag.getTags(XMLTagEnum.SPECTRUM.xmlTag());
@@ -60,7 +58,12 @@ public class Chemical extends Catagory {
 
 		}
 		
-		
+		// pigment
+		XMLTag pigmentValue = tag.getTag(XMLTagEnum.PIGMENT.xmlTag());
+		if (pigmentValue != null) {
+			this.setPigment(Boolean.valueOf(pigmentValue.getValue()));
+			pigmentValue.removeFromParent();
+		}
 		
 		// functions
 		XMLTag [] tags = tag.getTags(XMLTagEnum.FUNCTION.xmlTag());
@@ -138,14 +141,32 @@ public class Chemical extends Catagory {
 
 	public void setPigment(boolean pigment) {
 		this.pigment = pigment;
+		for (Spectrum s : spectrum) {
+			s.setHasPigment(pigment);
+		}
 	}
 
+	
 	public Collection<Spectrum> getSpectrum() {
 		return spectrum;
+	}
+	
+	public Spectrum getSpectrum(String name) {
+		
+		for (Spectrum s : this.getSpectrum()) {
+			if (s.getName().equals(name)) {
+				return s;
+			}
+		}
+		
+		return new NullSpectrum();
+		
 	}
 
 	public void setSpectrum(Collection<Spectrum> spectrum) {
 		this.spectrum = spectrum;
 	}
+
+	
 
 }
