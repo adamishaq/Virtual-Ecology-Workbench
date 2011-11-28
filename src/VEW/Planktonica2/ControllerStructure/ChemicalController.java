@@ -89,18 +89,6 @@ public class ChemicalController extends VEWController {
 	public void addCategoryToModel(String name) {
 		Chemical c = new Chemical(name,model.getFilePath());
 		model.addChemical(c);
-		AmbientVariableTables.getTables().addChemical(name);
-		Type floatType = (Type) AmbientVariableTables.getTables().checkTypeTable("$float");
-		ArrayList<Unit> units = new ArrayList<Unit>();
-		units.add(new Unit(0, "mol", 1));
-		StateVariable pool = new StateVariable(name + "_Pool", name + " internal pool", floatType,
-				units, new Float(0), 0, false);
-		StateVariable ingested = new StateVariable(name + "_Ingested", name + " incoming pool",
-				floatType, units, new Float(0), 0, false);
-		for (FunctionalGroup f : model.getFunctionalGroups()) {
-			f.addToStateVarTable(pool);
-			f.addToStateVarTable(ingested);
-		}
 		this.setChanged();
 		this.notifyObservers(new NewCategoryEvent(c));
 	}

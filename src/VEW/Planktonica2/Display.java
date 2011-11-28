@@ -13,6 +13,7 @@ import java.util.Observer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -31,11 +32,16 @@ import VEW.Planktonica2.DisplayEventHandlers.AddCategoryButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.AddFunctionButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.CheckButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.CompileButtonListener;
+import VEW.Planktonica2.DisplayEventHandlers.DeleteCategoryButtonListener;
+import VEW.Planktonica2.DisplayEventHandlers.DeleteFunctionButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
+import VEW.Planktonica2.DisplayEventHandlers.RenameCategoryListener;
 import VEW.Planktonica2.DisplayEventHandlers.RenameFunctionListener;
 import VEW.Planktonica2.DisplayEventHandlers.SaveButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.VariableSelectionEventHandler;
 import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.Chemical;
+import VEW.Planktonica2.Model.Function;
 import VEW.Planktonica2.Model.VariableType;
 import VEW.Planktonica2.UIComponents.VariableEditorPanel;
 
@@ -309,10 +315,11 @@ public abstract class Display extends JSplitPane implements Observer {
 		
 		removeInstance = new JButton(new ImageIcon(IconRoot + "bin1.gif"));
 		removeInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
+		removeInstance.addActionListener(new DeleteCategoryButtonListener(this));
 		
 		renameInstance = new JButton(new ImageIcon(IconRoot + "rename.gif"));
 		renameInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
-		renameInstance.addActionListener(new RenameFunctionListener(this));
+		renameInstance.addActionListener(new RenameCategoryListener(this));
 		
 		copyInstance = new JButton(new ImageIcon(IconRoot + "copy.gif"));
 		copyInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
@@ -323,9 +330,11 @@ public abstract class Display extends JSplitPane implements Observer {
 		
 		removeFunction = new JButton(new ImageIcon(IconRoot + "bin1.gif"));
 		removeFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
+		removeFunction.addActionListener(new DeleteFunctionButtonListener(this));
 		
 		renameFunction = new JButton(new ImageIcon(IconRoot + "rename.gif"));
 		renameFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
+		renameFunction.addActionListener(new RenameFunctionListener(this));
 		/*
 		editFunction = new JButton(new ImageIcon(IconRoot + "edit.gif"));
 		editFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
@@ -425,7 +434,8 @@ public abstract class Display extends JSplitPane implements Observer {
 		t.setRoot(rootNode);
 		this.tree.validate();
 		// Set this to be focused
-		this.variablePanel.update_selected_category(c);
+		if (c != null)
+			this.variablePanel.update_selected_category(c);
 		//this.variablePanel.clear();
 		this.editorPanel.clear();
 	}
@@ -495,7 +505,74 @@ public abstract class Display extends JSplitPane implements Observer {
 	}
 
 	public void rename_function() {
-		
+		Function f = controller.getCurrentlySelectedFunction();
+		String filepath = f.getSource_code();
+		filepath += "\\";
+		filepath += f.getParent().getName();
+		filepath += "\\";
+		try {
+			String name = JOptionPane.showInputDialog(this,
+		        	"Choose a new name for the function",
+		            "Rename Function", 1);
+		    if (name == null) {
+		    	return;
+		    }
+		    // Check name is unique
+		    for (Function fun : controller.getSelectedItem().getFunctions()) {
+		    	if (fun.getName().equals(name)) {
+		    		JOptionPane.showMessageDialog(this, "A Function with that name already exists");
+					return;
+		    	}
+		    }
+		    File fi = new File(filepath + f.getName() + ".bacon");
+			fi.renameTo(new File(filepath + name + ".bacon"));
+			f.setName(name);
+			this.update_functions((Catagory) controller.getSelectedItem());
+		} catch (Exception e) {
+			
+		}
+	}
+
+	public void rename_category() {
+		SelectableItem i = controller.getSelectedItem();
+		if (i == null)
+			return;
+		String filepath = ((Catagory)i).getFilePath();
+		filepath = filepath.substring(0, filepath.lastIndexOf('\\'));
+		filepath += "\\";
+		try {
+			String category = this instanceof ChemicalDisplay ? "Chemical" : "Functional Group";
+			String name = JOptionPane.showInputDialog(this,
+		        	"Choose a new name for the " + category,
+		            "Rename " + category, 1);
+		    if (name == null) {
+		    	return;
+		    }
+		    // Check name is unique
+		    for (SelectableItem si : controller.getSelectables()) {
+		    	if (si.getName().equals(name)) {
+		    		JOptionPane.showMessageDialog(this, "Something with that name already exists");
+					return;
+		    	}
+		    }
+		    File fi = new File(filepath + i.getName());
+			fi.renameTo(new File(filepath + name));
+			if (i instanceof Chemical)
+				controller.rename_chemical((Chemical)i,name);
+			else
+				i.setName(name);
+			this.update_functions((Catagory) controller.getSelectedItem());
+		} catch (Exception e) {
+			
+		}
+	}
+
+	public void deleteCategory() {
+		controller.deleteCategory(this);
+	}
+
+	public void deleteFunction() {
+		controller.deleteFunction(this);
 	}
 	
 }

@@ -81,11 +81,31 @@ public class Model implements BuildFromXML, BuildToXML {
 		return chemicals;
 	}	
 	public void addChemical(Chemical c) {
+		String name = c.getName();
 		chemicals.add(c);
+		AmbientVariableTables.getTables().addChemical(name);
+		Type floatType = (Type) AmbientVariableTables.getTables().checkTypeTable("$float");
+		ArrayList<Unit> units = new ArrayList<Unit>();
+		units.add(new Unit(0, "mol", 1));
+		StateVariable pool = new StateVariable(name + "_Pool", name + " internal pool", floatType,
+				units, new Float(0), 0, false);
+		StateVariable ingested = new StateVariable(name + "_Ingested", name + " incoming pool",
+				floatType, units, new Float(0), 0, false);
+		for (FunctionalGroup f : this.getFunctionalGroups()) {
+			f.addToStateVarTable(pool);
+			f.addToStateVarTable(ingested);
+		}
 	}
+	
 	public boolean removeChemical(Chemical c) {
+		AmbientVariableTables.getTables().removeChemical(c.getName());
+		for (FunctionalGroup f : this.getFunctionalGroups()) {
+			f.removeFromTables(c.getName() + "_Ingested");
+			f.removeFromTables(c.getName() + "_Pool");
+		}
 		return chemicals.remove(c);
 	}
+	
 	public void removeAllChemicals() {
 		chemicals = new ArrayList<Chemical> ();
 	}

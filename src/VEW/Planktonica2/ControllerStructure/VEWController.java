@@ -3,6 +3,7 @@ package VEW.Planktonica2.ControllerStructure;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Observable;
 import java.util.prefs.BackingStoreException;
@@ -19,8 +20,12 @@ import VEW.Planktonica2.Model.Chemical;
 import VEW.Planktonica2.Model.Function;
 import VEW.Planktonica2.Model.FunctionalGroup;
 import VEW.Planktonica2.Model.Model;
+import VEW.Planktonica2.Model.StateVariable;
+import VEW.Planktonica2.Model.Type;
+import VEW.Planktonica2.Model.Unit;
 import VEW.Planktonica2.Model.VariableType;
 import VEW.Planktonica2.Model.XMLWriteBackException;
+import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
 
 public abstract class VEWController extends Observable {
@@ -225,6 +230,71 @@ public abstract class VEWController extends Observable {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+
+	public void rename_chemical(Chemical c, String name) {
+		Chemical newchem = new Chemical(name,c.getFilePath());
+		newchem.setFunctions(c.getFunctions());
+		newchem.setSpectrum(c.getSpectrum());
+		newchem.setPigment(c.hasPigment());
+		newchem.setValue(c.getValue());
+		model.removeChemical(c);
+		model.addChemical(newchem);
+		this.setChanged();
+		this.notifyObservers(new NewCategoryEvent(c));
+	}
+
+	public void deleteCategory(Display d) {
+		// Check the user really wants to delete the category
+		int choice = JOptionPane.showOptionDialog(d, "Are you sure you want to delete this function?",
+				"Confirm delete", JOptionPane.YES_NO_OPTION, 1, null, null, 1);
+			if (choice == 1)
+				return;
+		SelectableItem i = this.getSelectedItem();
+		if (i == null)
+			return;
+		String filepath = ((Catagory)i).getFilePath();
+		filepath = filepath.substring(0, filepath.lastIndexOf('\\'));
+		filepath += "\\" + i.getName();
+		try {
+			File f = new File(filepath);
+			String[] children = f.list();
+			for (int j = 0; j < children.length; j++) {
+				File del = new File(filepath,children[j]);
+				del.delete();
+	        }
+			f.delete();
+		} catch (Exception e) {
+		} finally {
+			if (i instanceof Chemical) {
+				model.removeChemical((Chemical)i);
+			} else {
+				model.removeFunctionalGroup((FunctionalGroup)i);
+			}
+			this.setChanged();
+			this.notifyObservers(new NewCategoryEvent(null));
+		}
+	}
+
+	public void deleteFunction(Display d) {
+		// Check the user really wants to delete this function
+		int choice = JOptionPane.showOptionDialog(d, "Are you sure you want to delete this function?",
+			"Confirm delete", JOptionPane.YES_NO_OPTION, 1, null, null, 1);
+		if (choice == 1)
+			return;
+		Function f = this.getCurrentlySelectedFunction();
+		if (f == null)
+			return;
+		try {
+			File del = new File(f.getSource_code() + "\\" + f.getParent().getName() 
+					+ "\\" + f.getName() + ".bacon");
+			del.delete();
+		} catch (Exception e) {
+		} finally {
+			this.getSelectedItem().removeFunction(f);
+			this.setChanged();
+			this.notifyObservers(new NewCategoryEvent(null));
 		}
 	}
 

@@ -16,8 +16,6 @@ public class Chemical extends Catagory {
 	
 	private ArrayList<Function> functions;
 	
-	private String file_path;
-	
 	
 	public Chemical(String _file_path) {
 		super();

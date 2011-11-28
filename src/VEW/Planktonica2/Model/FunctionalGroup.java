@@ -12,7 +12,6 @@ public class FunctionalGroup extends Catagory {
 	
 
 	private boolean invisible;
-	private String file_path;
 	
 	
 	private SymbolTable<Stage> stageTable;

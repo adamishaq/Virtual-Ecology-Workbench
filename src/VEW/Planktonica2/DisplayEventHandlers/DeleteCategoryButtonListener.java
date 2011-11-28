@@ -5,16 +5,17 @@ import java.awt.event.ActionListener;
 
 import VEW.Planktonica2.Display;
 
-public class RenameFunctionListener implements ActionListener {
 
-	Display parent;
+public class DeleteCategoryButtonListener implements ActionListener {
+
+	private Display parent;
 	
-	public RenameFunctionListener(Display display) {
-		this.parent = display;
+	public DeleteCategoryButtonListener(Display d) {
+		parent = d;
 	}
 	
 	public void actionPerformed(ActionEvent event) {
-		parent.rename_function();
+        parent.deleteCategory();
 	}
 	
 }

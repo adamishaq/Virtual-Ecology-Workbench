@@ -12,6 +12,7 @@ import VEW.XMLCompiler.ASTNodes.SymbolTable;
 public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToXML {
 	
 	protected String name;
+	protected String file_path;
 	
 	protected ArrayList <Function> functions;
 	
@@ -185,6 +186,10 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		this.functions.add(new Function(filepath,name,this));
 	}
 	
+	public void removeFunction(Function f) {
+		this.functions.remove(f);
+	}
+	
 	public String[] get_state_vars() {
 		Object[] vars = stateVarTable.keySet().toArray();
 		String [] all_vars = new String[vars.length];
@@ -288,5 +293,9 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 			tag.addTag(var.buildToXML());
 		}
 		
+	}
+	
+	public String getFilePath() {
+		return this.file_path;
 	}
 }
