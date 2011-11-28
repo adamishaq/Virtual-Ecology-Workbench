@@ -1,6 +1,7 @@
 package VEW.XMLCompiler.ASTNodes;
 
 import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.Chemical;
 import VEW.Planktonica2.Model.Type;
 import VEW.Planktonica2.Model.VarietyType;
 
@@ -19,6 +20,12 @@ public class UnaryFunctionExprNode extends RuleNode {
 	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
 		//This may need to change if any more unaryFunctions with expr args are added
 		//Im considering changing this into a Divide node
+		if (enclosingCategory instanceof Chemical) {
+			enclosingTree.addSemanticException(
+					new SemanticCheckException("Divide cannot be called within chemical equations",
+							line_number));
+			return;
+		}
 		expArg.check(enclosingCategory, enclosingTree);
 		Type expType = expArg.getExprType();
 		if (expType instanceof VarietyType) {

@@ -24,15 +24,29 @@ public class BinOpNode extends ExprNode {
 		rExpr.check(enclosingCategory, enclosingTree);
 		Type lType = lExpr.getExprType();
 		Type rType = rExpr.getExprType();
-		setExprType(checkCompatibility(lType, rType));
+		try {
+			setExprType(checkCompatibility(lType, rType));
+		} catch (SemanticCheckException e) {
+			enclosingTree.addSemanticException(e);
+		}
 	}
 
-	private Type checkCompatibility(Type lType, Type rType) {
-		//TODO Some sort of tracking of the origins of food based sets
+	private Type checkCompatibility(Type lType, Type rType) throws SemanticCheckException {
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
-		if (lType instanceof VarietyType || rType instanceof VarietyType) {
-			return new VarietyType("float", floatType);
+		if (lType instanceof VarietyType) {
+			VarietyType vlType = (VarietyType) lType;
+			if (rType instanceof VarietyType) {
+				VarietyType vrType = (VarietyType) rType;
+				if (!vlType.checkLinkCompatible(vrType)) {
+					throw new SemanticCheckException("Expressions evaluate to varieties with different link sets", line_number);
+				}
+				return vrType;
+			}
+			return lType;
+		}
+		if (rType instanceof VarietyType) {
+			return rType;
 		}
 		return floatType;
 		

@@ -43,6 +43,9 @@ public class CommonTreeWalker {
 	public ConstructedASTree constructASTree() {
 		RuleSequenceNode constructedTree = null;
 		// needs to be removed if ASTrees are not constructed from a base
+		if (!checkNode(antlrTree)) {
+			return new ConstructedASTree(null, exceptions);
+		}
 		List<?> childRules = antlrTree.getChildren();
 		RuleSequenceNode currentSeq = null;
 		for (Object c : childRules) {

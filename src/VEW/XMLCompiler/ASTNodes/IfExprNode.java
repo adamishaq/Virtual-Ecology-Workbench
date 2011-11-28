@@ -27,7 +27,33 @@ public class IfExprNode extends ExprNode {
 		}
 		thenExpr.check(enclosingCategory, enclosingTree);
 		elseExpr.check(enclosingCategory, enclosingTree);
-
+		try {
+			setExprType(checkCompatibility(thenExpr.getExprType(), elseExpr.getExprType()));
+		} catch (SemanticCheckException e) {
+			enclosingTree.addSemanticException(e);
+		}
+	}
+	
+	private Type checkCompatibility(Type lType, Type rType) throws SemanticCheckException{
+		if (lType.equals(rType)) {
+			return lType;
+		}
+		if (lType instanceof VarietyType && rType instanceof VarietyType) {
+			VarietyType lVarType = (VarietyType) lType;
+			VarietyType rVarType = (VarietyType) rType;
+			if (!lVarType.getElementType().equals(rVarType.getElementType())) {
+				throw new SemanticCheckException("The two variety expressions have different underlying types"
+														, line_number);
+			}
+			else if (!lVarType.checkLinkCompatible(rVarType)) {
+				throw new SemanticCheckException("The two expressions within the if statement evaluate have different variety links"
+													, line_number);
+			}
+			return lVarType;
+		}
+		throw new SemanticCheckException("The expressions in the if statement must both evaluate to the same type"
+														, line_number);
+		
 	}
 
 	@Override

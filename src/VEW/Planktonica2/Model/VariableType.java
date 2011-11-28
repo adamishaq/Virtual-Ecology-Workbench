@@ -19,6 +19,7 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 	private boolean assignedTo;
 	private boolean readFrom;
 	private boolean editable;
+	protected XMLTag tag;
 	
 	public VariableType() {
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
@@ -54,15 +55,17 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 	}
 	
 	protected void varBuild (XMLTag tag) {
-		
+		this.tag = tag;
 		XMLTag nameTag = tag.getTag(XMLTagEnum.NAME.xmlTag());
 		if (nameTag != null) {
 			this.name = nameTag.getValue();
+			nameTag.removeFromParent();
 		}
 		
 		XMLTag descTag = tag.getTag(XMLTagEnum.DESCRIPTION.xmlTag());
 		if (descTag != null) {
 			this.desc = descTag.getValue();
+			descTag.removeFromParent();
 		}
 		
 		XMLTag valueTag = tag.getTag(XMLTagEnum.VALUE.xmlTag());
@@ -72,6 +75,7 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 			if (v != null) {
 				this.value = Float.valueOf(v);
 			}
+			valueTag.removeFromParent();
 		}
 		
 		
@@ -82,50 +86,57 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 			if (v != null) {
 				this.hist = Integer.valueOf(v);
 			}
+			histTag.removeFromParent();
 		}
 		
 		units = new ArrayList<Unit> ();
 		XMLTag units = tag.getTag(XMLTagEnum.UNIT.xmlTag());
 		if (units != null) {
 			String unitString = units.getValue();
-			if (unitString != null) {
-				String [] individualUnits = unitString.split("(,)");
-				// units are always in multiples of 3. checks this
-				if (individualUnits.length % 3 == 0) {
+			constructUnits(unitString);
+			units.removeFromParent();
+		}
+	}
+
+	private void constructUnits(String unitString) {
+		if (unitString != null) {
+			String [] individualUnits = unitString.split("(,)");
+			// units are always in multiples of 3. checks this
+			if (individualUnits.length % 3 == 0) {
+				
+				String [] unit = new String [3];
+				int offset = 0;
+				for (int i = 0; i < individualUnits.length ; i++) {
 					
-					String [] unit = new String [3];
-					int offset = 0;
-					for (int i = 0; i < individualUnits.length ; i++) {
-						
-						unit[offset] = individualUnits[i];
-						
-						if (offset >= 2) {
-							/*
-							 * Checks for null on broken models, because some units seem to have
-							 * a null size value and possibly a null exponent value.
-							 */
-							if (unit[0].equals("null")) {
-								unit[0] = "0";
-							} else if (unit[2].equals("null")) {
-								unit[2] = "0";
-							}
-							Unit u = new Unit (Integer.valueOf(unit[0]), unit[1], Integer.valueOf(unit[2]));
-							this.units.add(u);
-							offset = 0;
-							unit = new String [3];
-							
-						} else {
-							offset++;
+					unit[offset] = individualUnits[i];
+					
+					if (offset >= 2) {
+						/*
+						 * Checks for null on broken models, because some units seem to have
+						 * a null size value and possibly a null exponent value.
+						 */
+						if (unit[0].equals("null")) {
+							unit[0] = "0";
+						} else if (unit[2].equals("null")) {
+							unit[2] = "0";
 						}
+						Unit u = new Unit (Integer.valueOf(unit[0]), unit[1], Integer.valueOf(unit[2]));
+						this.units.add(u);
+						offset = 0;
+						unit = new String [3];
 						
-					}				
-				}
+					} else {
+						offset++;
+					}
+					
+				}				
 			}
 		}
 	}
 
 	public XMLTag buildToXML() throws XMLWriteBackException {
-		XMLTag tag = new XMLTag("placeholder");
+		if (tag == null)
+			tag = new XMLTag("placeholder");
 		tag.addTag(new XMLTag("name", name));
 		if (desc != null)
 			tag.addTag(new XMLTag("desc", desc));
