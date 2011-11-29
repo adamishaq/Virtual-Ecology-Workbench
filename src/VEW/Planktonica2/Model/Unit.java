@@ -53,4 +53,13 @@ public class Unit {
 		return name; //+ "^" + (size*exponent); 
 	}
 	
+	public boolean equals(Unit u) {
+		return (name.equals(u.getName()) && exponent == u.getExponent());
+	}
+
+
+	public boolean same_unit(Unit u) {
+		return name.equals(u.getName());
+	}
+	
 }

@@ -2,10 +2,11 @@ package VEW.Planktonica2.DisplayEventHandlers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JOptionPane;
+import java.util.ArrayList;
 
 import VEW.Planktonica2.Display;
+import VEW.Planktonica2.Model.Unit;
+import VEW.Planktonica2.Model.UnitChecker;
 
 
 public class AddCategoryButtonListener implements ActionListener {
@@ -17,13 +18,15 @@ public class AddCategoryButtonListener implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent event) {
-        String name = JOptionPane.showInputDialog(parent,
-        	"Choose a name for the new functional group",
-            "Name Functional Group", 1);
-        if (name != null) {
-        	parent.addCategory(name);
-        }
-        
+        parent.addCategory();/*
+		Unit sec = new Unit(1,"seconds",1);
+		Unit sec2 = new Unit(1,"seconds",-1);
+		Unit mol = new Unit(1,"mol",3);
+		ArrayList<Unit> first = new ArrayList<Unit>();
+		first.add(sec); first.add(mol);
+		ArrayList<Unit> second = new ArrayList<Unit>();
+		second.add(sec2); second.add(mol);
+		System.out.println(new UnitChecker().divide_units(first, second));*/
 	}
 	
 }

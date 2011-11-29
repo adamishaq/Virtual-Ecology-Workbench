@@ -10,6 +10,7 @@ public class ConstructedASTree {
 	
 	private ASTree tree;
 	private ArrayList<Exception> exceptions;
+	private ArrayList<String> warnings;
 	private List<XMLTag> tagList;
 	public ConstructedASTree(ASTree _tree, ArrayList<Exception> _excep) {
 		tree = _tree;
@@ -33,8 +34,16 @@ public class ConstructedASTree {
 		exceptions.add(ex);
 	}
 	
+	public void addWarning(String warning) {
+		warnings.add(warning);
+	}
+	
 	public boolean hasExceptions() {
 		return !exceptions.isEmpty();
+	}
+	
+	public boolean hasWarnings() {
+		return !warnings.isEmpty();
 	}
 	
 	public void checkTree(Catagory parent) {

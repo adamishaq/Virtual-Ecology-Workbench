@@ -48,6 +48,7 @@ public class EditorPanel extends JPanel implements Observer {
 	private SyntaxHighlighter syntax_highlighter;
 	private AutocompleteBox auto_complete;
 	private JEditorPane error_log;
+	private String current_source;
 	
 	// Open/save components
 	final static JFileChooser file_chooser = new JFileChooser();
@@ -146,6 +147,8 @@ public class EditorPanel extends JPanel implements Observer {
 	}
 	
 	public void compile() {
+		if (this.current_source == null)
+			return;
 		syntax_highlighter.clear_flags();
 		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
 		try {
@@ -186,6 +189,8 @@ public class EditorPanel extends JPanel implements Observer {
 	}
 	
 	public void check() {
+		if (this.current_source == null)
+			return;
 		syntax_highlighter.clear_flags();
 		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
 		try {
@@ -226,6 +231,8 @@ public class EditorPanel extends JPanel implements Observer {
 	}
 	
 	public void preview() {
+		if (this.current_source == null)
+			return;
 		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
 		//System.out.println(syntax_highlighter.getPlainText(syntax.getText()));
 		try {
@@ -252,7 +259,6 @@ public class EditorPanel extends JPanel implements Observer {
 			}*/
 			//highlight_syntax();
 		} catch (RecognitionException e) {
-			// TODO Auto-generated catch block
 			System.out.println("RECOGNITION EXCEPTION");
 			e.printStackTrace();
 		}
@@ -322,6 +328,7 @@ public class EditorPanel extends JPanel implements Observer {
 			syntax.setText(source);
 			highlight_syntax();
 			syntax.setCaretPosition(0);
+			this.current_source = filePath;
 		} catch (Exception e) {
 			syntax.setText("<html><head></head><PRE>Could not find source file " + filePath
 					+ "</PRE></html>");
@@ -330,6 +337,8 @@ public class EditorPanel extends JPanel implements Observer {
 	
 	public void save() {
 		Function f = controller.getCurrentlySelectedFunction();
+		if (f == null)
+			return;
 		String file_path = f.getSource_code();
 		file_path += f.getParent().getName();
 		file_path += "\\";
@@ -348,6 +357,7 @@ public class EditorPanel extends JPanel implements Observer {
 	}
 	
 	public void clear() {
+		this.current_source = null;
 		this.syntax.setEnabled(false);
 		this.syntax.setText("<html><PRE></PRE></html>");
 		this.preview.setVisible(false);

@@ -144,7 +144,11 @@ public class AmbientVariableTables {
 		Collection<Unit> units = new ArrayList<Unit>();
 		units.add(new Unit(0, "mol", 1));
 		GlobalVariable chemicalVar = new GlobalVariable(chemicalName, description, floatType, units, new Float(0), 1, false);
-		chemicalTable.put(chemicalName + "_conc", chemicalVar);
+		chemicalTable.put(chemicalName + "_Conc", chemicalVar);
+	}
+	
+	public GlobalVariable removeChemical(String chemicalName) {
+		return chemicalTable.remove(chemicalName + "_Conc");
 	}
 
 	public static AmbientVariableTables getTables() {

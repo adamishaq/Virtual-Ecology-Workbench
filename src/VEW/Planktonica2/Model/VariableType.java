@@ -174,7 +174,7 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 		this.desc = desc;
 	}
 
-	public float getValue() {
+	public Float getValue() {
 		return value;
 	}
 
@@ -182,7 +182,7 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 		this.value = value;
 	}
 
-	public int getHist() {
+	public Integer getHist() {
 		return hist;
 	}
 

@@ -186,6 +186,12 @@ public class AutocompleteBox {
 			"Return the larger of two expressions.");
         expr_functions.put("min([expr],[expr])",
 		"Return the smaller of two expressions.");
+        expr_functions.put("all([boolean])",
+        	"Returns true if the boolean condition is true for all values of an array");
+        expr_functions.put("some([boolean])",
+    		"Returns true if the boolean condition is true for at least one value of an array");
+        expr_functions.put("none([boolean])",
+    		"Returns true if the boolean condition is false for all values of an array");
 	}
 	
 	public JList getList() {

@@ -345,7 +345,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			}
 			break;
 		}
-		controller.update_category(this.current_category);
+		controller.updateVariableDisplay();
 	}
 
 	public void update_variable() {
@@ -467,22 +467,26 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			units += u.format();
 		}
 		unit_string.setText(units);
+		String hist = "-";
+		if (v.getHist() != null)
+			hist = String.valueOf(v.getHist());
+		String init = "-";
+		if (v.getValue() != null)
+			init = String.valueOf(v.getValue());
 		// Check what type of variable it is
 		if (v instanceof StateVariable) {
 			type_combo.setSelectedIndex(0);
-			StateVariable sv = (StateVariable) v;
-			h_size.setText(String.valueOf(sv.getHist()));
-			i_val.setText(String.valueOf(v.getValue()));
+			h_size.setText(hist);
+			i_val.setText(init);
 		} else if (v instanceof Parameter) {
 			type_combo.setSelectedIndex(1);
-			Parameter p = (Parameter) v;
-			i_val.setText(String.valueOf(p.getValue()));
+			i_val.setText(init);
 		} else if (v instanceof Local) {
 			type_combo.setSelectedIndex(2);
 		} else if (v instanceof VarietyParameter) {
 			type_combo.setSelectedIndex(3);
 			VarietyParameter vp = (VarietyParameter) v;
-			i_val.setText(String.valueOf(vp.getValue()));
+			i_val.setText(init);
 			update_link_combo(vp);
 		} else if (v instanceof VarietyConcentration) {
 			type_combo.setSelectedIndex(4);
@@ -493,8 +497,8 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		} else if (v instanceof VarietyVariable) {
 			type_combo.setSelectedIndex(6);
 			VarietyVariable vv = (VarietyVariable) v;
-			h_size.setText(String.valueOf(vv.getHist()));
-			i_val.setText(String.valueOf(vv.getValue()));
+			h_size.setText(hist);
+			i_val.setText(init);
 			update_link_combo(vv);
 		}
 		this.validate();

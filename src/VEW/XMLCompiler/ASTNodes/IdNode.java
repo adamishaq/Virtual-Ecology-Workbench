@@ -22,9 +22,9 @@ public class IdNode extends ExprNode {
 					line_number));
 		}
 		else if ((v instanceof Local || v instanceof VarietyLocal) && !v.isAssignedTo()) {
-			enclosingTree.addSemanticException(
+			/*enclosingTree.addSemanticException(
 					new SemanticCheckException("Local variable " + name + " has not been assigned to before reading",
-					line_number));
+					line_number));*/
 		}
 		else {
 			var = (VariableType) v;

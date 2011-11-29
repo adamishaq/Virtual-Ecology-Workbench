@@ -16,8 +16,6 @@ public class Chemical extends Catagory {
 	
 	private ArrayList<Function> functions;
 	
-	private String file_path;
-	
 	
 	public Chemical(String _file_path) {
 		super();
@@ -28,6 +26,7 @@ public class Chemical extends Catagory {
 		super();
 		this.file_path = filePath;
 		this.name = name;
+		this.spectrum = new ArrayList<Spectrum>();
 	}
 
 	@Override
