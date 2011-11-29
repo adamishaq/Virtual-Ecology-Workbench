@@ -250,7 +250,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			return;
 		// Construct the variable
 		ArrayList<Unit> units = new ArrayList<Unit>();
-		units.add(new Unit(0,unit_string.getText(),0));
+		units.add(new Unit(0,unit_string.getText(),1));
 		switch (current_selection) {
 		case GROUPVAR :
 			StateVariable v = new StateVariable();
@@ -355,6 +355,8 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		VariableType v = current_category.checkAllVariableTables(var_name.getText());
 		if (v == null)
 			v = this.current_variable;
+		if (v == null)
+			return;
 		if (!v.isEditable()) {
 			JOptionPane.showMessageDialog(this, "This is a built-in variable and cannot be edited");
 			return;

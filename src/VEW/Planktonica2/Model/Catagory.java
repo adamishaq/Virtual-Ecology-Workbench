@@ -278,6 +278,7 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		if (collectedExceptions.hasExceptions()) {
 			throw collectedExceptions;
 		}
+		
 		buildVariableTableToXML(baseTag, stateVarTable);
 		buildVariableTableToXML(baseTag, paramTable);
 		buildVariableTableToXML(baseTag, localVarTable);

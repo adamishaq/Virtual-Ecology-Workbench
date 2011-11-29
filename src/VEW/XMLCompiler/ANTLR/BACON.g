@@ -28,33 +28,6 @@ protected Object recoverFromMismatchedToken(IntStream input, int ttype, BitSet f
               throws RecognitionException
 {
 	RecognitionException e = null;
-	/*
-	// if next token is what we are looking for then "delete" this token
-	if ( mismatchIsUnwantedToken(input, ttype) ) {
-		e = new UnwantedTokenException(ttype, input);
-		
-		System.err.println("recoverFromMismatchedToken deleting "+
-		((TokenStream)input).LT(1)+
-		" since "+((TokenStream)input).LT(2)+" is what we want");
-		
-		beginResync();
-		input.consume(); // simply delete extra token
-		endResync();
-		reportError(e);  // report after consuming so AW sees the token in the exception
-		// we want to return the token we're actually matching
-		Object matchedSymbol = getCurrentInputSymbol(input);
-		input.consume(); // move past ttype token as if all were ok
-		return matchedSymbol;
-	}
-	// can't recover with single token deletion, try insertion
-	if ( mismatchIsMissingToken(input, follow) ) {
-		Object inserted = getMissingSymbol(input, e, ttype, follow);
-		e = new MissingTokenException(ttype, input, inserted);
-		reportError(e);  // report after inserting so AW sees the token in the exception
-		return inserted;
-	}
-	 // even that didn't work; must throw the exception
-	 */
 	e = new MismatchedTokenException(ttype, input);
 	throw e;
 }
@@ -206,7 +179,7 @@ UNKNOWN	: (.);
 
 
 rules
-	: (NEWLINE)? pair (NEWLINE pair)* (NEWLINE)? -> ^(RULES pair pair*)
+	: (NEWLINE)? pair (NEWLINE pair)* (NEWLINE)? EOF -> ^(RULES pair pair*)
 	; 
 	
 pair

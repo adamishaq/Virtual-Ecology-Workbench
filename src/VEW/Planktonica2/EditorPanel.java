@@ -155,30 +155,24 @@ public class EditorPanel extends JPanel implements Observer {
 			ConstructedASTree ct = p.getAST();
 			//ct.getTree().check();
 			if (ct.getExceptions().isEmpty()) {
+				if (ct.hasWarnings()) {
+					String errors = "<html><PRE>Warnings in source file:\n";
+					errors = format_warnings(ct, errors);
+					errors += "\nCheck succeeded!</PRE></html>";
+					error_log.setText(errors);
+				} else {
+					error_log.setText("<html><PRE>Check succeeded!</PRE></html>");
+				}
 				String latex = "\\begin{array}{lr}";
 				latex += ct.getTree().generateLatex();
 				latex += "\\end{array}";
 				preview.setVisible(true);
 				preview.update_preview(latex);
 				System.out.println(ct.getTree().generateXML());
-				error_log.setText("<html><PRE>Compilation succeeded!</PRE></html>");
 			} else {
 				String errors = "<html><PRE>Compilation errors occurred:\n";
-				errors += "<font color=#FF0000>";
-				for (Exception t : ct.getExceptions()) {
-					syntax_highlighter.flag_line(t);
-					if (t instanceof TreeWalkerException) {
-						TreeWalkerException twe = (TreeWalkerException) t;
-						errors += twe.getError() + "\n";
-					} else if (t instanceof SemanticCheckException) {
-						SemanticCheckException sce = (SemanticCheckException) t;
-						errors += sce.getError() + "\n";
-					} else {
-						errors += "Unknown error\n";
-					}
-				}
-				errors += "</font>";
-				errors += "\nCompilation aborted!</PRE></html>";
+				errors = format_errors(ct, errors);
+				errors += "Compilation aborted!</PRE></html>";
 				error_log.setText(errors);
 			}
 			highlight_syntax();
@@ -186,6 +180,34 @@ public class EditorPanel extends JPanel implements Observer {
 			System.out.println("RECOGNITION EXCEPTION");
 			e.printStackTrace();
 		}
+	}
+
+	private String format_errors(ConstructedASTree ct, String errors) {
+		errors += "<font color=#FF0000>";
+		for (Exception t : ct.getExceptions()) {
+			syntax_highlighter.flag_line(t);
+			if (t instanceof TreeWalkerException) {
+				TreeWalkerException twe = (TreeWalkerException) t;
+				errors += twe.getError() + "\n";
+			} else if (t instanceof SemanticCheckException) {
+				SemanticCheckException sce = (SemanticCheckException) t;
+				errors += sce.getError() + "\n";
+			} else {
+				errors += "Unknown error\n";
+			}
+		}
+		errors += "</font>\n";
+		errors = format_warnings(ct, errors);
+		return errors;
+	}
+
+	private String format_warnings(ConstructedASTree ct, String errors) {
+		errors += "<font color=#FF9900>";
+		for (String s : ct.getWarnings()) {
+			errors += "Warning: " + s + "\n";
+		}
+		errors += "</font>";
+		return errors;
 	}
 	
 	public void check() {
@@ -198,28 +220,22 @@ public class EditorPanel extends JPanel implements Observer {
 			if (ct.getExceptions().isEmpty())
 				ct.getTree().check(controller.getCurrentlySelectedFunction().getParent(), ct);
 			if (ct.getExceptions().isEmpty()) {
+				if (ct.hasWarnings()) {
+					String errors = "<html><PRE>Warnings in source file:\n";
+					errors = format_warnings(ct, errors);
+					errors += "\nCheck succeeded!</PRE></html>";
+					error_log.setText(errors);
+				} else {
+					error_log.setText("<html><PRE>Check succeeded!</PRE></html>");
+				}
 				String latex = "\\begin{array}{lr}";
 				latex += ct.getTree().generateLatex();
 				latex += "\\end{array}";
 				preview.setVisible(true);
 				preview.update_preview(latex);
-				error_log.setText("<html><PRE>Check succeeded!</PRE></html>");
 			} else {
 				String errors = "<html><PRE>Errors in source file:\n";
-				errors += "<font color=#FF0000>";
-				for (Exception t : ct.getExceptions()) {
-					syntax_highlighter.flag_line(t);
-					if (t instanceof TreeWalkerException) {
-						TreeWalkerException twe = (TreeWalkerException) t;
-						errors += twe.getError() + "\n";
-					} else if (t instanceof SemanticCheckException) {
-						SemanticCheckException sce = (SemanticCheckException) t;
-						errors += sce.getError() + "\n";
-					} else {
-						errors += "Unknown error\n";
-					}
-				}
-				errors += "</font>";
+				errors = format_errors(ct, errors);
 				errors += "</PRE></html>";
 				error_log.setText(errors);
 			}
@@ -279,6 +295,8 @@ public class EditorPanel extends JPanel implements Observer {
 	public boolean caret_in_comment() {
 		int pos = syntax.getCaretPosition() - 2;
 		char[] chars = syntax_highlighter.getPlainText(syntax.getText()).toCharArray();
+		if (pos >= chars.length)
+			return false;
 		for (int i = pos; i > 0; i--) {
 			if (chars[i] == '\n')
 				return false;
@@ -301,7 +319,7 @@ public class EditorPanel extends JPanel implements Observer {
 	
 	private boolean space_before_caret() {
 		int pos = syntax.getCaretPosition() - 3;
-		if (pos <= 0)
+		if (pos <= 0 || pos >= syntax_highlighter.getPlainText(syntax.getText()).length())
 			return true;
 		char c = syntax_highlighter.getPlainText(syntax.getText()).charAt(pos);
 		return !Character.isLetterOrDigit(c);

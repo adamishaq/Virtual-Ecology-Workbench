@@ -21,8 +21,9 @@ public class IngestNode extends RuleNode {
 	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
 		if (enclosingCategory instanceof Chemical) {
 			enclosingTree.addSemanticException(
-					new SemanticCheckException("Special functions cannot be called within chemical equations",
+					new SemanticCheckException("Ingest cannot be called within chemical equations",
 							line_number));
+			return;
 		}
 		VarietyConcentration foodSet = enclosingCategory.checkVarietyConcTable(identifier.getName());
 		if (foodSet == null) {

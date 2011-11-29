@@ -9,9 +9,10 @@ public class UnaryPrimNode extends ExprNode {
 	private UnaryPrimitive primitive;
 	private ExprNode argument;
 	
-	public UnaryPrimNode(UnaryPrimitive primitive, ExprNode argExpr) {
+	public UnaryPrimNode(UnaryPrimitive primitive, ExprNode argExpr, int line) {
 		this.primitive = primitive;
 		this.argument = argExpr;
+		this.line_number = line;
 	}
 	
 	@Override
@@ -19,7 +20,8 @@ public class UnaryPrimNode extends ExprNode {
 		argument.check(enclosingCategory, enclosingTree);
 		Type argType = argument.getExprType();
 		setExprType(checkCompatibility(argType));
-
+		// TODO - conversion
+		units = argument.getUnits();
 	}
 
 	private Type checkCompatibility(Type argType) {

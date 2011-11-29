@@ -1,7 +1,11 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import java.util.ArrayList;
+
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Type;
+import VEW.Planktonica2.Model.Unit;
+import VEW.Planktonica2.Model.UnitChecker;
 import VEW.Planktonica2.Model.VarietyType;
 
 
@@ -12,10 +16,11 @@ public class BinOpNode extends ExprNode {
 	private ExprNode lExpr;
 	private ExprNode rExpr;
 	
-	public BinOpNode (MathematicalOperator operator, ExprNode lExpr, ExprNode rExpr) {
+	public BinOpNode (MathematicalOperator operator, ExprNode lExpr, ExprNode rExpr, int line) {
 		this.operator = operator;
 		this.lExpr = lExpr;
 		this.rExpr = rExpr;
+		this.line_number = line;
 	}
 
 	@Override
@@ -24,15 +29,72 @@ public class BinOpNode extends ExprNode {
 		rExpr.check(enclosingCategory, enclosingTree);
 		Type lType = lExpr.getExprType();
 		Type rType = rExpr.getExprType();
-		setExprType(checkCompatibility(lType, rType));
+		try {
+			setExprType(checkCompatibility(lType, rType));
+		} catch (SemanticCheckException e) {
+			enclosingTree.addSemanticException(e);
+		}
+		switch (operator) {
+		case PLUS     : 
+			if (!UnitChecker.getUnitChecker().CheckUnitCompatability(rExpr.getUnits(),
+				lExpr.getUnits())) {
+				enclosingTree.addWarning("Addition of two different unit types on line " + line_number);
+				units = new ArrayList<Unit>();
+				units.add(new Unit(0,"null",1));
+			} else {
+				if (UnitChecker.getUnitChecker().contains_null(this.rExpr.getUnits()))
+					this.units = rExpr.getUnits();
+				else
+					this.units = lExpr.getUnits();
+			}
+			break;
+		case MINUS    :
+			if (!UnitChecker.getUnitChecker().CheckUnitCompatability(rExpr.getUnits(),
+				lExpr.getUnits())) {
+				enclosingTree.addWarning("Subtraction of two different unit types on line " + line_number);
+				units = new ArrayList<Unit>();
+				units.add(new Unit(0,"null",1));
+			} else {
+				if (UnitChecker.getUnitChecker().contains_null(this.rExpr.getUnits()))
+					this.units = rExpr.getUnits();
+				else
+					this.units = lExpr.getUnits();
+			}
+			break; 
+		case MULTIPLY :
+			this.units = UnitChecker.getUnitChecker().multiply_units(rExpr.getUnits(), lExpr.getUnits());
+			break; 
+		case DIVIDE   :
+			this.units = UnitChecker.getUnitChecker().divide_units(rExpr.getUnits(), lExpr.getUnits());
+			break; 
+		case POWER    :
+			ArrayList<Unit> pow = new ArrayList<Unit>();
+			pow.add(new Unit(0,"dimensionless",1));
+			if (!UnitChecker.getUnitChecker().CheckUnitCompatability(rExpr.getUnits(),pow))
+				enclosingTree.addWarning("Expression raised to power of expression with units on line " +
+						line_number);
+			units = new ArrayList<Unit>();
+			units.add(new Unit(0,"null",1));
+			break; 
+		}
 	}
 
-	private Type checkCompatibility(Type lType, Type rType) {
-		//TODO Some sort of tracking of the origins of food based sets
+	private Type checkCompatibility(Type lType, Type rType) throws SemanticCheckException {
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
-		if (lType instanceof VarietyType || rType instanceof VarietyType) {
-			return new VarietyType("float", floatType);
+		if (lType instanceof VarietyType) {
+			VarietyType vlType = (VarietyType) lType;
+			if (rType instanceof VarietyType) {
+				VarietyType vrType = (VarietyType) rType;
+				if (!vlType.checkLinkCompatible(vrType)) {
+					throw new SemanticCheckException("Expressions evaluate to varieties with different link sets", line_number);
+				}
+				return vrType;
+			}
+			return lType;
+		}
+		if (rType instanceof VarietyType) {
+			return rType;
 		}
 		return floatType;
 		

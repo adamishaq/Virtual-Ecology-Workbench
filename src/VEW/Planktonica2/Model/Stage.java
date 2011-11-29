@@ -18,6 +18,13 @@ public class Stage implements BuildFromXML, BuildToXML {
 		closure = null;
 	}
 	
+	public Stage(String stageName) {
+		name = stageName;
+		comment = "";
+		closure = null;
+		log = null;
+	}
+
 	@Override
 	public BuildFromXML build(XMLTag tag) {
 		baseTag = tag;
