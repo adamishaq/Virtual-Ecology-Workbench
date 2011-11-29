@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
 import VEW.Planktonica2.Model.Function;
+import VEW.Planktonica2.Model.FunctionalGroup;
 import VEW.Planktonica2.Model.Stage;
 import VEW.Planktonica2.Model.XMLTagEnum;
 
@@ -77,8 +78,10 @@ public class FunctionsTest {
 		Collection<Stage> stages = new ArrayList<Stage> (1);
 
 		stages.add(s);
-
-		Function f = new Function (stages, "", null);
+		
+		FunctionalGroup parent = new FunctionalGroup (s.getName());
+		
+		Function f = new Function (stages, "\\lolFile", parent);
 
 		f.build(function);
 

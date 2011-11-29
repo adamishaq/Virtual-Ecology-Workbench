@@ -14,7 +14,11 @@ public class EquationStringParser {
 	}
 	
 	public String parseEquationString() {
-		return parseRuleString(equationString);
+		try {
+			return parseRuleString(equationString);
+		} catch (Exception e) {
+			return "";
+		}
 		
 	}
 

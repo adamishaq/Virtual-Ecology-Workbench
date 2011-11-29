@@ -63,7 +63,7 @@ public class FunctionalGroupController extends VEWController {
 		if (f != null) {
 			f.setTopPredator(isTopPredator);
 			this.setChanged();
-			this.notifyObservers(new NewCategoryEvent(null));
+			this.notifyObservers(new NewVariableEvent());
 		}
 	}
 
@@ -132,7 +132,6 @@ public class FunctionalGroupController extends VEWController {
 	
 	public boolean isTopPredator() {
 		FunctionalGroup g = getSelectedFunctionalGroup();
-		
 		return (g == null) ? false : g.isTopPredator();
 		
 	}
