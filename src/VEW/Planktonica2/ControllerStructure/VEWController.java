@@ -227,6 +227,7 @@ public abstract class VEWController extends Observable {
 			FileWriter writer = new FileWriter(sourceFile);
 			writer.write("");
 			writer.flush();
+			writer.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -247,7 +248,9 @@ public abstract class VEWController extends Observable {
 
 	public void deleteCategory(Display d) {
 		// Check the user really wants to delete the category
-		int choice = JOptionPane.showOptionDialog(d, "Are you sure you want to delete this function?",
+		String category = this instanceof ChemicalController ? "Chemical" : "Funtional Group";
+		int choice = JOptionPane.showOptionDialog(d, "Are you sure you want to delete this " 
+				+ category + "?",
 				"Confirm delete", JOptionPane.YES_NO_OPTION, 1, null, null, 1);
 			if (choice == 1)
 				return;

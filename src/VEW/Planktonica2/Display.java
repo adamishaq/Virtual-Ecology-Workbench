@@ -359,32 +359,25 @@ public abstract class Display extends JSplitPane implements Observer {
 	protected void setButtonToolTips() {
 		
 		// TODO: set tool tips
-		
+
 		addInstance.setToolTipText("Add a new " + this.getCategoryName());
-		
-		String currentFunction = ""; // = getCurrentFunction();
-		
-		if (currentFunction != null) {
-			upFunc.setToolTipText("Move " + currentFunction + " up");
-			downFunc.setToolTipText("Move " + currentFunction + " down");
-			removeFunction.setToolTipText("Remove " + currentFunction);
-			renameFunction.setToolTipText("Rename " + currentFunction);
-			//editFunction.setToolTipText("Edit " + currentFunction + "?");
-			//copyFunction.setToolTipText("Copy " + currentFunction + "?");
-		}
-		
-		String currentItem = ""; // = getCurrentItem();
-		
-		if (currentItem != null) {
-			upFG.setToolTipText("Move " + currentItem + " up?");
-			downFG.setToolTipText("Move " + currentItem + " down?");
-			
-			removeInstance.setToolTipText("Remove " + currentItem + "?");
-			renameInstance.setToolTipText("Rename " + currentItem + "?");
-			copyInstance.setToolTipText("Copy " + currentItem + "?");
-			addFunction.setToolTipText("Add a new function to " + currentItem);
-		}
-		
+
+		upFunc.setToolTipText("Move current function up");
+		downFunc.setToolTipText("Move current function down");
+		removeFunction.setToolTipText("Remove current function");
+		renameFunction.setToolTipText("Rename current function");
+		//editFunction.setToolTipText("Edit " + currentFunction + "?");
+		//copyFunction.setToolTipText("Copy " + currentFunction + "?");
+
+
+		upFG.setToolTipText("Move current " + this.getCategoryName() + " up");
+		downFG.setToolTipText("Move current " + this.getCategoryName() + " down");
+
+		removeInstance.setToolTipText("Remove current " + this.getCategoryName());
+		renameInstance.setToolTipText("Rename current " + this.getCategoryName());
+		copyInstance.setToolTipText("Copy " + this.getCategoryName());
+		addFunction.setToolTipText("Add a new function to this " + this.getCategoryName());
+
 		compileButton.setToolTipText("Compile the current model");
 		checkButton.setToolTipText("Check the current source file");
 		saveButton.setToolTipText("Save the current source file");

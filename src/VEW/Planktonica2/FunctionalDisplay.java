@@ -23,7 +23,7 @@ public class FunctionalDisplay extends Display {
 	@Override
 	protected String getCategoryName() {
 		// Returns 
-		return "function";
+		return "functional group";
 	}
 
 
