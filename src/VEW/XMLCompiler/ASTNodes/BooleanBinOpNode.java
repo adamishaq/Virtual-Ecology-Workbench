@@ -26,13 +26,13 @@ public class BooleanBinOpNode extends BExprNode {
 		Type lBExprType = lBExpr.getBExprType();
 		try {
 			setBExprType(checkTypeCompatible(rBExprType, lBExprType));
-		} catch (SemanticCheckException e) {
+		} catch (BACONCompilerException e) {
 			enclosingTree.addSemanticException(e);
 			setBExprType(lBExprType);
 		}
 	}
 	
-	private Type checkTypeCompatible(Type rBExprType, Type lBExprType) throws SemanticCheckException {
+	private Type checkTypeCompatible(Type rBExprType, Type lBExprType) throws BACONCompilerException {
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type boolType = (Type) tables.checkTypeTable("$boolean");
 		if (lBExprType instanceof VarietyType) {

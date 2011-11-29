@@ -1,11 +1,8 @@
 package VEW.XMLCompiler.ASTNodes;
 
-public class TreeWalkerException extends Exception {
+public class TreeWalkerException extends BACONCompilerException {
 
-	private int line;
 	private int char_pos;
-	private String message;
-
 	public TreeWalkerException(String msg) {
 		super(msg);
 	}

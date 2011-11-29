@@ -14,6 +14,7 @@ public class Model implements BuildFromXML, BuildToXML {
 	private Collection<FunctionalGroup> functionalGroups;
 	
 	private XMLFile file;
+	private XMLTag[] oldTags;
 
 	public Model (XMLFile f) {
 		AmbientVariableTables.destroyAmbientVariableTable();
@@ -64,7 +65,7 @@ public class Model implements BuildFromXML, BuildToXML {
 			functionalGroups.add(f);
 			t.removeFromParent();
 		}
-
+		oldTags = file.getTags();
 		return this;
 	}
 
@@ -106,6 +107,10 @@ public class Model implements BuildFromXML, BuildToXML {
 
 	@Override
 	public XMLTag buildToXML() throws XMLWriteBackException {
+		for (XMLTag child : oldTags) {
+			child.removeFromParent();
+		}
+		file.addTags(oldTags);
 		XMLWriteBackException collectedExceptions = new XMLWriteBackException();
 		for (FunctionalGroup fGroup : functionalGroups) {
 			try {

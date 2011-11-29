@@ -21,7 +21,7 @@ import VEW.XMLCompiler.ANTLR.BACONParser;
  */
 public class CommonTreeWalker {
 	
-	private ArrayList<Exception> exceptions;
+	private ArrayList<BACONCompilerException> exceptions;
 	
 	private CommonTree antlrTree;
 	
@@ -31,7 +31,7 @@ public class CommonTreeWalker {
 	 */
 	public CommonTreeWalker(CommonTree antlrTree) {
 		this.antlrTree = antlrTree;
-		exceptions = new ArrayList<Exception>();
+		exceptions = new ArrayList<BACONCompilerException>();
 	}
 	
 	/**
@@ -454,7 +454,7 @@ public class CommonTreeWalker {
 		return true;
 	}
 	
-	public void add_exception(Exception e) {
+	public void add_exception(BACONCompilerException e) {
 		exceptions.add(e);
 	}
 

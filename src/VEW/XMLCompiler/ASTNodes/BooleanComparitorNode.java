@@ -26,14 +26,14 @@ public class BooleanComparitorNode extends BExprNode {
 		Type lExprType = lExpr.getExprType();
 		try {
 			setBExprType(checkTypeCompatible(lExprType, rExprType));
-		} catch (SemanticCheckException e) {
+		} catch (BACONCompilerException e) {
 			enclosingTree.addSemanticException(e);
 			setBExprType(lExprType);
 		}
 
 	}
 
-	private Type checkTypeCompatible(Type rExprType, Type lExprType) throws SemanticCheckException {
+	private Type checkTypeCompatible(Type rExprType, Type lExprType) throws BACONCompilerException {
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type boolType = (Type) tables.checkTypeTable("$boolean");
 		if (lExprType instanceof VarietyType) {

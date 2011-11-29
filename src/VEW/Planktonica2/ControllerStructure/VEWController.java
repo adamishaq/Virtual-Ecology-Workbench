@@ -21,6 +21,8 @@ import VEW.Planktonica2.Model.FunctionalGroup;
 import VEW.Planktonica2.Model.Model;
 import VEW.Planktonica2.Model.VariableType;
 import VEW.Planktonica2.Model.XMLWriteBackException;
+import VEW.XMLCompiler.ANTLR.CompilerException;
+import VEW.XMLCompiler.ASTNodes.BACONCompilerException;
 
 
 public abstract class VEWController extends Observable {
@@ -129,14 +131,19 @@ public abstract class VEWController extends Observable {
 			//TODO make sure multiple compiler errors are collated
 		}
 		catch (XMLWriteBackException ex) {
-			ex.printStackTrace();
+			for (CompilerException cex : ex.getCompilerExceptions()) {
+				for (BACONCompilerException fex : cex.getContainedExceptions()) {
+					System.out.println(cex.getErrorFunctionName() + " (line " + fex.getLine() + "):" + fex.getError());
+				}
+			}
+			return;
 		}
 		if (!(tag instanceof XMLFile)) {
 			//TODO something has gone really wrong
 		}
 		XMLFile xmlFile = (XMLFile) tag;
 		String fileName = xmlFile.getFileName();
-		String newName = fileName.substring(0, fileName.lastIndexOf('\\')) + "testFile.xml";
+		String newName = fileName.substring(0, fileName.lastIndexOf('\\') + 1) + "testFile.xml";
 		xmlFile.setFileName(newName);
 		xmlFile.write();
 	}

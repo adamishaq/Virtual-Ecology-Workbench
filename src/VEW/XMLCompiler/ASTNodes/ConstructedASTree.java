@@ -9,27 +9,27 @@ import VEW.Planktonica2.Model.Catagory;
 public class ConstructedASTree {
 	
 	private ASTree tree;
-	private ArrayList<Exception> exceptions;
+	private ArrayList<BACONCompilerException> exceptions;
 	private List<XMLTag> tagList;
-	public ConstructedASTree(ASTree _tree, ArrayList<Exception> _excep) {
+	public ConstructedASTree(ASTree _tree, ArrayList<BACONCompilerException> _excep) {
 		tree = _tree;
-		exceptions = new ArrayList<Exception>(_excep);
+		exceptions = new ArrayList<BACONCompilerException>(_excep);
 	}
 	
 	public ConstructedASTree(ASTree _tree) {
 		tree = _tree;
-		exceptions = new ArrayList<Exception>();
+		exceptions = new ArrayList<BACONCompilerException>();
 	}
 	
 	public ASTree getTree() {
 		return tree;
 	}
 	
-	public ArrayList<Exception> getExceptions() {
+	public List<BACONCompilerException> getExceptions() {
 		return exceptions;
 	}
 	
-	public void addSemanticException(SemanticCheckException ex) {
+	public void addSemanticException(BACONCompilerException ex) {
 		exceptions.add(ex);
 	}
 	

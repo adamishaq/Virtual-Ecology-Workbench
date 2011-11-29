@@ -34,6 +34,7 @@ import VEW.Planktonica2.UIComponents.BACONFilter;
 import VEW.Planktonica2.UIComponents.LatexPreview;
 import VEW.Planktonica2.UIComponents.SyntaxHighlighter;
 import VEW.XMLCompiler.ANTLR.ANTLRParser;
+import VEW.XMLCompiler.ASTNodes.BACONCompilerException;
 import VEW.XMLCompiler.ASTNodes.ConstructedASTree;
 import VEW.XMLCompiler.ASTNodes.SemanticCheckException;
 import VEW.XMLCompiler.ASTNodes.TreeWalkerException;
@@ -150,6 +151,8 @@ public class EditorPanel extends JPanel implements Observer {
 		if (this.current_source == null)
 			return;
 		syntax_highlighter.clear_flags();
+		controller.writeBackToXMLFile();
+		/*
 		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
 		try {
 			ConstructedASTree ct = p.getAST();
@@ -185,7 +188,7 @@ public class EditorPanel extends JPanel implements Observer {
 		} catch (RecognitionException e) {
 			System.out.println("RECOGNITION EXCEPTION");
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	public void check() {
@@ -213,7 +216,7 @@ public class EditorPanel extends JPanel implements Observer {
 						TreeWalkerException twe = (TreeWalkerException) t;
 						errors += twe.getError() + "\n";
 					} else if (t instanceof SemanticCheckException) {
-						SemanticCheckException sce = (SemanticCheckException) t;
+						BACONCompilerException sce = (BACONCompilerException) t;
 						errors += sce.getError() + "\n";
 					} else {
 						errors += "Unknown error\n";

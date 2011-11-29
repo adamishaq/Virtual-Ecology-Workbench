@@ -255,13 +255,14 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 	
 	public XMLTag buildToXML() throws XMLWriteBackException{
 		XMLWriteBackException collectedExceptions = new XMLWriteBackException();
-		if (baseTag == null) {
-			baseTag = new XMLTag("placeholder");
+		XMLTag newTag = new XMLTag("placeholder");
+		if (baseTag != null) {
+			newTag.addTags(baseTag.getTags());
 		}
-		baseTag.addTag(new XMLTag("name", name));
+		newTag.addTag(new XMLTag("name", name));
 		for(Function f: functions) {
 			try {
-				baseTag.addTag(f.buildToXML());
+				newTag.addTag(f.buildToXML());
 			}
 			catch (XMLWriteBackException ex) {
 				collectedExceptions.addCompilerException(ex.getCompilerExceptions());
@@ -271,14 +272,14 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 			throw collectedExceptions;
 		}
 		
-		buildVariableTableToXML(baseTag, stateVarTable);
-		buildVariableTableToXML(baseTag, paramTable);
-		buildVariableTableToXML(baseTag, localVarTable);
-		buildVariableTableToXML(baseTag, varietyStateTable);
-		buildVariableTableToXML(baseTag, varietyParamTable);
-		buildVariableTableToXML(baseTag, varietyConcTable);
-		buildVariableTableToXML(baseTag, varietyLocalTable);
-		return baseTag;
+		buildVariableTableToXML(newTag, stateVarTable);
+		buildVariableTableToXML(newTag, paramTable);
+		buildVariableTableToXML(newTag, localVarTable);
+		buildVariableTableToXML(newTag, varietyStateTable);
+		buildVariableTableToXML(newTag, varietyParamTable);
+		buildVariableTableToXML(newTag, varietyConcTable);
+		buildVariableTableToXML(newTag, varietyLocalTable);
+		return newTag;
 	}
 	
 	private <V extends VariableType> void buildVariableTableToXML(XMLTag tag, SymbolTable<V> table) throws XMLWriteBackException {

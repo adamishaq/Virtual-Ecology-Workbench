@@ -25,13 +25,13 @@ public class IfExprNode extends ExprNode {
 		try {
 			setExprType(checkCompatibility(thenExpr.getExprType(), elseExpr.getExprType(),
 												conditionExpr.getBExprType()));
-		} catch (SemanticCheckException e) {
+		} catch (BACONCompilerException e) {
 			enclosingTree.addSemanticException(e);
 			setExprType(thenExpr.getExprType());
 		}
 	}
 	
-	private Type checkCompatibility(Type lType, Type rType, Type boolType) throws SemanticCheckException{
+	private Type checkCompatibility(Type lType, Type rType, Type boolType) throws BACONCompilerException{
 		if (lType instanceof VarietyType && rType instanceof VarietyType) {
 			VarietyType lVarType = (VarietyType) lType;
 			VarietyType rVarType = (VarietyType) rType;

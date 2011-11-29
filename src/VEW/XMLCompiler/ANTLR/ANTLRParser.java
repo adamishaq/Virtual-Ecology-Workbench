@@ -65,7 +65,7 @@ public class ANTLRParser {
 	 * @throws SemanticCheckException 
 	 */
 
-	public String generateXML () throws RecognitionException, SemanticCheckException {
+	public String generateXML () throws RecognitionException, BACONCompilerException {
 		ConstructedASTree ct = getAST();
 		ASTree t = ct.getTree();
 		if (ct.getExceptions().isEmpty()) {

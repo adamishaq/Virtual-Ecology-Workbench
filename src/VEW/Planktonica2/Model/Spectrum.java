@@ -58,13 +58,14 @@ public class Spectrum implements BuildFromXML, BuildToXML, Iterable<WaveLengthIn
 	
 	@Override
 	public XMLTag buildToXML() throws XMLWriteBackException {
-		if (baseTag == null) {
-			baseTag = new XMLTag("spectrum");
+		XMLTag newTag = new XMLTag("spectrum");
+		if (baseTag != null) {
+			newTag.addTags(baseTag.getTags());
 		}
-		baseTag.addTag("name", name);
+		newTag.addTag("name", name);
 		XMLTag eqTag = buildGraphValuesXML();
-		baseTag.addTag(eqTag);
-		return baseTag;
+		newTag.addTag(eqTag);
+		return newTag;
 	}
 
 
