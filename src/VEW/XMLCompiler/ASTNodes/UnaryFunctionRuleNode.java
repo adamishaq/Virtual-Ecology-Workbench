@@ -22,6 +22,7 @@ public class UnaryFunctionRuleNode extends RuleNode {
 			enclosingTree.addSemanticException(
 					new SemanticCheckException("Special functions cannot be called within chemical equations",
 							line_number));
+			return;
 		}
 		FunctionalGroup group = (FunctionalGroup) enclosingCategory;
 		Stage stg = group.checkStageTable(idArg.getName());

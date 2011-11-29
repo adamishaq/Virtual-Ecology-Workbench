@@ -20,9 +20,13 @@ public class Variety extends VariableType {
 	public BuildFromXML build (XMLTag tag) {
 		varBuild(tag);
 		String link = tag.getAttribute(XMLTagEnum.VARIETY_LINK.xmlTag());
-		linkConcentration = parentCatagory.checkVarietyConcTable(link);		
+		linkConcentration = parentCatagory.checkVarietyConcTable(link);
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		Type floatType = (Type) tables.checkTypeTable("$float");
+		VarietyType varType = new VarietyType("float", floatType);
+		varType.setLink(linkConcentration);
+		setVarType(varType);
 		return this;
-		
 	}
 	
 	@Override
@@ -38,6 +42,8 @@ public class Variety extends VariableType {
 	}
 	
 	public void setLinkConcentration(VarietyConcentration linkConcentration) {
+		VarietyType varType = (VarietyType) getVarType();
+		varType.setLink(linkConcentration);
 		this.linkConcentration = linkConcentration;
 	}
 }

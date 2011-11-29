@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -41,7 +42,7 @@ public class StageEditorPanel extends JPanel {
 		ColumnModel m = new ColumnModel(this.controller);
 		
 		TableModel headerData = new RowModel(this.controller);
-        TableModel data = new StageTableModel(this.controller, m);
+        AbstractTableModel data = new StageTableModel(this.controller, m);
         JTable table = new JTable(data);
         table.setColumnModel(m);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -81,6 +82,10 @@ public class StageEditorPanel extends JPanel {
 
         this.add(scrollPane);
         
+        AddStageButtonListener list = new AddStageButtonListener(controller);
+        JButton testButton = new JButton("testButton");
+        testButton.addActionListener(list);
+        this.add(testButton);
 	}
 	
 	private class RowModel extends AbstractTableModel implements Observer {

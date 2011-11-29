@@ -21,6 +21,7 @@ public class VOpNode  extends ExprNode {
 			enclosingTree.addSemanticException(
 					new SemanticCheckException("Variety operations cannot be called within chemical equations",
 							line_number));
+			return;
 		}
 		expression.check(enclosingCategory, enclosingTree);
 		Type exprType = expression.getExprType();
@@ -31,19 +32,18 @@ public class VOpNode  extends ExprNode {
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
 		VarietyType varType = (VarietyType) exprType;
-		if (varType.getElementType() == floatType) {
+		if (!varType.getElementType().equals(floatType)) {
 			enclosingTree.addSemanticException(
-					new SemanticCheckException("The input for VBOp must be a vector of booleans",line_number));
+					new SemanticCheckException("The input for variety operation must be a vector of floats",line_number));
 		}
 		setExprType(floatType);
 	}
 
 	@Override
 	public String generateXML() {
-		// TODO - find out what avg codegens into
 		String func = "";
 		switch (vop) {
-		case AVERAGE : func = "???"; break;
+		case AVERAGE : func = "varietyavg"; break;
 		case PRODUCT : func = "varietymul"; break;
 		case SUM 	 : func = "varietysum"; break;
 		}

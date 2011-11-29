@@ -88,7 +88,16 @@ public class FunctionalGroupController extends VEWController {
 		}
 		return c;
 	}
-
+	
+	public boolean addStage(String stageName) {
+		if (currentFG.checkStageTable(stageName) == null) {
+			currentFG.addToStageTable(new Stage(stageName));
+			this.setChanged();
+			this.notifyObservers(currentFG);
+			return true;
+		}
+		return false;
+	}
 	
 	public void addCategoryToModel(String name) {
 		FunctionalGroup new_fg = new FunctionalGroup(name,model.getFilePath());
