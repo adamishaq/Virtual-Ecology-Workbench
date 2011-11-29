@@ -18,25 +18,13 @@ public class StateVariable extends VariableType {
 			Collection<Unit> units, Float value, Integer hist, boolean editable) {
 		super(name, desc, type, units, value, hist, editable);
 	}
-	
+
 	@Override
-	public BuildFromXML build(XMLTag tag) {
-		super.build(tag);
-		XMLTag codeName = tag.getTag(XMLTagEnum.CODE_NAME.xmlTag());
-		if (codeName != null) {
-			this.codeName = codeName.getValue(); 
-		}
-		
-		return this;
-	}
-
-
 	public XMLTag buildToXML() throws XMLWriteBackException {
 		XMLTag varTag = super.buildToXML();
-		if (codeName != null) {
+		if (codeName != null && varTag.getTag(XMLTagEnum.CODE_NAME.xmlTag()) == null) {
 			varTag.addTag(XMLTagEnum.CODE_NAME.xmlTag(), codeName);
 		}
-		varTag.setName("variable");
 		return varTag;
 	}
 	
@@ -46,5 +34,14 @@ public class StateVariable extends VariableType {
 	
 	public void setCodeName(String codeName) {
 		this.codeName = codeName;
+	}
+
+
+
+	
+	@Override
+	protected String getVariableClassName() {
+		// TODO Auto-generated method stub
+		return "variable";
 	}
 }

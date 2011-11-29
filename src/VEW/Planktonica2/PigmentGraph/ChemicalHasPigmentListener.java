@@ -2,7 +2,6 @@ package VEW.Planktonica2.PigmentGraph;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-
 import VEW.Planktonica2.ControllerStructure.ChemicalController;
 
 public class ChemicalHasPigmentListener implements ItemListener {
@@ -26,6 +25,9 @@ public class ChemicalHasPigmentListener implements ItemListener {
 		this.pigmentPanel.redrawGraph();
 		
 	}
+
+	
+	
 
 	
 

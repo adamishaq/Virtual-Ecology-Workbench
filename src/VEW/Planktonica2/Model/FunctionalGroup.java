@@ -10,7 +10,7 @@ import VEW.XMLCompiler.ASTNodes.SymbolTable;
 public class FunctionalGroup extends Catagory {
 	
 
-	private final String predVarName = "S_t";
+	public static final String predVarName = "S_t";
 	
 	private boolean invisible;
 	private String file_path;
@@ -134,7 +134,7 @@ public class FunctionalGroup extends Catagory {
 		}
 		
 		// variables
-		tags = xmlTag.getTags(XMLTagEnum.VARIABLE.xmlTag());
+		tags = xmlTag.getTags(XMLTagEnum.STATE_VARIABLE.xmlTag());
 		
 		for (XMLTag t : tags) {
 			StateVariable v = new StateVariable();
@@ -187,10 +187,17 @@ public class FunctionalGroup extends Catagory {
 		tags = xmlTag.getTags(XMLTagEnum.PREDATOR.xmlTag());
 		this.predator = tags != null && tags.length > 0 && tags[0].getValue().equals("true");
 		
+		if (predator) {
+			addPredatorSizeVariable();
+		}
+		
 		
 		return this;
 	}
 	
+	
+	
+
 	@Override
 	public XMLTag buildToXML() throws XMLWriteBackException {
 		super.buildToXML();
@@ -246,8 +253,10 @@ public class FunctionalGroup extends Catagory {
 		
 		return stageTable.keySet();
 	}
-
-
+	
+	public boolean isTopPredator() {
+		return this.predator;
+	}
 	
 	public void setTopPredator(boolean b) {
 		this.predator = b;
@@ -262,12 +271,16 @@ public class FunctionalGroup extends Catagory {
 	
 	private void removePredatorSizeVariable() {
 		
-		this.stateVarTable.remove(predVarName);
+		this.removeFromTables(FunctionalGroup.predVarName);
 		
 	}
 
 
 	private void addPredatorSizeVariable() {
+		
+		if (this.stageTable.containsKey(FunctionalGroup.predVarName)) {
+			return;
+		}
 		
 		ArrayList<Unit> units = new ArrayList<Unit> ();
 		units.add(new Unit (-3, "m", 1));
@@ -275,12 +288,14 @@ public class FunctionalGroup extends Catagory {
 		float value = 3;
 		Type t = AmbientVariableTables.getTables().checkTypeTable("$float");
 		
-		StateVariable sizePred = new StateVariable(this.predVarName, "Size of predator", t, units, value, 1, false);
+		StateVariable sizePred = new StateVariable(FunctionalGroup.predVarName, "Size of predator", t, units, value, 1, false);
 		
 		sizePred.setCodeName("SysVars.getPredSize()");
 		
 		
 		this.addToStateVarTable(sizePred);
+		
+		
 	}
 
 

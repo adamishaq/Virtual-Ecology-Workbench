@@ -193,8 +193,9 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		}
 		return all_vars;
 	}
+		
 	
-	public String[] get_params() {
+ 	public String[] get_params() {
 		Object[] vars = paramTable.keySet().toArray();
 		String [] all_vars = new String[vars.length];
 		for (int i = 0; i < all_vars.length; i++) {
@@ -202,7 +203,8 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		}
 		return all_vars;
 	}
-
+ 	
+ 	
 	public String[] get_local_vars() {
 		Object[] vars = localVarTable.keySet().toArray();
 		String [] all_vars = new String[vars.length];
@@ -220,7 +222,8 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		}
 		return all_vars;
 	}
-
+	
+	
 	public String[] get_variety_params() {
 		Object[] vars = varietyParamTable.keySet().toArray();
 		String [] all_vars = new String[vars.length];

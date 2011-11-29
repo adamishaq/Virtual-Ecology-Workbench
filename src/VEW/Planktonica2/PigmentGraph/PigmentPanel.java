@@ -19,7 +19,6 @@ import javax.swing.event.TableModelListener;
 import VEW.Common.Graph.BarChartDrawer;
 import VEW.Common.Graph.GraphModel;
 import VEW.Planktonica2.ControllerStructure.ChemicalController;
-import VEW.Planktonica2.Model.Chemical;
 import VEW.Planktonica2.Model.NullSpectrum;
 import VEW.Planktonica2.Model.Spectrum;
 
@@ -98,31 +97,27 @@ public class PigmentPanel extends JPanel implements Observer, TableModelListener
 		if (s == null) {
 			s = new NullSpectrum();
 		}
+		
 		this.dataTableModel.setSpectrum(s);
 		GraphModel graphData = new SpectrumGraph(s, 10);
 		if (pigmentGraph == null) {
 			pigmentGraph = new BarChartDrawer(graphData, this.graphWidth, this.graphHeight);
 		}
+		
 		pigmentGraph.setGraphModel(graphData);
 		if (doPigments != null) {
 			doPigments.setSelected(s.hasPigment());
 		}
+		
 		this.repaint();
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		
-		if (arg instanceof Chemical) {
-			Chemical c = (Chemical) arg;
-			for (Spectrum s : c.getSpectrum()) {
-				if (s.getName().equals((String) graphType.getSelectedItem())) {
-					drawNewGraph(s);
-					return;
-				}
-			}
+		if (o == controller) {
+			drawNewGraph(controller.getSelectedChemicalSpetrum((String) graphType.getSelectedItem()));
 			
-			drawNewGraph(new NullSpectrum());
 		}
 		
 	}

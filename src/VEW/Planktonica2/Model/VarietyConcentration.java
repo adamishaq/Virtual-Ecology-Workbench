@@ -2,8 +2,6 @@ package VEW.Planktonica2.Model;
 
 import java.util.Collection;
 
-import VEW.Common.XML.XMLTag;
-
 public class VarietyConcentration extends VariableType {
 
 	
@@ -17,11 +15,10 @@ public class VarietyConcentration extends VariableType {
 		super();
 	}
 	
+
 	@Override
-	public XMLTag buildToXML() throws XMLWriteBackException {
-		XMLTag varTag = super.buildToXML();
-		varTag.setName("varietyconcentration");
-		return varTag;
+	protected String getVariableClassName() {
+		return "varietyconcentration";
 	}
 
 	
