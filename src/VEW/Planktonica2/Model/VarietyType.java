@@ -33,8 +33,9 @@ public class VarietyType extends Type {
 	
 	public boolean checkLinkCompatible(VarietyType vType) {
 		String linkName = link.getName();
-		return linkName.equals(vType.getName()) || linkName.equals("Ingestion") 
-							|| vType.getName().equals("Ingestion");
+		String vTypeLinkName = vType.getLink().getName();
+		return linkName.equals(vTypeLinkName) || linkName.equals("Ingestion") 
+							|| vTypeLinkName.equals("Ingestion");
 	}
 
 }

@@ -28,6 +28,7 @@ public class BinOpNode extends ExprNode {
 			setExprType(checkCompatibility(lType, rType));
 		} catch (SemanticCheckException e) {
 			enclosingTree.addSemanticException(e);
+			setExprType(lType);
 		}
 	}
 

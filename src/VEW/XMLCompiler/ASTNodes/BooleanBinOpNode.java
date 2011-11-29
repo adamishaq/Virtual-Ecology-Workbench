@@ -24,14 +24,31 @@ public class BooleanBinOpNode extends BExprNode {
 		lBExpr.check(enclosingCategory, enclosingTree);
 		Type rBExprType = rBExpr.getBExprType();
 		Type lBExprType = lBExpr.getBExprType();
-		setBExprType(checkTypeCompatible(rBExprType, lBExprType));
+		try {
+			setBExprType(checkTypeCompatible(rBExprType, lBExprType));
+		} catch (SemanticCheckException e) {
+			enclosingTree.addSemanticException(e);
+			setBExprType(lBExprType);
+		}
 	}
 	
-	private Type checkTypeCompatible(Type rBExprType, Type lBExprType) {
-		AmbientVariableTables varTables = AmbientVariableTables.getTables();
-		Type boolType = (Type) varTables.checkTypeTable("$boolean");
-		if (rBExprType instanceof VarietyType || lBExprType instanceof VarietyType) {
-			return new VarietyType("boolean", boolType);
+	private Type checkTypeCompatible(Type rBExprType, Type lBExprType) throws SemanticCheckException {
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		Type boolType = (Type) tables.checkTypeTable("$boolean");
+		if (lBExprType instanceof VarietyType) {
+			VarietyType vlType = (VarietyType) lBExprType;
+			if (rBExprType instanceof VarietyType) {
+				VarietyType vrType = (VarietyType) rBExprType;
+				if (!vlType.checkLinkCompatible(vrType)) {
+					throw new SemanticCheckException("Boolean expressions evaluate to varieties with different link sets",
+														line_number);
+				}
+				return vrType;
+			}
+			return lBExprType;
+		}
+		if (rBExprType instanceof VarietyType) {
+			return rBExprType;
 		}
 		return boolType;
 		

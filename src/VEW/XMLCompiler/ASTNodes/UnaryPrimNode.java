@@ -2,7 +2,6 @@ package VEW.XMLCompiler.ASTNodes;
 
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Type;
-import VEW.Planktonica2.Model.VarietyType;
 
 public class UnaryPrimNode extends ExprNode {
 
@@ -18,18 +17,16 @@ public class UnaryPrimNode extends ExprNode {
 	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
 		argument.check(enclosingCategory, enclosingTree);
 		Type argType = argument.getExprType();
-		setExprType(checkCompatibility(argType));
+		setExprType(argType);
 
 	}
-
+/*
 	private Type checkCompatibility(Type argType) {
-		AmbientVariableTables tables = AmbientVariableTables.getTables();
-		Type floatType = (Type) tables.checkTypeTable("$float");
 		if (argType instanceof VarietyType) {
-			return new VarietyType("float", floatType);
+			return argType;
 		}
-		return floatType;
-	}
+		return argType;
+	} */
 
 	@Override
 	public String generateXML() {
