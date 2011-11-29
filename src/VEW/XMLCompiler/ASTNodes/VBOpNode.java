@@ -10,9 +10,10 @@ public class VBOpNode extends BExprNode {
 	private VBoolOperator vop;
 	private BExprNode expression;
 	
-	public VBOpNode(VBoolOperator _vop, BExprNode _expression) {
+	public VBOpNode(VBoolOperator _vop, BExprNode _expression, int line) {
 		this.vop = _vop;
 		this.expression = _expression;
+		this.line_number = line;
 	}
 	
 	@Override

@@ -2,6 +2,7 @@ package VEW.XMLCompiler.ASTNodes;
 
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Type;
+import VEW.Planktonica2.Model.UnitChecker;
 import VEW.Planktonica2.Model.VariableType;
 import VEW.Planktonica2.Model.VarietyType;
 
@@ -11,7 +12,8 @@ public class AssignNode extends RuleNode {
 	private ExprNode expr;
 	private VariableType assignVar;
 	
-	public AssignNode(IdNode identifier, ExprNode expr) {
+	public AssignNode(IdNode identifier, ExprNode expr, int line) {
+		this.line_number = line;
 		this.identifier = identifier;
 		this.expr = expr;
 	}
@@ -31,6 +33,12 @@ public class AssignNode extends RuleNode {
 			checkTypeCompatibility(var.getVarType(), enclosingTree);
 			assignVar = var;
 			assignVar.setAssigned(true);
+		}
+		identifier.set_units(enclosingCategory);
+		if (!UnitChecker.getUnitChecker().CheckUnitCompatability(identifier.getUnits(),
+				expr.getUnits())) {
+			enclosingTree.addWarning("Units of " + identifier.getName() + " not compatible with units of " +
+					"the expression on line " + line_number);
 		}
 	}
 	

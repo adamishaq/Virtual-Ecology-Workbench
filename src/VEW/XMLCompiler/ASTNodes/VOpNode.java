@@ -1,8 +1,11 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import java.util.ArrayList;
+
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Chemical;
 import VEW.Planktonica2.Model.Type;
+import VEW.Planktonica2.Model.Unit;
 import VEW.Planktonica2.Model.VarietyType;
 
 public class VOpNode  extends ExprNode {
@@ -10,9 +13,10 @@ public class VOpNode  extends ExprNode {
 	private VOperator vop;
 	private ExprNode expression;
 	
-	public VOpNode(VOperator _vop, ExprNode _expression) {
+	public VOpNode(VOperator _vop, ExprNode _expression, int line) {
 		this.vop = _vop;
 		this.expression = _expression;
+		this.line_number = line;
 	}
 	
 	@Override
@@ -37,6 +41,7 @@ public class VOpNode  extends ExprNode {
 					new SemanticCheckException("The input for variety operation must be a vector of floats",line_number));
 		}
 		setExprType(floatType);
+		units = expression.getUnits();
 	}
 
 	@Override

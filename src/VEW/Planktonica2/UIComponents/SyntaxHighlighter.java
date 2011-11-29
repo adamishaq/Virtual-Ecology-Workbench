@@ -107,12 +107,12 @@ public class SyntaxHighlighter {
 		// Highlight all keywords
 		for (int i = 0; i < keywords.length; i++) {
 			text = text.replaceAll(keywords[i], 
-					"<font color=#" + keyword_colour + "><b>" + keywords[i] + "</b></font>");
+					"<font color=#" + keyword_colour + ">" + keywords[i] + "</font>");
 		}
 		// Highlight all function names
 		for (int i = 0; i < functions.length; i++) {
 			text = text.replaceAll(functions[i], 
-					"<font color=#" + function_colour + "><b>" + functions[i] + "</b></font>");
+					"<font color=#" + function_colour + ">" + functions[i] + "</font>");
 		}
 		// Highlight all variable names
 		for (int i = 0; i < variables.length; i++) {

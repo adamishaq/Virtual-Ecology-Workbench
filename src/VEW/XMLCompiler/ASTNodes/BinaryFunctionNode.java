@@ -15,10 +15,11 @@ public class BinaryFunctionNode extends RuleNode {
 	private IdNode idArg;
 	private ExprNode expArg;
 	
-	public BinaryFunctionNode(BinaryFunction function, IdNode idArg, ExprNode expArg) {
+	public BinaryFunctionNode(BinaryFunction function, IdNode idArg, ExprNode expArg, int line) {
 		this.binFunc = function;
 		this.idArg = idArg;
 		this.expArg = expArg;
+		this.line_number = line;
 	}
 	
 	@Override

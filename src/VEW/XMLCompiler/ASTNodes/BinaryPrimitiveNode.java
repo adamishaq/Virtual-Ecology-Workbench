@@ -1,7 +1,11 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import java.util.ArrayList;
+
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Type;
+import VEW.Planktonica2.Model.Unit;
+import VEW.Planktonica2.Model.UnitChecker;
 
 
 public class BinaryPrimitiveNode extends ExprNode {
@@ -10,10 +14,11 @@ public class BinaryPrimitiveNode extends ExprNode {
 	private ExprNode lExpr;
 	private ExprNode rExpr;
 
-	public BinaryPrimitiveNode(BinaryPrimitive prim, ExprNode lExpr, ExprNode rExpr) {
+	public BinaryPrimitiveNode(BinaryPrimitive prim, ExprNode lExpr, ExprNode rExpr, int line) {
 		this.prim = prim;
 		this.lExpr = lExpr;
 		this.rExpr = rExpr;
+		this.line_number = line;
 	}
 	
 	@Override
@@ -34,7 +39,13 @@ public class BinaryPrimitiveNode extends ExprNode {
 			return;
 		}
 		setExprType(floatType);
-
+		if (!UnitChecker.getUnitChecker().CheckUnitCompatability(rExpr.getUnits(), lExpr.getUnits())) {
+			enclosingTree.addWarning("Comparison of two different unit types on line " + line_number);
+			units = new ArrayList<Unit>();
+			units.add(new Unit(0,"null",1));
+		} else {
+			this.units = rExpr.getUnits();
+		}
 	}
 
 	@Override

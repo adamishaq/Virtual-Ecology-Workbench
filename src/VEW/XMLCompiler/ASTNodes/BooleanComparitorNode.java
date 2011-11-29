@@ -12,10 +12,11 @@ public class BooleanComparitorNode extends BExprNode {
 	private ExprNode rExpr;
 	private ExprNode lExpr;
 	
-	public BooleanComparitorNode (ComparisonOperator comparitor, ExprNode lExpr, ExprNode rExpr) {
+	public BooleanComparitorNode (ComparisonOperator comparitor, ExprNode lExpr, ExprNode rExpr, int line) {
 		this.comparitor = comparitor;
 		this.rExpr = rExpr;
 		this.lExpr = lExpr;
+		this.line_number = line;
 	}
 
 	@Override

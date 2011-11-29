@@ -162,7 +162,7 @@ public class CommonTreeWalker {
 		}
 		IdNode id = constructIdNode((CommonTree)tree.getChild(0));
 		ExprNode expr = constructExprNode((CommonTree)tree.getChild(1));
-		return new AssignNode(id, expr);
+		return new AssignNode(id, expr,tree.getLine());
 	}
 
 	private AssignListNode constructAssignListNode(CommonTree tree) {
@@ -183,7 +183,7 @@ public class CommonTreeWalker {
 		}
 		IdNode id = constructIdNode((CommonTree)tree.getChild(0));
 		ExprNode expr = constructExprNode((CommonTree)tree.getChild(1));
-		return new BinaryFunctionNode(binFunc, id, expr);
+		return new BinaryFunctionNode(binFunc, id, expr,tree.getLine());
 	}
 
 	private BExprNode constructBExprNode(CommonTree tree) {
@@ -256,7 +256,7 @@ public class CommonTreeWalker {
 		}
 		ExprNode lExpr = constructExprNode((CommonTree)tree.getChild(0));
 		ExprNode rExpr = constructExprNode((CommonTree)tree.getChild(1));
-		return new BooleanComparitorNode(comp, lExpr, rExpr);
+		return new BooleanComparitorNode(comp, lExpr, rExpr,tree.getLine());
 	}
 	
 	private BooleanBinOpNode constructBooleanBinOpNode(BooleanBinOperator binOp, CommonTree tree) {
@@ -265,7 +265,7 @@ public class CommonTreeWalker {
 		}
 		BExprNode lBExpr = constructBExprNode((CommonTree)tree.getChild(0));
 		BExprNode rBExpr = constructBExprNode((CommonTree)tree.getChild(1));
-		return new BooleanBinOpNode(binOp, lBExpr, rBExpr);
+		return new BooleanBinOpNode(binOp, lBExpr, rBExpr,tree.getLine());
 	}
 	
 	private VBOpNode constructVBOpNode(VBoolOperator vBOp, CommonTree tree) {
@@ -273,7 +273,7 @@ public class CommonTreeWalker {
 			return null;
 		}
 		BExprNode bExpr = constructBExprNode((CommonTree)tree.getChild(0));
-		return new VBOpNode(vBOp, bExpr);
+		return new VBOpNode(vBOp, bExpr,tree.getLine());
 	}
 
 	private ExprNode constructExprNode(CommonTree tree) {
@@ -287,7 +287,7 @@ public class CommonTreeWalker {
 		UnaryPrimitive uPrim = SymbolSet.getUnaryPrimitiveOp(tokenType);
 		if (uPrim != null) {
 			ExprNode primExpr = constructExprNode((CommonTree)tree.getChild(0));
-			return new UnaryPrimNode(uPrim, primExpr);
+			return new UnaryPrimNode(uPrim, primExpr,tree.getLine());
 		}
 		
 		switch (tokenType) {
@@ -313,14 +313,14 @@ public class CommonTreeWalker {
 			}
 			case(BACONParser.NEG) : {
 				ExprNode negExpr = constructExprNode((CommonTree)tree.getChild(0));
-				expr = new NegNode(negExpr);
+				expr = new NegNode(negExpr,tree.getLine());
 				break;
 			}
 			case(BACONParser.IF) : {
 				BExprNode ifCondNode = constructBExprNode((CommonTree)tree.getChild(0));
 				ExprNode thenExpr = constructExprNode((CommonTree)tree.getChild(1));
 				ExprNode elseExpr = constructExprNode((CommonTree)tree.getChild(2));
-				expr = new IfExprNode(ifCondNode, thenExpr, elseExpr);
+				expr = new IfExprNode(ifCondNode, thenExpr, elseExpr,tree.getLine());
 				break;
 			}
 			case(BACONParser.VAR) : {
@@ -342,7 +342,7 @@ public class CommonTreeWalker {
 			case(BACONParser.VARHIST) : {
 				IdNode id = constructIdNode((CommonTree)tree.getChild(0));
 				ExprNode histExpr = constructExprNode((CommonTree)tree.getChild(1));
-				expr = new VarHistNode(id, histExpr);
+				expr = new VarHistNode(id, histExpr,tree.getLine());
 				break;
 			}
 			case(BACONParser.VAVERAGE) : {
@@ -368,7 +368,7 @@ public class CommonTreeWalker {
 		if (checkNode(tree)) {
 			ExprNode lExpr = constructExprNode((CommonTree)tree.getChild(0));
 			ExprNode rExpr = constructExprNode((CommonTree)tree.getChild(1));
-			return new BinOpNode(op, lExpr, rExpr);
+			return new BinOpNode(op, lExpr, rExpr,tree.getLine());
 		}
 		return null;
 	}
@@ -377,7 +377,7 @@ public class CommonTreeWalker {
 		if (checkNode(tree)) {
 			ExprNode lExpr = constructExprNode((CommonTree)tree.getChild(0));
 			ExprNode rExpr = constructExprNode((CommonTree)tree.getChild(1));
-			return new BinaryPrimitiveNode(prim, lExpr, rExpr);
+			return new BinaryPrimitiveNode(prim, lExpr, rExpr,tree.getLine());
 		}
 		return null;
 	}
@@ -385,14 +385,14 @@ public class CommonTreeWalker {
 	private VOpNode constructVBOpNode(VOperator vOp, CommonTree tree) {
 		if (checkNode(tree)) {
 			ExprNode expr = constructExprNode((CommonTree)tree.getChild(0));
-			return new VOpNode(vOp, expr);
+			return new VOpNode(vOp, expr,tree.getLine());
 		}
 		return null;
 	}
 
 	private IdNode constructIdNode(CommonTree tree) {
 		if (checkNode(tree)) {
-			return new IdNode(tree.getToken().getText());
+			return new IdNode(tree.getToken().getText(),tree.getLine());
 		}
 		return null;
 	}
@@ -401,7 +401,7 @@ public class CommonTreeWalker {
 		if (checkNode(tree)) {
 			String numString = tree.getToken().getText();
 			try {
-				return new NumNode(Float.parseFloat(numString));
+				return new NumNode(Float.parseFloat(numString),tree.getLine());
 			}
 			catch (NumberFormatException n) {
 				// TODO - is this reachable?

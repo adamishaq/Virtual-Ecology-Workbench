@@ -25,6 +25,7 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
 		initialiseVariable("", "", floatType, null, null, null, true);
+		editable = true;
 	}
 	
 	public VariableType(String name, String desc, Type type, Collection<Unit> units, Float value,

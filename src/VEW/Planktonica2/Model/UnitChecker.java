@@ -3,17 +3,35 @@ package VEW.Planktonica2.Model;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
+
 public class UnitChecker {
 	
+	private static UnitChecker unitchecker;
+	
+	public Unit null_unit = new Unit(0,"null",1);
+	
+	public static UnitChecker getUnitChecker() {
+		if (unitchecker == null)
+			unitchecker = new UnitChecker();
+		return unitchecker;
+	}
+	
 	public boolean CheckUnitCompatability(Collection<Unit> first, Collection<Unit> second) {
-		if (first.size() != second.size())
+		if (first == null || second == null || first.size() != second.size())
 			return false;
 		ArrayList<Unit> first_array = new ArrayList<Unit>();
-		for (Unit u : first)
+		for (Unit u : first) {
 			first_array.add(u);
+			if (u.getName().equals("null"))
+				return true;
+		}
 		ArrayList<Unit> second_array = new ArrayList<Unit>();
-		for (Unit u : second)
+		for (Unit u : second) {
 			second_array.add(u);
+			if (u.getName().equals("null"))
+				return true;
+		}
 		for (int i = 0; i < first_array.size(); i++) {
 			Unit fu = first_array.get(i);
 			boolean found = false;
@@ -76,5 +94,13 @@ public class UnitChecker {
 		if (first_array.isEmpty())
 			first_array.add(new Unit(0,"dimensionless",1));
 		return first_array;
+	}
+
+	public boolean contains_null(Collection<Unit> units) {
+		for (Unit u : units) {
+			if (u.getName().equals("null"))
+				return true;
+		}
+		return false;
 	}
 }

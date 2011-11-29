@@ -12,10 +12,11 @@ public class BooleanBinOpNode extends BExprNode {
 	private BExprNode rBExpr;
 	private BExprNode lBExpr;
 	
-	public BooleanBinOpNode(BooleanBinOperator booleanOp, BExprNode lBExpr, BExprNode rBExpr) {
+	public BooleanBinOpNode(BooleanBinOperator booleanOp, BExprNode lBExpr, BExprNode rBExpr, int line) {
 		this.booleanOp = booleanOp;
 		this.rBExpr = rBExpr;
 		this.lBExpr = lBExpr;
+		this.line_number = line;
 	}
 	
 	@Override

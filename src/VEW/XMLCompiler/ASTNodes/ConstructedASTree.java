@@ -15,11 +15,13 @@ public class ConstructedASTree {
 	public ConstructedASTree(ASTree _tree, ArrayList<Exception> _excep) {
 		tree = _tree;
 		exceptions = new ArrayList<Exception>(_excep);
+		warnings = new ArrayList<String>();
 	}
 	
 	public ConstructedASTree(ASTree _tree) {
 		tree = _tree;
 		exceptions = new ArrayList<Exception>();
+		warnings = new ArrayList<String>();
 	}
 	
 	public ASTree getTree() {
@@ -28,6 +30,10 @@ public class ConstructedASTree {
 	
 	public ArrayList<Exception> getExceptions() {
 		return exceptions;
+	}
+	
+	public ArrayList<String> getWarnings() {
+		return warnings;
 	}
 	
 	public void addSemanticException(SemanticCheckException ex) {

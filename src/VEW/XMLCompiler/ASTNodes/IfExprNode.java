@@ -1,7 +1,11 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import java.util.ArrayList;
+
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Type;
+import VEW.Planktonica2.Model.Unit;
+import VEW.Planktonica2.Model.UnitChecker;
 import VEW.Planktonica2.Model.VarietyType;
 
 
@@ -11,10 +15,11 @@ public class IfExprNode extends ExprNode {
 	private ExprNode thenExpr;
 	private ExprNode elseExpr;
 	
-	public IfExprNode(BExprNode conditionExpr, ExprNode thenExpr, ExprNode elseExpr) {
+	public IfExprNode(BExprNode conditionExpr, ExprNode thenExpr, ExprNode elseExpr, int line) {
 		this.conditionExpr = conditionExpr;
 		this.thenExpr = thenExpr;
 		this.elseExpr = elseExpr;
+		this.line_number = line;
 	}
 	
 	@Override
@@ -31,6 +36,19 @@ public class IfExprNode extends ExprNode {
 			setExprType(checkCompatibility(thenExpr.getExprType(), elseExpr.getExprType()));
 		} catch (SemanticCheckException e) {
 			enclosingTree.addSemanticException(e);
+		} finally {
+			if (!UnitChecker.getUnitChecker().CheckUnitCompatability(thenExpr.getUnits(),
+					elseExpr.getUnits())) {
+				enclosingTree.addWarning("Conditional returning two different unit types on line "
+					+ line_number);
+				units = new ArrayList<Unit>();
+				units.add(new Unit(0,"null",1));
+			} else {
+				if (UnitChecker.getUnitChecker().contains_null(this.thenExpr.getUnits()))
+					this.units = thenExpr.getUnits();
+				else
+					this.units = elseExpr.getUnits();
+			}
 		}
 	}
 	
