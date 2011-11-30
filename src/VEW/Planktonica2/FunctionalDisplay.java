@@ -11,7 +11,7 @@ import VEW.Planktonica2.UIComponents.VariableEditorPanel;
 public class FunctionalDisplay extends Display {
 
 	private static final long serialVersionUID = -6094339463447273188L;
-	private StageEditorPanel stageEditor;
+	//private StageEditorPanel stageEditor;
 	
 	public FunctionalDisplay(FunctionalGroupController controller, Dimension initialSize) {
 		super(controller, initialSize);
@@ -20,7 +20,6 @@ public class FunctionalDisplay extends Display {
 	
 	@Override
 	protected String getCategoryName() {
-		// Returns 
 		return "functional group";
 	}
 
@@ -34,10 +33,7 @@ public class FunctionalDisplay extends Display {
 		// variable tab
 		this.addTabToAncilary("Variable", this.variablePanel = new VariableEditorPanel (this.controller));
 		// edit stages
-		stageEditor = new StageEditorPanel((FunctionalGroupController) this.controller);
-
-		
-		this.addTabToAncilary("Edit Stages", stageEditor);
+		this.addTabToAncilary("Edit Stages", new StageEditorPanel((FunctionalGroupController) this.controller));
 		
 	}
 

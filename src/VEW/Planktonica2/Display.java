@@ -1,6 +1,7 @@
 package VEW.Planktonica2;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -30,12 +31,12 @@ import VEW.Planktonica2.ControllerStructure.SourcePath;
 import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.Planktonica2.DisplayEventHandlers.AddCategoryButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.AddFunctionButtonListener;
-import VEW.Planktonica2.DisplayEventHandlers.ButtonCommandNamesEnum;
 import VEW.Planktonica2.DisplayEventHandlers.CheckButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.CompileButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.DeleteCategoryButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.DeleteFunctionButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
+import VEW.Planktonica2.DisplayEventHandlers.MoveDownButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.MoveUpButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.RenameCategoryListener;
 import VEW.Planktonica2.DisplayEventHandlers.RenameFunctionListener;
@@ -67,8 +68,6 @@ public abstract class Display extends JSplitPane implements Observer {
 	protected final Dimension ALTERNATE_BUTTON_SIZE = new Dimension(new Dimension(150, 24));
 	protected final Dimension STANDARD_GROUP_SIZE = new Dimension(250, 200);
 	
-	protected JButton upFunc;
-	protected JButton downFunc;
 	protected JButton upFG;
 	protected JButton downFG;
 	protected JButton addInstance;
@@ -78,8 +77,6 @@ public abstract class Display extends JSplitPane implements Observer {
 	protected JButton addFunction;
 	protected JButton removeFunction;
 	protected JButton renameFunction;
-	//protected JButton editFunction;
-	//protected JButton copyFunction;
 	
 	// Compiler buttons
 	protected JButton compileButton;
@@ -93,7 +90,7 @@ public abstract class Display extends JSplitPane implements Observer {
 	private DefaultMutableTreeNode varRootNode;
 	private JTabbedPane ancilaryFuncPane;
 
-	//final protected JPanel buttonPane = new JPanel ();
+	protected JPanel buttonPane;
 	protected JPanel treeButtonPanel = new JPanel(new FlowLayout());
 
 	public JTree tree;
@@ -144,9 +141,9 @@ public abstract class Display extends JSplitPane implements Observer {
 		
 		setButtonToolTips();
 		
-		//this.addItemButtons(this.buttonPane);
-		//this.addFunctionButtons(this.buttonPane);
+		addItemButtons(treeButtonPanel);
 		
+		addCompilerButtons(buttonPane);
 	}
 	
 
@@ -154,9 +151,6 @@ public abstract class Display extends JSplitPane implements Observer {
 	private void initialiseGUI(Dimension initialSize) {
 		
 		this.setPreferredSize(initialSize);
-		
-		
-		this.populateButtonPane();
 		
 		JPanel leftPanel = new JPanel (new BorderLayout ());
 		leftPanel.setMinimumSize(new Dimension (170, this.getHeight()));
@@ -178,9 +172,7 @@ public abstract class Display extends JSplitPane implements Observer {
 		
 		this.populateAncilaryFuncPane();
 		
-		
-		//this.ancilaryFuncPane.setEnabled(false);
-		
+		this.populateButtonPane();
 	}
 	
 	
@@ -220,7 +212,7 @@ public abstract class Display extends JSplitPane implements Observer {
 		groupPane.setDividerSize(0);
 		groupPane.setResizeWeight(1);
 		
-		this.addItemButtons(treeButtonPanel);
+		
 		groupPane.setBottomComponent(treeButtonPanel);
 		groupPane.setTopComponent(treeViewPane);
 		
@@ -243,14 +235,7 @@ public abstract class Display extends JSplitPane implements Observer {
 	private void constructRightPanel(JPanel rightPanel) {
 		
 		
-		JPanel layout = new JPanel (new GridBagLayout ());
-		//BoxLayout box = new BoxLayout (layout, BoxLayout.Y_AXIS);
-		//layout.setLayout(box);
-		
-		//buttonPane.setLayout(new FlowLayout());
-		
-		//buttonPane.setPreferredSize(new Dimension (layout.getWidth(), 100));
-		//buttonPane.setMaximumSize(new Dimension(layout.getWidth(), 200));
+		JPanel layout = new JPanel (new GridBagLayout());
 		
 		
 		GridBagConstraints g = new GridBagConstraints ();
@@ -261,7 +246,10 @@ public abstract class Display extends JSplitPane implements Observer {
 		g.weightx = 1;
 		g.weighty = 0;
 		
-		//layout.add(buttonPane, g);
+		buttonPane = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		buttonPane.setBackground(Color.red);
+		
+		layout.add(buttonPane, g);
 		
 		
 		this.ancilaryFuncPane = new JTabbedPane ();
@@ -292,22 +280,13 @@ public abstract class Display extends JSplitPane implements Observer {
 		itemPanel.add(addInstance);
 		itemPanel.add(renameInstance);
 		itemPanel.add(removeInstance);
-		//itemPanel.add(copyInstance);
-		itemPanel.add(compileButton);
-		itemPanel.add(checkButton);
-		itemPanel.add(saveButton);
 	}
 	
-	
-	/*private void addFunctionButtons(JPanel functionPanel) {
-		functionPanel.add(upFunc);
-		functionPanel.add(downFunc);
-		functionPanel.add(addFunction);
-		functionPanel.add(renameFunction);
-		//functionPanel.add(editFunction);
-		functionPanel.add(removeFunction);
-		//functionPanel.add(copyFunction);
-	}*/
+	private void addCompilerButtons(JPanel compilerButtonPanel) {
+		compilerButtonPanel.add(compileButton);
+		compilerButtonPanel.add(checkButton);
+		compilerButtonPanel.add(saveButton);
+	}
 	
 	private void initialiseButtons() {
 		
@@ -334,8 +313,6 @@ public abstract class Display extends JSplitPane implements Observer {
 		
 		copyInstance = new JButton(new ImageIcon(IconRoot + "copy.gif"));
 		copyInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
-		//copyInstance.setActionCommand(ButtonCommandNamesEnum.COPY_INSTANCE.toString());
-		//copyInstance.addActionListener(fgButtonListener);
 		
 		addFunction = new JButton(new ImageIcon(IconRoot+ "plus.gif"));
 		addFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
@@ -375,8 +352,8 @@ public abstract class Display extends JSplitPane implements Observer {
 
 		addInstance.setToolTipText("Add a new " + this.getCategoryName());
 
-		upFunc.setToolTipText("Move current function up");
-		downFunc.setToolTipText("Move current function down");
+		//upFunc.setToolTipText("Move current function up");
+		//downFunc.setToolTipText("Move current function down");
 		removeFunction.setToolTipText("Remove current function");
 		renameFunction.setToolTipText("Rename current function");
 		//editFunction.setToolTipText("Edit " + currentFunction + "?");
@@ -419,8 +396,8 @@ public abstract class Display extends JSplitPane implements Observer {
 		
 		addInstance.setEnabled(false);
 		
-		upFunc.setEnabled(false);
-		downFunc.setEnabled(false);
+		//upFunc.setEnabled(false);
+		//downFunc.setEnabled(false);
 		upFG.setEnabled(false);
 		downFG.setEnabled(false);
 		removeInstance.setEnabled(false);
