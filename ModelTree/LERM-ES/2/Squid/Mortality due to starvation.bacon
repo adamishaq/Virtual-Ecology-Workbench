@@ -1,0 +1,6 @@
+"Mortality due to starvation":
+  if (((Carbon_Pool <= ((C_pmax * 3) / 4)) or (Days_unfed >= 3))) then change(Dead)
+
+"Maximum weight reached":
+  C_pmax = (if ((Carbon_Pool > C_pmax)) then Carbon_Pool else C_pmax)
+

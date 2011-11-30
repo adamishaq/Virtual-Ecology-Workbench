@@ -3,6 +3,7 @@ package VEW.Planktonica2.ControllerStructure;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Chemical;
 import VEW.Planktonica2.Model.Model;
 import VEW.Planktonica2.Model.NullSpectrum;
@@ -22,12 +23,12 @@ public class ChemicalController extends VEWController {
 	}
 
 	@Override
-	public SelectableItem getSelectedItem() {
+	public Catagory getSelectedCatagory() {
 		return selectedChemical;
 	}
 
 	@Override
-	protected boolean setInternalSelectedItem(SelectableItem i) {
+	protected boolean setInternalSelectedCatagory(Catagory i) {
 		if (i instanceof Chemical) {
 			selectedChemical = (Chemical) i;
 			return true;
@@ -38,8 +39,8 @@ public class ChemicalController extends VEWController {
 
 
 	@Override
-	public Collection<SelectableItem> getSelectables() {
-		Collection<SelectableItem> c = new ArrayList<SelectableItem> (chemicals.size());
+	public Collection<Catagory> getCatagories() {
+		Collection<Catagory> c = new ArrayList<Catagory> (chemicals.size());
 		for (Chemical chem : chemicals) {
 			c.add(chem);
 		}
@@ -57,6 +58,7 @@ public class ChemicalController extends VEWController {
 		Collection<Spectrum> allSpecs = selectedChemical.getSpectrum();
 		for (Spectrum s : allSpecs) {
 			String name = s.getName();
+
 			if (name != null && name.equals(spectrumName)) {
 				return s;
 			}
@@ -74,7 +76,6 @@ public class ChemicalController extends VEWController {
 		return chemicals;
 	}
 
-	
 	public void chemicalHasPigment(boolean b) {
 		
 		Chemical c = getSelectedChemical();

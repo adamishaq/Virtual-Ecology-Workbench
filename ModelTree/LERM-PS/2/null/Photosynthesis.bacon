@@ -1,0 +1,12 @@
+"Ratio N to C": Q_N = ((Ammonium_Pool + Ammonium_Ingested + Nitrate_Pool + Nitrate_Ingested) / Carbon_Pool)
+
+"Ratio Si to C": Q_s = ((Silicate_Pool + Silicate_Ingested) / Carbon_Pool)
+
+"Maximum carbon sr": P_max_c = (if ((Q_N > Q_Nmax)) then (P_ref_c * T_function) else (if ((Q_N < Q_Nmin)) then 0 else (P_ref_c * T_function * ((Q_N - Q_Nmin) / (Q_Nmax - Q_Nmin)))))
+
+"Calculate Theta_c": Theta_c = (Chlorophyll_Pool / Carbon_Pool)
+
+"Visible irradiance in microE/s*m_2) units": E_0 = (4.6 * Vis_Irrad)
+
+"Carbon specific rate of photosynthesis": P_phot_c = (if (((P_max_c = 0.0) or (Q_s <= Q_S_min))) then 0 else (P_max_c * (1 - exp(((-3600 * Alpha_Chl * Theta_c * E_0) / P_max_c)))))
+

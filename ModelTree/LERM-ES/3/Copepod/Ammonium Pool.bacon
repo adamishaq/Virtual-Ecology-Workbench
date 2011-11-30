@@ -1,0 +1,3 @@
+"Update Ammonium Pool":
+  Ammonium_Pool = ((Ammonium_Pool + Ammonium_Ingested + A_Nitrate) - (A_PelletLoss + NProt_excess + Cprot))
+

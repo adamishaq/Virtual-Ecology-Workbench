@@ -1,0 +1,30 @@
+"Digestion rate":
+  Processed = (Gut_content * Dig_perc)
+
+"Update of volume in gut":
+  Gut_content = (Gut_contTemp - Processed)
+
+"Hunting efficiency index":
+  Hunting_effIndex = (ML / ML_max)
+
+"Maximum ingestion rate":
+  I_max = (if ((z < 500)) then max(0.0,((((1 - min(Gut_fTemp,1)) * V_gut) / 1) / (3600 * TimeStep))) else 5)
+
+"Ingestion I_g for each variety":
+  I_gv = (integrate((if (((P > P_min) and (Gut_fTemp <= 1))) then min(((K_p * (P_size / 1.3) * (Vis_Irrad / Vis_IrradRef) * Hunting_effIndex * ((((P - P_min) * P_vol) ^ 2) / (((P - P_min) * P_vol) + (k_Iv * P_vol))) * (1 - Gut_fTemp) * (45 / P_speed)) / 1),I_max) else 0.0)) / (if ((z <> varhist(z,1))) then abs((z - varhist(z,1))) else 1))
+
+"Total Ingestable volume":
+  TotI_gV = sum(I_gv)
+
+"Ratio of ing request below Imax":
+  ratioIng = (if ((TotI_gV > I_max)) then (I_max / TotI_gV) else 1)
+
+"Scaled ingestion request":
+  I_gV2 = ((I_gv / P_vol) * ratioIng)
+
+"Graze":
+  ingest(P,P_min,I_gV2)
+
+"Record GutF":
+  Gut_f = Gut_fTemp
+

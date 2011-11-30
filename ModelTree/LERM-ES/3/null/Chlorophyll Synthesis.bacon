@@ -1,0 +1,4 @@
+"Chlorophyll a to Nitrogen ratio": Theta_N = (Chlorophyll_Pool / (Ammonium_Pool + Ammonium_Ingested + Nitrate_Pool + Nitrate_Ingested))
+
+"Chlorophyll a synthesis regeneration": Rho_Chl = (if (((E_0 > 0) and (Theta_c > 0))) then (Theta_max_N * (P_phot_c / (3600 * Alpha_Chl * Theta_c * E_0))) else 0)
+

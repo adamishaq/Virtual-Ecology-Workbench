@@ -1,0 +1,3 @@
+"Update Lipids":
+  C_NN_Pool = (if ((Growth_net >= 0.0)) then (C_NN_Pool + (gamma * (1 - alpha) * Growth_net * TimeStep)) else (if ((C_NN_Pool >= (abs(Growth_net) * TimeStep))) then (C_NN_Pool + (Growth_net * TimeStep)) else C_NN_Pool))
+

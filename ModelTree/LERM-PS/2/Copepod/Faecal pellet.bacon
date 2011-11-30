@@ -1,0 +1,14 @@
+"Critical volume for pellet egestion": PV_egest = (1.4 * (Carbon_Pool / G_max))
+
+"Pellet volume": PV = (if (((PV + (E * TimeStep)) >= PV_egest)) then 0.0 else (PV + (E * TimeStep)))
+
+"Pellet ammonia": P_amm = (if (((PV + (E * TimeStep)) >= PV_egest)) then 0.0 else (P_amm + E_N))
+
+"Pellet carbon": Pc = (if (((PV + (E * TimeStep)) >= PV_egest)) then 0.0 else (Pc + E_C))
+
+"Set Ammonium pellet loss": A_PelletLoss = (if (((PV + (E * TimeStep)) >= PV_egest)) then (P_amm + E_N) else 0)
+
+"Faecal pellet": if (((PV + (E * TimeStep)) >= PV_egest)) then create(Pellet,1) with [Ammonium_Pool = ((P_amm + E_N)),PV = (PV + (E * TimeStep)),Carbon_Pool = (Pc + E_C)]
+
+"Silicate": release(Silicate_Conc,E_Si)
+

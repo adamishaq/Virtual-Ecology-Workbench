@@ -1,7 +1,7 @@
 package VEW.Planktonica2.ControllerStructure;
 
-import java.util.Collection;
 
+import java.util.Collection;
 import VEW.Planktonica2.Model.Function;
 
 public interface SelectableItem {

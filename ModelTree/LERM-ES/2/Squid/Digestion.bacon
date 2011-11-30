@@ -1,0 +1,15 @@
+"Digested percentage":
+  Dig_perc = (((10 ^ (1.64 - (0.032 * newLastFeedTime))) * (2 ^ ((Temp - T_ref2) / T_ref2))) / 100)
+
+"GutProtein before digestion":
+  Gut_proteinTemp2 = (Gut_protein + C_N_Ingested)
+
+"Gut lipid before digestion":
+  Gut_lipidTemp2 = (Gut_lipid + C_NN_Ingested)
+
+"Proteins in stomach":
+  Gut_protein = (Gut_proteinTemp2 - (Gut_proteinTemp2 * Dig_perc))
+
+"Lipids in stomach":
+  Gut_lipid = (Gut_lipidTemp2 - (Gut_lipidTemp2 * Dig_perc))
+

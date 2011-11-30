@@ -1,0 +1,12 @@
+"Daily Accumulated Temperature":
+  DAT = (if ((d_year >= 0.0)) then (DAT + ((Temp * TimeStep) / 24)) else 0.0)
+
+"Incubation time":
+  Incubation_time = (if ((d_year >= 0.0)) then (Incubation_time + 1) else 0.0)
+
+"Accumulated temperature":
+  T_acc = (if ((d_year >= 0.0)) then (T_acc + Temp) else 0.0)
+
+"Mean Incubation Temperature":
+  MIT = (if ((d_year >= 0.0)) then (T_acc / Incubation_time) else 0.0)
+

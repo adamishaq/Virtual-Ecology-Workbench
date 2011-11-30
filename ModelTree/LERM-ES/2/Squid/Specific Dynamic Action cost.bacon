@@ -1,0 +1,3 @@
+"SDA":
+  R_sda = ((r_sda * ((A_lipid * C_conv2 * En_lip) + (A_protein * C_conv2 * En_prot))) / TimeStep)
+

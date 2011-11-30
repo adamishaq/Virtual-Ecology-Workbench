@@ -1,0 +1,10 @@
+"Diatom concentration in current timestep": Dlocal = sum(P)
+
+"Kcalc2": Kn_calc2 = (0.4 * (2 - Gut_f))
+
+"Direction of night-time swimming": k_v_night = (if ((z > MLDepth)) then (if ((z < 250)) then (if ((Dlocal < Dlocal_previous)) then -((varhist(Direction,1) * Kn_calc2)) else (varhist(Direction,1) * Kn_calc2)) else -1) else 0.0)
+
+"Record direction": Direction = (if ((k_v_night > 0.0)) then 1 else -1)
+
+"Diatom Conc in prevous timestep": Dlocal_previous = Dlocal
+

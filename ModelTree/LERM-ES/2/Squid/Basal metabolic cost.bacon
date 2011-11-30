@@ -1,0 +1,3 @@
+"Basal respiration":
+  R_bas = ((WW / 1) * B * (A ^ Temp) * E_conv)
+

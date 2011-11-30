@@ -1,0 +1,3 @@
+"N assimilation efficiency":
+  k_N = (1 - exp(-((a * Gut_time))))
+

@@ -1,0 +1,3 @@
+"Mortality due to starvation":
+  if ((C_N_Pool <= (C_pmax / 2))) then change(Dead)
+

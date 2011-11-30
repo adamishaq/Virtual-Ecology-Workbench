@@ -1,0 +1,6 @@
+"Growth": growth = A_C
+
+"Respiration": respiration = R_ow
+
+"Net growth": Growth_net = (growth - respiration)
+

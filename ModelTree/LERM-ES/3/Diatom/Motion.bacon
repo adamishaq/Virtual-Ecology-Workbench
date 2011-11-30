@@ -1,0 +1,3 @@
+"Vertical displacement due to sinking and turbulence":
+  z = (if ((z <= MLDepth)) then (rnd(MLDepth) + (z_sink * TimeStep)) else (z + (z_sink * TimeStep)))
+

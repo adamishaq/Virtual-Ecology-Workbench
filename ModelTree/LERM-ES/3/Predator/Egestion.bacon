@@ -1,0 +1,6 @@
+"Produce pellet":
+  create(Pellet,1) with [Ammonium_Pool = (Ammonium_Ingested + Nitrate_Ingested)]
+
+"Silicate":
+  release(Silicate_Conc,Silicate_Ingested)
+

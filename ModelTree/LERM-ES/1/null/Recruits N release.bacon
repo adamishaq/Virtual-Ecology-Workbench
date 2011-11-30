@@ -1,0 +1,8 @@
+"Ammonium release": release(Ammonium_Conc,(Ammonium_Pool + Nitrate_Pool + Ammonium_Ingested + Nitrate_Ingested))
+
+"Ammonium update ": Ammonium_Pool = 0.0
+
+"Nitrate update": Nitrate_Pool = 0.0
+
+"Silicate release": release(Silicate_Conc,Silicate_Ingested)
+

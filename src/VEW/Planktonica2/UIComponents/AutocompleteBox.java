@@ -282,7 +282,7 @@ public class AutocompleteBox {
 		// Get all functions usable in [expr]s
 		add_to_suggestions(suggestions, expr_functions.keySet().toArray());
 		// Get the currently selected functional group/chemical and extract it's variables
-		SelectableItem si = this.controller.getSelectedItem();
+		SelectableItem si = this.controller.getSelectedCatagory();
 		if (si instanceof Catagory) {
 			Catagory c = (Catagory) si;
 			this.current_catagory = c;

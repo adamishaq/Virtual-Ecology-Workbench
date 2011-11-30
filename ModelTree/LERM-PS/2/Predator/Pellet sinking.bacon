@@ -1,0 +1,2 @@
+"Update z of pellet": z = (if ((z < MLDepth)) then (rnd(MLDepth) + 5) else (z + 5))
+

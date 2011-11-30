@@ -1,0 +1,3 @@
+"Nitrogen":
+  release(Ammonium_Conc,((Ammonium_Pool + Nitrate_Pool) * R_N * TimeStep * T_function))
+

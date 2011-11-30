@@ -1,0 +1,18 @@
+"Swimming speed":
+  U = (abs(k_v) * V_max)
+
+"Reynolds number":
+  R_e = (((ML / 1000) * (U / 3600)) / v)
+
+"Drag coefficient":
+  C_d = (if ((R_e > 0.0)) then (24 / (R_e ^ 0.7 )) else 0.0)
+
+"Drag force":
+  D = (0.5 * C_d * (Density + 1000) * S * ((U / 3600) ^ 2))
+
+"Power consumption":
+  Pw = (D * (U / 3600))
+
+"Cost of swimming":
+  R_swim = (Pw * (E_conv2 / 24))
+

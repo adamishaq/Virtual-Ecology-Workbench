@@ -1,0 +1,2 @@
+"Hatch": if (((DAT >= DAT_hatch) and (Vis_Irrad = 0.0))) then change(Hatchling)
+

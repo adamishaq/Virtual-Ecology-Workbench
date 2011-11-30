@@ -1,0 +1,4 @@
+"Overwintering OW5": R_ow = (R_bas * delta)
+
+"End of overwintering OW5": if ((d_year = 75)) then change(OWA5)
+

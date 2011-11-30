@@ -1,0 +1,9 @@
+"Budget proteins":
+  BudgCN = (0.0 + (A_protein - ((((respiration * TimeStep) + R_surplus) / (En_prot * C_conv2)) * (if (((BudgCNN < 0.0) and (C_NN_Pool < abs(BudgCNN)))) then 1 else Q_PLused))))
+
+"Proteins":
+  Protein_poolTemp = (C_N_Pool + BudgCN)
+
+"Proteins update":
+  C_N_Pool = Protein_poolTemp
+
