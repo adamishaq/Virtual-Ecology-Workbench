@@ -296,7 +296,7 @@ public class FunctionalGroup extends Catagory {
 		
 		
 	}
-
+	
 	/**
 	 *
 	 * @param funcName
