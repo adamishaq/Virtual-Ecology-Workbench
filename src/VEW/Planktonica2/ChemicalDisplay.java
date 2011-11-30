@@ -1,9 +1,13 @@
 package VEW.Planktonica2;
 
 import java.awt.Dimension;
+
 import VEW.Planktonica2.ControllerStructure.ChemicalController;
+import VEW.Planktonica2.DisplayEventHandlers.ChemButtonListener;
+import VEW.Planktonica2.DisplayEventHandlers.TreeButtonListener;
 import VEW.Planktonica2.PigmentGraph.PigmentPanel;
 import VEW.Planktonica2.UIComponents.VariableEditorPanel;
+
 
 public class ChemicalDisplay extends Display {
 
@@ -36,6 +40,14 @@ public class ChemicalDisplay extends Display {
 	protected void populateButtonPane() {
 		
 		this.defaultPopulateButtonPane();
+		
+		TreeButtonListener ChemListener = new ChemButtonListener(this.controller);
+		
+		upFG.addActionListener(ChemListener);
+		downFG.addActionListener(ChemListener);
+		removeInstance.addActionListener(ChemListener);
+		renameInstance.addActionListener(ChemListener);
+		addInstance.addActionListener(ChemListener);
 		
 	}
 

@@ -8,7 +8,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -16,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+
 import VEW.Common.Graph.BarChartDrawer;
 import VEW.Common.Graph.GraphModel;
 import VEW.Planktonica2.ControllerStructure.ChemicalController;
@@ -23,7 +23,6 @@ import VEW.Planktonica2.Model.NullSpectrum;
 import VEW.Planktonica2.Model.Spectrum;
 
 public class PigmentPanel extends JPanel implements Observer, TableModelListener, ItemListener {
-
 
 	private static final long serialVersionUID = 1040209636264981879L;
 
@@ -38,7 +37,6 @@ public class PigmentPanel extends JPanel implements Observer, TableModelListener
 	
 	protected final int graphHeight = 260;
 	protected final int graphWidth = 580;
-	
 
 
 	private ChemicalController controller;
@@ -78,11 +76,12 @@ public class PigmentPanel extends JPanel implements Observer, TableModelListener
 		doPigments = new JCheckBox("Chemical has pigmentation?");
 		ItemListener i = new ChemicalHasPigmentListener(this.controller, this);
 		doPigments.addItemListener(i);
-		
+
 		JPanel topPanel = new JPanel(new FlowLayout());
 		topPanel.add(doPigments);
 		topPanel.add(graphType);
 		add(topPanel,"North");
+
 
 		
 		add(dataScroller,"West");
@@ -147,7 +146,6 @@ public class PigmentPanel extends JPanel implements Observer, TableModelListener
 		
 	}
 
-	
 
 }
 

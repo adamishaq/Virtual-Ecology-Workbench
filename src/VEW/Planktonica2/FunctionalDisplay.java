@@ -50,8 +50,8 @@ public class FunctionalDisplay extends Display {
 		
 		JCheckBox predBox = new MarkAsTopPredator ((FunctionalGroupController) controller);
 		predBox.addItemListener(new FunctionalGroupIsPredatorListener((FunctionalGroupController) controller));
-		
-		this.buttonPane.add(predBox);
+
+		this.treeButtonPanel.add(predBox);
 		
 	}
 

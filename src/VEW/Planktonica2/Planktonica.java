@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import VEW.Common.XML.XMLFile;
 import VEW.Controller2.VEWController2;
+
 import VEW.Planktonica2.ControllerStructure.ChemicalController;
 import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
 import VEW.Planktonica2.Model.Model;
@@ -18,23 +19,23 @@ import VEW.Planktonica2.Model.Model;
  * @author Michael Hinstridge & Chris Bates
  *
  */
+
 public class Planktonica extends JPanel {
 
 	private static final long serialVersionUID = 5356091519865535067L;
 
 	/* Categories tab */
 	protected final JTabbedPane catTab = new JTabbedPane();
-
+	
 	/* Display panes for the tabpane... its Func-y */
 	protected Display funcView;
 	protected Display chemView;
-
+	
 	public VEWController2 vc2;
-
 	public XMLFile xmlFile;
-
 	private JFrame parent;
 
+	  
 	/**
 	 * Constructor for starting the Planktonica class
 	 * @param jd - reference to the VEWController2 parent
@@ -42,8 +43,8 @@ public class Planktonica extends JPanel {
 	 */
 	public Planktonica (VEWController2 jd, XMLFile xmlFile) {
 		vc2 = jd;
-		parent = jd;
-		Model m = new Model(xmlFile);
+	    parent = jd;
+	    Model m = new Model(xmlFile);
 		try {
 			m.buildFromFile();
 		} catch (BackingStoreException e) {
@@ -51,47 +52,42 @@ public class Planktonica extends JPanel {
 			new JDialog(jd, "XMLFile: " + xmlFile.getName() + " failed to load.");
 			jd.dispose();
 		}
-
-		funcView = new FunctionalDisplay(new FunctionalGroupController(m), catTab.getSize());
-		chemView = new ChemicalDisplay(new ChemicalController(m), catTab.getSize());
-		initialiseGUI();
-		parent.pack();
+		
+	    funcView = new FunctionalDisplay(new FunctionalGroupController(m), catTab.getSize());
+	    chemView = new ChemicalDisplay(new ChemicalController(m), catTab.getSize());
+	    initialiseGUI();
+	    parent.pack();
 	}
-
-	/**
-	 * Constructor without constructing parent.
-	 * @see Planktonica (VEWController2 jd, XMLFile xmlFile)
-	 * @param xmlFile
-	 */
+	
 	public Planktonica (XMLFile xmlFile) {
-		Model m = new Model(xmlFile);
+	    Model m = new Model(xmlFile);
 		try {
 			m.buildFromFile();
 		} catch (BackingStoreException e) {
 			System.err.println(e);
 		}
-
-		funcView = new FunctionalDisplay(new FunctionalGroupController(m), catTab.getSize());
-		chemView = new ChemicalDisplay(new ChemicalController(m), catTab.getSize());
-		initialiseGUI();
+		
+	    funcView = new FunctionalDisplay(new FunctionalGroupController(m), catTab.getSize());
+	    chemView = new ChemicalDisplay(new ChemicalController(m), catTab.getSize());
+	    initialiseGUI();
 	}
-
+	
 	private void initialiseGUI() {
 		setLayout(new BorderLayout(2, 2));
-
+		
 		catTab.addTab("Functional Groups", funcView);
 		catTab.addTab("Chemicals", chemView);
-
+		
 		add(catTab);
 	}
 
-	public boolean greenLight(boolean fix) {
+  /* The frames */
 
-		// TODO: Green light function must return true 
-		
-		return true;
 
-	}
+  public boolean greenLight(boolean fix) {
+	  
+	return true;
+  }
 
 
 }

@@ -49,10 +49,10 @@ public abstract class VEWController extends Observable {
 	 */
 	public VariableType getVariable(String selectedVariable) {
 		
-		if (getSelectedItem() == null) {
+		if (getSelectedCatagory() == null) {
 			return null;
 		}
-		SelectableItem i = getSelectedItem();
+		SelectableItem i = getSelectedCatagory();
 		if (i instanceof Catagory) {
 			Catagory c = (Catagory) i;
 			return c.checkAllVariableTables(selectedVariable);
@@ -65,9 +65,9 @@ public abstract class VEWController extends Observable {
 		
 		rootNode.removeAllChildren();
 		
-		Collection<SelectableItem> selectables = this.getSelectables();
+		Collection<Catagory> selectables = this.getCatagories();
 		
-		for (SelectableItem s : selectables) {
+		for (Catagory s : selectables) {
 			DefaultMutableTreeNode select = new DefaultMutableTreeNode(s);
 			rootNode.add(select);
 			for (int i = 0; i < s.getNoFunctions(); i++) {
@@ -77,24 +77,25 @@ public abstract class VEWController extends Observable {
 		
 	}
 	
+
 	public Function getFunctionAtIndex(int functionNo) {
-		return getSelectedItem().getFunctionAtIndex(functionNo);
+		return getSelectedCatagory().getFunctionAtIndex(functionNo);
 	}
 
 	public int getNoFunctions() {
-		return (getSelectedItem() == null) ? 0 : getSelectedItem().getNoFunctions();
+		return (getSelectedCatagory() == null) ? 0 : getSelectedCatagory().getNoFunctions();
 	}
 	
-	public abstract SelectableItem getSelectedItem();
+	public abstract Catagory getSelectedCatagory();
 	
 	/**
 	 * Sets the currently selected item (FunctionalGroup/Chemical) and
 	 * fires an event telling listeners that the selection has changed.
 	 * @param i
 	 */
-	public void setSelectedItem (SelectableItem i) {
+	public void setSelectedCatagory (Catagory i) {
 		
-		if (setInternalSelectedItem(i)) {
+		if (setInternalSelectedCatagory(i)) {
 			this.setChanged();
 			this.notifyObservers(i);
 		}
@@ -106,7 +107,7 @@ public abstract class VEWController extends Observable {
 	 * @param i the item that has just been selected
 	 * @return whether the selection was a success or not
 	 */
-	protected abstract boolean setInternalSelectedItem(SelectableItem i);
+	protected abstract boolean setInternalSelectedCatagory(Catagory i);
 	 
 	
 	
@@ -114,12 +115,12 @@ public abstract class VEWController extends Observable {
 		return currentlySelectedFunction;
 	}
 
-	public void setCurrentlySelectedFunction(Function currentlySelectedFunction) {
+	public void setSelectedFunction(Function currentlySelectedFunction) {
 		this.currentlySelectedFunction = currentlySelectedFunction;
 	}
 
 
-	public abstract Collection<SelectableItem> getSelectables();
+	public abstract Collection<Catagory> getCatagories();
 
 	
 	public void writeBackToXMLFile() {
@@ -204,16 +205,16 @@ public abstract class VEWController extends Observable {
 	public abstract void addCategoryToModel(String name);
 
 	public void addFunction(Display display, String name) {
-		if (this.getSelectedItem() == null)
+		if (this.getSelectedCatagory() == null)
 			return;
 		// Check name uniqueness
-		for (Function f : this.getSelectedItem().getFunctions()) {
+		for (Function f : this.getSelectedCatagory().getFunctions()) {
 			if (f.getName().equals(name)) {
 				JOptionPane.showMessageDialog(display, "A function with that name already exists");
 				return;
 			}
 		}
-		Catagory c = (Catagory) this.getSelectedItem();
+		Catagory c = (Catagory) this.getSelectedCatagory();
 		c.addFunction(model.getFilePath(), name);
 		addSourceFile(model.getFilePath() + c.getName() + "\\", name);
 		this.setChanged();
@@ -260,7 +261,7 @@ public abstract class VEWController extends Observable {
 				"Confirm delete", JOptionPane.YES_NO_OPTION, 1, null, null, 1);
 			if (choice == 1)
 				return;
-		SelectableItem i = this.getSelectedItem();
+		SelectableItem i = this.getSelectedCatagory();
 		if (i == null)
 			return;
 		String filepath = ((Catagory)i).getFilePath();
@@ -301,10 +302,43 @@ public abstract class VEWController extends Observable {
 			del.delete();
 		} catch (Exception e) {
 		} finally {
-			this.getSelectedItem().removeFunction(f);
+			this.getSelectedCatagory().removeFunction(f);
 			this.setChanged();
 			this.notifyObservers(new NewCategoryEvent(null));
 		}
+	}
+
+	
+	/**
+	 * Moves the currently Selected thing up.
+	 * If the function is selected, it moves the function up.
+	 * If no function is selected, it moves the currently selected instance up.
+	 */
+	public void moveSelectedUp() {
+		Function f = getCurrentlySelectedFunction(); 
+		if (f != null) {
+			this.getSelectedCatagory().moveFunctionIndex(f, -1);
+		} else {
+			this.model.moveCatagoryUp(getSelectedCatagory(), -1);
+		}
+		
+	}
+
+	
+	/**
+	 * Moves the currently Selected thing down.
+	 * If the function is selected, it moves the function down.
+	 * If no function is selected, it moves the currently selected instance down.
+	 */
+	public void moveSelectedDown() {
+		
+		Function f = getCurrentlySelectedFunction(); 
+		if (f != null) {
+			this.getSelectedCatagory().moveFunctionIndex(f, 1);
+		} else {
+			this.model.moveCatagoryUp(getSelectedCatagory(), 1);
+		}
+		
 	}
 
 

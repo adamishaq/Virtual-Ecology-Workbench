@@ -20,14 +20,9 @@ public class ChemicalHasPigmentListener implements ItemListener {
 	public void itemStateChanged(ItemEvent event) {
 
 		controller.chemicalHasPigment(event.getStateChange() == ItemEvent.SELECTED);
-
 		this.pigmentPanel.repaint();
-		this.pigmentPanel.redrawGraph();
-		
+		this.pigmentPanel.redrawGraph();		
 	}
-
-	
-	
 
 	
 

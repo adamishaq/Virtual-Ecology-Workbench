@@ -3,6 +3,8 @@ package VEW.Planktonica2.ControllerStructure;
 import java.util.ArrayList;
 import java.util.Collection;
 
+
+import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Function;
 import VEW.Planktonica2.Model.FunctionalGroup;
 import VEW.Planktonica2.Model.Model;
@@ -21,12 +23,12 @@ public class FunctionalGroupController extends VEWController {
 	}
 
 	@Override
-	public SelectableItem getSelectedItem() {
+	public Catagory getSelectedCatagory() {
 		return this.currentFG;
 	}
 	
 	@Override
-	protected boolean setInternalSelectedItem(SelectableItem i) {
+	protected boolean setInternalSelectedCatagory(Catagory i) {
 		if (i instanceof FunctionalGroup) {
 			this.currentFG = (FunctionalGroup) i;
 			return true;
@@ -90,8 +92,8 @@ public class FunctionalGroupController extends VEWController {
 	}
 
 	@Override
-	public Collection<SelectableItem> getSelectables() {
-		Collection<SelectableItem> c = new ArrayList<SelectableItem> (getFunctionalGroups().size());
+	public Collection<Catagory> getCatagories() {
+		Collection<Catagory> c = new ArrayList<Catagory> (getFunctionalGroups().size());
 		for (FunctionalGroup f : getFunctionalGroups()) {
 			c.add(f);
 		}
@@ -107,7 +109,6 @@ public class FunctionalGroupController extends VEWController {
 		}
 		return false;
 	}
-	
 
 	public boolean stageIsCalledIn(String stageName, int functionIndex) {
 		

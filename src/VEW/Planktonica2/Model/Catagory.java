@@ -107,6 +107,26 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		return varietyConcTable.get(conc);
 	}
 	
+
+	/**
+	 * Moves a given function by the offset in the functions list
+	 * @param func the func to move
+	 * @param offset (+ = down/ - = up (the list))
+	 */
+	public void moveFunctionIndex(Function func, int offset) {
+
+		if (func != null) {
+			int oldIndex = functions.indexOf(func);
+			if (oldIndex > 0 && oldIndex < functions.size() - 2) {
+				functions.remove(func);
+				functions.add(oldIndex + offset, func);
+			}
+		} else {
+			System.err.println("Could not move func");
+		}
+
+
+	}
 	
 	
 	public void addToStateVarTable(StateVariable var) {
@@ -302,4 +322,6 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 	public String getFilePath() {
 		return this.file_path;
 	}
+
+	
 }

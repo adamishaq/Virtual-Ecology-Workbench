@@ -2,6 +2,7 @@ package VEW.Planktonica2.Model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.NoSuchElementException;
 import java.util.prefs.BackingStoreException;
 
 import VEW.Common.XML.XMLFile;
@@ -10,8 +11,8 @@ import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
 public class Model implements BuildFromXML, BuildToXML {
 
-	private Collection<Chemical> chemicals;
-	private Collection<FunctionalGroup> functionalGroups;
+	private ArrayList<Chemical> chemicals;
+	private ArrayList<FunctionalGroup> functionalGroups;
 	
 	private XMLFile file;
 
@@ -68,7 +69,39 @@ public class Model implements BuildFromXML, BuildToXML {
 		return this;
 	}
 
-
+	/**
+	 * Moves a given catagory by the offset in the respective list
+	 * @param catagory the catagory to move
+	 * @param offset (+ = down/ - = up (the list))
+	 */
+	public void moveCatagoryUp(Catagory catagory, int offset) {
+		
+		if (catagory == null) {
+			throw new NullPointerException ("The catagory given to move up was null.");
+		}
+		
+		if (functionalGroups.contains(catagory)) {
+			
+			int oldIndex = functionalGroups.indexOf(catagory);
+			if (oldIndex > 0 && oldIndex < functionalGroups.size() - 2) {
+				functionalGroups.remove(catagory);
+				functionalGroups.add(oldIndex + offset, (FunctionalGroup) catagory);
+			}
+			
+			
+		} else if (chemicals.contains(catagory)) {
+			
+			int oldIndex = chemicals.indexOf(catagory);
+			if (oldIndex > 0 && oldIndex < chemicals.size() - 2) {
+				chemicals.remove(catagory);
+				chemicals.add(oldIndex + offset, (Chemical) catagory);
+			}
+			
+		} else {
+			throw new NoSuchElementException("There is no catagory in the model with name: " + catagory.getName() + ".");
+		}
+		
+	}
 	
 	/**
 	 * Checks the validity of the current data in the controller.
@@ -149,6 +182,6 @@ public class Model implements BuildFromXML, BuildToXML {
 		return file;
 	}
 
-	
+		
 	
 }
