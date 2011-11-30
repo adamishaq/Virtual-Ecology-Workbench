@@ -1,0 +1,14 @@
+"Si dissolution rate": Si_reminT = (S_dis * (Q_remS ^ (((Temp + 273) - T_refS) / 10)))
+
+"N dissolution rate": N_reminT = (Ndis * (Q_remN ^ (((Temp + 273) - T_refN) / 10)))
+
+"Silicon": release(Silicate_Conc,(Silicate_Pool * Si_reminT * TimeStep))
+
+"Update Sipool": Silicate_Pool = max((Silicate_Pool - (Silicate_Pool * Si_reminT * TimeStep)),0.0)
+
+"Nitrogen": release(Ammonium_Conc,((Ammonium_Pool + Nitrate_Pool) * N_reminT * TimeStep))
+
+"Update Apool": Ammonium_Pool = max((Ammonium_Pool - (Ammonium_Pool * N_reminT * TimeStep)),0.0)
+
+"Update Npool": Nitrate_Pool = max((Nitrate_Pool - (Nitrate_Pool * N_reminT * TimeStep)),0.0)
+

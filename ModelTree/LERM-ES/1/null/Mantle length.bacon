@@ -1,0 +1,6 @@
+"Update Mantle length": ML = (if ((DW > 0.0)) then max((10 ^ ((log10(DW) + 1.22) / 2.37)),ML) else 0.0)
+
+"Update Mantle width": MW = ((0.38 * ML) + 0.78)
+
+"Update frontal surface area": S = (PI * ((MW / 2) ^ 2) * 1)
+

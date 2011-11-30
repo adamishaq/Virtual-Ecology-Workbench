@@ -1,0 +1,2 @@
+"Update C in shell": C_shell = (C_shell + (if ((Growth_net > 0.0)) then (Growth_net * alpha * TimeStep) else 0.0))
+

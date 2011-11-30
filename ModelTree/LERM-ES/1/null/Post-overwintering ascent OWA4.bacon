@@ -1,0 +1,4 @@
+"Ascent velocity OWA4": V_m = -((1 * TimeStep))
+
+"End of ascent OWA4 to C4OW": if (((z <= Max_MLD) or (I_t <= Vis_Irrad))) then change(C4OW)
+

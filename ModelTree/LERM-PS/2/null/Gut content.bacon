@@ -1,0 +1,28 @@
+"Compute gut content plus food eaten": Gut_contPlusPrey = (Gut_content + Prey_vol)
+
+"Gut passage time": Gut_time = (if ((V_gut > 0.0)) then ((t_min * t_max) / (((Gut_contPlusPrey / V_gut) * (t_max - t_min)) + t_min)) else t_max)
+
+"Gut clearance rate": Gut_clear = (if ((Gut_time > 0)) then (Gut_contPlusPrey / Gut_time) else 0)
+
+"C assimilation efficiency": k_C = (1 - exp(-((b * Gut_time))))
+
+"Egested volume": E = ((1 - k_C) * Gut_clear)
+
+"Rate of food assimilation": A = (k_C * Gut_clear)
+
+"Rate of C assimilation": A_C = (k_C * Carbon_Ingested)
+
+"C egestion": E_C = ((1 - k_C) * Carbon_Ingested)
+
+"Compute prey in gut": Gut_contTemp = max(0,(Gut_contPlusPrey - ((A + E) * TimeStep)))
+
+"Gut fullness": Gut_ftemp = (if (((Gut_contTemp = 0.0) and (V_gut = 0.0))) then 0.0 else ((Gut_contTemp / (0.67 * V_gut)) ^ 2))
+
+"Set Gut_f": Gut_f = Gut_ftemp
+
+"Maximum ingestion rate": I_max = (((0.67 * V_gut) - Gut_contTemp) / (vPrey * 1800))
+
+"Ingestion I_g for each variety": I_gv = (integrate((if ((P > P_min)) then min((if ((V_gut > 0.0)) then (PI * ((L * 2.9) ^ 2) * 1 * P * 1 * (1 - ((Gut_contTemp / (0.67 * V_gut)) ^ 2)) * (1 - exp((-1.7 * P)))) else I_max),I_max) else 0.0)) / (if ((z <> varhist(z,1))) then abs((z - varhist(z,1))) else 1))
+
+"Graze": ingest(P,P_min,I_gv)
+

@@ -1,0 +1,4 @@
+"Reaching death by senility": A_r = (A_r + TimeStep)
+
+"Mortality rate due to senescence": pchange(Dead,(if ((A_r < A_rmax)) then (1 / (A_rmax - A_r)) else 1))
+

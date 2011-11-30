@@ -1,0 +1,9 @@
+"T dependent N remin":
+  R_NT = (4.2 * (2.95 ^ (((Temp + 273) - 283) / 10)))
+
+"Nitrogen":
+  release(Ammonium_Conc,max((Ammonium_Pool * R_NT * TimeStep),0.0))
+
+"Update Apool":
+  Ammonium_Pool = max((Ammonium_Pool - (Ammonium_Pool * R_NT * TimeStep)),0.0)
+

@@ -1,0 +1,2 @@
+"Start resting phase POW5": if ((C_NN_Pool >= OW_lipid)) then change(OWD5)
+

@@ -1,0 +1,8 @@
+"Power expenditure of swimming Copepod at velocity U": P_swim = (((k / 2) * (((1000 + Density) / 1000) ^ (1 - n)) * ((L / 10000) ^ -(n)) * ((abs((V_m / TimeStep)) * V_mconv1) ^ (3 - n)) * (mi ^ n) * S) / 1)
+
+"Catabolic cost of swimming": Z_swim = (P_swim / (E_mech * E_m))
+
+"Oxygen consumption of swimming": O_cons = (((Z_swim / 1000) * 3600) / (C_Cal / 1000))
+
+"Carbon catabolism cost of swimming": R_swim = (O_cons * (12 / 22.4) * 1000 * 8.33E-5)
+

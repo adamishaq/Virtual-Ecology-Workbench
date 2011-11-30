@@ -1,0 +1,12 @@
+"Ammonia excretion":
+  C = (min(C_N_Pool,(respiration / (En_prot * C_conv2))) * Q_Nprot * Q_PLused)
+
+"Nitrogen Pool":
+  Ammonium_poolTemp = (Ammonium_Pool + (Ammonium_Ingested - ((C * TimeStep) + (E_protein * Q_Nprot * TimeStep))))
+
+"Ammonium pool temp":
+  Ammonium_Pool = (if ((Ammonium_poolTemp < (Protein_poolTemp * Q_Nprot))) then Ammonium_poolTemp else (Protein_poolTemp * Q_Nprot))
+
+"Excess N":
+  NProt_excess = (if ((Ammonium_poolTemp > (Protein_poolTemp * Q_Nprot))) then (Ammonium_poolTemp - (Protein_poolTemp * Q_Nprot)) else 0.0)
+

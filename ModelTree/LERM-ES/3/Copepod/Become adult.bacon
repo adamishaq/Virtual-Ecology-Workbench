@@ -1,0 +1,3 @@
+"Become adult":
+  if ((C_N_Pool >= G_max)) then change(Adult)
+

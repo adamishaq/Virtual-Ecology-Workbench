@@ -1,0 +1,3 @@
+"Effect of size and temperature on swimming speed":
+  W_z = ((0.3 + (0.7 * (Temp / T_ref))) * min((S / S_max),1))
+

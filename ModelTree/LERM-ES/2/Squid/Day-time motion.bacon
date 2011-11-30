@@ -1,0 +1,12 @@
+"Size specific target isolume":
+  I_t = ((S_max / S) * 1.5)
+
+"Depth of Target isolume":
+  Depth_It = depthForVI(I_t)
+
+"Daytime Kcalc":
+  kd_calc = (if ((z < Depth_It)) then (if (((Depth_It - z) > (0.6 * V_max * TimeStep * W_z))) then 0.6 else ((Depth_It - z) / (V_max * TimeStep * W_z))) else (if (((z - Depth_It) > (V_max * TimeStep * W_z * 0.6))) then -0.6 else ((Depth_It - z) / (V_max * TimeStep * W_z))))
+
+"Swimming direction":
+  k_v_day = (if ((kd_calc < -1)) then -1 else (if ((kd_calc >= 1)) then 1 else kd_calc))
+

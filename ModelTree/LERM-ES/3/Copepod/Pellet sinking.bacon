@@ -1,0 +1,6 @@
+"Sinking rate":
+  SRpellet = ((10 ^ ((0.698 * log10((PV * 1E12))) - 2.03)) / 48)
+
+"Update z of pellet":
+  z = (if ((z < MLDepth)) then (rnd(MLDepth) + SRpellet) else (z + SRpellet))
+

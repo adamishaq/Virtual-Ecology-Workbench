@@ -1,0 +1,9 @@
+"N remineralisation rate BP":
+  R_nTBP = (4.2E-3 * (2.95 ^ (((Temp + 273) - 283) / 10)))
+
+"Remineralise ingested nutrients":
+  release(Ammonium_Conc,(if ((Ammonium_Pool > 0)) then (Ammonium_Pool * R_nTBP * TimeStep) else 0))
+
+"Update Ammonium pool":
+  Ammonium_Pool = max((Ammonium_Pool - (Ammonium_Pool * R_nTBP * TimeStep)),0.0)
+

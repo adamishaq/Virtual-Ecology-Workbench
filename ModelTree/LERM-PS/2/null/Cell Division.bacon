@@ -1,0 +1,4 @@
+"Is the diatom ready to cell divide?": C_d = (if ((((Carbon_Pool + (Carbon_Pool * (P_phot_c - R_C) * TimeStep)) >= C_rep) and ((Silicate_Pool + Silicate_Ingested) >= S_rep))) then 2 else 1)
+
+"Cell division": if ((C_d = 2)) then divide(2)
+

@@ -1,0 +1,4 @@
+"Conversion of C content to prosome length, L": L = (10 ^ ((log10((C_pmax * C_conv1)) + 8.37) / 3.07))
+
+"Frontal surface area": S = (L * 5.4E-7)
+

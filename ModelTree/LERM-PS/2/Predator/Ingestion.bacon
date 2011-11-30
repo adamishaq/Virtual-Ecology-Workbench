@@ -1,0 +1,8 @@
+"Carbon dry weight": G = (((2.37 * log10(S_t)) - 1.22) / 12)
+
+"Weighting function": W_tg = ((0.3 + (0.7 * (Temp / T_ref))) * (if ((S_t >= S_max)) then 1.0 else (S_t / S_max)))
+
+"Ingestion for each variety": I_gv = min((W_tg * (if ((P > P_minv)) then (K_p * (S_a / 1.3E-7) * (Vis_Irrad / 1) * (((P - P_minv) ^ 2) / ((P - P_minv) + k_Iv)) * (45 / P_speed)) else 0.0)),((G * 0.6156 * exp(-((0.0321 * (d_year - d_0))))) / (86400 * P_size)))
+
+"Ingest": ingest(P,P_minv,I_gv)
+

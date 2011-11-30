@@ -1,0 +1,18 @@
+"Age since becoming adult":
+  A_r = (A_r + TimeStep)
+
+"Flag for reproduction":
+  if (((A_r >= A_rep) and (C_N_Pool >= G_max))) then Reproduce = 1
+
+"Nauplii birth":
+  Nauplii = (if ((Reproduce = 1)) then (if ((C_NN_Pool > (C_N_Pool - G_max))) then (((C_N_Pool - G_max) / G_min) * 2) else (2 * (C_NN_Pool / G_min))) else 0.0)
+
+"Ratio Ammonium:Nitrate":
+  Q_AN = (Ammonium_Pool / (Ammonium_Pool + Nitrate_Pool))
+
+"Reproducing":
+  if ((Reproduce = 1)) then create(Nauplius,min(Nauplii,800)) with [Carbon_Pool = G_min,A_r = 0.0,Gut_content = 0.0,Ammonium_Pool = (G_min * Q_N),Nitrate_Pool = (G_min * Q_N * (1 - Q_AN)),C_N_Pool = ((G_min * (1 - 0.05)) / 2),C_NN_Pool = (((1 - 0.05) * G_min) / 2),C_shell = (G_min * 0.05),C_pmax = ((G_min * (1 - 0.05)) / 2),V_gut = 4]
+
+"Start senescence":
+  if ((Reproduce = 1)) then change(Senescent)
+

@@ -1,0 +1,4 @@
+"Time after hatching": TEMPT_hatch = (TEMPT_hatch + TimeStep)
+
+"Temp holder": Time_hatch = (TEMPT_hatch / 24)
+

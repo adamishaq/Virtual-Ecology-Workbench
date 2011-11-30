@@ -1,0 +1,6 @@
+"Carbon specific rate of growth related respiration":
+  R_C_growth = (((Ammonium_Ingested + Nitrate_Ingested) * Zeta) / (TimeStep * Carbon_Pool))
+
+"Total respiration":
+  R_C = (R_maintenance + R_C_growth)
+

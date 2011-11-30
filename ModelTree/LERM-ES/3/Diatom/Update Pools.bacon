@@ -1,0 +1,30 @@
+"Update Ammonium":
+  Ammonium_Pool = ((((Ammonium_Pool + Ammonium_Ingested + Nitrate_Ingested) - (Ammonium_Pool * R_N * TimeStep * T_function)) - (if ((Q_N > Q_Nmax)) then (0.0 * (Q_N - Q_Nmax)) else 0.0)) / C_d)
+
+"Update Nitrate":
+  Nitrate_Pool = 0.0
+
+"Update Silicon":
+  Silicate_Pool = (((Silicate_Pool + Silicate_Ingested) - 0.0) / C_d)
+
+"Calculate Carbon":
+  C_new = max(0.0,(((Carbon_Pool * (P_phot_c - (R_C * T_function)) * TimeStep) + Carbon_Pool) / C_d))
+
+"Check Mortality":
+  death_flag = (if ((C_new <= C_starve)) then 1 else 0.0)
+
+"Death":
+  if ((death_flag = 1)) then change(Dead)
+
+"Update Carbon":
+  Carbon_Pool = C_new
+
+"Update Cholorophyll":
+  Chlorophyll_Pool = (if ((death_flag = 0.0)) then max((((if ((Theta_N <= Theta_max_N)) then (Chlorophyll_Pool + (Rho_Chl * (Ammonium_Ingested + Nitrate_Ingested))) else (Chlorophyll_Pool - (Chlorophyll_Pool - ((Ammonium_Pool + Nitrate_Pool) * Theta_max_N)))) - ((Chlorophyll_Pool * R_Chl * TimeStep * T_function) + 0.0)) / C_d),0) else 0.0)
+
+"Update total Nitrogen":
+  Nitrogen_Pool = (Ammonium_Pool + Nitrate_Pool)
+
+"Update C_fuel":
+  C_fuel_Pool = (Carbon_Pool - C_struct)
+
