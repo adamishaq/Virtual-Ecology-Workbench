@@ -38,8 +38,6 @@ public class PigmentPanel extends JPanel implements Observer, TableModelListener
 	
 	protected final int graphHeight = 260;
 	protected final int graphWidth = 580;
-	
-
 
 	private ChemicalController controller;
 
