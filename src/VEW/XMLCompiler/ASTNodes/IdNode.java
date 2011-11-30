@@ -1,5 +1,6 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Local;
 import VEW.Planktonica2.Model.VariableType;
 import VEW.Planktonica2.Model.VarietyLocal;
@@ -14,19 +15,21 @@ public class IdNode extends ExprNode {
 	}
 
 	@Override
-	public void check() {
-		VariableType v = getCatagory().checkAccessableVariableTable(name);
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
+		VariableType v = enclosingCategory.checkAccessableVariableTable(name);
 		if (v == null) {
-			CommonTreeWalker.add_exception(new SemanticCheckException("Unrecognized variable " + name,
+			enclosingTree.addSemanticException(new SemanticCheckException("Unrecognized variable " + name,
 					line_number));
 		}
-		if ((v instanceof Local || v instanceof VarietyLocal) && !v.isAssignedTo()) {
-			CommonTreeWalker.add_exception(
+		else if ((v instanceof Local || v instanceof VarietyLocal) && !v.isAssignedTo()) {
+			/*enclosingTree.addSemanticException(
 					new SemanticCheckException("Local variable " + name + " has not been assigned to before reading",
-					line_number));
+					line_number));*/
 		}
-		var = (VariableType) v;
-		exprType = var.getVarType();
+		else {
+			var = (VariableType) v;
+			exprType = var.getVarType();
+		}
 	}
 
 	@Override

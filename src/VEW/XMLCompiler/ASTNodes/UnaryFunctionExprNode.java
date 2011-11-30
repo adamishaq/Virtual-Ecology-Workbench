@@ -1,5 +1,6 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Type;
 import VEW.Planktonica2.Model.VarietyType;
 
@@ -15,13 +16,13 @@ public class UnaryFunctionExprNode extends RuleNode {
 	}
 	
 	@Override
-	public void check() {
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
 		//This may need to change if any more unaryFunctions with expr args are added
 		//Im considering changing this into a Divide node
-		expArg.check();
+		expArg.check(enclosingCategory, enclosingTree);
 		Type expType = expArg.getExprType();
 		if (expType instanceof VarietyType) {
-			CommonTreeWalker.add_exception(
+			enclosingTree.addSemanticException(
 					new SemanticCheckException("The expression for the number to divide to must be scalar",
 							line_number));
 		}

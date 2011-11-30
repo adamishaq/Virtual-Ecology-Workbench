@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.Collection;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -14,11 +15,8 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
-
 import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
-import VEW.Planktonica2.Model.Function;
 import VEW.Planktonica2.Model.FunctionalGroup;
-import VEW.Planktonica2.Model.Stage;
 
 public class StageEditorPanel extends JPanel {
 
@@ -42,7 +40,6 @@ public class StageEditorPanel extends JPanel {
 		
 		TableModel headerData = new RowModel(this.controller);
         TableModel data = new StageTableModel(this.controller, m);
-
         JTable table = new JTable(data);
         table.setColumnModel(m);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -69,8 +66,8 @@ public class StageEditorPanel extends JPanel {
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         JTableHeader corner = rowHeader.getTableHeader();
-        corner.setReorderingAllowed(false);
         corner.setResizingAllowed(false);
+        corner.setReorderingAllowed(false);
 
         scrollPane.setCorner(JScrollPane.UPPER_LEFT_CORNER, corner);
 
@@ -81,6 +78,7 @@ public class StageEditorPanel extends JPanel {
         new RowHeaderResizer(scrollPane).setEnabled(true);
 
         this.add(scrollPane);
+        
 	}
 	
 	private class RowModel extends AbstractTableModel implements Observer {
@@ -107,12 +105,7 @@ public class StageEditorPanel extends JPanel {
 
 		@Override
 		public Object getValueAt(int x, int y) {
-			Function f = controller.getFunctionAtIndex(x);
-			if (f == null) {
-				return "";
-			} else {
-				return f.getName();
-			}
+			return controller.getFunctionalNameAtIndex(x);
 		}
 
 		
@@ -164,7 +157,16 @@ public class StageEditorPanel extends JPanel {
 				}
 			}
 			
+			
+			
 		}
+		
+		@Override
+		public void moveColumn(int from, int to) {
+			super.moveColumn(from, from);
+		}
+		
+
 
 		@Override
 		public void update(Observable obs, Object arg) {
@@ -238,14 +240,10 @@ public class StageEditorPanel extends JPanel {
 				return "No Selected Functional Group.";
 				
 			} else {
+				String stageName = this.getColumnName(y - 1);
 				
-				String stageName = this.getColumnName(x);
+				return this.controller.stageIsCalledIn(stageName, x);
 				
-				Stage selected = this.controller.getStage(stageName);
-				Function f = this.controller.getFunctionAtIndex(y);
-				
-				// called in holds a referrence to the origional stage
-				return f.isCalledIn(selected);
 			}
 		}
 		
@@ -254,20 +252,10 @@ public class StageEditorPanel extends JPanel {
 			if (aValue instanceof Boolean) {
 				boolean isCalled = (Boolean) aValue;
 				
-				String stageName = this.getColumnName(x);
-				
-				Stage selected = this.controller.getStage(stageName);
-				Function f = controller.getFunctionAtIndex(y);
-				
-				if (isCalled) {
-					// add to list of CalledIn
-					f.addToCalledIn(selected);
-					
-				} else if (!isCalled) {
-					// remove from list
-					f.removeFromCalledIn(selected);
-					
-				}
+				String stageName = this.getColumnName(y-1);
+
+				this.controller.setStageIsCalledIn(stageName, y, isCalled);	
+
 			}
 			
 			this.fireTableCellUpdated(x, y);
@@ -287,8 +275,11 @@ public class StageEditorPanel extends JPanel {
 			}
 			
 		}
+		
+		@Override
+		public boolean isCellEditable(int rowIndex, int columnIndex) {
+			return true;
+		}
 	}
-
-	
 	
 }

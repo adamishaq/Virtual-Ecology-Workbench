@@ -1,5 +1,6 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Type;
 import VEW.Planktonica2.Model.VarietyType;
 
@@ -18,9 +19,9 @@ public class BooleanComparitorNode extends BExprNode {
 	}
 
 	@Override
-	public void check() {
-		rExpr.check();
-		lExpr.check();
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
+		rExpr.check(enclosingCategory, enclosingTree);
+		lExpr.check(enclosingCategory, enclosingTree);
 		Type rExprType = rExpr.getExprType();
 		Type lExprType = lExpr.getExprType();
 		setBExprType(checkTypeCompatible(rExprType, lExprType));
@@ -61,7 +62,7 @@ public class BooleanComparitorNode extends BExprNode {
 			right = rExpr.generateLatex();
 		switch (comparitor) {
 		case EQUALS        : op = " = "; break; 
-		case NEQUALS       : op = " \\neq" ; break; 
+		case NEQUALS       : op = " \\neq " ; break; 
 		case GREATERTHAN   : op = " > "; break; 
 		case LESSTHAN      : op = " < "; break; 
 		case GREATEREQUALS : op = " \\geq "; break;

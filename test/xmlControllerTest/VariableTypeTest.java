@@ -38,7 +38,7 @@ public class VariableTypeTest {
 		XMLTag l1Desc = new XMLTag(XMLTagEnum.DESCRIPTION.xmlTag(), "a local");
 		XMLTag l1Unit = new XMLTag(XMLTagEnum.UNIT.xmlTag(), "0,0,0");
 		
-		v1 = new XMLTag(XMLTagEnum.VARIABLE.xmlTag());
+		v1 = new XMLTag(XMLTagEnum.STATE_VARIABLE.xmlTag());
 		XMLTag v1Val = new XMLTag(XMLTagEnum.VALUE.xmlTag(), "2");
 		XMLTag v1Hist = new XMLTag(XMLTagEnum.HIST.xmlTag(), "3");
 		XMLTag v1Name = new XMLTag(XMLTagEnum.NAME.xmlTag(), "v1");
@@ -74,13 +74,13 @@ public class VariableTypeTest {
 	@Test
 	public void test() {
 		FunctionalGroup func = new FunctionalGroup("");
-		Parameter p = new Parameter(func);
+		Parameter p = new Parameter();
 		p.build(p1);
 		
-		Local l = new Local(func);
+		Local l = new Local();
 		l.build(l1);
 		
-		StateVariable v = new StateVariable(func);
+		StateVariable v = new StateVariable();
 		v.build(v1);
 		
 		

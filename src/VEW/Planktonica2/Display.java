@@ -13,6 +13,7 @@ import java.util.Observer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -22,17 +23,28 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
+import VEW.Planktonica2.ControllerStructure.NewCategoryEvent;
+import VEW.Planktonica2.ControllerStructure.NewVariableEvent;
 import VEW.Planktonica2.ControllerStructure.SelectableItem;
 import VEW.Planktonica2.ControllerStructure.SourcePath;
 import VEW.Planktonica2.ControllerStructure.VEWController;
-import VEW.Planktonica2.DisplayEventHandlers.CompileButtonListener;
-import VEW.Planktonica2.DisplayEventHandlers.FGButtonListener;
-import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
-import VEW.Planktonica2.DisplayEventHandlers.VariableSelectionEventHandler;
+import VEW.Planktonica2.DisplayEventHandlers.AddCategoryButtonListener;
+import VEW.Planktonica2.DisplayEventHandlers.AddFunctionButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.ButtonCommandNamesEnum;
+import VEW.Planktonica2.DisplayEventHandlers.CheckButtonListener;
+import VEW.Planktonica2.DisplayEventHandlers.CompileButtonListener;
+import VEW.Planktonica2.DisplayEventHandlers.DeleteCategoryButtonListener;
+import VEW.Planktonica2.DisplayEventHandlers.DeleteFunctionButtonListener;
+import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
+import VEW.Planktonica2.DisplayEventHandlers.RenameCategoryListener;
+import VEW.Planktonica2.DisplayEventHandlers.RenameFunctionListener;
+import VEW.Planktonica2.DisplayEventHandlers.SaveButtonListener;
+import VEW.Planktonica2.DisplayEventHandlers.VariableSelectionEventHandler;
 import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.Chemical;
+import VEW.Planktonica2.Model.Function;
 import VEW.Planktonica2.Model.VariableType;
-import VEW.UIComponents.VariableEditorPanel;
+import VEW.Planktonica2.UIComponents.VariableEditorPanel;
 
 public abstract class Display extends JSplitPane implements Observer {
 
@@ -65,9 +77,14 @@ public abstract class Display extends JSplitPane implements Observer {
 	protected JButton addFunction;
 	protected JButton removeFunction;
 	protected JButton renameFunction;
-	protected JButton editFunction;
-	protected JButton copyFunction;
+	//protected JButton editFunction;
+	//protected JButton copyFunction;
+	
+	// Compiler buttons
 	protected JButton compileButton;
+	protected JButton checkButton;
+	protected JButton previewButton;
+	protected JButton saveButton;
 
 	protected JList list;
 	
@@ -84,7 +101,6 @@ public abstract class Display extends JSplitPane implements Observer {
 	protected Display(VEWController controller, Dimension initialSize) {
 		super(JSplitPane.HORIZONTAL_SPLIT);
 		this.controller = controller;
-		this.controller.setDisplay(this);
 		this.controller.addObserver(this);
 		initialiseGUI(initialSize);
 		
@@ -97,13 +113,20 @@ public abstract class Display extends JSplitPane implements Observer {
 			this.update_vars((SelectableItem)arg);
 		}
 		if (arg instanceof Catagory) {
-			Catagory f = (Catagory) arg;
+			Catagory f = (Catagory) controller.getSelectedItem();
 			this.variablePanel.update_selected_category(f);
 			//this.variablePanel.clear();
 			this.editorPanel.clear();
-		}
-		if (arg instanceof SourcePath) {
+		} else if (arg instanceof SourcePath) {
 			this.ancilaryFuncPane.setSelectedIndex(0);
+		} else if (arg instanceof VariableType) {
+			this.variablePanel.display((VariableType)arg);
+			this.ancilaryFuncPane.setSelectedIndex(1);
+		} else if (arg instanceof NewCategoryEvent) {
+			update_functions(((NewCategoryEvent)arg).getNew_category());
+		} else if (arg instanceof NewVariableEvent) {
+			SelectableItem s = controller.getSelectedItem();
+			this.update_vars(s);
 		}
 		
 	}
@@ -113,18 +136,12 @@ public abstract class Display extends JSplitPane implements Observer {
 	protected abstract void populateAncilaryFuncPane ();
 	
 	protected abstract void populateButtonPane ();
-	 
-	public void updateVariablePanel(VariableType v) {
-		variablePanel.display(v);
-		// Show the variable panel
-		this.ancilaryFuncPane.setSelectedIndex(1);
-	}
 	
 	protected void defaultPopulateButtonPane () {
 		
 		initialiseButtons();
 		
-		//setButtonToolTips();
+		setButtonToolTips();
 		
 		//this.addItemButtons(this.buttonPane);
 		//this.addFunctionButtons(this.buttonPane);
@@ -276,6 +293,8 @@ public abstract class Display extends JSplitPane implements Observer {
 		itemPanel.add(removeInstance);
 		//itemPanel.add(copyInstance);
 		itemPanel.add(compileButton);
+		itemPanel.add(checkButton);
+		itemPanel.add(saveButton);
 	}
 	
 	
@@ -284,9 +303,9 @@ public abstract class Display extends JSplitPane implements Observer {
 		functionPanel.add(downFunc);
 		functionPanel.add(addFunction);
 		functionPanel.add(renameFunction);
-		functionPanel.add(editFunction);
+		//functionPanel.add(editFunction);
 		functionPanel.add(removeFunction);
-		functionPanel.add(copyFunction);
+		//functionPanel.add(copyFunction);
 	}
 	
 	private void initialiseButtons() {
@@ -302,92 +321,80 @@ public abstract class Display extends JSplitPane implements Observer {
 		
 		addInstance = new JButton(new ImageIcon(IconRoot+ "plus.gif"));
 		addInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
-		addInstance.setActionCommand(ButtonCommandNamesEnum.ADD_INSTANCE.toString());
+		addInstance.addActionListener(new AddCategoryButtonListener(this));
 		
 		removeInstance = new JButton(new ImageIcon(IconRoot + "bin1.gif"));
 		removeInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
-		removeInstance.setActionCommand(ButtonCommandNamesEnum.REMOVE_INSTANCE.toString());
+		removeInstance.addActionListener(new DeleteCategoryButtonListener(this));
 		
 		renameInstance = new JButton(new ImageIcon(IconRoot + "rename.gif"));
 		renameInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
-		renameInstance.setActionCommand(ButtonCommandNamesEnum.RENAME_INSTANCE.toString());
-		
-		/*
-		upFunc = new JButton(new ImageIcon(IconRoot+ "up.gif"));
-		upFunc.setPreferredSize(STANDARD_BUTTON_SIZE);
-		upFunc.setActionCommand(ButtonCommandNamesEnum.UPFUNC.toString());
-		upFunc.addActionListener(funcButtonListener);
-		
-		downFunc = new JButton(new ImageIcon(IconRoot+ "down.gif"));
-		downFunc.setPreferredSize(STANDARD_BUTTON_SIZE);
-		downFunc.setActionCommand(ButtonCommandNamesEnum.DOWNFUNC.toString());
-		downFunc.addActionListener(funcButtonListener);
+		renameInstance.addActionListener(new RenameCategoryListener(this));
 		
 		copyInstance = new JButton(new ImageIcon(IconRoot + "copy.gif"));
 		copyInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
-		copyInstance.setActionCommand(ButtonCommandNamesEnum.COPY_INSTANCE.toString());
-		copyInstance.addActionListener(fgButtonListener);
+		//copyInstance.setActionCommand(ButtonCommandNamesEnum.COPY_INSTANCE.toString());
+		//copyInstance.addActionListener(fgButtonListener);
 		
 		addFunction = new JButton(new ImageIcon(IconRoot+ "plus.gif"));
 		addFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
-		addFunction.setActionCommand(ButtonCommandNamesEnum.ADD_FUNC.toString());
-		addFunction.addActionListener(funcButtonListener);
+		addFunction.addActionListener(new AddFunctionButtonListener(this));
 		
 		removeFunction = new JButton(new ImageIcon(IconRoot + "bin1.gif"));
 		removeFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
-		removeFunction.setActionCommand(ButtonCommandNamesEnum.REMOVE_FUNC.toString());
-		removeFunction.addActionListener(funcButtonListener);
+		removeFunction.addActionListener(new DeleteFunctionButtonListener(this));
 		
 		renameFunction = new JButton(new ImageIcon(IconRoot + "rename.gif"));
 		renameFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
-		renameFunction.setActionCommand(ButtonCommandNamesEnum.RENAME_FUNC.toString());
-		renameFunction.addActionListener(funcButtonListener);
-		
+		renameFunction.addActionListener(new RenameFunctionListener(this));
+		/*
 		editFunction = new JButton(new ImageIcon(IconRoot + "edit.gif"));
 		editFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
 		editFunction.setActionCommand(ButtonCommandNamesEnum.EDIT_FUNC.toString());
 		editFunction.addActionListener(funcButtonListener);
 		
 		copyFunction = new JButton(new ImageIcon(IconRoot + "copy.gif"));		
-		copyFunction.setPreferredSize(STANDARD_BUTTON_SIZE);		
-		copyFunction.setActionCommand(ButtonCommandNamesEnum.COPY_FUNC.toString());
-		copyFunction.addActionListener(funcButtonListener);*/
-		compileButton = new JButton(new ImageIcon(IconRoot + "copy.gif"));		
+		copyFunction.setPreferredSize(STANDARD_BUTTON_SIZE);	
+		*/
+		compileButton = new JButton(new ImageIcon(IconRoot + "compile.gif"));		
 		compileButton.setPreferredSize(STANDARD_BUTTON_SIZE);
 		compileButton.addActionListener(new CompileButtonListener(this.editorPanel));
-
+		
+		checkButton = new JButton(new ImageIcon(IconRoot + "check.png"));		
+		checkButton.setPreferredSize(STANDARD_BUTTON_SIZE);
+		checkButton.addActionListener(new CheckButtonListener(this.editorPanel));
+		
+		saveButton = new JButton(new ImageIcon(IconRoot + "save.png"));
+		saveButton.setPreferredSize(STANDARD_BUTTON_SIZE);
+		saveButton.addActionListener(new SaveButtonListener(this.editorPanel));
+		
 	}
 	
 	protected void setButtonToolTips() {
 		
 		// TODO: set tool tips
-		
-		addInstance.setToolTipText("Add a new " + this.getCategoryName() + "?");
-		
-		String currentFunction = ""; // = getCurrentFunction();
-		
-		if (currentFunction != null) {
-			upFunc.setToolTipText("Move " + currentFunction + " up?");
-			downFunc.setToolTipText("Move " + currentFunction + " down?");
-			removeFunction.setToolTipText("Remove " + currentFunction + "?");
-			renameFunction.setToolTipText("Rename " + currentFunction + "?");
-			editFunction.setToolTipText("Edit " + currentFunction + "?");
-			copyFunction.setToolTipText("Copy " + currentFunction + "?");
-		}
-		
-		String currentItem = ""; // = getCurrentItem();
-		
-		if (currentItem != null) {
-			upFG.setToolTipText("Move " + currentItem + " up?");
-			downFG.setToolTipText("Move " + currentItem + " down?");
-			
-			removeInstance.setToolTipText("Remove " + currentItem + "?");
-			renameInstance.setToolTipText("Rename " + currentItem + "?");
-			copyInstance.setToolTipText("Copy " + currentItem + "?");
-			addFunction.setToolTipText("Add a new function to " + currentItem + "?");
-		}
-		
-		
+
+		addInstance.setToolTipText("Add a new " + this.getCategoryName());
+
+		upFunc.setToolTipText("Move current function up");
+		downFunc.setToolTipText("Move current function down");
+		removeFunction.setToolTipText("Remove current function");
+		renameFunction.setToolTipText("Rename current function");
+		//editFunction.setToolTipText("Edit " + currentFunction + "?");
+		//copyFunction.setToolTipText("Copy " + currentFunction + "?");
+
+
+		upFG.setToolTipText("Move current " + this.getCategoryName() + " up");
+		downFG.setToolTipText("Move current " + this.getCategoryName() + " down");
+
+		removeInstance.setToolTipText("Remove current " + this.getCategoryName());
+		renameInstance.setToolTipText("Rename current " + this.getCategoryName());
+		copyInstance.setToolTipText("Copy " + this.getCategoryName());
+		addFunction.setToolTipText("Add a new function to this " + this.getCategoryName());
+
+		compileButton.setToolTipText("Compile the current model");
+		checkButton.setToolTipText("Check the current source file");
+		saveButton.setToolTipText("Save the current source file");
 		
 	}
 	
@@ -424,10 +431,21 @@ public abstract class Display extends JSplitPane implements Observer {
 		addFunction.setEnabled(false);
 		removeFunction.setEnabled(false);
 		renameFunction.setEnabled(false);
-		editFunction.setEnabled(false);
-		copyFunction.setEnabled(false);
+		//editFunction.setEnabled(false);
+		//copyFunction.setEnabled(false);
 	}
 
+	private void update_functions(Catagory c) {
+		fillFunctionTree();
+		DefaultTreeModel t = (DefaultTreeModel) this.tree.getModel();
+		t.setRoot(rootNode);
+		this.tree.validate();
+		// Set this to be focused
+		if (c != null)
+			this.variablePanel.update_selected_category(c);
+		//this.variablePanel.clear();
+		this.editorPanel.clear();
+	}
 
 	public void update_vars(SelectableItem i) {
 		
@@ -484,4 +502,84 @@ public abstract class Display extends JSplitPane implements Observer {
 	public String get_selected_function() {
 		return tree.getSelectionPath().getLastPathComponent().toString();
 	}
+	
+	public void addCategory() {
+		controller.addCategory(this);	
+	}
+
+	public void addFunction(String name) {
+		controller.addFunction(this,name);
+	}
+
+	public void rename_function() {
+		Function f = controller.getCurrentlySelectedFunction();
+		String filepath = f.getSource_code();
+		filepath += "\\";
+		filepath += f.getParent().getName();
+		filepath += "\\";
+		try {
+			String name = JOptionPane.showInputDialog(this,
+		        	"Choose a new name for the function",
+		            "Rename Function", 1);
+		    if (name == null) {
+		    	return;
+		    }
+		    // Check name is unique
+		    for (Function fun : controller.getSelectedItem().getFunctions()) {
+		    	if (fun.getName().equals(name)) {
+		    		JOptionPane.showMessageDialog(this, "A Function with that name already exists");
+					return;
+		    	}
+		    }
+		    File fi = new File(filepath + f.getName() + ".bacon");
+			fi.renameTo(new File(filepath + name + ".bacon"));
+			f.setName(name);
+			this.update_functions((Catagory) controller.getSelectedItem());
+		} catch (Exception e) {
+			
+		}
+	}
+
+	public void rename_category() {
+		SelectableItem i = controller.getSelectedItem();
+		if (i == null)
+			return;
+		String filepath = ((Catagory)i).getFilePath();
+		filepath = filepath.substring(0, filepath.lastIndexOf('\\'));
+		filepath += "\\";
+		try {
+			String category = this instanceof ChemicalDisplay ? "Chemical" : "Functional Group";
+			String name = JOptionPane.showInputDialog(this,
+		        	"Choose a new name for the " + category,
+		            "Rename " + category, 1);
+		    if (name == null) {
+		    	return;
+		    }
+		    // Check name is unique
+		    for (SelectableItem si : controller.getSelectables()) {
+		    	if (si.getName().equals(name)) {
+		    		JOptionPane.showMessageDialog(this, "Something with that name already exists");
+					return;
+		    	}
+		    }
+		    File fi = new File(filepath + i.getName());
+			fi.renameTo(new File(filepath + name));
+			if (i instanceof Chemical)
+				controller.rename_chemical((Chemical)i,name);
+			else
+				i.setName(name);
+			this.update_functions((Catagory) controller.getSelectedItem());
+		} catch (Exception e) {
+			
+		}
+	}
+
+	public void deleteCategory() {
+		controller.deleteCategory(this);
+	}
+
+	public void deleteFunction() {
+		controller.deleteFunction(this);
+	}
+	
 }

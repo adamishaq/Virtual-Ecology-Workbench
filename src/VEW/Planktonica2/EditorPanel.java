@@ -12,7 +12,9 @@ import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -26,10 +28,11 @@ import org.antlr.runtime.RecognitionException;
 
 import VEW.Planktonica2.ControllerStructure.SourcePath;
 import VEW.Planktonica2.ControllerStructure.VEWController;
-import VEW.UIComponents.AutocompleteBox;
-import VEW.UIComponents.BACONFilter;
-import VEW.UIComponents.LatexPreview;
-import VEW.UIComponents.SyntaxHighlighter;
+import VEW.Planktonica2.Model.Function;
+import VEW.Planktonica2.UIComponents.AutocompleteBox;
+import VEW.Planktonica2.UIComponents.BACONFilter;
+import VEW.Planktonica2.UIComponents.LatexPreview;
+import VEW.Planktonica2.UIComponents.SyntaxHighlighter;
 import VEW.XMLCompiler.ANTLR.ANTLRParser;
 import VEW.XMLCompiler.ASTNodes.ConstructedASTree;
 import VEW.XMLCompiler.ASTNodes.SemanticCheckException;
@@ -45,6 +48,7 @@ public class EditorPanel extends JPanel implements Observer {
 	private SyntaxHighlighter syntax_highlighter;
 	private AutocompleteBox auto_complete;
 	private JEditorPane error_log;
+	private String current_source;
 	
 	// Open/save components
 	final static JFileChooser file_chooser = new JFileChooser();
@@ -143,6 +147,8 @@ public class EditorPanel extends JPanel implements Observer {
 	}
 	
 	public void compile() {
+		if (this.current_source == null)
+			return;
 		syntax_highlighter.clear_flags();
 		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
 		try {
@@ -182,9 +188,51 @@ public class EditorPanel extends JPanel implements Observer {
 		}
 	}
 	
-	public void preview() {
-		// Clear all error lines
+	public void check() {
+		if (this.current_source == null)
+			return;
 		syntax_highlighter.clear_flags();
+		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
+		try {
+			ConstructedASTree ct = p.getAST();
+			if (ct.getExceptions().isEmpty())
+				ct.getTree().check(controller.getCurrentlySelectedFunction().getParent(), ct);
+			if (ct.getExceptions().isEmpty()) {
+				String latex = "\\begin{array}{lr}";
+				latex += ct.getTree().generateLatex();
+				latex += "\\end{array}";
+				preview.setVisible(true);
+				preview.update_preview(latex);
+				error_log.setText("<html><PRE>Check succeeded!</PRE></html>");
+			} else {
+				String errors = "<html><PRE>Errors in source file:\n";
+				errors += "<font color=#FF0000>";
+				for (Exception t : ct.getExceptions()) {
+					syntax_highlighter.flag_line(t);
+					if (t instanceof TreeWalkerException) {
+						TreeWalkerException twe = (TreeWalkerException) t;
+						errors += twe.getError() + "\n";
+					} else if (t instanceof SemanticCheckException) {
+						SemanticCheckException sce = (SemanticCheckException) t;
+						errors += sce.getError() + "\n";
+					} else {
+						errors += "Unknown error\n";
+					}
+				}
+				errors += "</font>";
+				errors += "</PRE></html>";
+				error_log.setText(errors);
+			}
+			highlight_syntax();
+		} catch (RecognitionException e) {
+			System.out.println("RECOGNITION EXCEPTION");
+			e.printStackTrace();
+		}
+	}
+	
+	public void preview() {
+		if (this.current_source == null)
+			return;
 		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
 		//System.out.println(syntax_highlighter.getPlainText(syntax.getText()));
 		try {
@@ -211,7 +259,6 @@ public class EditorPanel extends JPanel implements Observer {
 			}*/
 			//highlight_syntax();
 		} catch (RecognitionException e) {
-			// TODO Auto-generated catch block
 			System.out.println("RECOGNITION EXCEPTION");
 			e.printStackTrace();
 		}
@@ -281,13 +328,36 @@ public class EditorPanel extends JPanel implements Observer {
 			syntax.setText(source);
 			highlight_syntax();
 			syntax.setCaretPosition(0);
+			this.current_source = filePath;
 		} catch (Exception e) {
 			syntax.setText("<html><head></head><PRE>Could not find source file " + filePath
 					+ "</PRE></html>");
 		}
 	}
 	
+	public void save() {
+		Function f = controller.getCurrentlySelectedFunction();
+		if (f == null)
+			return;
+		String file_path = f.getSource_code();
+		file_path += f.getParent().getName();
+		file_path += "\\";
+		file_path += f.getName();
+		file_path += ".bacon";
+		try {
+			FileOutputStream fstream = new FileOutputStream(file_path);
+			PrintStream out = new PrintStream(fstream);
+			out.print(syntax_highlighter.getPlainText(syntax.getText()));
+			out.close();
+			error_log.setText("Save successful");
+		} catch (Exception e) {
+			error_log.setText("<html><head></head><PRE>Error when saving to file " 
+					+ file_path + "</PRE></html>");
+		}
+	}
+	
 	public void clear() {
+		this.current_source = null;
 		this.syntax.setEnabled(false);
 		this.syntax.setText("<html><PRE></PRE></html>");
 		this.preview.setVisible(false);

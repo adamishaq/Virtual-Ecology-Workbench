@@ -25,7 +25,7 @@ public class FunctionalGroupTest {
 		
 		
 		// variables
-		XMLTag variable = new XMLTag(XMLTagEnum.VARIABLE.xmlTag());
+		XMLTag variable = new XMLTag(XMLTagEnum.STATE_VARIABLE.xmlTag());
 		XMLTag variableName =  new XMLTag (XMLTagEnum.NAME.xmlTag(), "variable1");
 		XMLTag variableUnit = new XMLTag(XMLTagEnum.UNIT.xmlTag(), "0,2,2");
 		XMLTag variableDesc = new XMLTag(XMLTagEnum.DESCRIPTION.xmlTag(), "Herrow");
@@ -34,7 +34,7 @@ public class FunctionalGroupTest {
 		variable.addTag(variableDesc);
 		
 		
-		XMLTag variable2 = new XMLTag(XMLTagEnum.VARIABLE.xmlTag());
+		XMLTag variable2 = new XMLTag(XMLTagEnum.STATE_VARIABLE.xmlTag());
 		XMLTag variable2Name =  new XMLTag (XMLTagEnum.NAME.xmlTag(), "variable2");
 		XMLTag variable2Unit = new XMLTag(XMLTagEnum.UNIT.xmlTag(), "0,2,2");
 		XMLTag variable2Desc = new XMLTag(XMLTagEnum.DESCRIPTION.xmlTag(), "Herrow");
@@ -43,7 +43,7 @@ public class FunctionalGroupTest {
 		variable2.addTag(variable2Desc);
 		
 		
-		XMLTag variable3 = new XMLTag(XMLTagEnum.VARIABLE.xmlTag());
+		XMLTag variable3 = new XMLTag(XMLTagEnum.STATE_VARIABLE.xmlTag());
 		XMLTag variable3Name =  new XMLTag (XMLTagEnum.NAME.xmlTag(), "variable3");
 		XMLTag variable3Unit = new XMLTag(XMLTagEnum.UNIT.xmlTag(), "0,2,2");
 		XMLTag variable3Desc = new XMLTag(XMLTagEnum.DESCRIPTION.xmlTag(), "Herrow");
@@ -197,7 +197,7 @@ public class FunctionalGroupTest {
 
 	@Test
 	public void test() {
-		FunctionalGroup f = new FunctionalGroup("");
+		FunctionalGroup f = new FunctionalGroup("\\lolPath");
 		f.build(functionalGroup);
 		
 		assertNotNull(f.getName());

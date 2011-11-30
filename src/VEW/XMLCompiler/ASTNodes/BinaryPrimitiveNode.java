@@ -1,5 +1,6 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Type;
 
 
@@ -16,19 +17,19 @@ public class BinaryPrimitiveNode extends ExprNode {
 	}
 	
 	@Override
-	public void check() {
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
 		//TODO this might be able to take variety arguments, :/
-		lExpr.check();
-		rExpr.check();
+		lExpr.check(enclosingCategory, enclosingTree);
+		rExpr.check(enclosingCategory, enclosingTree);
 		AmbientVariableTables varTables = AmbientVariableTables.getTables();
 		Type floatType = (Type) varTables.checkTypeTable("$float");
 		if (lExpr.getExprType() != floatType) {
-			CommonTreeWalker.add_exception(
+			enclosingTree.addSemanticException(
 					new SemanticCheckException("First argument does not evaluate to a float",line_number));
 			return;
 		}
 		if (rExpr.getExprType() != floatType) {
-			CommonTreeWalker.add_exception(
+			enclosingTree.addSemanticException(
 					new SemanticCheckException("Second argument does not evalute to a float",line_number));
 			return;
 		}

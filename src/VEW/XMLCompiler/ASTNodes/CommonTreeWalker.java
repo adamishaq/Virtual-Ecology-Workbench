@@ -21,7 +21,7 @@ import VEW.XMLCompiler.ANTLR.BACONParser;
  */
 public class CommonTreeWalker {
 	
-	private static ArrayList<Exception> exceptions;
+	private ArrayList<Exception> exceptions;
 	
 	private CommonTree antlrTree;
 	
@@ -31,7 +31,7 @@ public class CommonTreeWalker {
 	 */
 	public CommonTreeWalker(CommonTree antlrTree) {
 		this.antlrTree = antlrTree;
-		CommonTreeWalker.exceptions = new ArrayList<Exception>();
+		exceptions = new ArrayList<Exception>();
 	}
 	
 	/**
@@ -64,7 +64,7 @@ public class CommonTreeWalker {
 				}
 			}
 		}
-		return new ConstructedASTree(constructedTree,CommonTreeWalker.exceptions);
+		return new ConstructedASTree(constructedTree, exceptions);
 	}
 
 	/*
@@ -308,6 +308,11 @@ public class CommonTreeWalker {
 				expr = constructBinOpNode(MathematicalOperator.POWER, tree);
 				break;
 			}
+			case(BACONParser.NEG) : {
+				ExprNode negExpr = constructExprNode((CommonTree)tree.getChild(0));
+				expr = new NegNode(negExpr);
+				break;
+			}
 			case(BACONParser.IF) : {
 				BExprNode ifCondNode = constructBExprNode((CommonTree)tree.getChild(0));
 				ExprNode thenExpr = constructExprNode((CommonTree)tree.getChild(1));
@@ -446,8 +451,8 @@ public class CommonTreeWalker {
 		return true;
 	}
 	
-	public static void add_exception(Exception e) {
-		CommonTreeWalker.exceptions.add(e);
+	public void add_exception(Exception e) {
+		exceptions.add(e);
 	}
 
 }

@@ -9,7 +9,7 @@ public class SymbolTableInsert {
 
 	@Test
 	public void addItemToSymbolTable() {
-		SymbolTable table = new SymbolTable();
+		SymbolTable<Integer> table = new SymbolTable<Integer>();
 		table.put("Key", new Integer(5));
 		Integer n = (Integer) table.get("Key");
 		int m = n.intValue();

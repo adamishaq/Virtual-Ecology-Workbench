@@ -3,6 +3,7 @@ package VEW.XMLCompiler.ASTNodes;
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Chemical;
 import VEW.Planktonica2.Model.FunctionalGroup;
+import VEW.Planktonica2.Model.GlobalVariable;
 import VEW.Planktonica2.Model.Stage;
 import VEW.Planktonica2.Model.Type;
 import VEW.Planktonica2.Model.VarietyType;
@@ -21,32 +22,36 @@ public class BinaryFunctionNode extends RuleNode {
 	}
 	
 	@Override
-	public void check() {
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
 		//Considering splitting this into three nodes
-		Catagory cata = getCatagory();
-		if (cata instanceof Chemical) {
-			CommonTreeWalker.add_exception(
+		if (enclosingCategory instanceof Chemical) {
+			enclosingTree.addSemanticException(
 				new SemanticCheckException("Special functions cannot be called within chemical equations",line_number));
 		} else {
-			FunctionalGroup group = (FunctionalGroup) cata;
-			expArg.check();
+			FunctionalGroup group = (FunctionalGroup) enclosingCategory;
+			expArg.check(enclosingCategory, enclosingTree);
 			Type expArgType = expArg.getExprType();
 			switch (binFunc) {
 				case UPTAKE : 
 				case RELEASE : {
-					//TODO Check id is a chemical
+					AmbientVariableTables tables = AmbientVariableTables.getTables();
+					GlobalVariable chem = tables.checkChemicalTable(idArg.getName());
+					if (chem == null) {
+						enclosingTree.addSemanticException(
+								new SemanticCheckException(idArg.getName() + " is not a chemical concentration",line_number));
+					}
 					break;
 				}
 				case PCHANGE : {
 					Stage st = group.checkStageTable(idArg.getName());
 					if (st == null) {
-						CommonTreeWalker.add_exception(
+						enclosingTree.addSemanticException(
 								new SemanticCheckException(idArg.getName() + " is not a stage",line_number));
 					}
 				}
 			}
 			if (expArgType instanceof VarietyType) {
-				CommonTreeWalker.add_exception(
+				enclosingTree.addSemanticException(
 						new SemanticCheckException("The expression must evaluate to a scalar value",line_number));
 			}
 		}

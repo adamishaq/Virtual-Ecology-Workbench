@@ -11,8 +11,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import VEW.Common.XML.XMLTag;
-import VEW.Planktonica2.Model.Equation;
 import VEW.Planktonica2.Model.Function;
+import VEW.Planktonica2.Model.FunctionalGroup;
 import VEW.Planktonica2.Model.Stage;
 import VEW.Planktonica2.Model.XMLTagEnum;
 
@@ -78,8 +78,10 @@ public class FunctionsTest {
 		Collection<Stage> stages = new ArrayList<Stage> (1);
 
 		stages.add(s);
-
-		Function f = new Function (stages, "", "");
+		
+		FunctionalGroup parent = new FunctionalGroup (s.getName());
+		
+		Function f = new Function (stages, "\\lolFile", parent);
 
 		f.build(function);
 
@@ -95,26 +97,6 @@ public class FunctionsTest {
 
 		assertNotNull(f.getArchiveName());
 		assertEquals(f.getArchiveName(), "herrow");
-
-
-		assertNotNull(f.getEquations());
-
-		Equation [] equations = new Equation [2];
-
-		equations = f.getEquations().toArray(equations);
-
-		assertEquals(equations.length, 2);
-
-		assertNotNull(equations[0]);
-		assertNotNull(equations[1]);
-
-		if (!equations[0].getName().equals("e1")) {
-			assertEquals(equations[0].getName(), "e2");
-		}
-
-		if (!equations[1].getName().equals("e2")) {
-			assertEquals(equations[1].getName(), "e1");
-		}
 
 
 	}

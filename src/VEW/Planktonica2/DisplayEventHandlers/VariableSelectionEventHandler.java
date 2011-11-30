@@ -3,7 +3,6 @@ package VEW.Planktonica2.DisplayEventHandlers;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-
 import VEW.Planktonica2.ControllerStructure.VEWController;
 
 public class VariableSelectionEventHandler implements TreeSelectionListener {

@@ -12,6 +12,7 @@ tokens {
 	ASSIGNLIST;
 	EXPR;
 	BEXPR;
+	NEG;
 }
 
 @header {
@@ -91,11 +92,11 @@ public static String getTokenFromType(int ttype) {
 }
 
 @lexer::header {
-package VEW.XMLCompiler.ANTLR.output;
+package VEW.XMLCompiler.ANTLR;
 }
 
 // Rules
-RULENAME : ('"')(LETTER|DIGIT|'_'|IGNORE)*('"');	
+RULENAME : ('"')(~'"')*('"');	
 COLON    : (':')(IGNORE)*(NEWLINE)?;
 
 // Keywords
@@ -141,6 +142,7 @@ DENSITYAT   : 'densityAt';
 DEPTHFORFI  : 'depthForFI';
 DEPTHFORVI  : 'depthForVI';
 FULLIRRADAT : 'fullIrradAt';
+VISIRRADAT  : 'visIrradAt';
 SALINITYAT  : 'salinityAt';
 TEMPAT      : 'temperatureAt';
 UVIRRADAT   : 'UVIrradAt';
@@ -148,10 +150,14 @@ VARHIST     : 'varhist';
 
 // Numerical Expressions
 fragment DIGIT : ('0'..'9');
+
 FLOAT
-    :   (DIGIT)+ '.' (DIGIT)*
-    |   '.' (DIGIT)+
-    |   (DIGIT)+;
+    :   (MINUS)? DIGIT+ ('.' DIGIT* EXPONENT?)?
+    |   (MINUS)? DIGIT+ EXPONENT
+    ;
+
+fragment
+EXPONENT : ('e'|'E') ('+'|'-')? DIGIT+ ;
 
 // Arithmetic Operators
 EQUALS   : '=';
@@ -219,15 +225,15 @@ rule
 
 rule2
 	: assign
-	| IF bExpr THEN rule -> ^(IF bExpr rule)
+	| IF bExpr (NEWLINE)? THEN (NEWLINE)? rule -> ^(IF bExpr rule)
 	| UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^(UPTAKE VAR expr)
 	| RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^(RELEASE VAR expr)
 	| INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^(INGEST VAR expr expr)
 	| CHANGE LBRACKET VAR RBRACKET -> ^(CHANGE VAR)
 	| PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^(PCHANGE VAR expr)
 	| DIVIDE LBRACKET expr RBRACKET -> ^(DIVIDE expr)
-	| CREATE LBRACKET VAR COMMA expr RBRACKET 
-		(WITH LSQUARE assignList RSQUARE)? -> ^(CREATE VAR expr (assignList)?)
+	| CREATE LBRACKET VAR COMMA expr RBRACKET
+		((NEWLINE)? WITH LSQUARE assignList RSQUARE)? -> ^(CREATE VAR expr (assignList)?)
 	| LBRACKET rule2 RBRACKET -> rule2
 	;
 
@@ -236,7 +242,7 @@ assign
 	;
 
 assignList
-	: assign (COMMA assign)* -> ^(ASSIGNLIST assign (assign)*)
+	: assign (NEWLINE)? (COMMA assign (NEWLINE)?)* -> ^(ASSIGNLIST assign (assign)*)
 	;
 		
 expr
@@ -255,6 +261,7 @@ expr3
 expr4
  	: LBRACKET expr RBRACKET -> expr
 	| unaryPrimitives LBRACKET expr RBRACKET -> ^(unaryPrimitives expr)
+	| MINUS expr -> ^(NEG expr)
 	| FLOAT
 	| VAR
 	| IF bExpr THEN expr ELSE expr -> ^(IF bExpr expr expr)
@@ -299,6 +306,7 @@ unaryPrimitives
 	| TEMPAT
 	| UVIRRADAT
 	| INTEGRATE
+	| VISIRRADAT
 	;
 	
 lowPrecMathOp

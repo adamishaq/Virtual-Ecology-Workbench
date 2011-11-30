@@ -2,9 +2,7 @@ package VEW.Planktonica2.ControllerStructure;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
-import javax.swing.JTree;
 
 import VEW.Planktonica2.Model.Function;
 import VEW.Planktonica2.Model.FunctionalGroup;
@@ -13,7 +11,6 @@ import VEW.Planktonica2.Model.Stage;
 
 public class FunctionalGroupController extends VEWController {
 
-	private Collection <FunctionalGroup> functionalGroups;
 	
 	private FunctionalGroup currentFG;
 	
@@ -21,8 +18,6 @@ public class FunctionalGroupController extends VEWController {
 	
 	public FunctionalGroupController(Model m) {
 		super(m);
-		
-		functionalGroups = this.model.getFunctionalGroups();
 		
 	}
 
@@ -52,7 +47,7 @@ public class FunctionalGroupController extends VEWController {
 	
 	public void setSelectedFunctionalGroup (FunctionalGroup f) {
 	
-		if (functionalGroups.contains(f)) {
+		if (getFunctionalGroups().contains(f)) {
 			this.currentFG = f;
 			return;
 		}
@@ -64,9 +59,17 @@ public class FunctionalGroupController extends VEWController {
 		
 	}
 	
+	public void setSelectedAsTopPredator(boolean isTopPredator) {
+		FunctionalGroup f = this.getSelectedFunctionalGroup();
+		if (f != null) {
+			f.setTopPredator(isTopPredator);
+			this.setChanged();
+			this.notifyObservers(new NewVariableEvent());
+		}
+	}
 
 	private FunctionalGroup matchFGOnName(FunctionalGroup toMatch) {
-		for (FunctionalGroup f : functionalGroups) {
+		for (FunctionalGroup f : getFunctionalGroups()) {
 			if (f.getName().equals(toMatch.getName())) {
 				return f;
 			}
@@ -84,7 +87,7 @@ public class FunctionalGroupController extends VEWController {
 	}
 	
 	public Collection<FunctionalGroup> getFunctionalGroups() {
-		return this.functionalGroups;
+		return this.model.getFunctionalGroups();
 	}
 
 	@Override
@@ -100,10 +103,43 @@ public class FunctionalGroupController extends VEWController {
 		currentFG.moveFunctionIndex(funcName, index);
 		this.populateFunctionTree(display.rootNode);
 		display.tree.updateUI();
-		
 	}
 
+	public boolean stageIsCalledIn(String stageName, int functionIndex) {
+		
+		Stage selected = getStage(stageName);
+		Function f = getFunctionAtIndex(functionIndex);
+		
+		// called in holds a referrence to the origional stage
+		return f.isCalledIn(selected);
+	}
+
+	public void setStageIsCalledIn(String stageName, int functionIndex, boolean isCalledIn) {
+		Stage selected = getStage(stageName);
+		Function f = getFunctionAtIndex(functionIndex);
+		
+		if (isCalledIn) {
+			// add to list of CalledIn
+			f.addToCalledIn(selected);
+			
+		} else {
+			// remove from list
+			f.removeFromCalledIn(selected);
+		}
+	}
+
+	public void addCategoryToModel(String name) {
+		FunctionalGroup new_fg = new FunctionalGroup(name,model.getFilePath());
+		model.addFunctionalGroup(new_fg);
+		this.setChanged();
+		this.notifyObservers(new NewCategoryEvent(new_fg));
+	}
 	
+	public boolean isTopPredator() {
+		FunctionalGroup g = getSelectedFunctionalGroup();
+		return (g == null) ? false : g.isTopPredator();
+		
+	}
 	
 	
 }

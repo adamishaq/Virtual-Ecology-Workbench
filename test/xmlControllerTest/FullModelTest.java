@@ -1,7 +1,6 @@
 package xmlControllerTest;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.prefs.BackingStoreException;
 
 import org.junit.After;

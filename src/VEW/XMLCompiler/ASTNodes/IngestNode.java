@@ -18,20 +18,19 @@ public class IngestNode extends RuleNode {
 	}
 	
 	@Override
-	public void check() {
-		Catagory cata = getCatagory();
-		if (cata instanceof Chemical) {
-			CommonTreeWalker.add_exception(
+	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
+		if (enclosingCategory instanceof Chemical) {
+			enclosingTree.addSemanticException(
 					new SemanticCheckException("Special functions cannot be called within chemical equations",
 							line_number));
 		}
-		VarietyConcentration foodSet = cata.checkVarietyConcTable(identifier.getName());
+		VarietyConcentration foodSet = enclosingCategory.checkVarietyConcTable(identifier.getName());
 		if (foodSet == null) {
-			CommonTreeWalker.add_exception(
+			enclosingTree.addSemanticException(
 					new SemanticCheckException(identifier.getName() + " is not a known food set",line_number));
 		}
-		threshold.check();
-		rate.check();
+		threshold.check(enclosingCategory, enclosingTree);
+		rate.check(enclosingCategory, enclosingTree);
 		//TODO: Check that if things are varieties that they link back to appropriate food set
 
 	}

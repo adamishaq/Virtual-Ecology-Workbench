@@ -3,8 +3,9 @@ package VEW.Planktonica2.DisplayEventHandlers;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import VEW.UIComponents.VarType;
-import VEW.UIComponents.VariableEditorPanel;
+import VEW.Planktonica2.UIComponents.VarType;
+import VEW.Planktonica2.UIComponents.VariableEditorPanel;
+
 
 public class VarTypeListener implements ItemListener {
 
