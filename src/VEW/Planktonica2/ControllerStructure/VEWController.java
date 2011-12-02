@@ -322,6 +322,8 @@ public abstract class VEWController extends Observable {
 			this.model.moveCatagoryUp(getSelectedCatagory(), -1);
 		}
 		
+		this.setChanged();
+		this.notifyObservers(new NewCategoryEvent());
 	}
 
 	
@@ -338,6 +340,9 @@ public abstract class VEWController extends Observable {
 		} else {
 			this.model.moveCatagoryUp(getSelectedCatagory(), 1);
 		}
+		
+		this.setChanged();
+		this.notifyObservers(new NewCategoryEvent());
 		
 	}
 
