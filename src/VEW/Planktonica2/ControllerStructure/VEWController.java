@@ -246,58 +246,62 @@ public abstract class VEWController extends Observable {
 		this.notifyObservers(new NewCategoryEvent(c));
 	}
 
-	public void deleteCategory(Display d) {
-		// Check the user really wants to delete the category
-		String category = this instanceof ChemicalController ? "Chemical" : "Funtional Group";
-		int choice = JOptionPane.showOptionDialog(d, "Are you sure you want to delete this " 
-				+ category + "?",
+	public void delete_category(Display d) {
+		if (this.getCurrentlySelectedFunction() != null) {
+			// User has a function selected
+			// Check the user really wants to delete this function
+			int choice = JOptionPane.showOptionDialog(d, "Are you sure you want to delete this function?",
 				"Confirm delete", JOptionPane.YES_NO_OPTION, 1, null, null, 1);
 			if (choice == 1)
 				return;
-		SelectableItem i = this.getSelectedItem();
-		if (i == null)
-			return;
-		String filepath = ((Catagory)i).getFilePath();
-		filepath = filepath.substring(0, filepath.lastIndexOf('\\'));
-		filepath += "\\" + i.getName();
-		try {
-			File f = new File(filepath);
-			String[] children = f.list();
-			for (int j = 0; j < children.length; j++) {
-				File del = new File(filepath,children[j]);
+			Function f = this.getCurrentlySelectedFunction();
+			if (f == null)
+				return;
+			try {
+				File del = new File(f.getSource_code() + "\\" + f.getParent().getName() 
+						+ "\\" + f.getName() + ".bacon");
 				del.delete();
-	        }
-			f.delete();
-		} catch (Exception e) {
-		} finally {
-			if (i instanceof Chemical) {
-				model.removeChemical((Chemical)i);
-			} else {
-				model.removeFunctionalGroup((FunctionalGroup)i);
+			} catch (Exception e) {
+			} finally {
+				this.getSelectedItem().removeFunction(f);
+				this.setChanged();
+				this.notifyObservers(new UpdateCategoryEvent(this.getSelectedItem()));
+				this.setCurrentlySelectedFunction(null);
 			}
-			this.setChanged();
-			this.notifyObservers(new NewCategoryEvent(null));
-		}
-	}
-
-	public void deleteFunction(Display d) {
-		// Check the user really wants to delete this function
-		int choice = JOptionPane.showOptionDialog(d, "Are you sure you want to delete this function?",
-			"Confirm delete", JOptionPane.YES_NO_OPTION, 1, null, null, 1);
-		if (choice == 1)
-			return;
-		Function f = this.getCurrentlySelectedFunction();
-		if (f == null)
-			return;
-		try {
-			File del = new File(f.getSource_code() + "\\" + f.getParent().getName() 
-					+ "\\" + f.getName() + ".bacon");
-			del.delete();
-		} catch (Exception e) {
-		} finally {
-			this.getSelectedItem().removeFunction(f);
-			this.setChanged();
-			this.notifyObservers(new NewCategoryEvent(null));
+		} else if (this.getSelectedItem() != null) {
+			// User has a functional group/chemical selected
+			// Check the user really wants to delete the category
+			String category = this instanceof ChemicalController ? "Chemical" : "Funtional Group";
+			int choice = JOptionPane.showOptionDialog(d, "Are you sure you want to delete this " 
+					+ category + "?",
+					"Confirm delete", JOptionPane.YES_NO_OPTION, 1, null, null, 1);
+				if (choice == 1)
+					return;
+			SelectableItem i = this.getSelectedItem();
+			if (i == null)
+				return;
+			String filepath = ((Catagory)i).getFilePath();
+			filepath = filepath.substring(0, filepath.lastIndexOf('\\'));
+			filepath += "\\" + i.getName();
+			try {
+				File f = new File(filepath);
+				String[] children = f.list();
+				for (int j = 0; j < children.length; j++) {
+					File del = new File(filepath,children[j]);
+					del.delete();
+		        }
+				f.delete();
+			} catch (Exception e) {
+			} finally {
+				if (i instanceof Chemical) {
+					model.removeChemical((Chemical)i);
+				} else {
+					model.removeFunctionalGroup((FunctionalGroup)i);
+				}
+				this.setChanged();
+				this.notifyObservers(new NewCategoryEvent(null));
+				this.setSelectedItem(null);
+			}
 		}
 	}
 

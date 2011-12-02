@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Unit;
+import VEW.Planktonica2.Model.UnitChecker;
 import VEW.Planktonica2.Model.VariableType;
 
 public class IdNode extends ExprNode {
@@ -40,8 +41,7 @@ public class IdNode extends ExprNode {
 	public void set_units(Catagory enclosingCategory) {
 		VariableType v = enclosingCategory.checkAccessableVariableTable(name);
 		if (v == null) {
-			units = new ArrayList<Unit>();
-			units.add(new Unit(0,"null",1));
+			units = UnitChecker.null_collection;
 		} else {
 			var = (VariableType) v;
 			units = var.getUnits();

@@ -17,6 +17,10 @@ public class NumNode extends ExprNode {
 		units.add(new Unit(0,"dimensionless",1));
 	}
 	
+	public float getValue() {
+		return this.value;
+	}
+	
 	@Override
 	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
 		AmbientVariableTables tables = AmbientVariableTables.getTables();

@@ -41,13 +41,9 @@ public class IfExprNode extends ExprNode {
 					elseExpr.getUnits())) {
 				enclosingTree.addWarning("Conditional returning two different unit types on line "
 					+ line_number);
-				units = new ArrayList<Unit>();
-				units.add(new Unit(0,"null",1));
+				this.units = UnitChecker.null_collection;
 			} else {
-				if (UnitChecker.getUnitChecker().contains_null(this.thenExpr.getUnits()))
-					this.units = thenExpr.getUnits();
-				else
-					this.units = elseExpr.getUnits();
+				this.units = UnitChecker.getUnitChecker().add_units(thenExpr.getUnits(), elseExpr.getUnits());
 			}
 		}
 	}

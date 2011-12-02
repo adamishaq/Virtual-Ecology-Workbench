@@ -6,16 +6,16 @@ import java.awt.event.ActionListener;
 import VEW.Planktonica2.Display;
 
 
-public class DeleteFunctionButtonListener implements ActionListener {
+public class DeleteButtonListener implements ActionListener {
 
 	private Display parent;
 	
-	public DeleteFunctionButtonListener(Display d) {
+	public DeleteButtonListener(Display d) {
 		parent = d;
 	}
 	
 	public void actionPerformed(ActionEvent event) {
-        parent.deleteFunction();
+        parent.delete_category();
 	}
 	
 }
