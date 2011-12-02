@@ -41,10 +41,9 @@ public class BinaryPrimitiveNode extends ExprNode {
 		setExprType(floatType);
 		if (!UnitChecker.getUnitChecker().CheckUnitCompatability(rExpr.getUnits(), lExpr.getUnits())) {
 			enclosingTree.addWarning("Comparison of two different unit types on line " + line_number);
-			units = new ArrayList<Unit>();
-			units.add(new Unit(0,"null",1));
+			this.units = UnitChecker.null_collection;
 		} else {
-			this.units = rExpr.getUnits();
+			this.units = UnitChecker.getUnitChecker().add_units(rExpr.getUnits(), lExpr.getUnits());
 		}
 	}
 

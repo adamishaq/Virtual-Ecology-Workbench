@@ -9,11 +9,16 @@ public class UnitChecker {
 	
 	private static UnitChecker unitchecker;
 	
-	public Unit null_unit = new Unit(0,"null",1);
+	public static Unit null_unit = new Unit(0,"null",1);
+	public static Unit dimensionless_unit = new Unit(0,"dimensionless",1);
+	public static Collection<Unit> null_collection = new ArrayList<Unit>();
+	public static Collection<Unit> dimensionless_collection = new ArrayList<Unit>();
 	
 	public static UnitChecker getUnitChecker() {
-		if (unitchecker == null)
+		if (unitchecker == null) {
 			unitchecker = new UnitChecker();
+			null_collection.add(null_unit);
+		}
 		return unitchecker;
 	}
 	
@@ -23,13 +28,13 @@ public class UnitChecker {
 		ArrayList<Unit> first_array = new ArrayList<Unit>();
 		for (Unit u : first) {
 			first_array.add(u);
-			if (u.getName().equals("null"))
+			if (u.getName().equals("null") || u.getName().equals("dimensionless"))
 				return true;
 		}
 		ArrayList<Unit> second_array = new ArrayList<Unit>();
 		for (Unit u : second) {
 			second_array.add(u);
-			if (u.getName().equals("null"))
+			if (u.getName().equals("null") || u.getName().equals("dimensionless"))
 				return true;
 		}
 		for (int i = 0; i < first_array.size(); i++) {
@@ -64,13 +69,26 @@ public class UnitChecker {
 		return combine_units(first_array,second_array);
 	}
 	
+	public Collection<Unit> add_units(Collection<Unit> first, Collection<Unit> second) {
+		ArrayList<Unit> first_array = clone_unit_list(first);
+		ArrayList<Unit> second_array = clone_unit_list(second);
+		for (Unit u : first_array) {
+			if (u.getName().equals("null")) {
+				return UnitChecker.null_collection;
+			} else if (u.getName().equals("dimensionless")) {
+				return second_array;
+			}
+		}
+		return first_array;
+	}
+	
 	private ArrayList<Unit> clone_unit_list(Collection<Unit> first) {
 		ArrayList<Unit> first_array = new ArrayList<Unit>();
 		for (Unit u : first)
 			first_array.add(new Unit(u.getSize(),u.getName(),u.getExponent()));
 		return first_array;
 	}
-
+	
 	private Collection<Unit> combine_units(ArrayList<Unit> first_array, ArrayList<Unit> second_array) {
 		for (int i = 0; i < first_array.size(); i++) {
 			Unit fu = first_array.get(i);
@@ -102,5 +120,13 @@ public class UnitChecker {
 				return true;
 		}
 		return false;
+	}
+
+	public Collection<Unit> power_units(Collection<Unit> units, float value) {
+		ArrayList<Unit> first_array = clone_unit_list(units);
+		for (Unit u : first_array) {
+			u.setExponent(u.getExponent() * ((int)value));
+		}
+		return first_array;
 	}
 }

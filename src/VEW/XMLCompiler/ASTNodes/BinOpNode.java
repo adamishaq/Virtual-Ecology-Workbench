@@ -39,26 +39,18 @@ public class BinOpNode extends ExprNode {
 			if (!UnitChecker.getUnitChecker().CheckUnitCompatability(rExpr.getUnits(),
 				lExpr.getUnits())) {
 				enclosingTree.addWarning("Addition of two different unit types on line " + line_number);
-				units = new ArrayList<Unit>();
-				units.add(new Unit(0,"null",1));
+				units = UnitChecker.null_collection;
 			} else {
-				if (UnitChecker.getUnitChecker().contains_null(this.rExpr.getUnits()))
-					this.units = rExpr.getUnits();
-				else
-					this.units = lExpr.getUnits();
+				this.units = UnitChecker.getUnitChecker().add_units(rExpr.getUnits(), lExpr.getUnits());
 			}
 			break;
 		case MINUS    :
 			if (!UnitChecker.getUnitChecker().CheckUnitCompatability(rExpr.getUnits(),
 				lExpr.getUnits())) {
 				enclosingTree.addWarning("Subtraction of two different unit types on line " + line_number);
-				units = new ArrayList<Unit>();
-				units.add(new Unit(0,"null",1));
+				this.units = UnitChecker.null_collection;
 			} else {
-				if (UnitChecker.getUnitChecker().contains_null(this.rExpr.getUnits()))
-					this.units = rExpr.getUnits();
-				else
-					this.units = lExpr.getUnits();
+				this.units = UnitChecker.getUnitChecker().add_units(rExpr.getUnits(), lExpr.getUnits());
 			}
 			break; 
 		case MULTIPLY :
@@ -73,8 +65,12 @@ public class BinOpNode extends ExprNode {
 			if (!UnitChecker.getUnitChecker().CheckUnitCompatability(rExpr.getUnits(),pow))
 				enclosingTree.addWarning("Expression raised to power of expression with units on line " +
 						line_number);
-			units = new ArrayList<Unit>();
-			units.add(new Unit(0,"null",1));
+			if (rExpr instanceof NumNode) {
+				NumNode num = (NumNode) rExpr;
+				units = UnitChecker.getUnitChecker().power_units(lExpr.getUnits(),num.getValue());
+			} else {
+				units = UnitChecker.null_collection;
+			}
 			break; 
 		}
 	}

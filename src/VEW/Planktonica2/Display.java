@@ -27,16 +27,17 @@ import VEW.Planktonica2.ControllerStructure.NewCategoryEvent;
 import VEW.Planktonica2.ControllerStructure.NewVariableEvent;
 import VEW.Planktonica2.ControllerStructure.SelectableItem;
 import VEW.Planktonica2.ControllerStructure.SourcePath;
+import VEW.Planktonica2.ControllerStructure.UpdateCategoryEvent;
 import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.Planktonica2.DisplayEventHandlers.AddCategoryButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.AddFunctionButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.CheckButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.CompileButtonListener;
-import VEW.Planktonica2.DisplayEventHandlers.DeleteCategoryButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
 import VEW.Planktonica2.DisplayEventHandlers.MoveDownButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.MoveUpButtonListener;
-import VEW.Planktonica2.DisplayEventHandlers.RenameCategoryListener;
+import VEW.Planktonica2.DisplayEventHandlers.DeleteButtonListener;
+import VEW.Planktonica2.DisplayEventHandlers.RenameButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.SaveButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.VariableSelectionEventHandler;
 import VEW.Planktonica2.Model.Catagory;
@@ -120,6 +121,8 @@ public abstract class Display extends JSplitPane implements Observer {
 		} else if (arg instanceof NewVariableEvent) {
 			SelectableItem s = controller.getSelectedCatagory();
 			this.update_vars(s);
+		} else if (arg instanceof UpdateCategoryEvent) {
+			update_functions(((UpdateCategoryEvent)arg).getCategory());
 		}
 		
 	}
@@ -300,11 +303,11 @@ public abstract class Display extends JSplitPane implements Observer {
 		
 		removeInstance = new JButton(new ImageIcon(IconRoot + "bin1.gif"));
 		removeInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
-		removeInstance.addActionListener(new DeleteCategoryButtonListener(this));
+		removeInstance.addActionListener(new DeleteButtonListener(this));
 		
 		renameInstance = new JButton(new ImageIcon(IconRoot + "rename.gif"));
 		renameInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
-		renameInstance.addActionListener(new RenameCategoryListener(this));
+		renameInstance.addActionListener(new RenameButtonListener(this));
 		
 		copyInstance = new JButton(new ImageIcon(IconRoot + "copy.gif"));
 		copyInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
@@ -316,12 +319,16 @@ public abstract class Display extends JSplitPane implements Observer {
 		/*
 		removeFunction = new JButton(new ImageIcon(IconRoot + "bin1.gif"));
 		removeFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
-		removeFunction.addActionListener(new DeleteFunctionButtonListener(this));
+		removeFunction.addActionListener(new DeleteButtonListener(this));
 		
 		renameFunction = new JButton(new ImageIcon(IconRoot + "rename.gif"));
 		renameFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
+<<<<<<< HEAD
 		renameFunction.addActionListener(new RenameFunctionListener(this));
 		
+=======
+		/*
+>>>>>>> 1f4c4ca580c4fb894708953dc811a042ad197ed0
 		editFunction = new JButton(new ImageIcon(IconRoot + "edit.gif"));
 		editFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
 		editFunction.setActionCommand(ButtonCommandNamesEnum.EDIT_FUNC.toString());
@@ -483,6 +490,14 @@ public abstract class Display extends JSplitPane implements Observer {
 		controller.addFunction(this,name);
 	}
 
+	public void rename() {
+		if (this.tree.getSelectionPath().getPathCount() == 2) {
+			rename_category();
+		} else if (this.tree.getSelectionPath().getPathCount() == 3) {
+			rename_function();
+		}
+	}
+	
 	public void rename_function() {
 		Function f = controller.getCurrentlySelectedFunction();
 		String filepath = f.getSource_code();
@@ -511,7 +526,7 @@ public abstract class Display extends JSplitPane implements Observer {
 			
 		}
 	}
-
+	
 	public void rename_category() {
 		SelectableItem i = controller.getSelectedCatagory();
 		if (i == null)
@@ -531,10 +546,11 @@ public abstract class Display extends JSplitPane implements Observer {
 		    for (SelectableItem si : controller.getCatagories()) {
 		    	if (si.getName().equals(name)) {
 		    		JOptionPane.showMessageDialog(this, "Something with that name already exists");
+
 					return;
-		    	}
-		    }
-		    File fi = new File(filepath + i.getName());
+				}
+			}
+			File fi = new File(filepath + i.getName());
 			fi.renameTo(new File(filepath + name));
 			if (i instanceof Chemical)
 				controller.rename_chemical((Chemical)i,name);
@@ -542,16 +558,12 @@ public abstract class Display extends JSplitPane implements Observer {
 				i.setName(name);
 			this.update_functions((Catagory) controller.getSelectedCatagory());
 		} catch (Exception e) {
-			
+
 		}
 	}
 
-	public void deleteCategory() {
-		controller.deleteCategory(this);
-	}
-
-	public void deleteFunction() {
-		controller.deleteFunction(this);
+	public void delete_category() {
+		controller.delete_category(this);
 	}
 	
 }

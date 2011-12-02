@@ -350,7 +350,11 @@ public class AutocompleteBox {
 				Object var = AmbientVariableTables.getTables().checkAllTables(name);
 				if (var instanceof GlobalVariable) {
 					GlobalVariable gvar = (GlobalVariable) var;
-					text += gvar.getDesc();
+					text += gvar.getDesc() + "\n";
+					text += "<b>Units:</b>";
+					for (Unit u : gvar.getUnits()) {
+						text += u.format();
+					}
 				} else if (parent.getRule_functions().get(name) != null) {
 					text += parent.getRule_functions().get(name);
 				} else if (parent.getExpr_functions().get(name) != null) {
