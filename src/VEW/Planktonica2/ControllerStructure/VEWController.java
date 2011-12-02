@@ -348,7 +348,7 @@ public abstract class VEWController extends Observable {
 		if (f != null) {
 			this.getSelectedCatagory().moveFunctionIndex(f, -1);
 		} else {
-			this.model.moveCatagoryUp(getSelectedCatagory(), -1);
+			this.model.moveCatagory(getSelectedCatagory(), -1);
 		}
 		
 		this.setChanged();
@@ -367,7 +367,7 @@ public abstract class VEWController extends Observable {
 		if (f != null) {
 			this.getSelectedCatagory().moveFunctionIndex(f, 1);
 		} else {
-			this.model.moveCatagoryUp(getSelectedCatagory(), 1);
+			this.model.moveCatagory(getSelectedCatagory(), 1);
 		}
 		
 		this.setChanged();

@@ -116,10 +116,10 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 	public void moveFunctionIndex(Function func, int offset) {
 
 		if (func != null) {
-			int oldIndex = functions.indexOf(func);
-			if (oldIndex > 0 && oldIndex < functions.size() - 2) {
+			int oldIndex = functions.indexOf(func) + offset;
+			if (oldIndex >= 0 && oldIndex < functions.size()) {
 				functions.remove(func);
-				functions.add(oldIndex + offset, func);
+				functions.add(oldIndex, func);
 			}
 		} else {
 			System.err.println("Could not move func");

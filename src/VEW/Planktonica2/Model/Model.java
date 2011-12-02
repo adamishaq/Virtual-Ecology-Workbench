@@ -74,7 +74,7 @@ public class Model implements BuildFromXML, BuildToXML {
 	 * @param catagory the catagory to move
 	 * @param offset (+ = down/ - = up (the list))
 	 */
-	public void moveCatagoryUp(Catagory catagory, int offset) {
+	public void moveCatagory(Catagory catagory, int offset) {
 		
 		if (catagory == null) {
 			throw new NullPointerException ("The catagory given to move up was null.");
@@ -82,19 +82,19 @@ public class Model implements BuildFromXML, BuildToXML {
 		
 		if (functionalGroups.contains(catagory)) {
 			
-			int oldIndex = functionalGroups.indexOf(catagory);
-			if (oldIndex > 0 && oldIndex < functionalGroups.size() - 2) {
+			int oldIndex = functionalGroups.indexOf(catagory) + offset;
+			if (oldIndex >= 0 && oldIndex < functionalGroups.size()) {
 				functionalGroups.remove(catagory);
-				functionalGroups.add(oldIndex + offset, (FunctionalGroup) catagory);
+				functionalGroups.add(oldIndex, (FunctionalGroup) catagory);
 			}
 			
 			
 		} else if (chemicals.contains(catagory)) {
 			
-			int oldIndex = chemicals.indexOf(catagory);
-			if (oldIndex > 0 && oldIndex < chemicals.size() - 2) {
+			int oldIndex = chemicals.indexOf(catagory) + offset;
+			if (oldIndex >= 0 && oldIndex < chemicals.size()) {
 				chemicals.remove(catagory);
-				chemicals.add(oldIndex + offset, (Chemical) catagory);
+				chemicals.add(oldIndex, (Chemical) catagory);
 			}
 			
 		} else {

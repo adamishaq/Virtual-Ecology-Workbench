@@ -491,7 +491,9 @@ public abstract class Display extends JSplitPane implements Observer {
 	}
 
 	public void rename() {
-		if (this.tree.getSelectionPath().getPathCount() == 2) {
+		if (tree == null || tree.getSelectionPath() == null) {
+			return;
+		} else if (this.tree.getSelectionPath().getPathCount() == 2) {
 			rename_category();
 		} else if (this.tree.getSelectionPath().getPathCount() == 3) {
 			rename_function();
