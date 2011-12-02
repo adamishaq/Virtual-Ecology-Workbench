@@ -182,8 +182,10 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		return this.functions.get(functionNo);
 	}
 	
-	public void addFunction(String filepath, String name) {
-		this.functions.add(new Function(filepath,name,this));
+	public Function addFunction(String filepath, String name) {
+		Function f = new Function(filepath,name,this);
+		this.functions.add(f);
+		return f;
 	}
 	
 	public void removeFunction(Function f) {

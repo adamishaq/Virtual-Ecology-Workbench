@@ -49,7 +49,7 @@ public class AmbientVariableTables {
 		systemVarTable.put("d_year",
 				new GlobalVariable("d_year", "Days this year since 1st January", floatType, units, null, null, false));
 		units = new ArrayList<Unit>();
-		units.add(new Unit(0, "0", 0));
+		units.add(new Unit(0, "dimensionless", 1));
 		systemVarTable.put("PI",
 				new GlobalVariable( "PI", "PI", floatType, units, null, null, false));
 		units = new ArrayList<Unit>();
@@ -64,14 +64,14 @@ public class AmbientVariableTables {
 		Collection<Unit> units = new ArrayList<Unit>();
 		units.add(new Unit(0, "m", 1));
 		waterColumnVarTable.put("Turbocline",
-				new GlobalVariable("Turbocline", "Turbocline", floatType, units, null, null, false));
+				new GlobalVariable("Turbocline", "Depth of Turbocline", floatType, units, null, null, false));
 	}
 
 	private void initialisePhysicsVarTable() {
 		Type floatType = (Type) typeTable.get("$float");
 		physicsVarTable = new SymbolTable<GlobalVariable>();
 		Collection<Unit> units = new ArrayList<Unit>();
-		units.add(new Unit(0, "kg", -3));
+		units.add(new Unit(0, "kg", 1));
 		units.add(new Unit(0, "m", -3));
 		physicsVarTable.put("Density",
 				new GlobalVariable("Density", "Density", floatType, units, null, null, false));
@@ -81,7 +81,7 @@ public class AmbientVariableTables {
 		physicsVarTable.put("FullIrradiance",
 				new GlobalVariable("FullIrradiance", "Full Irradiance", floatType, units, null, null, false));
 		units = new ArrayList<Unit>();
-		units.add(new Unit(0, "0", 0));
+		units.add(new Unit(0, "dimensionless", 1));
 		physicsVarTable.put("Salinity",
 				new GlobalVariable("Salinity", "Salinity", floatType, units, null, null, false));
 		units = new ArrayList<Unit>();

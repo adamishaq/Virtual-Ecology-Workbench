@@ -162,9 +162,14 @@ public abstract class VEWController extends Observable {
 
 	public void updateVariableDisplay() {
 		this.setChanged();
-		this.notifyObservers(new NewVariableEvent());
+		this.notifyObservers(new UpdateVariableEvent());
 	}
 
+	public void addVariable(VariableType v) {
+		this.setChanged();
+		this.notifyObservers(new NewVariableEvent(v));
+	}
+	
 	public void update_category(Catagory cat) {
 		this.setChanged();
 		this.notifyObservers(cat);
@@ -208,10 +213,10 @@ public abstract class VEWController extends Observable {
 			}
 		}
 		Catagory c = (Catagory) this.getSelectedItem();
-		c.addFunction(model.getFilePath(), name);
+		Function f = c.addFunction(model.getFilePath(), name);
 		addSourceFile(model.getFilePath() + c.getName() + "\\", name);
 		this.setChanged();
-		this.notifyObservers(new NewCategoryEvent(c));
+		this.notifyObservers(new NewFunctionEvent(c,f));
 	}
 
 	private void addSourceFile(String parentPath, String name) {
@@ -265,7 +270,8 @@ public abstract class VEWController extends Observable {
 			} finally {
 				this.getSelectedItem().removeFunction(f);
 				this.setChanged();
-				this.notifyObservers(new UpdateCategoryEvent(this.getSelectedItem()));
+				Catagory c = (Catagory) this.getSelectedItem();
+				this.notifyObservers(new DeleteFunctionEvent(c,f));
 				this.setCurrentlySelectedFunction(null);
 			}
 		} else if (this.getSelectedItem() != null) {
@@ -299,7 +305,7 @@ public abstract class VEWController extends Observable {
 					model.removeFunctionalGroup((FunctionalGroup)i);
 				}
 				this.setChanged();
-				this.notifyObservers(new NewCategoryEvent(null));
+				this.notifyObservers(new DeleteCategoryEvent((Catagory)i));
 				this.setSelectedItem(null);
 			}
 		}

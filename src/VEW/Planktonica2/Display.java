@@ -7,6 +7,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -23,11 +25,15 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
 
+import VEW.Planktonica2.ControllerStructure.DeleteCategoryEvent;
+import VEW.Planktonica2.ControllerStructure.DeleteFunctionEvent;
 import VEW.Planktonica2.ControllerStructure.NewCategoryEvent;
+import VEW.Planktonica2.ControllerStructure.NewFunctionEvent;
 import VEW.Planktonica2.ControllerStructure.NewVariableEvent;
 import VEW.Planktonica2.ControllerStructure.SelectableItem;
 import VEW.Planktonica2.ControllerStructure.SourcePath;
 import VEW.Planktonica2.ControllerStructure.UpdateCategoryEvent;
+import VEW.Planktonica2.ControllerStructure.UpdateVariableEvent;
 import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.Planktonica2.DisplayEventHandlers.AddCategoryButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.AddFunctionButtonListener;
@@ -41,7 +47,14 @@ import VEW.Planktonica2.DisplayEventHandlers.VariableSelectionEventHandler;
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Chemical;
 import VEW.Planktonica2.Model.Function;
+import VEW.Planktonica2.Model.Local;
+import VEW.Planktonica2.Model.Parameter;
+import VEW.Planktonica2.Model.StateVariable;
 import VEW.Planktonica2.Model.VariableType;
+import VEW.Planktonica2.Model.VarietyConcentration;
+import VEW.Planktonica2.Model.VarietyLocal;
+import VEW.Planktonica2.Model.VarietyParameter;
+import VEW.Planktonica2.Model.VarietyVariable;
 import VEW.Planktonica2.UIComponents.VariableEditorPanel;
 
 public abstract class Display extends JSplitPane implements Observer {
@@ -120,12 +133,20 @@ public abstract class Display extends JSplitPane implements Observer {
 			this.variablePanel.display((VariableType)arg);
 			this.ancilaryFuncPane.setSelectedIndex(1);
 		} else if (arg instanceof NewCategoryEvent) {
-			update_functions(((NewCategoryEvent)arg).getNew_category());
+			add_category(((NewCategoryEvent)arg).getNew_category());
 		} else if (arg instanceof NewVariableEvent) {
-			SelectableItem s = controller.getSelectedItem();
-			this.update_vars(s);
+			add_variable(((NewVariableEvent)arg).getVar());
+		} else if (arg instanceof NewFunctionEvent) {
+			add_function((NewFunctionEvent)arg);
 		} else if (arg instanceof UpdateCategoryEvent) {
 			update_functions(((UpdateCategoryEvent)arg).getCategory());
+		} else if (arg instanceof UpdateVariableEvent) {
+			SelectableItem s = controller.getSelectedItem();
+			this.update_vars(s);
+		} else if (arg instanceof DeleteCategoryEvent) {
+			remove_category(((DeleteCategoryEvent)arg).getCategory());
+		} else if (arg instanceof DeleteFunctionEvent) {
+			remove_function((DeleteFunctionEvent)arg);
 		}
 		
 	}
@@ -197,7 +218,6 @@ public abstract class Display extends JSplitPane implements Observer {
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		
 		tree.addTreeSelectionListener(new LeftPanelTreeSelectionListener (this.controller));
-		
 		JScrollPane treeVeiwPane = new JScrollPane(tree);
 		
 		// set up variable list
@@ -417,24 +437,34 @@ public abstract class Display extends JSplitPane implements Observer {
 		addFunction.setEnabled(false);
 		removeFunction.setEnabled(false);
 		renameFunction.setEnabled(false);
-		//editFunction.setEnabled(false);
-		//copyFunction.setEnabled(false);
 	}
-
+	
 	private void update_functions(Catagory c) {
+		ArrayList<Integer> paths = new ArrayList<Integer>();
+		for (int i = 0; i < tree.getRowCount(); i++) {
+			if (tree.isExpanded(tree.getPathForRow(i))) {
+				paths.add(i);
+			}
+		}
 		fillFunctionTree();
 		DefaultTreeModel t = (DefaultTreeModel) this.tree.getModel();
 		t.setRoot(rootNode);
+		for (Integer i : paths)
+			tree.expandRow(i);
 		this.tree.validate();
 		// Set this to be focused
 		if (c != null)
 			this.variablePanel.update_selected_category(c);
-		//this.variablePanel.clear();
 		this.editorPanel.clear();
 	}
 
 	public void update_vars(SelectableItem i) {
-		
+		ArrayList<Integer> paths = new ArrayList<Integer>();
+		for (int j = 0; j < var_tree.getRowCount(); j++) {
+			if (var_tree.isExpanded(var_tree.getPathForRow(j))) {
+				paths.add(j);
+			}
+		}
 		varRootNode.removeAllChildren();
 		if (i instanceof Catagory) {
 			Catagory c = (Catagory) i;
@@ -471,10 +501,19 @@ public abstract class Display extends JSplitPane implements Observer {
 		this.var_tree.setRootVisible(false);
 		DefaultTreeModel t = (DefaultTreeModel) this.var_tree.getModel();
 		t.setRoot(varRootNode);
+		for (Integer j : paths)
+			var_tree.expandRow(j);
 		this.var_tree.validate();
 	}
 
-
+	private void add_category(Catagory newCategory) {
+		if (newCategory == null)
+			return;
+		DefaultTreeModel t = (DefaultTreeModel) this.tree.getModel();
+		DefaultMutableTreeNode new_cat = new DefaultMutableTreeNode(newCategory);
+		t.insertNodeInto(new_cat, rootNode, rootNode.getChildCount());
+		this.variablePanel.update_selected_category(newCategory);
+	}
 
 
 	private void add_table_vars(DefaultMutableTreeNode heading, String[] vars) {
@@ -528,6 +567,7 @@ public abstract class Display extends JSplitPane implements Observer {
 		    File fi = new File(filepath + f.getName() + ".bacon");
 			fi.renameTo(new File(filepath + name + ".bacon"));
 			f.setName(name);
+			DefaultTreeModel t = (DefaultTreeModel) tree.getModel();
 			this.update_functions((Catagory) controller.getSelectedItem());
 		} catch (Exception e) {
 			
@@ -572,4 +612,78 @@ public abstract class Display extends JSplitPane implements Observer {
 		controller.delete_category(this);
 	}
 	
+	private void add_function(NewFunctionEvent n) {
+		Enumeration<?> children = rootNode.children();
+		DefaultTreeModel t = (DefaultTreeModel) tree.getModel();
+		while (children.hasMoreElements()) {
+			DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.nextElement();
+			if (child.toString().equals(n.getCategory().toString())) {
+				t.insertNodeInto(new DefaultMutableTreeNode(n.getFunction()), child, child.getChildCount());
+				return;
+			}
+		}
+	}
+	
+	private void remove_category(Catagory c) {
+		Enumeration<?> children = rootNode.children();
+		DefaultTreeModel t = (DefaultTreeModel) tree.getModel();
+		while (children.hasMoreElements()) {
+			DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.nextElement();
+			if (child.toString().equals(c.toString())) {
+				t.removeNodeFromParent(child);
+				return;
+			}
+		}
+	}
+	
+	private void remove_function(DeleteFunctionEvent d) {
+		Enumeration<?> children = rootNode.children();
+		DefaultTreeModel t = (DefaultTreeModel) tree.getModel();
+		while (children.hasMoreElements()) {
+			DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.nextElement();
+			if (child.toString().equals(d.getCategory().toString())) {
+				Enumeration<?> functions = child.children();
+				while (functions.hasMoreElements()) {
+					DefaultMutableTreeNode function = (DefaultMutableTreeNode) functions.nextElement();
+					if (function.toString().equals(d.getFunction().getName())) {
+						t.removeNodeFromParent(function);
+						return;
+					}
+				}
+			}
+		}
+	}
+	
+	private void add_variable(VariableType v) {
+		Enumeration<?> children = varRootNode.children();
+		if (v instanceof StateVariable) {
+			add_to_heading(children,"State Variables",v);
+		} else if (v instanceof Parameter) {
+			add_to_heading(children,"Parameters",v);
+		} else if (v instanceof Local) {
+			add_to_heading(children,"Local Variables",v);
+		} else if (v instanceof VarietyConcentration) {
+			add_to_heading(children,"Food Sets/Concentrations",v);
+		} else if (v instanceof VarietyParameter) {
+			add_to_heading(children,"Variety Parameters",v);
+		} else if (v instanceof VarietyVariable) {
+			add_to_heading(children,"Variety State Variables",v);
+		} else if (v instanceof VarietyLocal) {
+			add_to_heading(children,"Variety Local Variables",v);
+		}
+	}
+	
+	private void add_to_heading(Enumeration<?> children, String search,VariableType v) {
+		DefaultTreeModel t = (DefaultTreeModel) var_tree.getModel();
+		while (children.hasMoreElements()) {
+			DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.nextElement();
+			if (child.toString().equals(search)) {
+				t.insertNodeInto(new DefaultMutableTreeNode(v.getName()), child, child.getChildCount());
+				return;
+			}
+		}
+		DefaultMutableTreeNode heading = new DefaultMutableTreeNode(search);
+		t.insertNodeInto(heading, varRootNode, varRootNode.getChildCount());
+		t.insertNodeInto(new DefaultMutableTreeNode(v.getName()), heading, 0);
+	}
 }

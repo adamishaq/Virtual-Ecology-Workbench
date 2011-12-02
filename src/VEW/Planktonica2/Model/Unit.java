@@ -49,11 +49,15 @@ public class Unit {
 	}
 	
 	public String format() {
+		String format = "";
 		if (this.name.equals("dimensionless") || this.exponent == 0)
 			return "-";
 		else if (this.name.equals("null"))
 			return "null";
-		return name + "^" + (exponent); 
+		format += name;
+		if (this.exponent != 1)
+			format += "<sup>" + (exponent) + "</sup>"; 
+		return format;
 	}
 	
 	public boolean equals(Unit u) {
