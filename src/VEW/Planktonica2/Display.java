@@ -567,7 +567,6 @@ public abstract class Display extends JSplitPane implements Observer {
 		    File fi = new File(filepath + f.getName() + ".bacon");
 			fi.renameTo(new File(filepath + name + ".bacon"));
 			f.setName(name);
-			DefaultTreeModel t = (DefaultTreeModel) tree.getModel();
 			this.update_functions((Catagory) controller.getSelectedItem());
 		} catch (Exception e) {
 			

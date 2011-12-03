@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 import javax.swing.BorderFactory;
@@ -229,36 +230,12 @@ public class AutocompleteBox {
 		}
 		if (is_letter_or_number(key_val) || key_val.equals("_") || 
 				(e.getKeyCode() == KeyEvent.VK_BACK_SPACE && current_word.length() > 1)) {
-			ArrayList<String> suggestions = find_suggestions();
 			if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
 				current_word = current_word.substring(0, current_word.length() - 1);
 			else {
 				current_word += key_val.toLowerCase();
 			}
-			ArrayList<String> possible = new ArrayList<String>();
-			for (String s : suggestions) {
-				String suggest = s.toLowerCase();
-				if (suggest.startsWith(current_word)) {
-					possible.add(s);
-				}
-				//possible.add("djjazzyjeff");
-			}
-			if (possible.size() == 0) {
-				hide_suggestions();
-				return;
-			}
-			// TODO - sort list alphabetically
-			list.setListData(possible.toArray());
-			// Set a minimum size for the list
-			list.setVisibleRowCount(list.getModel().getSize() < 6 ? list.getModel().getSize() : 6);
-			Point p = target.getCaret().getMagicCaretPosition();
-			if (acbox.isVisible()) {
-				SwingUtilities.convertPointToScreen(p, target);
-				acbox.setLocation(p.x, p.y + 20);
-			} else {
-				acbox.show(target, p.x, p.y + 20);
-			}
-			target.requestFocus();
+			setup_box();
 		} else if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN){
 			// Give focus to the list box if it is visible
 			if (visible && acbox.isVisible() && !current_word.equals("")) {
@@ -272,7 +249,41 @@ public class AutocompleteBox {
 		}
 		caret_position = target.getCaretPosition();
 	}
-
+	
+	public void force_show(String new_word,int pos) {
+		this.current_word = new_word;
+		this.caret_position = pos;
+		setup_box();
+	}
+	
+	private void setup_box() {
+		ArrayList<String> suggestions = find_suggestions();
+		ArrayList<String> possible = new ArrayList<String>();
+		for (String s : suggestions) {
+			String suggest = s.toLowerCase();
+			if (suggest.startsWith(current_word.toLowerCase())) {
+				possible.add(s);
+			}
+		}
+		if (possible.size() == 0) {
+			hide_suggestions();
+			return;
+		}
+		// Sort list alphabetically
+		Collections.sort(possible);
+		list.setListData(possible.toArray());
+		// Set a minimum size for the list
+		list.setVisibleRowCount(list.getModel().getSize() < 6 ? list.getModel().getSize() : 6);
+		Point p = target.getCaret().getMagicCaretPosition();
+		if (acbox.isVisible()) {
+			SwingUtilities.convertPointToScreen(p, target);
+			acbox.setLocation(p.x, p.y + 20);
+		} else {
+			acbox.show(target, p.x, p.y + 20);
+		}
+		target.requestFocus();
+	}
+	
 	private ArrayList<String> find_suggestions() {
 		ArrayList<String> suggestions = new ArrayList<String>();
 		// Get all global variables

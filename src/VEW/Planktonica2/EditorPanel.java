@@ -325,6 +325,25 @@ public class EditorPanel extends JPanel implements Observer {
 		return !Character.isLetterOrDigit(c);
 	}
 	
+	public String word_before_caret() {
+		String word = "";
+		int pos = syntax.getCaretPosition() - 2;
+		char[] chars = syntax_highlighter.getPlainText(syntax.getText()).toCharArray();
+		if (pos >= chars.length)
+			return word;
+		for (int i = pos; i > 0; i--) {
+			if (!(Character.isLetterOrDigit(chars[i]) || chars[i] == '_'))
+				return word;
+			else
+				word += chars[i];
+		}
+		return word;
+	}
+	
+	public void show_box(String word) {
+		this.auto_complete.force_show(word,syntax.getCaretPosition());
+	}
+	
 	public void open_source_file(String filePath) {
         try {
 			FileInputStream fstream = new FileInputStream(filePath);
@@ -529,7 +548,10 @@ class TypingListener implements KeyListener {
 			e.getKeyCode() == KeyEvent.VK_ALT)
 			// Ignore them
 			return;
-		if (!parent.caret_in_comment() && (!parent.current_autocomplete().equals("")
+		if (e.getKeyCode() == KeyEvent.VK_SPACE && e.isControlDown() && !parent.caret_in_comment()) {
+			String new_word = new StringBuffer(parent.word_before_caret()).reverse().toString();
+			parent.show_box(new_word);
+		} else if (!parent.caret_in_comment() && (!parent.current_autocomplete().equals("")
 				|| parent.space_before_caret())) {
 			parent.show_autocomplete(e);
 		} else {
