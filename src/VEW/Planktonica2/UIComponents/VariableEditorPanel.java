@@ -1,5 +1,6 @@
 package VEW.Planktonica2.UIComponents;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.Observable;
@@ -10,13 +11,18 @@ import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JEditorPane;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import VEW.Planktonica2.ControllerStructure.VEWController;
+import VEW.Planktonica2.DisplayEventHandlers.AddUnitButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.AddVarListener;
+import VEW.Planktonica2.DisplayEventHandlers.ClearUnitsButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.UpdateVarListener;
 import VEW.Planktonica2.DisplayEventHandlers.VarTypeListener;
 import VEW.Planktonica2.Model.Catagory;
@@ -41,6 +47,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 	private VariableType current_variable;
 	private VEWController controller;
 	private HashMap<String,Integer> food_sets = new HashMap<String,Integer>();
+	private ArrayList<Unit> current_units = new ArrayList<Unit>();
 	
 	private GridBagConstraints c = new GridBagConstraints();
 	private GridBagConstraints main_layout = new GridBagConstraints();
@@ -60,8 +67,14 @@ public class VariableEditorPanel extends JPanel implements Observer {
 	private JLabel fs_link = new JLabel("Food-Set Link :");
 	private JComboBox  link_combo = new JComboBox();
 	
-	private JLabel units = new JLabel("  Units :  ");
-	private JTextField unit_string = new JTextField("");
+	private JLabel units = new JLabel("  Unit name :  ");
+	private JTextField unit_name = new JTextField("");
+	private JLabel exp = new JLabel("  Exponent :  ");
+	private JTextField unit_exp = new JTextField("");
+	//private JList unit_list = new JList();
+	private JButton add_unit = new JButton("+");
+	private JButton clear_units = new JButton("#");
+	private JEditorPane unit_list = new JEditorPane();
 	
 	private JButton add_var = new JButton("Add");
 
@@ -132,9 +145,43 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		unit_editor.add(units, c);
 		c.ipadx = 150;
 		c.gridx = 2;
-		c.gridy = 0;
-		unit_editor.add(unit_string, c);
+		unit_editor.add(unit_name, c);
 		c.ipadx = 0;
+		c.gridx = 0;
+		c.gridy = 1;
+		unit_editor.add(exp,c);
+		c.ipadx = 150;
+		c.gridx = 2;
+		unit_editor.add(unit_exp,c);
+		// Set up the unit view
+		/*
+		c.ipady = 100;
+		c.ipadx = 100;
+		c.gridx = 2;
+		c.gridy = 2;
+		c.gridheight = 3;
+		unit_list.setVisibleRowCount(6);
+		unit_editor.add(unit_list,c);
+		*/
+		c.gridwidth = 1;
+		c.gridx = 0;
+		c.gridy = 2;
+		c.ipadx = 0;
+		add_unit.addActionListener(new AddUnitButtonListener(this));
+		unit_editor.add(add_unit,c);
+		c.gridx = 1;
+		clear_units.addActionListener(new ClearUnitsButtonListener(this));
+		unit_editor.add(clear_units,c);
+		c.ipadx = 100;
+		c.gridwidth = 2;
+		c.gridx = 2;
+		unit_list.setEditable(false);
+		unit_list.setContentType("text/html");
+		unit_list.setPreferredSize(new Dimension(100,50));
+		unit_editor.add(unit_list,c);
+		c.ipadx = 0;
+		c.ipady = 0;
+		
 		// Add the panel to the main layout
 		unit_editor.setPreferredSize(variable_info.getPreferredSize());
 		main_layout.gridx = 1;
@@ -250,7 +297,11 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			return null;
 		// Construct the variable
 		ArrayList<Unit> units = new ArrayList<Unit>();
-		units.add(new Unit(0,unit_string.getText(),1));
+		for (Unit u: current_units) {
+			units.add(u);
+		}
+		if (units.isEmpty())
+			units.add(new Unit(0,"dimensionless",1));
 		switch (current_selection) {
 		case GROUPVAR :
 			StateVariable v = new StateVariable();
@@ -472,11 +523,11 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		var_name.setCaretPosition(0);
 		var_desc.setText(v.getDesc());
 		var_desc.setCaretPosition(0);
-		String units = "";
+		current_units.clear();
 		for (Unit u : v.getUnits()) {
-			units += u.format();
+			current_units.add(u);
 		}
-		unit_string.setText(units);
+		display_units();
 		String hist = "-";
 		if (v.getHist() != null)
 			hist = String.valueOf(v.getHist());
@@ -514,6 +565,14 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		this.validate();
 	}
 
+	private void display_units() {
+		String text = "<html>";
+		for (Unit u : current_units)
+			text += u.format();
+		text += "</html>";
+		unit_list.setText(text);
+	}
+	
 	private void update_link_combo(Variety v) {
 		if (food_sets.get(v.getLinkConcentration().getName()) != null) {
 			Integer index = food_sets.get(v.getLinkConcentration().getName());
@@ -538,6 +597,50 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		}
 	}
 
+	public void add_unit() {
+		if (!validate_unit())
+			return;
+		String name = unit_name.getText();
+		int exponent = Integer.parseInt(unit_exp.getText());
+		for (Unit u: current_units) {
+			if (u.getName().equals(name)) {
+				u.setExponent(u.getExponent() + exponent);
+				if (u.getExponent() == 0) {
+					current_units.remove(u);
+				}
+				display_units();
+				return;
+			}
+		}
+		current_units.add(new Unit(0,name,exponent));
+		display_units();
+	}
+	
+	private boolean validate_unit() {
+		if (unit_name.getText().length() < 1)
+			return false;
+		for (int i = 0; i < unit_name.getText().length(); i++) {
+			if (!Character.isLetter(unit_name.getText().charAt(i))) {
+				JOptionPane.showMessageDialog(this, "Unit names may only contain letters");
+				return false;
+			}
+		}
+		try {
+			int ex = Integer.parseInt(unit_exp.getText());
+			if (ex == 0)
+				return false;
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(this, "Invalid unit exponent");
+			return false;
+		}
+		return true;
+	}
+	
+	public void clear_units() {
+		this.current_units.clear();
+		display_units();
+	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		

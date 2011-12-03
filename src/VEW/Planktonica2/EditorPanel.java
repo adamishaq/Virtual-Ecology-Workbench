@@ -117,7 +117,7 @@ public class EditorPanel extends JPanel implements Observer {
 		syntax.setContentType("text/html");
 		syntax.setText("<html><PRE></PRE></html>");
 		
-		auto_complete = new AutocompleteBox(syntax,controller);
+		auto_complete = new AutocompleteBox(syntax,controller,this);
 		
 		error_log.setEditable(false);
 		error_log.setFont(font);
@@ -401,7 +401,27 @@ public class EditorPanel extends JPanel implements Observer {
 		this.error_log.setText("<html><PRE></PRE></html>");
 	}
 	
-	
+	public String get_error_at_caret() {
+		String expected = "";
+		ANTLRParser p = 
+			new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText().substring(0,
+					syntax.getCaretPosition())));
+		try {
+			ConstructedASTree ct = p.getAST();
+			if (ct.getTree() != null) {
+				if (!ct.getExceptions().isEmpty()) {
+					Exception e = ct.getExceptions().get(ct.getExceptions().size() - 1);
+					if (e instanceof TreeWalkerException) {
+						//expected = ((TreeWalkerException)e).getError();
+					}
+				}
+			}
+		} catch (RecognitionException e) {
+			System.out.println("RECOGNITION EXCEPTION");
+			e.printStackTrace();
+		}
+		return expected;
+	}
 /*	
 static class CompileListener implements ActionListener {
 		

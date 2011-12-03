@@ -18,6 +18,7 @@ public class UnitChecker {
 		if (unitchecker == null) {
 			unitchecker = new UnitChecker();
 			null_collection.add(null_unit);
+			dimensionless_collection.add(dimensionless_unit);
 		}
 		return unitchecker;
 	}
@@ -128,5 +129,14 @@ public class UnitChecker {
 			u.setExponent(u.getExponent() * ((int)value));
 		}
 		return first_array;
+	}
+
+	public boolean isDimensionless(Collection<Unit> units) {
+		for (Unit u : units) {
+			if (u.getName().equals("null") || u.getName().equals("dimensionless")) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

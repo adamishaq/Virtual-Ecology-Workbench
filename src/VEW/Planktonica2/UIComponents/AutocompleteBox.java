@@ -24,6 +24,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.BadLocationException;
 
+import VEW.Planktonica2.EditorPanel;
 import VEW.Planktonica2.ControllerStructure.SelectableItem;
 import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.Planktonica2.Model.Catagory;
@@ -39,6 +40,7 @@ public class AutocompleteBox {
 	private final JEditorPane description = new JEditorPane();
 	private final JPopupMenu acbox = new JPopupMenu();
 	JTextPane target;
+	private EditorPanel parent;
 	private String current_word;
 	private int caret_position;
 	private Catagory current_catagory;
@@ -84,8 +86,9 @@ public class AutocompleteBox {
 		return current_catagory;
 	}
 
-	public AutocompleteBox(JTextPane text, VEWController controller) {
+	public AutocompleteBox(JTextPane text, VEWController controller, EditorPanel parent) {
 		this.controller = controller;
+		this.parent = parent;
 		// Set up the list view
 		JScrollPane scroll_list = new JScrollPane(list); 
 		scroll_list.setPreferredSize(new Dimension(150,100));
@@ -285,6 +288,7 @@ public class AutocompleteBox {
 	}
 	
 	private ArrayList<String> find_suggestions() {
+		System.out.println(parent.get_error_at_caret());
 		ArrayList<String> suggestions = new ArrayList<String>();
 		// Get all global variables
 		add_to_suggestions(suggestions, AmbientVariableTables.getTables().getAllVariableNames());

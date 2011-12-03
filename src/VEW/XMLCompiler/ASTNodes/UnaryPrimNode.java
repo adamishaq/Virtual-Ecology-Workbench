@@ -26,6 +26,12 @@ public class UnaryPrimNode extends ExprNode {
 		setExprType(checkCompatibility(argType));
 		units = argument.getUnits();
 		switch (primitive) {
+		// This function requires dimensionless arguments
+		case EXP 		 :
+			if (!UnitChecker.getUnitChecker().isDimensionless(argument.getUnits())) {
+				enclosingTree.addWarning("Expression raised to power of expression with units on line " +
+						line_number);
+			}
 		// These functions return dimensionless results
 		case ACOS 		 :
 		case ASIN 		 : 
@@ -33,7 +39,6 @@ public class UnaryPrimNode extends ExprNode {
 		case COS 		 :
 		case SIN 		 : 
 		case TAN 		 : 
-		case EXP 		 :
 		case RND 		 :
 		case LN 		 :
 		case LOGTEN 	 :

@@ -97,7 +97,6 @@ public abstract class Display extends JSplitPane implements Observer {
 	protected JButton previewButton;
 	protected JButton saveButton;
 
-	protected JList list;
 	
 	protected DefaultMutableTreeNode rootNode;
 	private DefaultMutableTreeNode varRootNode;

@@ -60,9 +60,7 @@ public class BinOpNode extends ExprNode {
 			this.units = UnitChecker.getUnitChecker().divide_units(rExpr.getUnits(), lExpr.getUnits());
 			break; 
 		case POWER    :
-			ArrayList<Unit> pow = new ArrayList<Unit>();
-			pow.add(new Unit(0,"dimensionless",1));
-			if (!UnitChecker.getUnitChecker().CheckUnitCompatability(rExpr.getUnits(),pow))
+			if (!UnitChecker.getUnitChecker().isDimensionless(rExpr.getUnits()))
 				enclosingTree.addWarning("Expression raised to power of expression with units on line " +
 						line_number);
 			if (rExpr instanceof NumNode) {
