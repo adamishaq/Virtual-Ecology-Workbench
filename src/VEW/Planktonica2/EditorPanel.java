@@ -482,7 +482,7 @@ static class SaveListener implements ActionListener {
         if (choice == JFileChooser.APPROVE_OPTION) {
             File file = file_chooser.getSelectedFile();
             String fpath = file.getAbsolutePath() + ".bacon";
-            // TODO - check for overwrites, extensions etc.
+            // check for overwrites, extensions etc.
             try {
     			FileOutputStream fstream = new FileOutputStream(fpath);
     			PrintStream out = new PrintStream(fstream);

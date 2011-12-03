@@ -107,7 +107,7 @@ public class Model implements BuildFromXML, BuildToXML {
 	 * Checks the validity of the current data in the controller.
 	 */
 	public void checkModel () {
-		// TODO: check model
+		// TODO: check declaritive nature of model
 	}
 	
 	public Collection<Chemical> getChemicals() {

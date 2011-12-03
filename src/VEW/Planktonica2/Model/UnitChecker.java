@@ -3,8 +3,6 @@ package VEW.Planktonica2.Model;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
-
 public class UnitChecker {
 	
 	private static UnitChecker unitchecker;

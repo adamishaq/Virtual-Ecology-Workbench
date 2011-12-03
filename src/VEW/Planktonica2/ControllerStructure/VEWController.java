@@ -133,7 +133,8 @@ public abstract class VEWController extends Observable {
 			ex.printStackTrace();
 		}
 		if (!(tag instanceof XMLFile)) {
-			//TODO something has gone really wrong
+			System.err.println("Its gone really wrong. The method was not constructed with a proper XMLFile.");
+			return;
 		}
 		XMLFile xmlFile = (XMLFile) tag;
 		String fileName = xmlFile.getFileName();
@@ -236,7 +237,7 @@ public abstract class VEWController extends Observable {
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Failed to write sourcecode to file.");
 			e.printStackTrace();
 		}
 	}
@@ -265,18 +266,16 @@ public abstract class VEWController extends Observable {
 			Function f = this.getCurrentlySelectedFunction();
 			if (f == null)
 				return;
-			try {
-				File del = new File(f.getSource_code() + "\\" + f.getParent().getName() 
-						+ "\\" + f.getName() + ".bacon");
-				del.delete();
-			} catch (Exception e) {
-				// TODO: Auto-generated catch block
-			} finally {
-				this.getSelectedCatagory().removeFunction(f);
-				this.setChanged();
-				this.notifyObservers(new UpdateCategoryEvent(this.getSelectedCatagory()));
-				this.setSelectedFunction(null);
-			}
+
+			File del = new File(f.getSource_code() + "\\" + f.getParent().getName() 
+					+ "\\" + f.getName() + ".bacon");
+			del.delete();
+
+			this.getSelectedCatagory().removeFunction(f);
+			this.setChanged();
+			this.notifyObservers(new UpdateCategoryEvent(this.getSelectedCatagory()));
+			this.setSelectedFunction(null);
+
 		} else if (this.getSelectedCatagory() != null) {
 			// User has a functional group/chemical selected
 			// Check the user really wants to delete the category

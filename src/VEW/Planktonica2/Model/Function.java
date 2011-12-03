@@ -134,7 +134,7 @@ public class Function implements BuildFromXML, BuildToXML {
 			writer.write(sourceCode);
 			writer.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Failed to write source code to file.");
 			e.printStackTrace();
 		}
 		
@@ -293,11 +293,11 @@ public class Function implements BuildFromXML, BuildToXML {
 		try {
 			sourceCode = readSourceFile(parentPath);
 		} catch (FileNotFoundException e) {
-			// TODO File does not exist, bah
+			System.err.println("File does not exist.");
 			e.printStackTrace();
 			return null;
 		} catch (IOException e) {
-			// TODO Some IO issue
+			System.err.println("The file cannot be read from.");
 			e.printStackTrace();
 			return null;
 		}

@@ -404,7 +404,6 @@ public class CommonTreeWalker {
 				return new NumNode(Float.parseFloat(numString),tree.getLine());
 			}
 			catch (NumberFormatException n) {
-				// TODO - is this reachable?
 				exceptions.add(new TreeWalkerException(n.getMessage(),0,0));
 			}
 		}

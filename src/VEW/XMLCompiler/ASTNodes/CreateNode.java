@@ -48,9 +48,10 @@ public class CreateNode extends RuleNode {
 					new SemanticCheckException("The expression for number of offspring must evaluate to a scalar",
 							line_number));
 		}
-		//TODO assign list checking may need to be more complex, not sure yet
-		if (assignList != null)
+		
+		if (assignList != null) {
 			assignList.check(enclosingCategory, enclosingTree);
+		}
 
 	}
 

@@ -30,7 +30,6 @@ public class UnaryFunctionRuleNode extends RuleNode {
 			enclosingTree.addSemanticException(
 					new SemanticCheckException(idArg.getName() + " is not a known stage",line_number));
 		}
-		//TODO some sort of warning system if multiple non conditional changes appear
 
 	}
 
