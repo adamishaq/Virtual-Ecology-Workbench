@@ -235,6 +235,17 @@ public class FunctionalGroup extends Catagory {
 		return stageTable.keySet();
 	}
 
+	public void removeStage(String select) {
+		stageTable.remove(select);
+	}
 
+	public void renameStage(String name,String new_name) {
+		Stage s = stageTable.get(name);
+		if (s != null) {
+			stageTable.remove(name);
+			s.setName(new_name);
+			stageTable.put(new_name, s);
+		}
+	}
 	
 }

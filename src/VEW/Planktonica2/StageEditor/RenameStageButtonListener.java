@@ -3,17 +3,17 @@ package VEW.Planktonica2.StageEditor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddStageButtonListener implements ActionListener {
+public class RenameStageButtonListener implements ActionListener {
 	
 	private StageEditorPanel parent;
 	
-	public AddStageButtonListener(StageEditorPanel parent) {
+	public RenameStageButtonListener(StageEditorPanel parent) {
 		this.parent = parent;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		parent.add_stage();
+		parent.rename_stage();
 	}
 
 }

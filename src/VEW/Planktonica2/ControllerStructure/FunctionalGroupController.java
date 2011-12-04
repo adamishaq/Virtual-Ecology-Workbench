@@ -3,6 +3,8 @@ package VEW.Planktonica2.ControllerStructure;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.swing.JOptionPane;
+
 import VEW.Planktonica2.Model.FunctionalGroup;
 import VEW.Planktonica2.Model.Model;
 import VEW.Planktonica2.Model.Stage;
@@ -105,7 +107,17 @@ public class FunctionalGroupController extends VEWController {
 		this.setChanged();
 		this.notifyObservers(new NewCategoryEvent(new_fg));
 	}
+
+	public void delete_stage(String select) {
+		this.currentFG.removeStage(select);
+		this.setChanged();
+		this.notifyObservers(currentFG);
+	}
 	
-	
+	public void rename_stage(String name, String new_name) {
+		this.currentFG.renameStage(name,new_name);
+		this.setChanged();
+		this.notifyObservers(currentFG);
+	}
 	
 }

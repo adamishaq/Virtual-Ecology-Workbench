@@ -1,11 +1,18 @@
 package VEW.Planktonica2.StageEditor;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -39,6 +46,8 @@ public class StageEditorPanel extends JPanel {
 
 	private void initializeGUI() {
 		
+		this.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
 		ColumnModel m = new ColumnModel(this.controller);
 		
 		TableModel headerData = new RowModel(this.controller);
@@ -53,7 +62,6 @@ public class StageEditorPanel extends JPanel {
         LookAndFeel.installColorsAndFont
             (rowHeader, "TableHeader.background", 
             "TableHeader.foreground", "TableHeader.font");
-
         
         rowHeader.setIntercellSpacing(new Dimension(0, 0));
         Dimension d = rowHeader.getPreferredScrollableViewportSize();
@@ -80,12 +88,83 @@ public class StageEditorPanel extends JPanel {
         
         new RowHeaderResizer(scrollPane).setEnabled(true);
 
-        this.add(scrollPane);
-        
-        AddStageButtonListener list = new AddStageButtonListener(controller);
-        JButton testButton = new JButton("testButton");
-        testButton.addActionListener(list);
-        this.add(testButton);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 1;
+        c.gridwidth = 9;
+        c.gridx = 0;
+        c.gridy = 0;
+        this.add(scrollPane,c);
+        JPanel button_panel = new JPanel(new GridLayout());
+        button_panel.setPreferredSize(new Dimension(250,50));
+        AddStageButtonListener list = new AddStageButtonListener(this);
+        JButton add_stage = new JButton("Add");
+        add_stage.setPreferredSize(new Dimension(75,30));
+        add_stage.addActionListener(list);
+        JButton rename_stage = new JButton("Rename");
+        rename_stage.setPreferredSize(new Dimension(100,30));
+        rename_stage.addActionListener(new RenameStageButtonListener(this));
+        JButton delete_stage = new JButton("Delete");
+        delete_stage.setPreferredSize(new Dimension(75,30));
+        delete_stage.addActionListener(new DeleteStageButtonListener(this));
+        button_panel.add(add_stage);
+        button_panel.add(rename_stage);
+        button_panel.add(delete_stage);
+        c.weightx = 0;
+        c.gridwidth = 3;
+        c.gridy = 1; 
+        c.gridx = 3;
+        this.add(button_panel,c);
+	}
+	
+	public Collection<String> get_stages() {
+		// Return an alphabetical list of all available stages
+		FunctionalGroup g = controller.getSelectedFunctionalGroup();
+		if (g != null) {
+			Collection<String> stages = g.getStageNames();
+			ArrayList<String> stage_names = new ArrayList<String>();
+			for (String s : stages) {
+				stage_names.add(s);
+			}
+			Collections.sort(stage_names);
+			return stage_names;
+		}
+		return null;
+	}
+	
+	public void add_stage() {
+		if (this.controller.getSelectedItem() == null)
+			return;
+		String name = JOptionPane.showInputDialog(this,
+	        	"Choose a name for the stage",
+	            "Name Stage", 1);
+	    if (name == null) {
+	    	return;
+	    }
+		if (!controller.addStage(name)) {
+			JOptionPane.showMessageDialog(this, "A Stage with that name already exists");
+		}
+	}
+	
+	public void delete_stage() {
+		SelectStageDialog s = new SelectStageDialog(this,true);
+		s.setAlwaysOnTop(true);
+		s.setLocationRelativeTo(null);
+		s.setVisible(true);
+	}
+	
+	public void remove_stage(String select) {
+		controller.delete_stage(select);
+	}
+
+	public void rename_stage() {
+		SelectStageDialog s = new SelectStageDialog(this,false);
+		s.setAlwaysOnTop(true);
+		s.setLocationRelativeTo(null);
+		s.setVisible(true);
+	}
+	
+	public void stage_rename(String name, String new_name) {
+		controller.rename_stage(name, new_name);
 	}
 	
 	private class RowModel extends AbstractTableModel implements Observer {
@@ -131,8 +210,6 @@ public class StageEditorPanel extends JPanel {
 			
 		}
 		
-		
-		
 	}
 	
 	private class ColumnModel extends DefaultTableColumnModel implements Observer {
@@ -159,9 +236,15 @@ public class StageEditorPanel extends JPanel {
 			if (g != null) {
 			
 				Collection<String> stages = g.getStageNames();
+				// Sort the stage names alphabetically
+				ArrayList<String> stage_names = new ArrayList<String>();
+				for (String s : stages) {
+					stage_names.add(s);
+				}
+				Collections.sort(stage_names);
 				int modelIndex = 1;
 
-				for (String s : stages) {
+				for (String s : stage_names) {
 					TableColumn c = new TableColumn(modelIndex);
 					c.setHeaderValue(s);
 					this.addColumn(c);
