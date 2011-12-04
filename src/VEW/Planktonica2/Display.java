@@ -23,6 +23,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import VEW.Planktonica2.ControllerStructure.DeleteCategoryEvent;
@@ -210,7 +211,9 @@ public abstract class Display extends JSplitPane implements Observer {
 		
 		
 		// sets up the functional group/chemical tree
-		this.rootNode = new DefaultMutableTreeNode ("root"); 
+		this.rootNode 
+			= new DefaultMutableTreeNode (
+					this instanceof ChemicalDisplay ? "Chemicals" : "Functional Groups"); 
 		
 		tree = new JTree(this.rootNode);
 		
@@ -510,7 +513,10 @@ public abstract class Display extends JSplitPane implements Observer {
 			return;
 		DefaultTreeModel t = (DefaultTreeModel) this.tree.getModel();
 		DefaultMutableTreeNode new_cat = new DefaultMutableTreeNode(newCategory);
-		t.insertNodeInto(new_cat, rootNode, rootNode.getChildCount());
+		t.insertNodeInto(new_cat, this.rootNode, rootNode.getChildCount());
+		this.tree.setRootVisible(true);
+		this.tree.expandRow(0);
+		this.tree.setRootVisible(false);
 		this.variablePanel.update_selected_category(newCategory);
 	}
 

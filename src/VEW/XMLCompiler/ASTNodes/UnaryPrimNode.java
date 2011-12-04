@@ -23,7 +23,7 @@ public class UnaryPrimNode extends ExprNode {
 	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
 		argument.check(enclosingCategory, enclosingTree);
 		Type argType = argument.getExprType();
-		setExprType(checkCompatibility(argType));
+		setExprType(argType);
 		units = argument.getUnits();
 		switch (primitive) {
 		// This function requires dimensionless arguments
@@ -115,14 +115,14 @@ public class UnaryPrimNode extends ExprNode {
 		}
 	}
 	
+/*
+>>>>>>> 222e1b3e2c4736782da4ca167c65441f455547de
 	private Type checkCompatibility(Type argType) {
-		AmbientVariableTables tables = AmbientVariableTables.getTables();
-		Type floatType = (Type) tables.checkTypeTable("$float");
 		if (argType instanceof VarietyType) {
-			return new VarietyType("float", floatType);
+			return argType;
 		}
-		return floatType;
-	}
+		return argType;
+	} */
 
 	@Override
 	public String generateXML() {

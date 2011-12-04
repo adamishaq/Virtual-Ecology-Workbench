@@ -31,8 +31,9 @@ public class BinOpNode extends ExprNode {
 		Type rType = rExpr.getExprType();
 		try {
 			setExprType(checkCompatibility(lType, rType));
-		} catch (SemanticCheckException e) {
+		} catch (BACONCompilerException e) {
 			enclosingTree.addSemanticException(e);
+			setExprType(lType);
 		}
 		switch (operator) {
 		case PLUS     : 
@@ -73,7 +74,7 @@ public class BinOpNode extends ExprNode {
 		}
 	}
 
-	private Type checkCompatibility(Type lType, Type rType) throws SemanticCheckException {
+	private Type checkCompatibility(Type lType, Type rType) throws BACONCompilerException {
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
 		if (lType instanceof VarietyType) {

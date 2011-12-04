@@ -186,15 +186,15 @@ public class FunctionalGroup extends Catagory {
 	
 	@Override
 	public XMLTag buildToXML() throws XMLWriteBackException {
-		super.buildToXML();
-		baseTag.setName("functionalgroup");
+		XMLTag newTag = super.buildToXML();
+		newTag.setName("functionalgroup");
 		Collection<Stage> stages = stageTable.values();
 		Iterator<Stage> iter = stages.iterator();
 		while (iter.hasNext()) {
 			Stage st = iter.next();
-			baseTag.addTag(st.buildToXML());
+			newTag.addTag(st.buildToXML());
 		}
-		return baseTag;
+		return newTag;
 	}
 
 	

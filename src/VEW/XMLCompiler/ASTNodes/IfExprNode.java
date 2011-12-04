@@ -25,16 +25,12 @@ public class IfExprNode extends ExprNode {
 	@Override
 	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
 		conditionExpr.check(enclosingCategory, enclosingTree);
-		Type condType = conditionExpr.getBExprType();
-		if (condType instanceof VarietyType) {
-			enclosingTree.addSemanticException(
-					new SemanticCheckException("The condition must evaluate to a boolean",line_number));
-		}
 		thenExpr.check(enclosingCategory, enclosingTree);
 		elseExpr.check(enclosingCategory, enclosingTree);
 		try {
-			setExprType(checkCompatibility(thenExpr.getExprType(), elseExpr.getExprType()));
-		} catch (SemanticCheckException e) {
+			setExprType(checkCompatibility(thenExpr.getExprType(), elseExpr.getExprType(),
+												conditionExpr.getBExprType()));
+		} catch (BACONCompilerException e) {
 			enclosingTree.addSemanticException(e);
 		} finally {
 			if (!UnitChecker.getUnitChecker().CheckUnitCompatability(thenExpr.getUnits(),
@@ -45,28 +41,49 @@ public class IfExprNode extends ExprNode {
 			} else {
 				this.units = UnitChecker.getUnitChecker().add_units(thenExpr.getUnits(), elseExpr.getUnits());
 			}
+			setExprType(thenExpr.getExprType());
 		}
 	}
 	
-	private Type checkCompatibility(Type lType, Type rType) throws SemanticCheckException{
-		if (lType.equals(rType)) {
-			return lType;
-		}
+	private Type checkCompatibility(Type lType, Type rType, Type boolType) throws BACONCompilerException{
 		if (lType instanceof VarietyType && rType instanceof VarietyType) {
 			VarietyType lVarType = (VarietyType) lType;
 			VarietyType rVarType = (VarietyType) rType;
-			if (!lVarType.getElementType().equals(rVarType.getElementType())) {
-				throw new SemanticCheckException("The two variety expressions have different underlying types"
-														, line_number);
-			}
-			else if (!lVarType.checkLinkCompatible(rVarType)) {
+			if (!lVarType.checkLinkCompatible(rVarType)) {
 				throw new SemanticCheckException("The two expressions within the if statement evaluate have different variety links"
 													, line_number);
 			}
+			if (boolType instanceof VarietyType) {
+				VarietyType vBoolType = (VarietyType) boolType;
+				if (!lVarType.checkLinkCompatible(vBoolType)) {
+					throw new SemanticCheckException("The boolean expression and returned expressions have different variety links"
+							, line_number);
+				}
+			}
 			return lVarType;
 		}
-		throw new SemanticCheckException("The expressions in the if statement must both evaluate to the same type"
-														, line_number);
+		if (rType instanceof VarietyType && boolType instanceof VarietyType) {
+			VarietyType rVarType = (VarietyType) rType;
+			VarietyType vBoolType = (VarietyType) boolType;
+			if (!rVarType.checkLinkCompatible(vBoolType)) {
+				throw new SemanticCheckException("The boolean expression and returned expressions have different variety links"
+						, line_number);
+			}
+			return rType;
+		}
+		if (lType instanceof VarietyType && boolType instanceof VarietyType) {
+			VarietyType lVarType = (VarietyType) lType;
+			VarietyType vBoolType = (VarietyType) boolType;
+			if (!lVarType.checkLinkCompatible(vBoolType)) {
+				throw new SemanticCheckException("The boolean expression and returned expressions have different variety links"
+						, line_number);
+			}
+			return lType;
+		}
+		if (rType instanceof VarietyType) {
+			return rType;
+		}
+		return lType;
 		
 	}
 

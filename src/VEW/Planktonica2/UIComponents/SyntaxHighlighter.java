@@ -2,6 +2,7 @@ package VEW.Planktonica2.UIComponents;
 
 import java.util.ArrayList;
 import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
+import VEW.XMLCompiler.ASTNodes.BACONCompilerException;
 import VEW.XMLCompiler.ASTNodes.TreeWalkerException;
 import VEW.XMLCompiler.ASTNodes.SemanticCheckException;
 
@@ -164,7 +165,7 @@ public class SyntaxHighlighter {
 				TreeWalkerException twe = (TreeWalkerException) e;
 				text = highlight_error(twe.getLine(),twe.getChar_pos(),text);
 			} else if (e instanceof SemanticCheckException) {
-				SemanticCheckException sce = (SemanticCheckException) e;
+				BACONCompilerException sce = (BACONCompilerException) e;
 				text = highlight_error(sce.getLine(),0,text);
 			}
 		}

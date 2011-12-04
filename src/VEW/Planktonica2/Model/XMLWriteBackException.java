@@ -23,6 +23,7 @@ public class XMLWriteBackException extends Exception {
 	}
 	
 	public XMLWriteBackException() {
+		compilerExceptions = new ArrayList<CompilerException>();
 	}
 
 	public void addCompilerException(CompilerException ex) {

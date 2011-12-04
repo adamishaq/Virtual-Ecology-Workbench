@@ -28,6 +28,8 @@ import VEW.Planktonica2.EditorPanel;
 import VEW.Planktonica2.ControllerStructure.SelectableItem;
 import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.Function;
+import VEW.Planktonica2.Model.FunctionalGroup;
 import VEW.Planktonica2.Model.GlobalVariable;
 import VEW.Planktonica2.Model.Unit;
 import VEW.Planktonica2.Model.VariableType;
@@ -52,6 +54,9 @@ public class AutocompleteBox {
 	private HashMap<String,String> expr_functions 
 		= new HashMap<String,String>();
 	
+	private HashMap<String,String> bexpr_functions 
+	= new HashMap<String,String>();
+	
 	private VEWController controller;
 	
 	public HashMap<String, String> getRule_functions() {
@@ -60,6 +65,10 @@ public class AutocompleteBox {
 
 	public HashMap<String, String> getExpr_functions() {
 		return expr_functions;
+	}
+	
+	public HashMap<String, String> getBExpr_functions() {
+		return bexpr_functions;
 	}
 
 	public String getCurrent_word() {
@@ -189,13 +198,14 @@ public class AutocompleteBox {
         expr_functions.put("max([expr],[expr])",
 			"Return the larger of two expressions.");
         expr_functions.put("min([expr],[expr])",
-		"Return the smaller of two expressions.");
-        expr_functions.put("all([boolean])",
-        	"Returns true if the boolean condition is true for all values of an array");
-        expr_functions.put("some([boolean])",
-    		"Returns true if the boolean condition is true for at least one value of an array");
-        expr_functions.put("none([boolean])",
-    		"Returns true if the boolean condition is false for all values of an array");
+			"Return the smaller of two expressions.");
+        
+        bexpr_functions.put("all([boolean])",
+    		"Returns true if the boolean condition is true for all values of an array");
+        bexpr_functions.put("some([boolean])",
+			"Returns true if the boolean condition is true for at least one value of an array");
+        bexpr_functions.put("none([boolean])",
+			"Returns true if the boolean condition is false for all values of an array");
 	}
 	
 	public JList getList() {
@@ -212,6 +222,7 @@ public class AutocompleteBox {
 	
 	public void show_suggestions(KeyEvent e) {
 		this.visible = true;
+		//System.out.println(parent.get_error_at_caret());
 		String key_val = KeyEvent.getKeyText(e.getKeyCode());
 		if (key_val.equals("Minus") && e.isShiftDown())
 			key_val = "_";
@@ -256,7 +267,14 @@ public class AutocompleteBox {
 	public void force_show(String new_word,int pos) {
 		this.current_word = new_word;
 		this.caret_position = pos;
-		setup_box();
+		if (target.getSelectedText() != null && target.getSelectedText().length() > 0) {
+			this.caret_position = target.getSelectionEnd();
+			setup_box(target.getSelectedText());
+			list.requestFocus();
+			list.setSelectedIndex(0);
+		} else {
+			setup_box();
+		}
 	}
 	
 	private void setup_box() {
@@ -268,6 +286,64 @@ public class AutocompleteBox {
 				possible.add(s);
 			}
 		}
+		display_box(possible);
+	}
+
+	private void setup_box(String selected) {
+		this.current_word = selected;
+		if (!selected.contains("[")) {
+			setup_box();
+		} else {
+			ArrayList<String> suggestions = new ArrayList<String>();
+			SelectableItem si = this.controller.getSelectedItem();
+			if (!(si instanceof Catagory))
+				return;
+			Catagory c = (Catagory) si;
+			this.current_catagory = c;
+			if (selected.equals("[amount]") || selected.equals("[threshold]") || selected.equals("[rate]")
+					|| selected.equals("[p]") || selected.equals("[number]") || selected.equals("[expr]")
+					|| selected.equals("[vexpr]")) {
+				// Suggest only things that can be expressions:
+				// Get all global variables
+				add_to_suggestions(suggestions, AmbientVariableTables.getTables().getAllVariableNames());
+				// Get all functions usable in [expr]s
+				add_to_suggestions(suggestions, expr_functions.keySet().toArray());
+				add_to_suggestions(suggestions, c.get_state_vars());
+				add_to_suggestions(suggestions, c.get_params());
+				add_to_suggestions(suggestions, c.get_local_vars());
+				//add_to_suggestions(suggestions, c.get_variety_concs());
+				add_to_suggestions(suggestions, c.get_variety_states());
+				add_to_suggestions(suggestions, c.get_variety_params());
+				add_to_suggestions(suggestions, c.get_variety_locals());
+			} else if (selected.equals("[boolean]")) {
+				// Suggest only things that can be booleans:
+				// Get all functions usable in [bexpr]s
+				add_to_suggestions(suggestions, bexpr_functions.keySet().toArray());
+			} else if (selected.equals("[variable]")) {
+				// Suggest only things that can have a history attached:
+				// Get all state vars and variety states
+				add_to_suggestions(suggestions, c.get_state_vars());
+				add_to_suggestions(suggestions, c.get_variety_states());
+			} else if (selected.equals("[stage]")) {
+				// Suggest only stage names
+				if (c instanceof FunctionalGroup) {
+					FunctionalGroup f = (FunctionalGroup) c;
+					for (String s : f.getStageNames())
+						suggestions.add(s);
+				}
+			} else if (selected.equals("[chemical]")) {
+				// Suggest only chemical names
+				for (String s : controller.get_chemical_names())
+					suggestions.add(s);
+			} else if (selected.equals("[foodset]")) {
+				// Suggest only food sets
+				add_to_suggestions(suggestions, c.get_variety_concs());
+			}
+			display_box(suggestions);
+		}
+	}
+	
+	private void display_box(ArrayList<String> possible) {
 		if (possible.size() == 0) {
 			hide_suggestions();
 			return;
@@ -288,7 +364,6 @@ public class AutocompleteBox {
 	}
 	
 	private ArrayList<String> find_suggestions() {
-		System.out.println(parent.get_error_at_caret());
 		ArrayList<String> suggestions = new ArrayList<String>();
 		// Get all global variables
 		add_to_suggestions(suggestions, AmbientVariableTables.getTables().getAllVariableNames());
@@ -296,6 +371,8 @@ public class AutocompleteBox {
 		add_to_suggestions(suggestions, rule_functions.keySet().toArray());
 		// Get all functions usable in [expr]s
 		add_to_suggestions(suggestions, expr_functions.keySet().toArray());
+		// Get all functions usable in [bexpr]s
+		add_to_suggestions(suggestions, bexpr_functions.keySet().toArray());
 		// Get the currently selected functional group/chemical and extract it's variables
 		SelectableItem si = this.controller.getSelectedItem();
 		if (si instanceof Catagory) {
@@ -337,11 +414,15 @@ public class AutocompleteBox {
 		String select = list.getSelectedValue().toString();
 		try {
 			// Try to place it in the text box
-			int pos = target.getCaretPosition();
+			int pos = caret_position; //target.getCaretPosition();
 			int length = current_word.length();
 			target.getDocument().remove(pos - length, length);
 			pos = target.getCaretPosition();
 			target.getDocument().insertString(pos, select, null);
+			if (select.contains("[")) {
+				target.setSelectionStart(pos + select.indexOf('['));
+				target.setSelectionEnd(pos + select.indexOf(']') + 1);
+			}
 		} catch (BadLocationException e) {
 			// Should never happen
 		}
@@ -374,12 +455,16 @@ public class AutocompleteBox {
 					text += parent.getRule_functions().get(name);
 				} else if (parent.getExpr_functions().get(name) != null) {
 					text += parent.getExpr_functions().get(name);
+				} else if (parent.getBExpr_functions().get(name) != null) {
+					text += parent.getBExpr_functions().get(name);
 				} else if (this.parent.getCurrent_catagory() != null) {
 					VariableType v = this.parent.getCurrent_catagory().checkAllVariableTables(name);
-					text += v.getDesc() + "\n";
-					text += "<b>Units:</b>";
-					for (Unit u : v.getUnits()) {
-						text += u.format();
+					if (v != null) {
+						text += v.getDesc() + "\n";
+						text += "<b>Units:</b>";
+						for (Unit u : v.getUnits()) {
+							text += u.format();
+						}
 					}
 				}
 				text += "</PRE></html>";

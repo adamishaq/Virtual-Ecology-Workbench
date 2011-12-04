@@ -34,6 +34,7 @@ import VEW.Planktonica2.UIComponents.BACONFilter;
 import VEW.Planktonica2.UIComponents.LatexPreview;
 import VEW.Planktonica2.UIComponents.SyntaxHighlighter;
 import VEW.XMLCompiler.ANTLR.ANTLRParser;
+import VEW.XMLCompiler.ASTNodes.BACONCompilerException;
 import VEW.XMLCompiler.ASTNodes.ConstructedASTree;
 import VEW.XMLCompiler.ASTNodes.SemanticCheckException;
 import VEW.XMLCompiler.ASTNodes.TreeWalkerException;
@@ -150,6 +151,8 @@ public class EditorPanel extends JPanel implements Observer {
 		if (this.current_source == null)
 			return;
 		syntax_highlighter.clear_flags();
+		controller.writeBackToXMLFile();
+		/*
 		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
 		try {
 			ConstructedASTree ct = p.getAST();
@@ -179,7 +182,7 @@ public class EditorPanel extends JPanel implements Observer {
 		} catch (RecognitionException e) {
 			System.out.println("RECOGNITION EXCEPTION");
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	private String format_errors(ConstructedASTree ct, String errors) {
@@ -404,23 +407,23 @@ public class EditorPanel extends JPanel implements Observer {
 	public String get_error_at_caret() {
 		String expected = "";
 		ANTLRParser p = 
-			new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText().substring(0,
-					syntax.getCaretPosition())));
+			new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()).substring(0,
+					syntax.getCaretPosition()));
 		try {
 			ConstructedASTree ct = p.getAST();
-			if (ct.getTree() != null) {
-				if (!ct.getExceptions().isEmpty()) {
-					Exception e = ct.getExceptions().get(ct.getExceptions().size() - 1);
-					if (e instanceof TreeWalkerException) {
-						//expected = ((TreeWalkerException)e).getError();
-					}
-				}
+			if (ct.getExceptions() != null && !ct.getExceptions().isEmpty()) {
+				BACONCompilerException e = ct.getExceptions().get(ct.getExceptions().size() - 1);
+				expected = e.getError();
 			}
 		} catch (RecognitionException e) {
 			System.out.println("RECOGNITION EXCEPTION");
 			e.printStackTrace();
 		}
 		return expected;
+	}
+	
+	public String get_selected_text() {
+		return syntax.getSelectedText();
 	}
 /*	
 static class CompileListener implements ActionListener {
@@ -564,11 +567,12 @@ class TypingListener implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_SHIFT || e.getKeyCode() == KeyEvent.VK_CONTROL ||
+		if (e.getKeyCode() == KeyEvent.VK_SHIFT || /*e.getKeyCode() == KeyEvent.VK_CONTROL ||*/
 			e.getKeyCode() == KeyEvent.VK_ALT)
 			// Ignore them
 			return;
-		if (e.getKeyCode() == KeyEvent.VK_SPACE && e.isControlDown() && !parent.caret_in_comment()) {
+		/*if (e.getKeyCode() == KeyEvent.VK_SPACE && e.isControlDown() && !parent.caret_in_comment()) {*/
+		if (e.getKeyCode() == KeyEvent.VK_CONTROL && !parent.caret_in_comment()) {
 			String new_word = new StringBuffer(parent.word_before_caret()).reverse().toString();
 			parent.show_box(new_word);
 		} else if (!parent.caret_in_comment() && (!parent.current_autocomplete().equals("")

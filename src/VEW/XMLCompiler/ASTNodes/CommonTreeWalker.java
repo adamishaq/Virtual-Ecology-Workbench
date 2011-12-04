@@ -21,7 +21,7 @@ import VEW.XMLCompiler.ANTLR.BACONParser;
  */
 public class CommonTreeWalker {
 	
-	private ArrayList<Exception> exceptions;
+	private ArrayList<BACONCompilerException> exceptions;
 	
 	private CommonTree antlrTree;
 	
@@ -31,7 +31,7 @@ public class CommonTreeWalker {
 	 */
 	public CommonTreeWalker(CommonTree antlrTree) {
 		this.antlrTree = antlrTree;
-		exceptions = new ArrayList<Exception>();
+		exceptions = new ArrayList<BACONCompilerException>();
 	}
 	
 	/**
@@ -436,9 +436,6 @@ public class CommonTreeWalker {
 					String error_message = "";
 					if (m.token.getText().equals("<EOF>"))
 						error_message = "Unexpected end of input on line " + cen.trappedException.line + ".";
-					else if (m.token.getText().contains("\n")) {
-						error_message = "Unexpected newline on line " + cen.trappedException.line + ".";
-					}
 					else
 						error_message = "Unexpected '" + m.token.getText() + "' found on line " +
 						cen.trappedException.line + ".";
@@ -454,7 +451,7 @@ public class CommonTreeWalker {
 		return true;
 	}
 	
-	public void add_exception(Exception e) {
+	public void add_exception(BACONCompilerException e) {
 		exceptions.add(e);
 	}
 
