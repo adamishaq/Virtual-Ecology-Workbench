@@ -13,6 +13,7 @@ tokens {
 	EXPR;
 	BEXPR;
 	NEG;
+	CHANGEASSIGN;
 }
 
 @header {
@@ -86,6 +87,12 @@ CHANGE     : 'change';
 PCHANGE    : 'pchange';
 DIVIDE	   : 'divide';
 INTEGRATE  : 'integrate';
+
+//Change syntax
+BAR 	: '|';
+OTHERWISE 
+	: 'otherwise';
+TO	: 'to';
 
 // Creates Syntax
 CREATE	: 'create';
@@ -204,12 +211,22 @@ rule2
 	| UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^(UPTAKE VAR expr)
 	| RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^(RELEASE VAR expr)
 	| INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^(INGEST VAR expr expr)
-	| CHANGE LBRACKET VAR RBRACKET -> ^(CHANGE VAR)
-	| PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^(PCHANGE VAR expr)
+	//| CHANGE LBRACKET VAR RBRACKET -> ^(CHANGE VAR)
+	//| PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^(PCHANGE VAR expr)
+	| CHANGE LBRACKET expr RBRACKET changeExpr+ -> ^(CHANGE expr changeExpr+)
 	| DIVIDE LBRACKET expr RBRACKET -> ^(DIVIDE expr)
 	| CREATE LBRACKET VAR COMMA expr RBRACKET
 		(WITH LSQUARE assignList RSQUARE)? -> ^(CREATE VAR expr (assignList)?)
 	| LBRACKET rule2 RBRACKET -> rule2
+	;
+
+changeExpr 
+	: BAR changeCond TO VAR -> ^(CHANGEASSIGN changeCond VAR)
+	;
+
+changeCond 
+	: OTHERWISE
+	| bExpr
 	;
 
 assign
