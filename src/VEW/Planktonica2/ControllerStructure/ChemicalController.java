@@ -4,14 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import VEW.Planktonica2.Model.Chemical;
-import VEW.Planktonica2.Model.FunctionalGroup;
 import VEW.Planktonica2.Model.Model;
 import VEW.Planktonica2.Model.NullSpectrum;
 import VEW.Planktonica2.Model.Spectrum;
-import VEW.Planktonica2.Model.StateVariable;
-import VEW.Planktonica2.Model.Type;
-import VEW.Planktonica2.Model.Unit;
-import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
 public class ChemicalController extends VEWController {
 

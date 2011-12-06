@@ -15,11 +15,13 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.util.Collection;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
@@ -28,7 +30,6 @@ import org.antlr.runtime.RecognitionException;
 
 import VEW.Planktonica2.ControllerStructure.SourcePath;
 import VEW.Planktonica2.ControllerStructure.VEWController;
-import VEW.Planktonica2.Model.Function;
 import VEW.Planktonica2.UIComponents.AutocompleteBox;
 import VEW.Planktonica2.UIComponents.BACONFilter;
 import VEW.Planktonica2.UIComponents.LatexPreview;
@@ -65,11 +66,8 @@ public class EditorPanel extends JPanel implements Observer {
 	public void update(Observable o, Object arg) {
 		
 		if (arg instanceof SourcePath) {
-			
 			SourcePath p = (SourcePath) arg;
-			
 			open_source_file(p.getPath());
-			
 		}
 		
 	}
@@ -150,8 +148,26 @@ public class EditorPanel extends JPanel implements Observer {
 	public void compile() {
 		if (this.current_source == null)
 			return;
-		syntax_highlighter.clear_flags();
-		controller.writeBackToXMLFile();
+		int choice = JOptionPane.showOptionDialog(this, "You must save the current source file before compiling",
+				"Save source file", JOptionPane.YES_NO_OPTION, 1, null, null, 1);
+		if (choice == 1)
+			return;
+		// Save the source file
+		if (!this.save())
+			return;
+		Collection<String> exceptions = controller.writeBackToXMLFile();
+		if (!exceptions.isEmpty()) {
+			String errors = "<html><PRE>Compilation errors occurred:\n";
+			errors += "<font color=#FF0000>";
+			for (String s : exceptions) {
+				errors += s + "\n";
+			}
+			errors += "</font>";
+			errors += "\nCompilation aborted!</PRE></html>";
+			error_log.setText(errors);
+		} else {
+			error_log.setText("<html><PRE>Compilation succeeded!</PRE></html>");
+		}
 		/*
 		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
 		try {
@@ -349,6 +365,7 @@ public class EditorPanel extends JPanel implements Observer {
 	
 	public void open_source_file(String filePath) {
         try {
+        	this.current_source = new String(filePath);
 			FileInputStream fstream = new FileInputStream(filePath);
 			DataInputStream in = new DataInputStream(fstream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -368,35 +385,29 @@ public class EditorPanel extends JPanel implements Observer {
 			syntax.setText(source);
 			highlight_syntax();
 			syntax.setCaretPosition(0);
-			this.current_source = filePath;
 		} catch (Exception e) {
 			syntax.setText("<html><head></head><PRE>Could not find source file " + filePath
 					+ "</PRE></html>");
 		}
 	}
 	
-	public void save() {
-		Function f = controller.getCurrentlySelectedFunction();
-		if (f == null)
-			return;
-		String file_path = f.getSource_code();
-		file_path += f.getParent().getName();
-		file_path += "\\";
-		file_path += f.getName();
-		file_path += ".bacon";
+	public boolean save() {
 		try {
-			FileOutputStream fstream = new FileOutputStream(file_path);
+			FileOutputStream fstream = new FileOutputStream(this.current_source);
 			PrintStream out = new PrintStream(fstream);
 			out.print(syntax_highlighter.getPlainText(syntax.getText()));
 			out.close();
-			error_log.setText("Save successful");
+			error_log.setText("<html><PRE>Save successful</PRE></html>");
+			return true;
 		} catch (Exception e) {
-			error_log.setText("<html><head></head><PRE>Error when saving to file " 
-					+ file_path + "</PRE></html>");
+			error_log.setText("<html><PRE>Error when saving to file " 
+					+ this.current_source + "</PRE></html>");
+			return false;
 		}
 	}
 	
 	public void clear() {
+		this.save();
 		this.current_source = null;
 		this.syntax.setEnabled(false);
 		this.syntax.setText("<html><PRE></PRE></html>");
@@ -425,120 +436,6 @@ public class EditorPanel extends JPanel implements Observer {
 	public String get_selected_text() {
 		return syntax.getSelectedText();
 	}
-/*	
-static class CompileListener implements ActionListener {
-		
-	private EditorPanel parent;
-	
-	public CompileListener(EditorPanel edit) {
-		parent = edit;
-	}
-	
-	public void actionPerformed(ActionEvent event) {
-		syntax_highlighter.clear_flags();
-		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
-		try {
-			ConstructedASTree ct = p.getAST();
-			//ct.getTree().check();
-			if (ct.getExceptions().isEmpty()) {
-				String latex = "\\begin{array}{lr}";
-				latex += ct.getTree().generateLatex();
-				latex += "\\end{array}";
-				preview.setVisible(true);
-				preview.update_preview(latex);
-				System.out.println(ct.getTree().generateXML());
-				error_log.setText("<html><PRE>Compilation succeeded!</PRE></html>");
-			} else {
-				String errors = "<html><PRE>Compilation errors occurred:\n";
-				errors += "<font color=#FF0000>";
-				for (Exception t : ct.getExceptions()) {
-					syntax_highlighter.flag_line(t);
-					if (t instanceof TreeWalkerException) {
-						TreeWalkerException twe = (TreeWalkerException) t;
-						errors += twe.getError() + "\n";
-					} else if (t instanceof SemanticCheckException) {
-						SemanticCheckException sce = (SemanticCheckException) t;
-						errors += sce.getError() + "\n";
-					} else {
-						errors += "Unknown error\n";
-					}
-				}
-				errors += "</font>";
-				errors += "\nCompilation aborted!</PRE></html>";
-				error_log.setText(errors);
-			}
-			parent.highlight_syntax();
-		} catch (RecognitionException e) {
-			System.out.println("RECOGNITION EXCEPTION");
-			e.printStackTrace();
-		}
-	}
-		
-}*/
-/*
-static class OpenListener implements ActionListener {
-	
-	private JPanel parent;
-	
-	public OpenListener(JPanel editorPanel) {
-		parent = editorPanel;
-	}
-
-	public void actionPerformed(ActionEvent event) {
-		int choice = file_chooser.showOpenDialog(parent);
-        if (choice == JFileChooser.APPROVE_OPTION) {
-            File file = file_chooser.getSelectedFile();
-            String fpath = file.getAbsolutePath();
-            try {
-    			FileInputStream fstream = new FileInputStream(fpath);
-    			DataInputStream in = new DataInputStream(fstream);
-    			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-    			String file_text = "<html><head></head><PRE>", line = "";
-    			while ((line = br.readLine()) != null)   {
-    				file_text += (line + "\n"); 
-    			}
-    			in.close();
-    			file_text += "</PRE></html>";
-    			syntax.setText(file_text);
-    			highlight_syntax();
-    		} catch (Exception e) {
-    			syntax.setText("Could not find the file!");
-    		}
-        }
-		
-		
-	}
-	
-}*/
-/*
-static class SaveListener implements ActionListener {
-	
-	private JPanel parent;
-	
-	public SaveListener(JPanel editorPanel) {
-		parent = editorPanel;
-	}
-
-	public void actionPerformed(ActionEvent event) {
-		int choice = file_chooser.showSaveDialog(parent);
-        if (choice == JFileChooser.APPROVE_OPTION) {
-            File file = file_chooser.getSelectedFile();
-            String fpath = file.getAbsolutePath() + ".bacon";
-            // TODO - check for overwrites, extensions etc.
-            try {
-    			FileOutputStream fstream = new FileOutputStream(fpath);
-    			PrintStream out = new PrintStream(fstream);
-    			out.print(syntax_highlighter.getPlainText(syntax.getText()));
-    			out.close();
-    		} catch (Exception e) {
-    			System.out.println("Save failed!");
-    		}
-        }
-		
-		
-	}
-	
-}*/
 
 class PreviewListener implements ActionListener {
 	

@@ -1,11 +1,8 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import java.util.ArrayList;
-
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Chemical;
 import VEW.Planktonica2.Model.Type;
-import VEW.Planktonica2.Model.Unit;
 import VEW.Planktonica2.Model.VarietyType;
 
 public class VOpNode  extends ExprNode {
@@ -31,16 +28,17 @@ public class VOpNode  extends ExprNode {
 		Type exprType = expression.getExprType();
 		if (!(exprType instanceof VarietyType)) {
 			enclosingTree.addSemanticException(
-					new SemanticCheckException("The expression must be a vector",line_number));
-		}
-		AmbientVariableTables tables = AmbientVariableTables.getTables();
-		Type floatType = (Type) tables.checkTypeTable("$float");
-		VarietyType varType = (VarietyType) exprType;
-		if (!varType.getElementType().equals(floatType)) {
-			enclosingTree.addSemanticException(
+				new SemanticCheckException("The expression must be a vector",line_number));
+		} else {
+			AmbientVariableTables tables = AmbientVariableTables.getTables();
+			Type floatType = (Type) tables.checkTypeTable("$float");
+			VarietyType varType = (VarietyType) exprType;
+			if (!varType.getElementType().equals(floatType)) {
+				enclosingTree.addSemanticException(
 					new SemanticCheckException("The input for variety operation must be a vector of floats",line_number));
+			}
+			setExprType(floatType);
 		}
-		setExprType(floatType);
 		units = expression.getUnits();
 	}
 

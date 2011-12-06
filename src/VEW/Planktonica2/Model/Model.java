@@ -137,7 +137,7 @@ public class Model implements BuildFromXML, BuildToXML {
 				file.addTag(fGroup.buildToXML());
 			}
 			catch (XMLWriteBackException ex) {
-				collectedExceptions.addCompilerException(ex.getCompilerExceptions());
+				collectedExceptions.addCompilerException(ex.getCompilerExceptions(),fGroup.getName());
 			}
 		}
 		for (Chemical chem : chemicals) {
@@ -145,7 +145,7 @@ public class Model implements BuildFromXML, BuildToXML {
 				file.addTag(chem.buildToXML());
 			}
 			catch (XMLWriteBackException ex) {
-				collectedExceptions.addCompilerException(ex.getCompilerExceptions());
+				collectedExceptions.addCompilerException(ex.getCompilerExceptions(),chem.getName());
 			}
 		}
 		if (collectedExceptions.hasExceptions()) {

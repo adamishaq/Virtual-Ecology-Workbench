@@ -19,7 +19,6 @@ public class SelectStageDialog extends JDialog {
 	 */
 	private static final long serialVersionUID = 163080522470495910L;
 	private StageEditorPanel parent;
-	private boolean delete; // Is the selected stage to be deleted?
 	private JTree stage_tree;
 	
 	public SelectStageDialog(StageEditorPanel parent,boolean delete) {
@@ -30,7 +29,6 @@ public class SelectStageDialog extends JDialog {
 		this.setMinimumSize(new Dimension(300,200));
 		this.setPreferredSize(new Dimension(300,200));
 		this.parent = parent;
-		this.delete = delete;
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("root");
 		stage_tree = new JTree(root);
 		Collection<String> stages = parent.get_stages();

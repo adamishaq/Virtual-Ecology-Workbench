@@ -7,3 +7,5 @@ jobs.xml
 results.xml
 vew.xml
 *.classpath
+ModelTree/*
+.gitignore

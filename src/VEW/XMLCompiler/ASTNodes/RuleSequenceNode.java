@@ -1,5 +1,6 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.DisplayOptions;
 import VEW.Planktonica2.Model.Catagory;
 
 public class RuleSequenceNode extends ASTree {
@@ -45,7 +46,7 @@ public class RuleSequenceNode extends ASTree {
 
 	@Override
 	public String generateXML() {
-		String name = "LOLNAME";
+		String name = "Rule";
 		if (ruleName != null) {
 			name = ruleName;
 		}
@@ -59,18 +60,31 @@ public class RuleSequenceNode extends ASTree {
 	
 	public String generateLatex() {
 		if (seq != null) {
-			if (rule != null)
-				return "\\\\ \\\\ \\;" + rule.generateLatex() 
-				+ seq.generateLatex();
-			else
-				return "\\\\ \\\\ \\;???" 
-				+ seq.generateLatex();
-			
+			if (rule != null) {
+				String ruleString = "\\\\ \\\\ \\;";
+				if (DisplayOptions.PREVIEW_RULE_NAMES && this.ruleName != null) {
+					// Remove all double qoutes and replace spaces with 'LaTeX spaces'
+					String name = this.ruleName.replaceAll("\"", "");
+					name = name.replaceAll(" ", "\\;");
+					ruleString +=  name + "\\;:\\;";
+				}
+				ruleString += rule.generateLatex();
+				return ruleString + seq.generateLatex();
+			}
+			return "\\\\ \\\\ \\;???" + seq.generateLatex();
 		} else {
-			if (rule != null)
-				return "\\\\ \\\\ \\;" + rule.generateLatex();
-			else
-				return "\\\\ \\\\ \\;???";
+			if (rule != null) {
+				String ruleString = "\\\\ \\\\ \\;";
+				if (DisplayOptions.PREVIEW_RULE_NAMES && this.ruleName != null) {
+					// Remove all double qoutes and replace spaces with 'LaTeX spaces'
+					String name = this.ruleName.replaceAll("\"", "");
+					name = name.replaceAll(" ", "\\;");
+					ruleString +=  name + "\\;:\\;";
+				}
+				ruleString += rule.generateLatex();
+				return ruleString;
+			}
+			return "\\\\ \\\\ \\;???";
 		}
 	}
 	

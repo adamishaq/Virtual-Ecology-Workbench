@@ -2,6 +2,7 @@ package VEW.XMLCompiler.ASTNodes;
 
 import java.util.ArrayList;
 
+import VEW.Planktonica2.DisplayOptions;
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Unit;
 import VEW.Planktonica2.Model.UnitChecker;
@@ -61,6 +62,14 @@ public class IdNode extends ExprNode {
 		if (name.contains("_")) {
 			latex_name = name.replaceFirst("_", "_{");
 			latex_name += "}";
+		}
+		if (DisplayOptions.PREVIEW_UNITS && !this.getUnits().isEmpty()) {
+			String units = "";
+			for (Unit u : this.getUnits()) {
+				units += u.latex_format();
+			}
+			if (units.length() > 0)
+				latex_name += "(" + units + ")";
 		}
 		return latex_name;
 	}

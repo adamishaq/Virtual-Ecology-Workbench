@@ -20,12 +20,8 @@ import VEW.Planktonica2.Model.Chemical;
 import VEW.Planktonica2.Model.Function;
 import VEW.Planktonica2.Model.FunctionalGroup;
 import VEW.Planktonica2.Model.Model;
-import VEW.Planktonica2.Model.StateVariable;
-import VEW.Planktonica2.Model.Type;
-import VEW.Planktonica2.Model.Unit;
 import VEW.Planktonica2.Model.VariableType;
 import VEW.Planktonica2.Model.XMLWriteBackException;
-import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 import VEW.XMLCompiler.ANTLR.CompilerException;
 import VEW.XMLCompiler.ASTNodes.BACONCompilerException;
 
@@ -129,8 +125,9 @@ public abstract class VEWController extends Observable {
 	public abstract Collection<SelectableItem> getSelectables();
 
 	
-	public void writeBackToXMLFile() {
+	public Collection<String> writeBackToXMLFile() {
 		XMLTag tag = null;
+		ArrayList<String> exceptions = new ArrayList<String>();
 		try {
 			tag = model.buildToXML();
 			//TODO make sure multiple compiler errors are collated
@@ -138,10 +135,11 @@ public abstract class VEWController extends Observable {
 		catch (XMLWriteBackException ex) {
 			for (CompilerException cex : ex.getCompilerExceptions()) {
 				for (BACONCompilerException fex : cex.getContainedExceptions()) {
-					System.out.println(cex.getErrorFunctionName() + " (line " + fex.getLine() + "):" + fex.getError());
+					exceptions.add(cex.getErrorFunctionName() + " (" + cex.getErrorCategoryName() + ")"
+							+ ": " + fex.getError());
 				}
 			}
-			return;
+			return exceptions;
 		}
 		if (!(tag instanceof XMLFile)) {
 			//TODO something has gone really wrong
@@ -151,6 +149,7 @@ public abstract class VEWController extends Observable {
 		String newName = fileName.substring(0, fileName.lastIndexOf('\\') + 1) + "testFile.xml";
 		xmlFile.setFileName(newName);
 		xmlFile.write();
+		return exceptions;
 	}
 
 

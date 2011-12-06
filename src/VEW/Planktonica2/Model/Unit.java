@@ -68,5 +68,15 @@ public class Unit {
 	public boolean same_unit(Unit u) {
 		return name.equals(u.getName());
 	}
+
+
+	public String latex_format() {
+		if (this.name.equals("dimensionless") || this.name.equals("null") || this.exponent == 0)
+			return "";
+		String exp = "";
+		if (this.exponent != 1)
+			exp = "^{" + exponent + "}";
+		return this.name + exp;
+	}
 	
 }

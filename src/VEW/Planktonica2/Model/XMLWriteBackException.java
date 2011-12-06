@@ -30,7 +30,10 @@ public class XMLWriteBackException extends Exception {
 		compilerExceptions.add(ex);
 	}
 	
-	public void addCompilerException(List<CompilerException> compilerExceptions) {
+	public void addCompilerException(List<CompilerException> compilerExceptions, String categoryName) {
+		for (CompilerException c : compilerExceptions) {
+			c.setErrorCategoryName(categoryName);
+		}
 		this.compilerExceptions.addAll(compilerExceptions);
 	}
 	

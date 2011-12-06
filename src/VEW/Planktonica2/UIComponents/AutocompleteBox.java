@@ -28,7 +28,6 @@ import VEW.Planktonica2.EditorPanel;
 import VEW.Planktonica2.ControllerStructure.SelectableItem;
 import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.Planktonica2.Model.Catagory;
-import VEW.Planktonica2.Model.Function;
 import VEW.Planktonica2.Model.FunctionalGroup;
 import VEW.Planktonica2.Model.GlobalVariable;
 import VEW.Planktonica2.Model.Unit;
@@ -42,7 +41,7 @@ public class AutocompleteBox {
 	private final JEditorPane description = new JEditorPane();
 	private final JPopupMenu acbox = new JPopupMenu();
 	JTextPane target;
-	private EditorPanel parent;
+	//private EditorPanel parent;
 	private String current_word;
 	private int caret_position;
 	private Catagory current_catagory;
@@ -97,7 +96,7 @@ public class AutocompleteBox {
 
 	public AutocompleteBox(JTextPane text, VEWController controller, EditorPanel parent) {
 		this.controller = controller;
-		this.parent = parent;
+		//this.parent = parent;
 		// Set up the list view
 		JScrollPane scroll_list = new JScrollPane(list); 
 		scroll_list.setPreferredSize(new Dimension(150,100));

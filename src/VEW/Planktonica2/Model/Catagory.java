@@ -272,7 +272,7 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 				newTag.addTag(f.buildToXML());
 			}
 			catch (XMLWriteBackException ex) {
-				collectedExceptions.addCompilerException(ex.getCompilerExceptions());
+				collectedExceptions.addCompilerException(ex.getCompilerExceptions(),this.name);
 			}
 		}
 		if (collectedExceptions.hasExceptions()) {
