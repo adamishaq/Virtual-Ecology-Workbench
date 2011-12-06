@@ -63,7 +63,8 @@ public class IdNode extends ExprNode {
 			latex_name = name.replaceFirst("_", "_{");
 			latex_name += "}";
 		}
-		if (DisplayOptions.PREVIEW_UNITS && !this.getUnits().isEmpty()) {
+		if (DisplayOptions.PREVIEW_UNITS && this.getUnits() != null 
+				&& !this.getUnits().isEmpty()) {
 			String units = "";
 			for (Unit u : this.getUnits()) {
 				units += u.latex_format();

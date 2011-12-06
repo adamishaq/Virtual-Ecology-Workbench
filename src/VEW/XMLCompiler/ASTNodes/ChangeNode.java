@@ -84,13 +84,18 @@ public class ChangeNode extends RuleNode {
 	
 	@Override
 	public String generateLatex() {
-		String func = "???";
-//		switch (funcName) {
-//		case CHANGE : func = " change "; break;
-//		}
-//		if (idArg != null)
-//			return "change (" + idArg.generateLatex() + ")";
-		return func + "(???)";
+		String func = "change(";
+		func += proportionExpr.generateLatex();
+		func += ")\\;";
+		func += "\\begin{cases}";
+		for (Pair<BExprNode,IdNode> p : this.changeStatements) {
+			func += p.getSecond().generateLatex();
+			func += " \\; \\; \\; if \\; \\;";
+			func += p.getFirst().generateLatex();
+			func += " \\\\ ";
+		}
+		func += "\\end{cases}";
+		return func;
 	}
 
 }

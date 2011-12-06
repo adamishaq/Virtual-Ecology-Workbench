@@ -278,21 +278,7 @@ public class EditorPanel extends JPanel implements Observer {
 				latex += "\\end{array}";
 				preview.setVisible(true);
 				preview.update_preview(latex);
-			}/*
-			if (ct.getExceptions().isEmpty()) {
-				error_log.setText("");
-			} else {
-				String errors = "<html><PRE>Compilation errors occurred:\n";
-				errors += "<font color=#FF0000>";
-				for (TreeWalkerException t : ct.getExceptions()) {
-					syntax_highlighter.flag_line(t);
-					errors += t.getError() + "\n";
-				}
-				errors += "</font>";
-				errors += "</PRE></html>";
-				error_log.setText(errors);
-			}*/
-			//highlight_syntax();
+			}
 		} catch (RecognitionException e) {
 			System.out.println("RECOGNITION EXCEPTION");
 			e.printStackTrace();

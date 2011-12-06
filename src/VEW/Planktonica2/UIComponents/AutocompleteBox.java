@@ -137,10 +137,10 @@ public class AutocompleteBox {
 			"Release [amount] of a given [chemical] from the internal chemical pool.");
         rule_functions.put("ingest([foodset],[threshold],[rate])",
 		   "Consume from [foodset] at a rate of [rate], if at least [threshold] entities of the current food type exist.");
-        rule_functions.put("change([stage])",
-			"Change from the current stage into [stage].");
-        rule_functions.put("pchange([stage],[p])",
+        rule_functions.put("change([p])",
 			"Change from the current stage into [stage] with probability [p].");
+        /*rule_functions.put("pchange([stage],[p])",
+			"Change from the current stage into [stage] with probability [p].");*/
         rule_functions.put("divide([number])",
 			"Divide the current agent into [number] separate agents.");
         rule_functions.put("create([stage],[number])",
@@ -350,6 +350,8 @@ public class AutocompleteBox {
 		// Set a minimum size for the list
 		list.setVisibleRowCount(list.getModel().getSize() < 6 ? list.getModel().getSize() : 6);
 		Point p = target.getCaret().getMagicCaretPosition();
+		if (p == null || target == null)
+			return;
 		if (acbox.isVisible()) {
 			SwingUtilities.convertPointToScreen(p, target);
 			acbox.setLocation(p.x, p.y + 20);
