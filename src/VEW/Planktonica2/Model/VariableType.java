@@ -50,13 +50,8 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 	@Override
 	public BuildFromXML build (XMLTag tag) {
 		
-		varBuild(tag);
-		
-		return this;
-	}
-	
-	protected void varBuild (XMLTag tag) {
 		this.tag = tag;
+		
 		XMLTag nameTag = tag.getTag(XMLTagEnum.NAME.xmlTag());
 		if (nameTag != null) {
 			this.name = nameTag.getValue();
@@ -89,6 +84,15 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 			}
 			histTag.removeFromParent();
 		}
+		
+		buildUnits(tag);
+		
+		return this;
+	}
+	
+	protected void buildUnits (XMLTag tag) {
+		
+		
 		
 		units = new ArrayList<Unit> ();
 		XMLTag units = tag.getTag(XMLTagEnum.UNIT.xmlTag());
@@ -145,12 +149,19 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 		if (value != null)
 			newTag.addTag(new XMLTag("value", Float.toString(value)));
 		if (hist != null)
-			newTag.addTag(new XMLTag("hist", Integer.toString(hist)));
-		buildUnitXML(newTag);
-		return newTag;
+			tag.addTag(new XMLTag("hist", Integer.toString(hist)));
+		buildUnitXML(tag);
+		tag.setName(this.getVariableClassName());
+		return tag;
 	}
 	
-	
+	/**
+	 * Returns the name in the XML associated with the type of variable.
+	 * e.g. Local returns "local", Parameter returns "parameter"
+	 * @return the name corresponding to the type of the variable
+	 */
+	protected abstract String getVariableClassName();
+
 	private void buildUnitXML(XMLTag tag) {
 		String unitString = "";
 		Iterator<Unit> unitIter = units.iterator();

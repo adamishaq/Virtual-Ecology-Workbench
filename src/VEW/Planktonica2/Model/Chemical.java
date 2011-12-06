@@ -96,7 +96,7 @@ public class Chemical extends Catagory {
 		}
 
 		// variables
-		tags = tag.getTags(XMLTagEnum.VARIABLE.xmlTag());
+		tags = tag.getTags(XMLTagEnum.STATE_VARIABLE.xmlTag());
 
 		for (XMLTag t : tags) {
 			StateVariable v = new StateVariable();

@@ -255,32 +255,31 @@ public class Function implements BuildFromXML, BuildToXML {
 
 	@Override
 	public XMLTag buildToXML() throws XMLWriteBackException {
-		XMLTag newTag = new XMLTag("function");
-		if (baseTag != null) {
-			newTag.addTags(baseTag.getTags());
+		if (baseTag == null) {
+			baseTag = new XMLTag("function");
 		}
-		newTag.addTag("name", name);
+		baseTag.addTag("name", name);
 		Iterator<Stage> stageIter = calledIn.iterator();
 		while (stageIter.hasNext()) {
 			Stage stage = stageIter.next();
-			newTag.addTag(new XMLTag("calledin", stage.getName()));
+			baseTag.addTag(new XMLTag("calledin", stage.getName()));
 		}
 		List<XMLTag> equationTags;
 		try {
 			equationTags = compileFunction();
 			for (XMLTag eqTag : equationTags) {
-				newTag.addTag(eqTag);
+				baseTag.addTag(eqTag);
 			}
 			if (archiveName != null)
-				newTag.addTag(new XMLTag("archivename", archiveName));
+				baseTag.addTag(new XMLTag("archivename", archiveName));
 			if (comment != null)
-				newTag.addTag(new XMLTag("comment", comment));
+				baseTag.addTag(new XMLTag("comment", comment));
 			if (author != null)
-				newTag.addTag(new XMLTag("author", author));
+				baseTag.addTag(new XMLTag("author", author));
 		} catch (CompilerException e) {
 			throw new XMLWriteBackException(e);
 		}
-		return newTag;
+		return baseTag;
 	}
 
 	@Override
@@ -327,8 +326,5 @@ public class Function implements BuildFromXML, BuildToXML {
 	public Catagory getParent() {
 		return parent;
 	}
-
-	
-	
 	
 }

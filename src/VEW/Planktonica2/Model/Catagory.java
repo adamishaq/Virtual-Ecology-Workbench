@@ -107,6 +107,26 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		return varietyConcTable.get(conc);
 	}
 	
+
+	/**
+	 * Moves a given function by the offset in the functions list
+	 * @param func the func to move
+	 * @param offset (+ = down/ - = up (the list))
+	 */
+	public void moveFunctionIndex(Function func, int offset) {
+
+		if (func != null) {
+			int oldIndex = functions.indexOf(func) + offset;
+			if (oldIndex >= 0 && oldIndex < functions.size()) {
+				functions.remove(func);
+				functions.add(oldIndex, func);
+			}
+		} else {
+			System.err.println("Could not move func");
+		}
+
+
+	}
 	
 	
 	public void addToStateVarTable(StateVariable var) {
@@ -200,8 +220,9 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		}
 		return all_vars;
 	}
+		
 	
-	public String[] get_params() {
+ 	public String[] get_params() {
 		Object[] vars = paramTable.keySet().toArray();
 		String [] all_vars = new String[vars.length];
 		for (int i = 0; i < all_vars.length; i++) {
@@ -209,7 +230,8 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		}
 		return all_vars;
 	}
-
+ 	
+ 	
 	public String[] get_local_vars() {
 		Object[] vars = localVarTable.keySet().toArray();
 		String [] all_vars = new String[vars.length];
@@ -227,7 +249,8 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		}
 		return all_vars;
 	}
-
+	
+	
 	public String[] get_variety_params() {
 		Object[] vars = varietyParamTable.keySet().toArray();
 		String [] all_vars = new String[vars.length];
@@ -302,4 +325,6 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 	public String getFilePath() {
 		return this.file_path;
 	}
+
+	
 }

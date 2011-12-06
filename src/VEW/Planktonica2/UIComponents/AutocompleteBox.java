@@ -294,10 +294,7 @@ public class AutocompleteBox {
 			setup_box();
 		} else {
 			ArrayList<String> suggestions = new ArrayList<String>();
-			SelectableItem si = this.controller.getSelectedItem();
-			if (!(si instanceof Catagory))
-				return;
-			Catagory c = (Catagory) si;
+			Catagory c = this.controller.getSelectedCatagory();
 			this.current_catagory = c;
 			if (selected.equals("[amount]") || selected.equals("[threshold]") || selected.equals("[rate]")
 					|| selected.equals("[p]") || selected.equals("[number]") || selected.equals("[expr]")
@@ -373,7 +370,7 @@ public class AutocompleteBox {
 		// Get all functions usable in [bexpr]s
 		add_to_suggestions(suggestions, bexpr_functions.keySet().toArray());
 		// Get the currently selected functional group/chemical and extract it's variables
-		SelectableItem si = this.controller.getSelectedItem();
+		SelectableItem si = this.controller.getSelectedCatagory();
 		if (si instanceof Catagory) {
 			Catagory c = (Catagory) si;
 			this.current_catagory = c;

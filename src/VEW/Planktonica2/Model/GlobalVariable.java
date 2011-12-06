@@ -13,6 +13,12 @@ public class GlobalVariable extends VariableType {
 		super(name, desc, type, units, value, hist, editable);
 	}
 
+	
+	@Override
+	protected String getVariableClassName() {
+		return "";
+	}
+
 
 
 }

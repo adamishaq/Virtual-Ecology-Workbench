@@ -13,5 +13,10 @@ public class NewCategoryEvent {
 	public NewCategoryEvent(Catagory cat) {
 		this.new_category = cat;
 	}
+
+	
+	public NewCategoryEvent() {
+		this.new_category = null;
+	}
 	
 }

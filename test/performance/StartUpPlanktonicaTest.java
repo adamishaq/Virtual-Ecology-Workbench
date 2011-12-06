@@ -1,6 +1,8 @@
 package performance;
 
+import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.junit.After;
 import org.junit.Before;
@@ -25,6 +27,7 @@ public class StartUpPlanktonicaTest {
 	public void setUp() throws Exception {
 		f = new XMLFile(pathName, fileName);
 		times = new ArrayList<Long> ();
+		
 	}
 
 	@After
@@ -35,8 +38,12 @@ public class StartUpPlanktonicaTest {
 			sum += l;
 		}
 		
-		System.out.println("Mean: " + ((float) sum / (float) times.size())/ 1000.0 + "s");
-		
+		float mean = (float) (((float) sum / (float) times.size())/ 1000.0);
+		System.out.println("Mean: " + mean + "s");
+		FileWriter output = new FileWriter("test" + pathSep + "performance" + pathSep + "results.txt", true);
+		output.write(new Date(System.currentTimeMillis()) + " : " + mean + "\n");
+		output.flush();
+		output.close();
 	}
 
 	@Test

@@ -38,7 +38,7 @@ public class VariableTypeTest {
 		XMLTag l1Desc = new XMLTag(XMLTagEnum.DESCRIPTION.xmlTag(), "a local");
 		XMLTag l1Unit = new XMLTag(XMLTagEnum.UNIT.xmlTag(), "0,0,0");
 		
-		v1 = new XMLTag(XMLTagEnum.VARIABLE.xmlTag());
+		v1 = new XMLTag(XMLTagEnum.STATE_VARIABLE.xmlTag());
 		XMLTag v1Val = new XMLTag(XMLTagEnum.VALUE.xmlTag(), "2");
 		XMLTag v1Hist = new XMLTag(XMLTagEnum.HIST.xmlTag(), "3");
 		XMLTag v1Name = new XMLTag(XMLTagEnum.NAME.xmlTag(), "v1");

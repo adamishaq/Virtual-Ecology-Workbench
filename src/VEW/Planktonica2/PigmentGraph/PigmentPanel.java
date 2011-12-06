@@ -8,7 +8,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -16,15 +15,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+
 import VEW.Common.Graph.BarChartDrawer;
 import VEW.Common.Graph.GraphModel;
 import VEW.Planktonica2.ControllerStructure.ChemicalController;
-import VEW.Planktonica2.Model.Chemical;
 import VEW.Planktonica2.Model.NullSpectrum;
 import VEW.Planktonica2.Model.Spectrum;
 
 public class PigmentPanel extends JPanel implements Observer, TableModelListener, ItemListener {
-
 
 	private static final long serialVersionUID = 1040209636264981879L;
 
@@ -39,8 +37,6 @@ public class PigmentPanel extends JPanel implements Observer, TableModelListener
 	
 	protected final int graphHeight = 260;
 	protected final int graphWidth = 580;
-	
-
 
 	private ChemicalController controller;
 
@@ -79,11 +75,12 @@ public class PigmentPanel extends JPanel implements Observer, TableModelListener
 		doPigments = new JCheckBox("Chemical has pigmentation?");
 		ItemListener i = new ChemicalHasPigmentListener(this.controller, this);
 		doPigments.addItemListener(i);
-		
+
 		JPanel topPanel = new JPanel(new FlowLayout());
 		topPanel.add(doPigments);
 		topPanel.add(graphType);
 		add(topPanel,"North");
+
 
 		
 		add(dataScroller,"West");
@@ -98,31 +95,27 @@ public class PigmentPanel extends JPanel implements Observer, TableModelListener
 		if (s == null) {
 			s = new NullSpectrum();
 		}
+		
 		this.dataTableModel.setSpectrum(s);
 		GraphModel graphData = new SpectrumGraph(s, 10);
 		if (pigmentGraph == null) {
 			pigmentGraph = new BarChartDrawer(graphData, this.graphWidth, this.graphHeight);
 		}
+		
 		pigmentGraph.setGraphModel(graphData);
 		if (doPigments != null) {
 			doPigments.setSelected(s.hasPigment());
 		}
+		
 		this.repaint();
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		
-		if (arg instanceof Chemical) {
-			Chemical c = (Chemical) arg;
-			for (Spectrum s : c.getSpectrum()) {
-				if (s.getName().equals((String) graphType.getSelectedItem())) {
-					drawNewGraph(s);
-					return;
-				}
-			}
+		if (o == controller) {
+			drawNewGraph(controller.getSelectedChemicalSpetrum((String) graphType.getSelectedItem()));
 			
-			drawNewGraph(new NullSpectrum());
 		}
 		
 	}
@@ -152,7 +145,6 @@ public class PigmentPanel extends JPanel implements Observer, TableModelListener
 		
 	}
 
-	
 
 }
 
