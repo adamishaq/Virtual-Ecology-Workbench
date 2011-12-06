@@ -336,27 +336,6 @@ public abstract class Display extends JSplitPane implements Observer {
 		addFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
 		addFunction.addActionListener(new AddFunctionButtonListener(this));
 		
-		/*
-		removeFunction = new JButton(new ImageIcon(IconRoot + "bin1.gif"));
-		removeFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
-		removeFunction.addActionListener(new DeleteButtonListener(this));
-		
-		renameFunction = new JButton(new ImageIcon(IconRoot + "rename.gif"));
-		renameFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
-<<<<<<< HEAD
-		renameFunction.addActionListener(new RenameFunctionListener(this));
-		
-=======
-		/*
->>>>>>> 1f4c4ca580c4fb894708953dc811a042ad197ed0
-		editFunction = new JButton(new ImageIcon(IconRoot + "edit.gif"));
-		editFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
-		editFunction.setActionCommand(ButtonCommandNamesEnum.EDIT_FUNC.toString());
-		editFunction.addActionListener(funcButtonListener);
-		
-		copyFunction = new JButton(new ImageIcon(IconRoot + "copy.gif"));		
-		copyFunction.setPreferredSize(STANDARD_BUTTON_SIZE);	
-		*/
 		compileButton = new JButton(new ImageIcon(IconRoot + "compile.gif"));		
 		compileButton.setPreferredSize(STANDARD_BUTTON_SIZE);
 		compileButton.addActionListener(new CompileButtonListener(this.editorPanel));
@@ -380,7 +359,7 @@ public abstract class Display extends JSplitPane implements Observer {
 		removeInstance.setToolTipText("Remove current selection");
 		renameInstance.setToolTipText("Rename current selection");
 		copyInstance.setToolTipText("Copy selection");
-		addFunction.setToolTipText("Add a new function to this " + this.getCategoryName());
+		addFunction.setToolTipText("Add a new function to the selected " + this.getCategoryName());
 
 		compileButton.setToolTipText("Compile the current model");
 		checkButton.setToolTipText("Check the current source file");
