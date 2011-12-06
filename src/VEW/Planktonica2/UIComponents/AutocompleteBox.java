@@ -383,6 +383,16 @@ public class AutocompleteBox {
 			add_to_suggestions(suggestions, c.get_variety_states());
 			add_to_suggestions(suggestions, c.get_variety_params());
 			add_to_suggestions(suggestions, c.get_variety_locals());
+			// Add all stage names
+			if (c instanceof FunctionalGroup) {
+				FunctionalGroup f = (FunctionalGroup) c;
+				for (String s : f.getStageNames())
+					suggestions.add(s);
+			}
+			// Add all chemical names
+			/*
+			for (String s : controller.get_chemical_names())
+				suggestions.add(s);*/
 		}
 		return suggestions;
 	}
