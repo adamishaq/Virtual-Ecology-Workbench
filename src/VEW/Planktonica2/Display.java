@@ -309,30 +309,30 @@ public abstract class Display extends JSplitPane implements Observer {
 	private void initialiseButtons() {
 		
 		
-		upFG = new JButton(new ImageIcon(IconRoot+ "up.gif"));
+		upFG = new JButton(new ImageIcon(IconRoot+ "up.png"));
 		upFG.setPreferredSize(STANDARD_BUTTON_SIZE);
 		upFG.addActionListener(new MoveUpButtonListener(this.controller));
 		
-		downFG = new JButton(new ImageIcon(IconRoot+ "down.gif"));
+		downFG = new JButton(new ImageIcon(IconRoot+ "down.png"));
 		downFG.setPreferredSize(STANDARD_BUTTON_SIZE);
 		downFG.addActionListener(new MoveDownButtonListener(this.controller));
 		
-		addInstance = new JButton(new ImageIcon(IconRoot+ "plus.gif"));
+		addInstance = new JButton(new ImageIcon(IconRoot+ "add_category.png"));
 		addInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
 		addInstance.addActionListener(new AddCategoryButtonListener(this));
 		
-		removeInstance = new JButton(new ImageIcon(IconRoot + "bin1.gif"));
+		removeInstance = new JButton(new ImageIcon(IconRoot + "delete.png"));
 		removeInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
 		removeInstance.addActionListener(new DeleteButtonListener(this));
 		
-		renameInstance = new JButton(new ImageIcon(IconRoot + "rename.gif"));
+		renameInstance = new JButton(new ImageIcon(IconRoot + "rename.png"));
 		renameInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
 		renameInstance.addActionListener(new RenameButtonListener(this));
 		
 		copyInstance = new JButton(new ImageIcon(IconRoot + "copy.gif"));
 		copyInstance.setPreferredSize(STANDARD_BUTTON_SIZE);
 		
-		addFunction = new JButton(new ImageIcon(IconRoot+ "plus.gif"));
+		addFunction = new JButton(new ImageIcon(IconRoot+ "add_function.png"));
 		addFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
 		addFunction.addActionListener(new AddFunctionButtonListener(this));
 		
@@ -374,22 +374,12 @@ public abstract class Display extends JSplitPane implements Observer {
 	protected void setButtonToolTips() {
 
 		addInstance.setToolTipText("Add a new " + this.getCategoryName());
+		upFG.setToolTipText("Move current selection up");
+		downFG.setToolTipText("Move current selection down");
 
-		/*
-		upFunc.setToolTipText("Move current function up");
-		downFunc.setToolTipText("Move current function down");
-		removeFunction.setToolTipText("Remove current function");
-		renameFunction.setToolTipText("Rename current function");
-		editFunction.setToolTipText("Edit " + currentFunction + "?");
-		copyFunction.setToolTipText("Copy " + currentFunction + "?");
-		*/
-
-		upFG.setToolTipText("Move current " + this.getCategoryName() + " up");
-		downFG.setToolTipText("Move current " + this.getCategoryName() + " down");
-
-		removeInstance.setToolTipText("Remove current " + this.getCategoryName());
-		renameInstance.setToolTipText("Rename current " + this.getCategoryName());
-		copyInstance.setToolTipText("Copy " + this.getCategoryName());
+		removeInstance.setToolTipText("Remove current selection");
+		renameInstance.setToolTipText("Rename current selection");
+		copyInstance.setToolTipText("Copy selection");
 		addFunction.setToolTipText("Add a new function to this " + this.getCategoryName());
 
 		compileButton.setToolTipText("Compile the current model");
@@ -417,21 +407,13 @@ public abstract class Display extends JSplitPane implements Observer {
 
 	
 	protected void resetButtons() {
-		
 		addInstance.setEnabled(false);
-		
-		//upFunc.setEnabled(false);
-		//downFunc.setEnabled(false);
 		upFG.setEnabled(false);
 		downFG.setEnabled(false);
 		removeInstance.setEnabled(false);
 		renameInstance.setEnabled(false);
 		copyInstance.setEnabled(false);
 		addFunction.setEnabled(false);
-		//removeFunction.setEnabled(false);
-		//renameFunction.setEnabled(false);
-		//editFunction.setEnabled(false);
-		//copyFunction.setEnabled(false);
 	}
 	
 	private void update_functions(Catagory c) {
