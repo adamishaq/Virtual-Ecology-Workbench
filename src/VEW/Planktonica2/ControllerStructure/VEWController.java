@@ -370,12 +370,14 @@ public abstract class VEWController extends Observable {
 		Function f = getCurrentlySelectedFunction(); 
 		if (f != null) {
 			this.getSelectedCatagory().moveFunctionIndex(f, -1);
+			this.setChanged();
+			this.notifyObservers(new UpdateCategoryEvent(getSelectedCatagory()));
 		} else {
 			this.model.moveCatagory(getSelectedCatagory(), -1);
+			this.setChanged();
+			this.notifyObservers(new NewCategoryEvent());
 		}
-		
-		this.setChanged();
-		this.notifyObservers(new NewCategoryEvent());
+
 	}
 
 	
@@ -389,12 +391,13 @@ public abstract class VEWController extends Observable {
 		Function f = getCurrentlySelectedFunction(); 
 		if (f != null) {
 			this.getSelectedCatagory().moveFunctionIndex(f, 1);
+			this.setChanged();
+			this.notifyObservers(new UpdateCategoryEvent(getSelectedCatagory()));
 		} else {
 			this.model.moveCatagory(getSelectedCatagory(), 1);
+			this.setChanged();
+			this.notifyObservers(new NewCategoryEvent());
 		}
-		
-		this.setChanged();
-		this.notifyObservers(new NewCategoryEvent());
 		
 	}
 

@@ -78,10 +78,8 @@ public class Model implements BuildFromXML, BuildToXML {
 	 */
 	public void moveCatagory(Catagory catagory, int offset) {
 		
-		if (catagory == null) {
-			throw new NullPointerException ("The catagory given to move up was null.");
-		}
-		
+		if (catagory == null)
+			return;
 		if (functionalGroups.contains(catagory)) {
 			
 			int oldIndex = functionalGroups.indexOf(catagory) + offset;

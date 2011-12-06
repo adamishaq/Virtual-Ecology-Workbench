@@ -1,6 +1,7 @@
 package VEW.XMLCompiler.ASTNodes;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.antlr.runtime.tree.CommonErrorNode;
@@ -10,6 +11,7 @@ import org.antlr.runtime.MismatchedTokenException;
 import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.Token;
 
+import VEW.Common.Pair;
 import VEW.XMLCompiler.ANTLR.BACONParser;
 
 //Or CommonEnt... At least according to Mike
@@ -109,8 +111,14 @@ public class CommonTreeWalker {
 					break;
 				}
 				case(BACONParser.CHANGE) : {
-					IdNode id = constructIdNode((CommonTree)tree.getChild(0));
-					rule = new UnaryFunctionRuleNode(UnaryRuleFunction.CHANGE, id);
+					ExprNode propExpr = constructExprNode((CommonTree)tree.getChild(0));
+					Pair<BExprNode, IdNode> changeStat;
+					Collection<Pair<BExprNode, IdNode>> changeStatements = new ArrayList<Pair<BExprNode, IdNode>>();
+					for (int n = 1; n < tree.getChildCount(); n++) {
+						changeStat = constructChangeStatement((CommonTree)tree.getChild(n));
+						changeStatements.add(changeStat);
+					}
+					rule = new ChangeNode(propExpr, changeStatements);
 					break;
 				}
 				case(BACONParser.UPTAKE) : {
@@ -121,10 +129,10 @@ public class CommonTreeWalker {
 					rule = constructBinFuncNode(BinaryFunction.RELEASE, tree);
 					break;
 				}
-				case(BACONParser.PCHANGE) : {
+				/*case(BACONParser.PCHANGE) : {
 					rule = constructBinFuncNode(BinaryFunction.PCHANGE, tree);
 					break;
-				}
+				}*/
 				case(BACONParser.INGEST) : {
 					IdNode var = constructIdNode((CommonTree)tree.getChild(0));
 					ExprNode thresholdExpr = constructExprNode((CommonTree)tree.getChild(1));
@@ -148,7 +156,20 @@ public class CommonTreeWalker {
 		}
 		return rule;
 	}
-	
+
+	private Pair<BExprNode, IdNode> constructChangeStatement(CommonTree tree) {
+		if (!checkNode(tree)) {
+			return null;
+		}
+		CommonTree bexpr = (CommonTree) tree.getChild(0);
+		BExprNode bExprNode = null;
+		if (bexpr.getToken().getType() != BACONParser.OTHERWISE) {
+			bExprNode = constructBExprNode((CommonTree)tree.getChild(0));
+		}
+		return new Pair<BExprNode, IdNode>(bExprNode, 
+					constructIdNode((CommonTree)tree.getChild(1)));
+	}
+
 	private RuleNode constructSubRuleNode(CommonTree tree) {
 		if (!checkNode(tree)) {
 			return null;

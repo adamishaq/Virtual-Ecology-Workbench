@@ -502,8 +502,10 @@ public abstract class Display extends JSplitPane implements Observer {
 	}
 
 	private void add_category(Catagory newCategory) {
-		if (newCategory == null)
+		if (newCategory == null) {
+			update_functions(null);
 			return;
+		}
 		DefaultTreeModel t = (DefaultTreeModel) this.tree.getModel();
 		DefaultMutableTreeNode new_cat = new DefaultMutableTreeNode(newCategory);
 		t.insertNodeInto(new_cat, this.rootNode, rootNode.getChildCount());
