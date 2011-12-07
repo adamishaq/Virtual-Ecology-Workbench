@@ -17,12 +17,7 @@ public class AddFunctionButtonListener implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent event) {
-		String name = JOptionPane.showInputDialog(parent,
-	        	"Choose a name for the new function",
-	            "Name Function", 1);
-	    if (name != null) {
-	    	parent.addFunction(name);
-	    }
+	    parent.addFunction();
 	}
 	
 }

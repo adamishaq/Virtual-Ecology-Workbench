@@ -1,5 +1,6 @@
 package VEW.Planktonica2.ControllerStructure;
 
+import java.awt.Component;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -220,7 +221,7 @@ public abstract class VEWController extends Observable {
 	
 	public abstract void addCategoryToModel(String name);
 
-	public void addFunction(Display display, String name) {
+	public void addFunction(Component display, String name) {
 		if (this.getSelectedCatagory() == null)
 			return;
 		// Check name uniqueness

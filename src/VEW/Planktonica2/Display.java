@@ -22,6 +22,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import VEW.Planktonica2.ControllerStructure.DeleteCategoryEvent;
@@ -38,6 +39,7 @@ import VEW.Planktonica2.DisplayEventHandlers.AddCategoryButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.AddFunctionButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.CheckButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.CompileButtonListener;
+import VEW.Planktonica2.DisplayEventHandlers.ImportSourceButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
 import VEW.Planktonica2.DisplayEventHandlers.MoveDownButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.MoveUpButtonListener;
@@ -91,6 +93,7 @@ public abstract class Display extends JSplitPane implements Observer {
 	protected JButton checkButton;
 	protected JButton previewButton;
 	protected JButton saveButton;
+	protected JButton importSourceButton;
 
 	
 	public DefaultMutableTreeNode rootNode;
@@ -304,6 +307,7 @@ public abstract class Display extends JSplitPane implements Observer {
 		compilerButtonPanel.add(compileButton);
 		compilerButtonPanel.add(checkButton);
 		compilerButtonPanel.add(saveButton);
+		compilerButtonPanel.add(importSourceButton);
 	}
 	
 	private void initialiseButtons() {
@@ -336,7 +340,7 @@ public abstract class Display extends JSplitPane implements Observer {
 		addFunction.setPreferredSize(STANDARD_BUTTON_SIZE);
 		addFunction.addActionListener(new AddFunctionButtonListener(this));
 		
-		compileButton = new JButton(new ImageIcon(IconRoot + "compile.gif"));		
+		compileButton = new JButton(new ImageIcon(IconRoot + "compile.png"));		
 		compileButton.setPreferredSize(STANDARD_BUTTON_SIZE);
 		compileButton.addActionListener(new CompileButtonListener(this.editorPanel));
 		
@@ -348,6 +352,9 @@ public abstract class Display extends JSplitPane implements Observer {
 		saveButton.setPreferredSize(STANDARD_BUTTON_SIZE);
 		saveButton.addActionListener(new SaveButtonListener(this.editorPanel));
 		
+		importSourceButton = new JButton(new ImageIcon(IconRoot + "import_function.png"));
+		importSourceButton.setPreferredSize(STANDARD_BUTTON_SIZE);
+		importSourceButton.addActionListener(new ImportSourceButtonListener(this.editorPanel));
 	}
 	
 	protected void setButtonToolTips() {
@@ -364,6 +371,7 @@ public abstract class Display extends JSplitPane implements Observer {
 		compileButton.setToolTipText("Compile the current model");
 		checkButton.setToolTipText("Check the current source file");
 		saveButton.setToolTipText("Save the current source file");
+		importSourceButton.setToolTipText("Import an existing source file");
 		
 	}
 	
@@ -493,8 +501,13 @@ public abstract class Display extends JSplitPane implements Observer {
 		controller.addCategory(this);	
 	}
 
-	public void addFunction(String name) {
-		controller.addFunction(this,name);
+	public void addFunction() {
+		String name = JOptionPane.showInputDialog(this,
+	        	"Choose a name for the new function",
+	            "Name Function", 1);
+	    if (name != null) {
+	    	controller.addFunction(this,name);
+	    }
 	}
 
 	public void rename() {
@@ -581,7 +594,11 @@ public abstract class Display extends JSplitPane implements Observer {
 		while (children.hasMoreElements()) {
 			DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.nextElement();
 			if (child.toString().equals(n.getCategory().toString())) {
-				t.insertNodeInto(new DefaultMutableTreeNode(n.getFunction()), child, child.getChildCount());
+				DefaultMutableTreeNode nt = 
+					new DefaultMutableTreeNode(n.getFunction());
+				t.insertNodeInto(nt, child, child.getChildCount());
+				// Automatically select the new function
+				tree.setSelectionPath(new TreePath(new Object[]{rootNode,child,nt}));
 				return;
 			}
 		}

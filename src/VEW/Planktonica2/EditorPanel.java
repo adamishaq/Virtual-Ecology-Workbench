@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
@@ -67,7 +68,7 @@ public class EditorPanel extends JPanel implements Observer {
 		
 		if (arg instanceof SourcePath) {
 			SourcePath p = (SourcePath) arg;
-			open_source_file(p.getPath());
+			open_source_file(p.getPath(),false);
 		}
 		
 	}
@@ -349,9 +350,10 @@ public class EditorPanel extends JPanel implements Observer {
 		this.auto_complete.force_show(word,syntax.getCaretPosition());
 	}
 	
-	public void open_source_file(String filePath) {
+	public void open_source_file(String filePath,boolean importing) {
         try {
-        	this.current_source = new String(filePath);
+        	if (!importing)
+        		this.current_source = new String(filePath);
 			FileInputStream fstream = new FileInputStream(filePath);
 			DataInputStream in = new DataInputStream(fstream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -390,6 +392,23 @@ public class EditorPanel extends JPanel implements Observer {
 					+ this.current_source + "</PRE></html>");
 			return false;
 		}
+	}
+	
+	public void import_source() {
+		// Show a file open dialog
+		int choice = file_chooser.showOpenDialog(this);
+        if (choice == JFileChooser.APPROVE_OPTION) {
+            File file = file_chooser.getSelectedFile();
+            String fpath = file.getAbsolutePath();
+			String name = JOptionPane.showInputDialog(this,
+		        	"Choose a name for the imported function",
+		            "Import Function", 1);
+		    if (name != null) {
+		    	controller.addFunction(this,name);
+		    	open_source_file(fpath,true);
+		    	//this.current_source = controller.getCurrentlySelectedFunction().getSource_code();
+		    }
+        }
 	}
 	
 	public void clear() {
@@ -440,6 +459,7 @@ class PreviewListener implements ActionListener {
 class TypingListener implements KeyListener {
 
 	private EditorPanel parent;
+	private boolean ignore;
 	
 	public TypingListener(EditorPanel edit) {
 		parent = edit;
@@ -450,12 +470,16 @@ class TypingListener implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.VK_SHIFT || /*e.getKeyCode() == KeyEvent.VK_CONTROL ||*/
-			e.getKeyCode() == KeyEvent.VK_ALT)
+		if (e.getKeyCode() == KeyEvent.VK_SHIFT || e.isControlDown())
 			// Ignore them
 			return;
-		/*if (e.getKeyCode() == KeyEvent.VK_SPACE && e.isControlDown() && !parent.caret_in_comment()) {*/
-		if (e.getKeyCode() == KeyEvent.VK_CONTROL && !parent.caret_in_comment()) {
+		if (e.getKeyCode() == KeyEvent.VK_CONTROL)
+			ignore = true;
+		if (ignore) {
+			ignore = false;
+			return;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_ALT && !parent.caret_in_comment()) {
 			String new_word = new StringBuffer(parent.word_before_caret()).reverse().toString();
 			parent.show_box(new_word);
 		} else if (!parent.caret_in_comment() && (!parent.current_autocomplete().equals("")

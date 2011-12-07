@@ -63,10 +63,7 @@ public class RuleSequenceNode extends ASTree {
 			if (rule != null) {
 				String ruleString = "\\\\ \\\\ \\;";
 				if (DisplayOptions.PREVIEW_RULE_NAMES && this.ruleName != null) {
-					// Remove all double qoutes and replace spaces with 'LaTeX spaces'
-					String name = this.ruleName.replaceAll("\"", "");
-					name = name.replaceAll(" ", "\\;");
-					ruleString +=  name + "\\;:\\;";
+					ruleString +=  format_name() + "\\;:\\;";
 				}
 				ruleString += rule.generateLatex();
 				return ruleString + seq.generateLatex();
@@ -76,16 +73,25 @@ public class RuleSequenceNode extends ASTree {
 			if (rule != null) {
 				String ruleString = "\\\\ \\\\ \\;";
 				if (DisplayOptions.PREVIEW_RULE_NAMES && this.ruleName != null) {
-					// Remove all double qoutes and replace spaces with 'LaTeX spaces'
-					String name = this.ruleName.replaceAll("\"", "");
-					name = name.replaceAll(" ", "\\;");
-					ruleString +=  name + "\\;:\\;";
+					ruleString +=  format_name() + "\\;:\\;";
 				}
 				ruleString += rule.generateLatex();
 				return ruleString;
 			}
 			return "\\\\ \\\\ \\;???";
 		}
+	}
+
+	private String format_name() {
+		// Remove all double qoutes and replace spaces with 'LaTeX spaces'
+		String name = "";
+		for (int i = 0; i < this.ruleName.length(); i++) {
+			if (this.ruleName.charAt(i) == ' ')
+				name += "\\:";
+			else if (!(this.ruleName.charAt(i) == '\"'))
+				name += this.ruleName.charAt(i);
+		}
+		return name;
 	}
 	
 
