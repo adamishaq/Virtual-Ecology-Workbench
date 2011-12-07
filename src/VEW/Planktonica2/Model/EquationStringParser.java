@@ -92,7 +92,7 @@ public class EquationStringParser {
 			bexprCode = constructBooleanOperatorString(argString, "or");
 		}
 		else if (bexprName.equals("\\not")) {
-			bexprCode = "not(" + parseBExprString(argString) + ")";
+			bexprCode = "not(" + stripBrackets(parseBExprString(argString)) + ")";
 		}
 		else if (bexprName.equals("\\equal")) {
 			bexprCode = parseBComparitorString(argString, "=");
@@ -172,7 +172,7 @@ public class EquationStringParser {
 			exprCode = constructBinaryOperatorString(argString, "-");
 		}
 		else if (exprName.equals("\\minus")) {
-			exprCode = "-(" + parseExpressionString(argString) + ")";
+			exprCode = "-(" + stripBrackets(parseExpressionString(argString)) + ")";
 		}
 		else if (exprName.equals("\\div")) {
 			exprCode = constructBinaryOperatorString(argString, "/");

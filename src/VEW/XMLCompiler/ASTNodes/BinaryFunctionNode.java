@@ -64,7 +64,7 @@ public class BinaryFunctionNode extends RuleNode {
 		switch (binFunc) {
 		case UPTAKE  : func = "uptake"; break;
 		case RELEASE : func = "release"; break;
-		case PCHANGE : return "\\pchange{" + idArg.generateXML() + "," + expArg.generateXML() + "}";
+		case PCHANGE : return "\\pchange{\\stage{" + idArg.getName() + "}," + expArg.generateXML() + "}";
 		}
 		return "\\" + func + "{" + expArg.generateXML() + "," + idArg.generateXML() + "}";
 	}

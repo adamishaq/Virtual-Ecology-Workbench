@@ -1,7 +1,6 @@
 package VEW.XMLCompiler.ASTNodes;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.antlr.runtime.tree.CommonErrorNode;
@@ -113,7 +112,7 @@ public class CommonTreeWalker {
 				case(BACONParser.CHANGE) : {
 					ExprNode propExpr = constructExprNode((CommonTree)tree.getChild(0));
 					Pair<BExprNode, IdNode> changeStat;
-					Collection<Pair<BExprNode, IdNode>> changeStatements = new ArrayList<Pair<BExprNode, IdNode>>();
+					ArrayList<Pair<BExprNode, IdNode>> changeStatements = new ArrayList<Pair<BExprNode, IdNode>>();
 					for (int n = 1; n < tree.getChildCount(); n++) {
 						changeStat = constructChangeStatement((CommonTree)tree.getChild(n));
 						changeStatements.add(changeStat);

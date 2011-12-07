@@ -45,7 +45,7 @@ public class RuleSequenceNode extends ASTree {
 
 	@Override
 	public String generateXML() {
-		String name = "LOLNAME";
+		String name = "placeholder";
 		if (ruleName != null) {
 			name = ruleName;
 		}
