@@ -1,9 +1,13 @@
 package VEW.Planktonica2.ControllerStructure;
 
 import java.awt.Component;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Observable;
@@ -12,10 +16,13 @@ import java.util.prefs.BackingStoreException;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import org.antlr.runtime.RecognitionException;
+
 
 import VEW.Common.XML.XMLFile;
 import VEW.Common.XML.XMLTag;
 import VEW.Planktonica2.Display;
+import VEW.Planktonica2.DisplayOptions;
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Chemical;
 import VEW.Planktonica2.Model.Function;
@@ -23,8 +30,10 @@ import VEW.Planktonica2.Model.FunctionalGroup;
 import VEW.Planktonica2.Model.Model;
 import VEW.Planktonica2.Model.VariableType;
 import VEW.Planktonica2.Model.XMLWriteBackException;
+import VEW.XMLCompiler.ANTLR.ANTLRParser;
 import VEW.XMLCompiler.ANTLR.CompilerException;
 import VEW.XMLCompiler.ASTNodes.BACONCompilerException;
+import VEW.XMLCompiler.ASTNodes.ConstructedASTree;
 
 
 public abstract class VEWController extends Observable {
@@ -198,10 +207,8 @@ public abstract class VEWController extends Observable {
 		String name = JOptionPane.showInputDialog(d,
 	        	"Choose a name for the new " + categorytype,
 	            "Name Functional Group", 1);
-	        if (name == null) {
-	        	return;
-	        }
-
+	    if (name == null || !validate_name(d,name))
+	    	return;
 		// Check name uniqueness
 		for (FunctionalGroup f : this.model.getFunctionalGroups()) {
 			if (f.getName().equals(name)) {
@@ -222,7 +229,7 @@ public abstract class VEWController extends Observable {
 	public abstract void addCategoryToModel(String name);
 
 	public void addFunction(Component display, String name) {
-		if (this.getSelectedCatagory() == null)
+		if (this.getSelectedCatagory() == null || !validate_name(display,name))
 			return;
 		// Check name uniqueness
 		for (Function f : this.getSelectedCatagory().getFunctions()) {
@@ -401,6 +408,97 @@ public abstract class VEWController extends Observable {
 		}
 		
 	}
+	
+	public String get_xml_source() {
+		String path = this.model.getFilePath();
+		return path;
+	}
 
+	public String get_model_name() {
+		String name = model.getFilePath();
+		name = name.substring(0,name.lastIndexOf('\\'));
+		name = name.substring(0,name.lastIndexOf('\\'));
+		name = name.substring(name.lastIndexOf('\\') + 1, name.length());
+		return name;
+	}
 
+	public String generate_model_latex() {
+		String latex = "Functional Groups: \\\\ \n";
+		for(FunctionalGroup fg : model.getFunctionalGroups()) {
+			latex += "{\\bf " + fg.getName() + "} \\\\ \\\\ \n";
+			if (fg.get_params().length > 0) {
+				latex += "Parameters \\\\ \n";
+				latex += "\\begin{center}\n";
+				latex += "\t\\begin{tabular}{ | c | c | c | c | }\n";
+				latex += "\t\t\\hline\n";
+				latex += "\t\t{\\bf Parameter} & {\\bf Description} & " +
+						"{\\bf Default Value} & {\\bf Unit} \\\\ \\hline\n";
+				for (String s : fg.get_params()) {
+					VariableType v = fg.checkParameterTable(s);
+					if (v != null) {
+						latex += "\t\t" + v.getName() + " & " + v.getDesc() + " & $" 
+							+ v.getValue() + "$ & $" + v.get_formatted_units() + "$ \\\\ \\hline \n";
+					}
+				}
+				latex += "\t\\end{tabular}\n";
+				latex += "\\end{center}\n";
+			}
+			for (Function f : fg.getFunctions()) {
+				latex += source_latex(f) + "\\\\ \n";
+			}
+			latex += "\\\\ \n";
+		}
+		return latex;
+	}
+
+	private String source_latex(Function f) {
+		String latex = f.getName() + " \\\\ \n";
+		String fpath = f.getSource_code() + "\\" + f.getParent().getName() 
+			+ "\\" + f.getName() + ".bacon";
+		try {
+			FileInputStream fstream = new FileInputStream(fpath);
+			DataInputStream in = new DataInputStream(fstream);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String line = "";
+			String file_text = "";
+			while ((line = br.readLine()) != null)   {
+				file_text += (line + "\n"); 
+			}
+			in.close();
+			if (DisplayOptions.SOURCE_IN_LATEX) {
+				latex += "\\begin{verbatim}\n";
+				latex += file_text + "\n";
+				latex += "\\end{vebatim}\n";
+			}
+			// TODO - separate get_report_latex() function
+			ANTLRParser p = new ANTLRParser (file_text);
+			ConstructedASTree ct = p.getAST();
+			if (ct.getTree() != null) 
+				latex += "$" + ct.getTree().generateLatex() + "$ \n";
+		} catch (Exception e) {
+			latex += "{\\if Source not found} \\\\ \n";
+		}
+		return latex;
+	}
+	
+	public boolean validate_name(Component display, String name) {
+		// Check it contains no disallowed characters
+		char[] chars = name.toCharArray();
+		for (int i = 0; i < chars.length; i++) {
+			if (!(Character.isLetterOrDigit(chars[i]) || chars[i] == '_')) {
+				JOptionPane.showMessageDialog(display, "Name cannot contain '" 
+						+ chars[i] + "'");
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public void delete_variable(VariableType v) {
+		VariableType delete = this.getSelectedCatagory().removeFromTables(v.getName());
+		if (delete != null) {
+			this.setChanged();
+			this.notifyObservers(new DeleteVariableEvent(v.getName()));
+		}		
+	}
 }

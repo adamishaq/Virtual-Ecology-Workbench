@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
@@ -17,10 +18,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import VEW.Planktonica2.Display;
 import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.Planktonica2.DisplayEventHandlers.AddUnitButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.AddVarListener;
 import VEW.Planktonica2.DisplayEventHandlers.ClearUnitsButtonListener;
+import VEW.Planktonica2.DisplayEventHandlers.DeleteVarListener;
 import VEW.Planktonica2.DisplayEventHandlers.UpdateVarListener;
 import VEW.Planktonica2.DisplayEventHandlers.VarTypeListener;
 import VEW.Planktonica2.Model.Catagory;
@@ -69,14 +72,13 @@ public class VariableEditorPanel extends JPanel implements Observer {
 	private JTextField unit_name = new JTextField("");
 	private JLabel exp = new JLabel("  Exponent :  ");
 	private JTextField unit_exp = new JTextField("");
-	//private JList unit_list = new JList();
-	private JButton add_unit = new JButton("+");
-	private JButton clear_units = new JButton("#");
+	private JButton add_unit;
+	private JButton clear_units;
 	private JEditorPane unit_list = new JEditorPane();
 	
 	private JButton add_var = new JButton("Add");
-
 	private JButton update_var = new JButton("Update");
+	private JButton remove_var = new JButton("Remove");
 	
 	public VariableEditorPanel(VEWController controller) {
 		this.controller = controller;
@@ -151,31 +153,30 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		c.ipadx = 150;
 		c.gridx = 2;
 		unit_editor.add(unit_exp,c);
+		
 		// Set up the unit view
-		/*
-		c.ipady = 100;
-		c.ipadx = 100;
-		c.gridx = 2;
-		c.gridy = 2;
-		c.gridheight = 3;
-		unit_list.setVisibleRowCount(6);
-		unit_editor.add(unit_list,c);
-		*/
 		c.gridwidth = 1;
 		c.gridx = 0;
 		c.gridy = 2;
 		c.ipadx = 0;
+		c.fill = GridBagConstraints.NONE;
+		add_unit = new JButton(new ImageIcon(Display.IconRoot+ "add_unit.png"));
+		add_unit.setContentAreaFilled(false);
 		add_unit.addActionListener(new AddUnitButtonListener(this));
 		unit_editor.add(add_unit,c);
 		c.gridx = 1;
+		clear_units = new JButton(new ImageIcon(Display.IconRoot+ "delete_unit.png"));
+		clear_units.setContentAreaFilled(false);
 		clear_units.addActionListener(new ClearUnitsButtonListener(this));
 		unit_editor.add(clear_units,c);
+		c.fill = GridBagConstraints.BOTH;
 		c.ipadx = 100;
 		c.gridwidth = 2;
 		c.gridx = 2;
 		unit_list.setEditable(false);
 		unit_list.setContentType("text/html");
 		unit_list.setPreferredSize(new Dimension(100,50));
+		unit_list.setText("");
 		unit_editor.add(unit_list,c);
 		c.ipadx = 0;
 		c.ipady = 0;
@@ -188,8 +189,10 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		
 		add_var.addActionListener(new AddVarListener(this));
 		update_var.addActionListener(new UpdateVarListener(this));
+		remove_var.addActionListener(new DeleteVarListener(this));
 		button_panel.add(add_var);
 		button_panel.add(update_var);
+		button_panel.add(remove_var);
 		// Add the panel to the main layout
 		main_layout.gridwidth = 2;
 		main_layout.ipady = 25;
@@ -423,36 +426,6 @@ public class VariableEditorPanel extends JPanel implements Observer {
 				controller.updateVariableDisplay();
 			}
 		}
-		/*
-		v.setDesc(var_desc.getText());
-		ArrayList<Unit> units = new ArrayList<Unit>();
-		units.add(new Unit(0,unit_string.getText(),0));
-		v.setUnits(units);
-		if (v instanceof Variety) {
-			Variety var = (Variety) v;
-			if (this.current_category instanceof FunctionalGroup) {
-				// Check the food set link actually exists
-				VarietyConcentration vc =
-					this.current_category.checkVarietyConcTable(link_combo.getSelectedItem().toString());
-				if (vc == null)
-					return;
-				if (var instanceof VarietyVariable) {
-					var.setHist(Integer.parseInt(h_size.getText()));
-					var.setValue(Float.parseFloat(i_val.getText()));
-					var.setLinkConcentration(vc);
-				} else if (var instanceof VarietyParameter) {
-					var.setValue(Float.parseFloat(i_val.getText()));
-					var.setLinkConcentration(vc);
-				}
-			}
-		} else {
-			if (v instanceof StateVariable) {
-				v.setHist(Integer.parseInt(h_size.getText()));
-				v.setValue(Float.parseFloat(i_val.getText()));
-			} else if (v instanceof Parameter) {
-				v.setValue(Float.parseFloat(i_val.getText()));
-			}
-		}*/
 	}
 	
 	private boolean validate_variable(boolean exists) {
@@ -560,13 +533,16 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			i_val.setText(init);
 			update_link_combo(vv);
 		}
+		this.unit_name.setText("");
+		this.unit_exp.setText("");
 		this.validate();
 	}
 
 	private void display_units() {
 		String text = "<html>";
 		for (Unit u : current_units)
-			text += u.format();
+			if (!u.format().equals("-"))
+				text += u.format();
 		text += "</html>";
 		unit_list.setText(text);
 	}
@@ -647,5 +623,20 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			display((VariableType) arg);
 		}
 		
+	}
+
+	public void delete_variable() {
+		if (!validate_variable(true))
+			return;
+		VariableType v = current_category.checkAllVariableTables(var_name.getText());
+		if (v == null)
+			return;
+		// Check the user really wants to delete this variable
+		int choice = JOptionPane.showOptionDialog(this, "Are you sure you want to delete the variable "
+				+ v.getName() + "?",
+			"Confirm delete", JOptionPane.YES_NO_OPTION, 1, null, null, 1);
+		if (choice == 1)
+			return;
+		controller.delete_variable(v);
 	}
 }

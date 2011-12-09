@@ -35,6 +35,7 @@ import VEW.Planktonica2.UIComponents.AutocompleteBox;
 import VEW.Planktonica2.UIComponents.BACONFilter;
 import VEW.Planktonica2.UIComponents.LatexPreview;
 import VEW.Planktonica2.UIComponents.SyntaxHighlighter;
+import VEW.Planktonica2.UIComponents.TEXFilter;
 import VEW.XMLCompiler.ANTLR.ANTLRParser;
 import VEW.XMLCompiler.ASTNodes.BACONCompilerException;
 import VEW.XMLCompiler.ASTNodes.ConstructedASTree;
@@ -54,7 +55,8 @@ public class EditorPanel extends JPanel implements Observer {
 	private String current_source;
 	
 	// Open/save components
-	final static JFileChooser file_chooser = new JFileChooser();
+	private JFileChooser file_chooser;
+	private JFileChooser tex_chooser;
 	
 	public EditorPanel (VEWController controller) {
 		super();
@@ -124,12 +126,15 @@ public class EditorPanel extends JPanel implements Observer {
 		error_log.setContentType("text/html");
 		error_log.setText("<html><PRE></PRE></html>");
 		
-		//this.add(scroll_pane_syntax);
-		//this.add(scroll_pane_preview);
-		//this.add(scroll_pane_errors);
-		
-		javax.swing.filechooser.FileFilter f = new BACONFilter();
-		file_chooser.setFileFilter(f);
+		// Set up the file choosers, pointing at the current directory
+    	String dir = controller.get_xml_source();
+    	this.file_chooser = new JFileChooser(dir);
+    	javax.swing.filechooser.FileFilter f = new BACONFilter();
+    	file_chooser.setFileFilter(f);
+    	
+    	this.tex_chooser = new JFileChooser(dir);
+    	javax.swing.filechooser.FileFilter t = new TEXFilter();
+    	tex_chooser.setFileFilter(t);
 
 		this.setSize((850), (600));
 		this.setVisible(true);
@@ -395,6 +400,8 @@ public class EditorPanel extends JPanel implements Observer {
 	}
 	
 	public void import_source() {
+		if (controller.getSelectedCatagory() == null)
+			return;
 		// Show a file open dialog
 		int choice = file_chooser.showOpenDialog(this);
         if (choice == JFileChooser.APPROVE_OPTION) {
@@ -406,8 +413,37 @@ public class EditorPanel extends JPanel implements Observer {
 		    if (name != null) {
 		    	controller.addFunction(this,name);
 		    	open_source_file(fpath,true);
-		    	//this.current_source = controller.getCurrentlySelectedFunction().getSource_code();
+		    	this.save();
 		    }
+        }
+	}
+	
+	public void export_latex() {
+		int choice = tex_chooser.showSaveDialog(this);
+        if (choice == JFileChooser.APPROVE_OPTION) {
+            File file = tex_chooser.getSelectedFile();
+            String fpath = file.getAbsolutePath();
+            if (!fpath.endsWith(".tex"))
+            	fpath += ".tex";
+            // Try opening the file
+            try {
+            	FileOutputStream fstream = new FileOutputStream(fpath);
+            	PrintStream out = new PrintStream(fstream);
+            	// Get the LaTeX string
+            	String latex = "\\documentclass[a4wide, 11pt]{article}\n";
+            	latex += "\\setlength{\\parskip}{0.3cm}\n";
+            	latex += "\\setlength{\\parindent}{0cm}\n";
+            	latex += "\\begin{document}\n";
+            	latex += "\\title{" + controller.get_model_name() + "}\n";
+            	latex += "\\maketitle\n";
+            	latex += controller.generate_model_latex();
+            	latex += "\\end{document}";
+            	out.print(latex);
+            	out.close();
+            } catch (Exception e) {
+            	error_log.setText("<html><PRE>Export failed: could not open file " +
+            			fpath + "</PRE></html>");
+            }
         }
 	}
 	

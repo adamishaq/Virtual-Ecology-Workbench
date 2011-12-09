@@ -27,6 +27,7 @@ import javax.swing.tree.TreeSelectionModel;
 
 import VEW.Planktonica2.ControllerStructure.DeleteCategoryEvent;
 import VEW.Planktonica2.ControllerStructure.DeleteFunctionEvent;
+import VEW.Planktonica2.ControllerStructure.DeleteVariableEvent;
 import VEW.Planktonica2.ControllerStructure.NewCategoryEvent;
 import VEW.Planktonica2.ControllerStructure.NewFunctionEvent;
 import VEW.Planktonica2.ControllerStructure.NewVariableEvent;
@@ -39,6 +40,7 @@ import VEW.Planktonica2.DisplayEventHandlers.AddCategoryButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.AddFunctionButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.CheckButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.CompileButtonListener;
+import VEW.Planktonica2.DisplayEventHandlers.ExportTexButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.ImportSourceButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
 import VEW.Planktonica2.DisplayEventHandlers.MoveDownButtonListener;
@@ -75,8 +77,8 @@ public abstract class Display extends JSplitPane implements Observer {
 	
 	protected final JPanel variableSelection = new JPanel (new GridLayout(2, 2));
 	
-	private static final String IconRoot = "Data"+File.separator+"Graphics"+File.separator+"icons"+File.separator;
-	protected final Dimension STANDARD_BUTTON_SIZE = new Dimension(20, 20);
+	public static final String IconRoot = "Data"+File.separator+"Graphics"+File.separator+"icons"+File.separator;
+	public final static Dimension STANDARD_BUTTON_SIZE = new Dimension(20, 20);
 	protected final Dimension ALTERNATE_BUTTON_SIZE = new Dimension(new Dimension(150, 24));
 	protected final Dimension STANDARD_GROUP_SIZE = new Dimension(250, 200);
 	
@@ -94,6 +96,7 @@ public abstract class Display extends JSplitPane implements Observer {
 	protected JButton previewButton;
 	protected JButton saveButton;
 	protected JButton importSourceButton;
+	protected JButton exportTexButton;
 
 	
 	public DefaultMutableTreeNode rootNode;
@@ -145,6 +148,8 @@ public abstract class Display extends JSplitPane implements Observer {
 			remove_category(((DeleteCategoryEvent)arg).getCategory());
 		} else if (arg instanceof DeleteFunctionEvent) {
 			remove_function((DeleteFunctionEvent)arg);
+		} else if (arg instanceof DeleteVariableEvent) {
+			remove_variable((DeleteVariableEvent) arg);
 		}
 		
 	}
@@ -308,6 +313,7 @@ public abstract class Display extends JSplitPane implements Observer {
 		compilerButtonPanel.add(checkButton);
 		compilerButtonPanel.add(saveButton);
 		compilerButtonPanel.add(importSourceButton);
+		compilerButtonPanel.add(exportTexButton);
 	}
 	
 	private void initialiseButtons() {
@@ -355,6 +361,10 @@ public abstract class Display extends JSplitPane implements Observer {
 		importSourceButton = new JButton(new ImageIcon(IconRoot + "import_function.png"));
 		importSourceButton.setPreferredSize(STANDARD_BUTTON_SIZE);
 		importSourceButton.addActionListener(new ImportSourceButtonListener(this.editorPanel));
+		
+		exportTexButton = new JButton(new ImageIcon(IconRoot + "export_latex.png"));
+		exportTexButton.setPreferredSize(STANDARD_BUTTON_SIZE);
+		exportTexButton.addActionListener(new ExportTexButtonListener(this.editorPanel));
 	}
 	
 	protected void setButtonToolTips() {
@@ -372,6 +382,7 @@ public abstract class Display extends JSplitPane implements Observer {
 		checkButton.setToolTipText("Check the current source file");
 		saveButton.setToolTipText("Save the current source file");
 		importSourceButton.setToolTipText("Import an existing source file");
+		exportTexButton.setToolTipText("Export this function to LaTeX");
 		
 	}
 	
@@ -505,9 +516,8 @@ public abstract class Display extends JSplitPane implements Observer {
 		String name = JOptionPane.showInputDialog(this,
 	        	"Choose a name for the new function",
 	            "Name Function", 1);
-	    if (name != null) {
+	    if (name != null || !controller.validate_name(this, name)) 
 	    	controller.addFunction(this,name);
-	    }
 	}
 
 	public void rename() {
@@ -530,9 +540,8 @@ public abstract class Display extends JSplitPane implements Observer {
 			String name = JOptionPane.showInputDialog(this,
 		        	"Choose a new name for the function",
 		            "Rename Function", 1);
-		    if (name == null) {
+		    if (name == null || !controller.validate_name(this, name))
 		    	return;
-		    }
 		    // Check name is unique
 		    for (Function fun : controller.getSelectedCatagory().getFunctions()) {
 		    	if (fun.getName().equals(name)) {
@@ -561,9 +570,8 @@ public abstract class Display extends JSplitPane implements Observer {
 			String name = JOptionPane.showInputDialog(this,
 		        	"Choose a new name for the " + category,
 		            "Rename " + category, 1);
-		    if (name == null) {
+		    if (name == null || !controller.validate_name(this, name))
 		    	return;
-		    }
 		    // Check name is unique
 		    for (SelectableItem si : controller.getCatagories()) {
 		    	if (si.getName().equals(name)) {
@@ -627,6 +635,7 @@ public abstract class Display extends JSplitPane implements Observer {
 					DefaultMutableTreeNode function = (DefaultMutableTreeNode) functions.nextElement();
 					if (function.toString().equals(d.getFunction().getName())) {
 						t.removeNodeFromParent(function);
+						this.editorPanel.clear();
 						return;
 					}
 				}
@@ -665,5 +674,21 @@ public abstract class Display extends JSplitPane implements Observer {
 		DefaultMutableTreeNode heading = new DefaultMutableTreeNode(search);
 		t.insertNodeInto(heading, varRootNode, varRootNode.getChildCount());
 		t.insertNodeInto(new DefaultMutableTreeNode(v.getName()), heading, 0);
+	}
+	
+	private void remove_variable(DeleteVariableEvent d) {
+		Enumeration<?> children = varRootNode.children();
+		DefaultTreeModel t = (DefaultTreeModel) var_tree.getModel();
+		while (children.hasMoreElements()) {
+			DefaultMutableTreeNode child = (DefaultMutableTreeNode) children.nextElement();
+			Enumeration<?> headings = child.children();
+			while (headings.hasMoreElements()) {
+				DefaultMutableTreeNode variable = (DefaultMutableTreeNode) headings.nextElement();
+				if (variable.toString().equals(d.getVarName())) {
+					t.removeNodeFromParent(variable);
+					return;
+				}
+			}
+		}
 	}
 }

@@ -240,6 +240,19 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 	public boolean isEditable() {
 		return editable;
 	}
+
+	public String get_formatted_units() {
+		String units = "";
+		for (Unit u : this.getUnits()) {
+			if (u.getName().equals("dimensionless") || u.getName().equals("null") || u.getExponent() == 0)
+				return "dimensionless";
+			String exp = "";
+			if (u.getExponent() != 1)
+				exp = "^{" + u.getExponent() + "}";
+			units += u.getName() + exp;
+		}
+		return units;
+	}
 	
 	
 	

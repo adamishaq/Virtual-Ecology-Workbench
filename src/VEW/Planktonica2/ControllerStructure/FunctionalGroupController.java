@@ -67,9 +67,8 @@ public class FunctionalGroupController extends VEWController {
 			this.setChanged();
 			if (isTopPredator)
 				this.notifyObservers(new NewVariableEvent(f.checkAllVariableTables(FunctionalGroup.predVarName)));
-			// TODO - remove properly
-			//else
-				//this.notifyObservers(new NewVariableEvent());
+			else
+				this.notifyObservers(new DeleteVariableEvent(FunctionalGroup.predVarName));
 		}
 	}
 
