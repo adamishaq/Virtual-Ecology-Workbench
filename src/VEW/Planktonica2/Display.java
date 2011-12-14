@@ -48,6 +48,7 @@ import VEW.Planktonica2.DisplayEventHandlers.MoveUpButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.DeleteButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.RenameButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.SaveButtonListener;
+import VEW.Planktonica2.DisplayEventHandlers.SwitchLayoutButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.VariableSelectionEventHandler;
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Chemical;
@@ -97,6 +98,7 @@ public abstract class Display extends JSplitPane implements Observer {
 	protected JButton saveButton;
 	protected JButton importSourceButton;
 	protected JButton exportTexButton;
+	protected JButton switchLayoutButton;
 
 	
 	public DefaultMutableTreeNode rootNode;
@@ -314,6 +316,7 @@ public abstract class Display extends JSplitPane implements Observer {
 		compilerButtonPanel.add(saveButton);
 		compilerButtonPanel.add(importSourceButton);
 		compilerButtonPanel.add(exportTexButton);
+		compilerButtonPanel.add(switchLayoutButton);
 	}
 	
 	private void initialiseButtons() {
@@ -365,6 +368,11 @@ public abstract class Display extends JSplitPane implements Observer {
 		exportTexButton = new JButton(new ImageIcon(IconRoot + "export_latex.png"));
 		exportTexButton.setPreferredSize(STANDARD_BUTTON_SIZE);
 		exportTexButton.addActionListener(new ExportTexButtonListener(this.editorPanel));
+		
+		switchLayoutButton = new JButton(new ImageIcon(IconRoot + "switch_layout.png"));
+		switchLayoutButton.setPreferredSize(STANDARD_BUTTON_SIZE);
+		// this is not particularly pleasant but avoids making the button public
+		switchLayoutButton.addActionListener(new SwitchLayoutButtonListener(this.editorPanel, this.switchLayoutButton));
 	}
 	
 	protected void setButtonToolTips() {
@@ -383,6 +391,7 @@ public abstract class Display extends JSplitPane implements Observer {
 		saveButton.setToolTipText("Save the current source file");
 		importSourceButton.setToolTipText("Import an existing source file");
 		exportTexButton.setToolTipText("Export this function to LaTeX");
+		switchLayoutButton.setToolTipText("Change the orientation of the editor and preview panels");
 		
 	}
 	
