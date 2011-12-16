@@ -32,10 +32,10 @@ public class VEWController2 extends JFrame {
   JButton saveChanges = new JButton("Save Changes");
   JButton exitButton = new JButton("Exit");
   EventHandler eh = new EventHandler();
-  private ImageIcon greyLight = new ImageIcon("Data/Graphics/icons/vc_grey.gif");
-  private ImageIcon redLight = new ImageIcon("Data/Graphics/icons/vc_red.gif");  
-  private ImageIcon yellowLight = new ImageIcon("Data/Graphics/icons/vc_yellow.gif");  
-  private ImageIcon greenLight = new ImageIcon("Data/Graphics/icons/vc_green.gif");
+  private ImageIcon greyLight = new ImageIcon("Data/Graphics/icons/vc_grey.png");
+  private ImageIcon redLight = new ImageIcon("Data/Graphics/icons/vc_red.png");  
+  private ImageIcon yellowLight = new ImageIcon("Data/Graphics/icons/vc_yellow.png");  
+  private ImageIcon greenLight = new ImageIcon("Data/Graphics/icons/vc_green.png");
   private JLabel modelLight, speciesLight, foodLight, initLight, pmLight, trackLight;
   private JLabel colInitLight, closureLight, chemRecycleLight, eventsLight, vddLight;
   private JLabel outputLight, runLight;

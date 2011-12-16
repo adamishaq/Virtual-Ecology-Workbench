@@ -1,10 +1,12 @@
 package VEW.Planktonica2;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -25,6 +27,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTextPane;
 
 import org.antlr.runtime.RecognitionException;
@@ -52,7 +55,9 @@ public class EditorPanel extends JPanel implements Observer {
 	private SyntaxHighlighter syntax_highlighter;
 	private AutocompleteBox auto_complete;
 	private JEditorPane error_log;
+	private JSplitPane editorSplitPane;
 	private String current_source;
+	private int oldLocation = 175;
 	
 	// Open/save components
 	private JFileChooser file_chooser;
@@ -77,15 +82,8 @@ public class EditorPanel extends JPanel implements Observer {
 	
 	public void initialise() {
 		
-		this.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
+		this.setLayout(new GridLayout());
 		
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.5;
-		c.weighty = 0.75;
-		c.gridx = 0;
-		c.gridy = 0;
 		syntax = new JTextPane();
 		this.syntax.setEnabled(false);
 		final JPanel no_wrap_syntax = new JPanel(new BorderLayout());
@@ -93,25 +91,30 @@ public class EditorPanel extends JPanel implements Observer {
 		JScrollPane scroll_pane_syntax = new JScrollPane(no_wrap_syntax);
 		scroll_pane_syntax.setPreferredSize(new Dimension(300,350));
 		syntax_highlighter = new SyntaxHighlighter();
-		this.add(scroll_pane_syntax, c);
 		
-		c.gridx = 1;
-		c.gridy = 0;
 		preview = new LatexPreview();
 		final JPanel no_wrap_preview = new JPanel(new BorderLayout());
 		no_wrap_preview.add(preview,BorderLayout.NORTH);
 		JScrollPane scroll_pane_preview = new JScrollPane(no_wrap_preview);
 		scroll_pane_preview.setPreferredSize(new Dimension(300,350));
-		this.add(scroll_pane_preview, c);
 		
-		c.weighty = 0.25;
-		c.gridwidth = 2;
-		c.gridx = 0;
-		c.gridy = 1;
 		error_log = new JEditorPane();
 		JScrollPane scroll_pane_errors = new JScrollPane(error_log);
 		scroll_pane_errors.setPreferredSize(new Dimension(606,125));
-		this.add(scroll_pane_errors, c);
+		
+		JSplitPane overSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+		editorSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		
+		editorSplitPane.setMinimumSize(new Dimension(this.getWidth(), 200));
+		
+		overSplitPane.setDividerLocation(0.75);
+		overSplitPane.setDividerSize(4);
+		
+		scroll_pane_syntax.setMinimumSize(new Dimension(200, overSplitPane.getHeight()));
+		scroll_pane_preview.setMinimumSize(new Dimension(200, overSplitPane.getHeight()));
+		
+		editorSplitPane.setDividerLocation(0.5);
+		editorSplitPane.setDividerSize(4);
 		
 		syntax.addKeyListener(new TypingListener(this));
 		Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
@@ -142,7 +145,13 @@ public class EditorPanel extends JPanel implements Observer {
 		preview.update_preview("pre");
 		preview.setVisible(false);
 
+		editorSplitPane.setLeftComponent(scroll_pane_syntax);
+		editorSplitPane.setRightComponent(scroll_pane_preview);
+		overSplitPane.setTopComponent(editorSplitPane);
+		overSplitPane.setBottomComponent(scroll_pane_errors);
 		
+		
+		this.add(overSplitPane);
 	}
 	
 	private void highlight_syntax() {
@@ -476,6 +485,20 @@ public class EditorPanel extends JPanel implements Observer {
 	
 	public String get_selected_text() {
 		return syntax.getSelectedText();
+	}
+	
+	public void switchEditorPanel() {
+		int currLocation = editorSplitPane.getDividerLocation();
+		if (editorSplitPane.getOrientation() == JSplitPane.HORIZONTAL_SPLIT) {
+			
+			editorSplitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+		}
+		else {
+			editorSplitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
+		}
+		editorSplitPane.setDividerLocation(oldLocation);
+		oldLocation = currLocation;
+	
 	}
 
 class PreviewListener implements ActionListener {
