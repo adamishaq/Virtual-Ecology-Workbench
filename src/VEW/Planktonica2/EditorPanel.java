@@ -515,7 +515,7 @@ class TypingListener implements KeyListener {
 			ignore = false;
 			return;
 		}
-		if (e.getKeyCode() == KeyEvent.VK_ALT && !parent.caret_in_comment()) {
+		if (e.getKeyCode() == KeyEvent.VK_F1 && !parent.caret_in_comment()) {
 			String new_word = new StringBuffer(parent.word_before_caret()).reverse().toString();
 			parent.show_box(new_word);
 		} else if (!parent.caret_in_comment() && (!parent.current_autocomplete().equals("")
@@ -524,9 +524,8 @@ class TypingListener implements KeyListener {
 		} else {
 			parent.hide_autocomplete();
 		}
-		//System.out.println(space_before_caret());
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			// Parse text and check for errors?
+			// Parse text and check for errors
 			parent.preview();
 		} else if (e.getKeyCode() != KeyEvent.VK_BACK_SPACE && e.getKeyCode() != KeyEvent.VK_UP
 				&& e.getKeyCode() != KeyEvent.VK_DOWN && e.getKeyCode() != KeyEvent.VK_RIGHT

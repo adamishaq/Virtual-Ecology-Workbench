@@ -58,7 +58,7 @@ public class BinOpNode extends ExprNode {
 			this.units = UnitChecker.getUnitChecker().multiply_units(rExpr.getUnits(), lExpr.getUnits());
 			break; 
 		case DIVIDE   :
-			this.units = UnitChecker.getUnitChecker().divide_units(rExpr.getUnits(), lExpr.getUnits());
+			this.units = UnitChecker.getUnitChecker().divide_units(lExpr.getUnits(), rExpr.getUnits());
 			break; 
 		case POWER    :
 			if (!UnitChecker.getUnitChecker().isDimensionless(rExpr.getUnits()))

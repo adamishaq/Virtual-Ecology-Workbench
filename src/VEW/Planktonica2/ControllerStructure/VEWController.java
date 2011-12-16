@@ -16,8 +16,6 @@ import java.util.prefs.BackingStoreException;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import org.antlr.runtime.RecognitionException;
-
 
 import VEW.Common.XML.XMLFile;
 import VEW.Common.XML.XMLTag;
@@ -446,7 +444,7 @@ public abstract class VEWController extends Observable {
 			for (Function f : fg.getFunctions()) {
 				latex += source_latex(f) + "\\\\ \n";
 			}
-			latex += "\\\\ \n";
+			//latex += "\\\\ \n";
 		}
 		return latex;
 	}
@@ -464,11 +462,12 @@ public abstract class VEWController extends Observable {
 			while ((line = br.readLine()) != null)   {
 				file_text += (line + "\n"); 
 			}
+			file_text = file_text.trim();
 			in.close();
 			if (DisplayOptions.SOURCE_IN_LATEX) {
 				latex += "\\begin{verbatim}\n";
-				latex += file_text + "\n";
-				latex += "\\end{vebatim}\n";
+				latex += file_text.trim() + "\n";
+				latex += "\\end{verbatim}\n";
 			}
 			// TODO - separate get_report_latex() function
 			ANTLRParser p = new ANTLRParser (file_text);

@@ -32,12 +32,12 @@ public class AssignNode extends RuleNode {
 			return;
 		}
 		identifier.set_units(enclosingCategory);
+		expr.check(enclosingCategory, enclosingTree);
 		if (!UnitChecker.getUnitChecker().CheckUnitCompatability(identifier.getUnits(),
 				expr.getUnits())) {
 			enclosingTree.addWarning("Units of " + identifier.getName() + " not compatible with units of " +
 					"the expression on line " + line_number);
 		}
-		expr.check(enclosingCategory, enclosingTree);
 		checkTypeCompatibility(var.getVarType(), enclosingTree);
 		assignVar = var;
 		assignVar.setAssigned(true);

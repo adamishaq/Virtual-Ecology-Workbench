@@ -357,10 +357,12 @@ public abstract class Display extends JSplitPane implements Observer {
 		saveButton = new JButton(new ImageIcon(IconRoot + "save.png"));
 		saveButton.setPreferredSize(STANDARD_BUTTON_SIZE);
 		saveButton.addActionListener(new SaveButtonListener(this.editorPanel));
+		//saveButton.setEnabled(false);
 		
 		importSourceButton = new JButton(new ImageIcon(IconRoot + "import_function.png"));
 		importSourceButton.setPreferredSize(STANDARD_BUTTON_SIZE);
 		importSourceButton.addActionListener(new ImportSourceButtonListener(this.editorPanel));
+		//importSourceButton.setEnabled(false);
 		
 		exportTexButton = new JButton(new ImageIcon(IconRoot + "export_latex.png"));
 		exportTexButton.setPreferredSize(STANDARD_BUTTON_SIZE);
