@@ -39,6 +39,9 @@ import VEW.Planktonica2.Model.VarietyLocal;
 import VEW.Planktonica2.Model.VarietyParameter;
 import VEW.Planktonica2.Model.VarietyVariable;
 
+/**
+ * <code>JPanel</code> containing all the controls to add/delete/update variables in the model
+ */
 public class VariableEditorPanel extends JPanel implements Observer {
 
 	private static final long serialVersionUID = 1484036714507019850L;
@@ -80,6 +83,10 @@ public class VariableEditorPanel extends JPanel implements Observer {
 	private JButton update_var = new JButton("Update");
 	private JButton remove_var = new JButton("Remove");
 	
+	/**
+	 * Create a new <code>JPanel</code> which will communicate with <code>controller</code>
+	 * @param controller
+	 */
 	public VariableEditorPanel(VEWController controller) {
 		this.controller = controller;
 		this.controller.addObserver(this);
@@ -90,6 +97,9 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		return current_selection;
 	}
 
+	/**
+	 * Initialise all components and lay them out on the form
+	 */
 	private void initialize() {
 		this.setLayout(new GridBagLayout());
 		// Label for scope choice
@@ -201,6 +211,10 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		this.add(button_panel,main_layout);
 	}
 	
+	/**
+	 * Update the display based on the variable type selected in the <code>JComboBox</code>
+	 * @param var_type - The type of variable selected
+	 */
 	public void change_var_type(VarType var_type) {
 		current_selection = var_type;
 		boolean i_value = true;
@@ -286,12 +300,13 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		c.gridwidth = 1;
 		c.gridx = 3;
 		c.gridy = y;
-		//variable_info.add(add_var, c);
 		variable_info.validate();
 	}
 	
-	
-	
+	/**
+	 * Creates a new <code>VariableType</code> object based on the values in the text boxes/combo boxes
+	 * @return - A new <code>VariableType</code>
+	 */
 	public VariableType construct_variable() {
 		// Check the variable has all appropriate values set
 		if (!validate_variable(false))
@@ -402,10 +417,17 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		return null;
 	}
 
+	/**
+	 * Adds a variable to the model
+	 * @param v - Variable to add
+	 */
 	public void add_var(VariableType v) {
 		controller.addVariable(v);
 	}
 	
+	/**
+	 * Updates the information held about a variable in the current model
+	 */
 	public void update_variable() {
 		// Check the variable has all appropriate values set
 		if (!validate_variable(true))
@@ -419,6 +441,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			JOptionPane.showMessageDialog(this, "This is a built-in variable and cannot be edited");
 			return;
 		}
+		// Remove the previous version of the variable and add a new one
 		if (v != null) {
 			v = current_category.removeFromTables(v.getName());
 			if (v != null) {
@@ -428,6 +451,10 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		}
 	}
 	
+	/**
+	 * Checks a valid <code>VariableType</code> could be constructed from the values provided by the user
+	 * @param exists - Does the variable already exist in the model
+	 */
 	private boolean validate_variable(boolean exists) {
 		// Check there is something to add it to
 		if (this.current_category == null)
@@ -450,12 +477,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		if (!exists && current_category.checkAllVariableTables(var_name.getText()) != null) {
 			JOptionPane.showMessageDialog(this, "A variable of that name already exists");
 			return false;
-		}/*
-		// Check the name is not unique if it is an existing variable
-		if (exists && current_category.checkAllVariableTables(var_name.getText()) == null) {
-			JOptionPane.showMessageDialog(this, "No variable of that name exists");
-			return false;
-		}*/
+		}
 		// Check that history has a legal value
 		switch (current_selection) {
 		case GROUPVAR :
@@ -487,6 +509,10 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		return true;
 	}
 	
+	/**
+	 * Fills the text boxes/combo boxes with the appropriate data from an existing variable
+	 * @param v - Variable to display
+	 */
 	public void display(VariableType v) {
 		this.current_variable = v;
 		// Fill in the variable name and description
@@ -495,6 +521,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		var_desc.setText(v.getDesc());
 		var_desc.setCaretPosition(0);
 		current_units.clear();
+		// Display the units of the variable
 		for (Unit u : v.getUnits()) {
 			current_units.add(u);
 		}
@@ -538,6 +565,9 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		this.validate();
 	}
 
+	/**
+	 * Displays the units of a variable in <code>HTML</code>
+	 */
 	private void display_units() {
 		String text = "<html>";
 		for (Unit u : current_units)
@@ -547,6 +577,10 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		unit_list.setText(text);
 	}
 	
+	/**
+	 * Ensures that an existing variable has the correct food set link displayed
+	 * @param v
+	 */
 	private void update_link_combo(Variety v) {
 		if (food_sets.get(v.getLinkConcentration().getName()) != null) {
 			Integer index = food_sets.get(v.getLinkConcentration().getName());
@@ -559,6 +593,10 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		this.update_food_sets(f.get_variety_concs());
 	}
 	
+	/**
+	 * Updates the food set link combo box with the currently available food sets
+	 * @param food_array - Array of strings giving names of every food set
+	 */
 	private void update_food_sets(String[] food_array) {
 		this.food_sets.clear();
 		DefaultComboBoxModel model = (DefaultComboBoxModel) link_combo.getModel();
@@ -571,6 +609,9 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		}
 	}
 
+	/**
+	 * Adds a unit that the user has described to the current variable if possible
+	 */
 	public void add_unit() {
 		if (!validate_unit())
 			return;
@@ -590,6 +631,9 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		display_units();
 	}
 	
+	/**
+	 * Check a user defined unit is valid
+	 */
 	private boolean validate_unit() {
 		if (unit_name.getText().length() < 1)
 			return false;
@@ -625,6 +669,9 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		
 	}
 
+	/**
+	 * Delete the current variable from the model
+	 */
 	public void delete_variable() {
 		if (!validate_variable(true))
 			return;

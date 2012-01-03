@@ -113,8 +113,12 @@ public class StageEditorPanel extends JPanel {
         this.add(button_panel,c);
 	}
 	
+	/**
+	 * Returns a list of all stage names in the current functional group
+	 * @return - <code>Collection</code> of Strings corresponding to stage names
+	 */
 	public Collection<String> get_stages() {
-		// Return an alphabetical list of all available stages
+		// Get all available stages
 		FunctionalGroup g = controller.getSelectedFunctionalGroup();
 		if (g != null) {
 			Collection<String> stages = g.getStageNames();
@@ -122,12 +126,17 @@ public class StageEditorPanel extends JPanel {
 			for (String s : stages) {
 				stage_names.add(s);
 			}
+			// Alphabetise them
 			Collections.sort(stage_names);
 			return stage_names;
 		}
 		return null;
 	}
 	
+	/**
+	 * Presents the user with a dialog box to allow them to add a stage to the current functional
+	 * group
+	 */
 	public void add_stage() {
 		if (this.controller.getSelectedCatagory() == null)
 			return;
@@ -137,11 +146,15 @@ public class StageEditorPanel extends JPanel {
 	    if (name == null) {
 	    	return;
 	    }
+	    // If the stage cannot be added, inform the user
 		if (!controller.addStage(name)) {
 			JOptionPane.showMessageDialog(this, "A Stage with that name already exists");
 		}
 	}
 	
+	/**
+	 * Present the user with a dialog box to choose a stage to delete
+	 */
 	public void delete_stage() {
 		SelectStageDialog s = new SelectStageDialog(this,true);
 		s.setAlwaysOnTop(true);
@@ -149,10 +162,17 @@ public class StageEditorPanel extends JPanel {
 		s.setVisible(true);
 	}
 	
+	/**
+	 * Remove a chosen stage fro mthe model
+	 * @param select - The name of the selected stage
+	 */
 	public void remove_stage(String select) {
 		controller.delete_stage(select);
 	}
 
+	/**
+	 * Present the user with a dialog box to choose a stage to rename
+	 */
 	public void rename_stage() {
 		SelectStageDialog s = new SelectStageDialog(this,false);
 		s.setAlwaysOnTop(true);
@@ -160,6 +180,11 @@ public class StageEditorPanel extends JPanel {
 		s.setVisible(true);
 	}
 	
+	/**
+	 * Rename a chosen stage in the model
+	 * @param name - The previous name of the stage
+	 * @param new_name - The new name for the stage
+	 */
 	public void stage_rename(String name, String new_name) {
 		controller.rename_stage(name, new_name);
 	}

@@ -12,6 +12,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+/**
+ * Dialog box to allow the user to select a stage from those currently available
+ */
 public class SelectStageDialog extends JDialog {
 
 	/**
@@ -21,6 +24,12 @@ public class SelectStageDialog extends JDialog {
 	private StageEditorPanel parent;
 	private JTree stage_tree;
 	
+	/**
+	 * Creates a new <code>JDialog</code> with a tree view of the current stages
+	 * @param parent - <code>StageEditorPanel</code>
+	 * @param delete - Is this panel being used to delete a stage (false implies it is instead being
+	 * 				   used to rename a stage)
+	 */
 	public SelectStageDialog(StageEditorPanel parent,boolean delete) {
 		super();
 		this.setLayout(new GridBagLayout());
@@ -59,6 +68,9 @@ public class SelectStageDialog extends JDialog {
 		this.add(select,c);
 	}
 
+	/**
+	 * Prompt the user to delete the currently selected stage
+	 */
 	public void delete_selected() {
 		String select = stage_tree.getSelectionPath().getLastPathComponent().toString();
 		if (select == null)
@@ -75,6 +87,9 @@ public class SelectStageDialog extends JDialog {
 		this.dispose();
 	}
 
+	/**
+	 * Prompt the user to rename the currently selected stage
+	 */
 	public void rename_selected() {
 		String select = stage_tree.getSelectionPath().getLastPathComponent().toString();
 		if (select == null)

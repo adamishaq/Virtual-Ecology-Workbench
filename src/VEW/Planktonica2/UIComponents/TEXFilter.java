@@ -3,6 +3,9 @@ package VEW.Planktonica2.UIComponents;
 import java.io.File;
 import javax.swing.filechooser.FileFilter;
 
+/**
+ * Filter for ".tex" files, used with the standard <code>Java JFileChooser</code>
+ */
 public class TEXFilter extends FileFilter {
 
 	public TEXFilter() {

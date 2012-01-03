@@ -1,5 +1,8 @@
 package VEW.Planktonica2.UIComponents;
 
+/**
+ * Enum used by <code>VariableEditorPanel</code> to fill the 'type' combo box
+ */
 public enum VarType {
 
 	GROUPVAR{

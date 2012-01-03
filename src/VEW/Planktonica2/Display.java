@@ -46,6 +46,7 @@ import VEW.Planktonica2.DisplayEventHandlers.LeftPanelTreeSelectionListener;
 import VEW.Planktonica2.DisplayEventHandlers.MoveDownButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.MoveUpButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.DeleteButtonListener;
+import VEW.Planktonica2.DisplayEventHandlers.OptionsButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.RenameButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.SaveButtonListener;
 import VEW.Planktonica2.DisplayEventHandlers.SwitchLayoutButtonListener;
@@ -98,6 +99,7 @@ public abstract class Display extends JSplitPane implements Observer {
 	protected JButton saveButton;
 	protected JButton importSourceButton;
 	protected JButton exportTexButton;
+	protected JButton optionsButton;
 	protected JButton switchLayoutButton;
 
 	
@@ -130,8 +132,12 @@ public abstract class Display extends JSplitPane implements Observer {
 			Catagory f = (Catagory) controller.getSelectedCatagory();
 			this.variablePanel.update_selected_category(f);
 			this.editorPanel.clear();
+			this.saveButton.setEnabled(false);
+			this.checkButton.setEnabled(false);
 		} else if (arg instanceof SourcePath) {
 			this.ancilaryFuncPane.setSelectedIndex(0);
+			this.saveButton.setEnabled(true);
+			this.checkButton.setEnabled(true);
 		} else if (arg instanceof VariableType) {
 			this.variablePanel.display((VariableType)arg);
 			this.ancilaryFuncPane.setSelectedIndex(1);
@@ -141,6 +147,8 @@ public abstract class Display extends JSplitPane implements Observer {
 			add_variable(((NewVariableEvent)arg).getVar());
 		} else if (arg instanceof NewFunctionEvent) {
 			add_function((NewFunctionEvent)arg);
+			this.saveButton.setEnabled(true);
+			this.checkButton.setEnabled(true);
 		} else if (arg instanceof UpdateCategoryEvent) {
 			update_functions(((UpdateCategoryEvent)arg).getCategory());
 		} else if (arg instanceof UpdateVariableEvent) {
@@ -316,7 +324,8 @@ public abstract class Display extends JSplitPane implements Observer {
 		compilerButtonPanel.add(saveButton);
 		compilerButtonPanel.add(importSourceButton);
 		compilerButtonPanel.add(exportTexButton);
-		compilerButtonPanel.add(switchLayoutButton);
+		compilerButtonPanel.add(optionsButton);
+		//compilerButtonPanel.add(switchLayoutButton);
 	}
 	
 	private void initialiseButtons() {
@@ -354,13 +363,14 @@ public abstract class Display extends JSplitPane implements Observer {
 		compileButton.addActionListener(new CompileButtonListener(this.editorPanel));
 		
 		checkButton = new JButton(new ImageIcon(IconRoot + "check.png"));		
-		checkButton.setPreferredSize(STANDARD_BUTTON_SIZE);
+		checkButton.setPreferredSize(new Dimension(16,16));
 		checkButton.addActionListener(new CheckButtonListener(this.editorPanel));
+		checkButton.setEnabled(false);
 		
 		saveButton = new JButton(new ImageIcon(IconRoot + "save.png"));
-		saveButton.setPreferredSize(STANDARD_BUTTON_SIZE);
+		saveButton.setPreferredSize(new Dimension(16,16));
 		saveButton.addActionListener(new SaveButtonListener(this.editorPanel));
-		//saveButton.setEnabled(false);
+		saveButton.setEnabled(false);
 		
 		importSourceButton = new JButton(new ImageIcon(IconRoot + "import_function.png"));
 		importSourceButton.setPreferredSize(STANDARD_BUTTON_SIZE);
@@ -370,6 +380,10 @@ public abstract class Display extends JSplitPane implements Observer {
 		exportTexButton = new JButton(new ImageIcon(IconRoot + "export_latex.png"));
 		exportTexButton.setPreferredSize(STANDARD_BUTTON_SIZE);
 		exportTexButton.addActionListener(new ExportTexButtonListener(this.editorPanel));
+		
+		optionsButton = new JButton(new ImageIcon(IconRoot + "options.png"));
+		optionsButton.setPreferredSize(STANDARD_BUTTON_SIZE);
+		optionsButton.addActionListener(new OptionsButtonListener(this.editorPanel));
 		
 		switchLayoutButton = new JButton(new ImageIcon(IconRoot + "switch_layout.png"));
 		switchLayoutButton.setPreferredSize(STANDARD_BUTTON_SIZE);
@@ -393,6 +407,7 @@ public abstract class Display extends JSplitPane implements Observer {
 		saveButton.setToolTipText("Save the current source file");
 		importSourceButton.setToolTipText("Import an existing source file");
 		exportTexButton.setToolTipText("Export this function to LaTeX");
+		optionsButton.setToolTipText("Alter the editor settings");
 		switchLayoutButton.setToolTipText("Change the orientation of the editor and preview panels");
 		
 	}
@@ -442,6 +457,8 @@ public abstract class Display extends JSplitPane implements Observer {
 		if (c != null)
 			this.variablePanel.update_selected_category(c);
 		this.editorPanel.clear();
+		this.saveButton.setEnabled(false);
+		this.checkButton.setEnabled(false);
 	}
 
 	public void update_vars(SelectableItem i) {
@@ -647,6 +664,8 @@ public abstract class Display extends JSplitPane implements Observer {
 					if (function.toString().equals(d.getFunction().getName())) {
 						t.removeNodeFromParent(function);
 						this.editorPanel.clear();
+						this.saveButton.setEnabled(false);
+						this.checkButton.setEnabled(false);
 						return;
 					}
 				}

@@ -48,6 +48,7 @@ public abstract class VEWController extends Observable {
 	public VEWController (Model m) {
 		super();
 		model = m;
+		restore_user_preferences(m.getFilePath());
 	}
 
 	/**
@@ -107,6 +108,7 @@ public abstract class VEWController extends Observable {
 	public void setSelectedCatagory (Catagory i) {
 		
 		if (setInternalSelectedCatagory(i)) {
+			this.currentlySelectedFunction = null;
 			this.setChanged();
 			this.notifyObservers(i);
 		}
@@ -287,7 +289,8 @@ public abstract class VEWController extends Observable {
 		if (this.getCurrentlySelectedFunction() != null) {
 			// User has a function selected
 			// Check the user really wants to delete this function
-			int choice = JOptionPane.showOptionDialog(d, "Are you sure you want to delete this function?",
+			int choice = JOptionPane.showOptionDialog(d, "Are you sure you want to delete the function "
+					+ this.getCurrentlySelectedFunction().getName() + "?",
 				"Confirm delete", JOptionPane.YES_NO_OPTION, 1, null, null, 1);
 			if (choice == 1)
 				return;
@@ -312,8 +315,8 @@ public abstract class VEWController extends Observable {
 			// User has a functional group/chemical selected
 			// Check the user really wants to delete the category
 			String category = this instanceof ChemicalController ? "Chemical" : "Funtional Group";
-			int choice = JOptionPane.showOptionDialog(d, "Are you sure you want to delete this " 
-					+ category + "?",
+			int choice = JOptionPane.showOptionDialog(d, "Are you sure you want to delete the " 
+					+ category + " " + this.getSelectedCatagory().getName() + "?",
 					"Confirm delete", JOptionPane.YES_NO_OPTION, 1, null, null, 1);
 				if (choice == 1)
 					return;
@@ -464,12 +467,12 @@ public abstract class VEWController extends Observable {
 			}
 			file_text = file_text.trim();
 			in.close();
-			if (DisplayOptions.SOURCE_IN_LATEX) {
+			if (DisplayOptions.getOptions().SOURCE_IN_LATEX) {
 				latex += "\\begin{verbatim}\n";
 				latex += file_text.trim() + "\n";
 				latex += "\\end{verbatim}\n";
 			}
-			// TODO - separate get_report_latex() function
+			// TODO - separate get_report_latex() function?
 			ANTLRParser p = new ANTLRParser (file_text);
 			ConstructedASTree ct = p.getAST();
 			if (ct.getTree() != null) 
@@ -484,7 +487,7 @@ public abstract class VEWController extends Observable {
 		// Check it contains no disallowed characters
 		char[] chars = name.toCharArray();
 		for (int i = 0; i < chars.length; i++) {
-			if (!(Character.isLetterOrDigit(chars[i]) || chars[i] == '_')) {
+			if (!(Character.isLetterOrDigit(chars[i]) || chars[i] == '_' || chars[i] == ' ')) {
 				JOptionPane.showMessageDialog(display, "Name cannot contain '" 
 						+ chars[i] + "'");
 				return false;
@@ -500,4 +503,126 @@ public abstract class VEWController extends Observable {
 			this.notifyObservers(new DeleteVariableEvent(v.getName()));
 		}		
 	}
+	
+	private void restore_user_preferences(String filepath) {
+		  String path = filepath.substring(0, filepath.lastIndexOf("\\"));
+		  path = path.substring(0, path.lastIndexOf("\\"));
+		  path = path.substring(0, path.lastIndexOf("\\"));
+		  path += "\\vew.config";
+		  DisplayOptions.getOptions().config_path = path;
+		  File config_file = new File(path);
+		  if (config_file.exists()) {
+			  FileInputStream fstream;
+			  try {
+				  fstream = new FileInputStream(path);
+				  DataInputStream in = new DataInputStream(fstream);
+				  BufferedReader br = new BufferedReader(new InputStreamReader(in));
+				  String line = "";
+				  while ((line = br.readLine()) != null)   {
+					  apply_config(line); 
+				  }
+				  in.close();
+			  } catch (Exception e) {
+				  // Someone has müllered the config file...
+			  }
+		  } else {
+			  // Create a new config file and fill it with the default values
+			  DisplayOptions.getOptions().write_config();
+		  }
+	  }
+
+		private void apply_config(String line) {
+			if (line.startsWith("Maximised -")) {
+				if (line.endsWith("1")) {
+					// The form should be maximised
+					DisplayOptions.getOptions().MAXIMISED = true;
+				} else {
+					DisplayOptions.getOptions().MAXIMISED = false;
+				}
+			} else if (line.startsWith("Frame Width - ")) {
+				try {
+					line = line.substring("Frame Width - ".length(),line.length());
+					DisplayOptions.getOptions().FRAME_WIDTH = Integer.parseInt(line);
+				} catch (Exception e) {
+					// File has been altered...
+					return;
+				}
+			} else if (line.startsWith("Frame Height - ")) {
+				try {
+					line = line.substring("Frame Height - ".length(),line.length());
+					DisplayOptions.getOptions().FRAME_HEIGHT = Integer.parseInt(line);
+				} catch (Exception e) {
+					// File has been altered...
+					return;
+				}
+			} else if (line.startsWith("Frame X - ")) {
+				try {
+					line = line.substring("Frame X - ".length(),line.length());
+					DisplayOptions.getOptions().FRAME_X = Integer.parseInt(line);
+				} catch (Exception e) {
+					// File has been altered...
+					return;
+				}
+			} else if (line.startsWith("Frame Y - ")) {
+				try {
+					line = line.substring("Frame Y - ".length(),line.length());
+					DisplayOptions.getOptions().FRAME_Y = Integer.parseInt(line);
+				} catch (Exception e) {
+					// File has been altered...
+					return;
+				}
+			} else if (line.startsWith("Layout Vertical -")) {
+				if (line.endsWith("1")) {
+					// Layout is vertical
+					DisplayOptions.getOptions().LAYOUT_VERTICAL = true;
+				} else {
+					DisplayOptions.getOptions().LAYOUT_VERTICAL = false;
+				}
+			} else if (line.startsWith("LaTeX Units -")) {
+				if (line.endsWith("1")) {
+					// Display units in LaTeX previews
+					DisplayOptions.getOptions().PREVIEW_UNITS = true;
+				} else {
+					DisplayOptions.getOptions().PREVIEW_UNITS = false;
+				}
+			} else if (line.startsWith("LaTeX Names -")) {
+				if (line.endsWith("1")) {
+					// Display rule names in LaTeX previews
+					DisplayOptions.getOptions().PREVIEW_RULE_NAMES = true;
+				} else {
+					DisplayOptions.getOptions().PREVIEW_RULE_NAMES = false;
+				}
+			} else if (line.startsWith("LaTeX Names -")) {
+				if (line.endsWith("1")) {
+					// Display rule names in LaTeX previews
+					DisplayOptions.getOptions().PREVIEW_RULE_NAMES = true;
+				} else {
+					DisplayOptions.getOptions().PREVIEW_RULE_NAMES = false;
+				}
+			} else if (line.startsWith("Source in LaTeX -")) {
+				if (line.endsWith("1")) {
+					// Display the source for functions in the LaTeX documentation
+					DisplayOptions.getOptions().SOURCE_IN_LATEX = true;
+				} else {
+					DisplayOptions.getOptions().SOURCE_IN_LATEX = false;
+				}
+			} else if (line.startsWith("Editor Pane - ")) {
+				try {
+					line = line.substring("Editor Pane - ".length(),line.length());
+					DisplayOptions.getOptions().EDITOR_PANEL_SIZE = Integer.parseInt(line);
+				} catch (Exception e) {
+					// File has been altered...
+					return;
+				}
+			} else if (line.startsWith("Error Pane - ")) {
+				try {
+					line = line.substring("Error Pane - ".length(),line.length());
+					DisplayOptions.getOptions().ERROR_PANEL_SIZE = Integer.parseInt(line);
+				} catch (Exception e) {
+					// File has been altered...
+					return;
+				}
+			}
+		}
+
 }

@@ -1,16 +1,15 @@
 package VEW.Planktonica2;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -56,6 +55,7 @@ public class EditorPanel extends JPanel implements Observer {
 	private AutocompleteBox auto_complete;
 	private JEditorPane error_log;
 	private JSplitPane editorSplitPane;
+	private JSplitPane overSplitPane;
 	private String current_source;
 	private int oldLocation = 175;
 	
@@ -68,6 +68,7 @@ public class EditorPanel extends JPanel implements Observer {
 		this.controller = controller;
 		this.controller.addObserver(this);
 		initialise();
+		apply_options();
 	}
 	
 	@Override
@@ -102,19 +103,25 @@ public class EditorPanel extends JPanel implements Observer {
 		JScrollPane scroll_pane_errors = new JScrollPane(error_log);
 		scroll_pane_errors.setPreferredSize(new Dimension(606,125));
 		
-		JSplitPane overSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+		overSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		editorSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		
 		editorSplitPane.setMinimumSize(new Dimension(this.getWidth(), 200));
 		
-		overSplitPane.setDividerLocation(0.75);
+		//overSplitPane.setDividerLocation(0.75);
+		overSplitPane.setDividerLocation(DisplayOptions.getOptions().ERROR_PANEL_SIZE);
 		overSplitPane.setDividerSize(4);
+		overSplitPane.addPropertyChangeListener(JSplitPane.DIVIDER_LOCATION_PROPERTY,
+				new EditorPaneChangeListener(this));
 		
 		scroll_pane_syntax.setMinimumSize(new Dimension(200, overSplitPane.getHeight()));
 		scroll_pane_preview.setMinimumSize(new Dimension(200, overSplitPane.getHeight()));
 		
-		editorSplitPane.setDividerLocation(0.5);
+		//editorSplitPane.setDividerLocation(0.5);
+		editorSplitPane.setDividerLocation(DisplayOptions.getOptions().EDITOR_PANEL_SIZE);
 		editorSplitPane.setDividerSize(4);
+		editorSplitPane.addPropertyChangeListener(JSplitPane.DIVIDER_LOCATION_PROPERTY,
+				new EditorPaneChangeListener(this));
 		
 		syntax.addKeyListener(new TypingListener(this));
 		Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
@@ -122,7 +129,7 @@ public class EditorPanel extends JPanel implements Observer {
 		syntax.setContentType("text/html");
 		syntax.setText("<html><PRE></PRE></html>");
 		
-		auto_complete = new AutocompleteBox(syntax,controller,this);
+		auto_complete = new AutocompleteBox(syntax,controller);
 		
 		error_log.setEditable(false);
 		error_log.setFont(font);
@@ -152,6 +159,7 @@ public class EditorPanel extends JPanel implements Observer {
 		
 		
 		this.add(overSplitPane);
+
 	}
 	
 	private void highlight_syntax() {
@@ -183,37 +191,6 @@ public class EditorPanel extends JPanel implements Observer {
 		} else {
 			error_log.setText("<html><PRE>Compilation succeeded!</PRE></html>");
 		}
-		/*
-		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
-		try {
-			ConstructedASTree ct = p.getAST();
-			//ct.getTree().check();
-			if (ct.getExceptions().isEmpty()) {
-				if (ct.hasWarnings()) {
-					String errors = "<html><PRE>Warnings in source file:\n";
-					errors = format_warnings(ct, errors);
-					errors += "\nCheck succeeded!</PRE></html>";
-					error_log.setText(errors);
-				} else {
-					error_log.setText("<html><PRE>Check succeeded!</PRE></html>");
-				}
-				String latex = "\\begin{array}{lr}";
-				latex += ct.getTree().generateLatex();
-				latex += "\\end{array}";
-				preview.setVisible(true);
-				preview.update_preview(latex);
-				System.out.println(ct.getTree().generateXML());
-			} else {
-				String errors = "<html><PRE>Compilation errors occurred:\n";
-				errors = format_errors(ct, errors);
-				errors += "Compilation aborted!</PRE></html>";
-				error_log.setText(errors);
-			}
-			highlight_syntax();
-		} catch (RecognitionException e) {
-			System.out.println("RECOGNITION EXCEPTION");
-			e.printStackTrace();
-		}*/
 	}
 
 	private String format_errors(ConstructedASTree ct, String errors) {
@@ -284,7 +261,6 @@ public class EditorPanel extends JPanel implements Observer {
 		if (this.current_source == null)
 			return;
 		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
-		//System.out.println(syntax_highlighter.getPlainText(syntax.getText()));
 		try {
 			ConstructedASTree ct = p.getAST();
 			if (ct.getTree() != null) {
@@ -388,8 +364,8 @@ public class EditorPanel extends JPanel implements Observer {
 			highlight_syntax();
 			syntax.setCaretPosition(0);
 		} catch (Exception e) {
-			syntax.setText("<html><head></head><PRE>Could not find source file " + filePath
-					+ "</PRE></html>");
+			syntax.setText("<html><head></head><PRE></PRE></html>");
+			syntax.setEnabled(true);
 		}
 	}
 	
@@ -456,6 +432,24 @@ public class EditorPanel extends JPanel implements Observer {
         }
 	}
 	
+	public void show_options() {
+		DisplayOptionsDialog d = new DisplayOptionsDialog(this);
+		d.setAlwaysOnTop(true);
+		d.setLocationRelativeTo(null);
+		d.setResizable(false);
+		d.setVisible(true);
+	}
+	
+	public void apply_options() {
+		if (DisplayOptions.getOptions().LAYOUT_VERTICAL
+				&& editorSplitPane.getOrientation() == JSplitPane.VERTICAL_SPLIT) {
+			switchEditorPanel();
+		} else if (!DisplayOptions.getOptions().LAYOUT_VERTICAL
+				&& editorSplitPane.getOrientation() == JSplitPane.HORIZONTAL_SPLIT) {
+			switchEditorPanel();
+		}
+	}
+	
 	public void clear() {
 		this.save();
 		this.current_source = null;
@@ -500,7 +494,28 @@ public class EditorPanel extends JPanel implements Observer {
 		oldLocation = currLocation;
 	
 	}
+	
+	public void update_panel_size() {
+		DisplayOptions.getOptions().EDITOR_PANEL_SIZE = editorSplitPane.getDividerLocation();
+		DisplayOptions.getOptions().ERROR_PANEL_SIZE = overSplitPane.getDividerLocation();
+		DisplayOptions.getOptions().write_config();
+	}
 
+class EditorPaneChangeListener implements PropertyChangeListener {
+	
+	EditorPanel parent;
+	
+	public EditorPaneChangeListener(EditorPanel parent) {
+		this.parent = parent;
+	}
+	
+	@Override
+	public void propertyChange(PropertyChangeEvent arg0) {
+		parent.update_panel_size();
+	}
+	
+}
+	
 class PreviewListener implements ActionListener {
 	
 	EditorPanel parent;
@@ -563,6 +578,5 @@ class TypingListener implements KeyListener {
 	public void keyTyped(KeyEvent e) {}
 
 }
-
 	
 }

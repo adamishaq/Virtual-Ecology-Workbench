@@ -3,8 +3,6 @@ package VEW.Planktonica2.DisplayEventHandlers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JOptionPane;
-
 import VEW.Planktonica2.Display;
 
 

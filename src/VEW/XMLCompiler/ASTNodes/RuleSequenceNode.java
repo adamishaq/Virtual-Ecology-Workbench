@@ -62,7 +62,7 @@ public class RuleSequenceNode extends ASTree {
 		if (seq != null) {
 			if (rule != null) {
 				String ruleString = "\\\\ \\\\ \\;";
-				if (DisplayOptions.PREVIEW_RULE_NAMES && this.ruleName != null) {
+				if (DisplayOptions.getOptions().PREVIEW_RULE_NAMES && this.ruleName != null) {
 					ruleString +=  format_name() + "\\;:\\;";
 				}
 				ruleString += rule.generateLatex();
@@ -72,7 +72,7 @@ public class RuleSequenceNode extends ASTree {
 		} else {
 			if (rule != null) {
 				String ruleString = "\\\\ \\\\ \\;";
-				if (DisplayOptions.PREVIEW_RULE_NAMES && this.ruleName != null) {
+				if (DisplayOptions.getOptions().PREVIEW_RULE_NAMES && this.ruleName != null) {
 					ruleString +=  format_name() + "\\;:\\;";
 				}
 				ruleString += rule.generateLatex();
