@@ -157,9 +157,9 @@ public abstract class VEWController extends Observable {
 			return exceptions;
 		}
 		XMLFile xmlFile = (XMLFile) tag;
-		String fileName = xmlFile.getFileName();
-		String newName = fileName.substring(0, fileName.lastIndexOf('\\') + 1) + "testFile.xml";
-		xmlFile.setFileName(newName);
+		//String fileName = xmlFile.getFileName();
+		//String newName = fileName.substring(0, fileName.lastIndexOf('\\') + 1) + "testFile.xml";
+		//xmlFile.setFileName(newName);
 		xmlFile.write();
 		return exceptions;
 	}

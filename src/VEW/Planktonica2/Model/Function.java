@@ -256,31 +256,32 @@ public class Function implements BuildFromXML, BuildToXML {
 
 	@Override
 	public XMLTag buildToXML() throws XMLWriteBackException {
-		if (baseTag == null) {
-			baseTag = new XMLTag("function");
+		XMLTag newTag = new XMLTag("function");
+		if (baseTag != null) {
+			newTag.addTags(baseTag.getTags());
 		}
-		baseTag.addTag("name", name);
+		newTag.addTag("name", name);
 		Iterator<Stage> stageIter = calledIn.iterator();
 		while (stageIter.hasNext()) {
 			Stage stage = stageIter.next();
-			baseTag.addTag(new XMLTag("calledin", stage.getName()));
+			newTag.addTag(new XMLTag("calledin", stage.getName()));
 		}
 		List<XMLTag> equationTags;
 		try {
 			equationTags = compileFunction();
 			for (XMLTag eqTag : equationTags) {
-				baseTag.addTag(eqTag);
+				newTag.addTag(eqTag);
 			}
 			if (archiveName != null)
-				baseTag.addTag(new XMLTag("archivename", archiveName));
+				newTag.addTag(new XMLTag("archivename", archiveName));
 			if (comment != null)
-				baseTag.addTag(new XMLTag("comment", comment));
+				newTag.addTag(new XMLTag("comment", comment));
 			if (author != null)
-				baseTag.addTag(new XMLTag("author", author));
+				newTag.addTag(new XMLTag("author", author));
 		} catch (CompilerException e) {
 			throw new XMLWriteBackException(e);
 		}
-		return baseTag;
+		return newTag;
 	}
 
 	@Override

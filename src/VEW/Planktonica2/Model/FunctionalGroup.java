@@ -43,6 +43,7 @@ public class FunctionalGroup extends Catagory {
 		Collection<Unit>units = new ArrayList<Unit>();
 		units.add(new Unit(0, "m", 1));
 		StateVariable z = new StateVariable("z", "Depth", floatType, units, new Float(0), 2, false);
+		z.setIncludeInXML(false);
 		stateVarTable.put("z", z);
 	}
 
@@ -65,10 +66,12 @@ public class FunctionalGroup extends Catagory {
 		String varDescription = chemName + " incoming pool";
 		StateVariable chemVar = new StateVariable(varName, varDescription,
 													floatType, units, null, null, false);
+		chemVar.setIncludeInXML(false);
 		stateVarTable.put(varName, chemVar);
 		varName = chemName + "_Pool";
 		varDescription = chemName + " internal pool";
 		chemVar = new StateVariable(varName, varDescription, floatType, units, null, null, false);
+		chemVar.setIncludeInXML(false);
 		stateVarTable.put(varName, chemVar);
 	}
 	
@@ -193,20 +196,20 @@ public class FunctionalGroup extends Catagory {
 	
 	@Override
 	public XMLTag buildToXML() throws XMLWriteBackException {
-		super.buildToXML();
-		baseTag.setName("functionalgroup");
+		XMLTag newTag = super.buildToXML();
+		newTag.setName("functionalgroup");
 		Collection<Stage> stages = stageTable.values();
 		Iterator<Stage> iter = stages.iterator();
 		while (iter.hasNext()) {
 			Stage st = iter.next();
-			baseTag.addTag(st.buildToXML());
+			newTag.addTag(st.buildToXML());
 		}
 		
 		if (predator) {
-			baseTag.addTag("predator", "true");
+			newTag.addTag("predator", "true");
 		}
 		
-		return baseTag;
+		return newTag;
 	}
 
 	
@@ -248,7 +251,10 @@ public class FunctionalGroup extends Catagory {
 	}
 
 	public void removeStage(String select) {
-		stageTable.remove(select);
+		Stage s = stageTable.remove(select);
+		for (Function f : functions) {
+			f.removeFromCalledIn(s);
+		}
 	}
 
 	public void renameStage(String name,String new_name) {
@@ -278,6 +284,8 @@ public class FunctionalGroup extends Catagory {
 	private void removePredatorSizeVariable() {
 		
 		this.removeFromTables(FunctionalGroup.predVarName);
+		removeFromTables("Ingestion");
+		removeFromTables("IngestedCells");
 		
 	}
 
@@ -300,6 +308,20 @@ public class FunctionalGroup extends Catagory {
 		
 		
 		this.addToStateVarTable(sizePred);
+		
+		units = new ArrayList<Unit> ();
+		units.add(new Unit(0, "c", 1));
+		units.add(new Unit(0, "m", -3));
+		VarietyConcentration ingestion = new VarietyConcentration("Ingestion", "Concentration of any variety that has been ingested",
+											new VarietyType("$float", t), units, (float) 0, 1, false);
+		addToVarietyConcTable(ingestion);
+		
+		units = new ArrayList<Unit> ();
+		units.add(new Unit(0, "c", 1));
+		VarietyVariable ingestedCells = new VarietyVariable("IngestedCells", "Number of cells ingested for any variety",
+											new VarietyType("$float", t), units, (float) 0, 1, false, ingestion);
+		addToVarietyStateTable(ingestedCells);
+		
 		
 		
 	}

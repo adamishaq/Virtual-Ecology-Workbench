@@ -366,7 +366,7 @@ public class StageEditorPanel extends JPanel {
 				
 				String stageName = this.getColumnName(y-1);
 
-				this.controller.setStageIsCalledIn(stageName, y, isCalled);	
+				this.controller.setStageIsCalledIn(stageName, x, isCalled);	
 
 			}
 			

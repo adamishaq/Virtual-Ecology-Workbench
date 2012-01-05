@@ -317,7 +317,8 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		Iterator<V> iter = vals.iterator();
 		while(iter.hasNext()) {
 			V var = iter.next();
-			tag.addTag(var.buildToXML());
+			if (var.includedInXML())
+				tag.addTag(var.buildToXML());
 		}
 		
 	}

@@ -144,8 +144,13 @@ public class ChangeNode extends RuleNode {
 		func += "\\begin{cases}";
 		for (Pair<BExprNode,IdNode> p : this.changeStatements) {
 			func += p.getSecond().generateLatex();
-			func += " \\; \\; \\; if \\; \\;";
-			func += p.getFirst().generateLatex();
+			func += " \\; \\; \\; ";
+			if (p.getFirst() != null) {
+				func += "if \\; \\;" + p.getFirst().generateLatex();
+			}
+			else {
+				func += "otherwise \\; \\;";
+			}
 			func += " \\\\ ";
 		}
 		func += "\\end{cases}";

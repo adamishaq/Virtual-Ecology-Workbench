@@ -20,6 +20,7 @@ public abstract class VariableType implements BuildFromXML, BuildToXML, HasDepen
 	private boolean assignedTo;
 	private boolean readFrom;
 	private boolean editable;
+	private boolean xmlInclude;
 	protected XMLTag tag;
 	
 	public VariableType() {
@@ -45,6 +46,7 @@ public abstract class VariableType implements BuildFromXML, BuildToXML, HasDepen
 		this.editable = editable;
 		this.value = value;
 		this.hist = hist;
+		xmlInclude = true;
 	}
 	
 	
@@ -150,10 +152,10 @@ public abstract class VariableType implements BuildFromXML, BuildToXML, HasDepen
 		if (value != null)
 			newTag.addTag(new XMLTag("value", Float.toString(value)));
 		if (hist != null)
-			tag.addTag(new XMLTag("hist", Integer.toString(hist)));
-		buildUnitXML(tag);
-		tag.setName(this.getVariableClassName());
-		return tag;
+			newTag.addTag(new XMLTag("hist", Integer.toString(hist)));
+		buildUnitXML(newTag);
+		newTag.setName(this.getVariableClassName());
+		return newTag;
 	}
 	
 	/**
@@ -260,6 +262,13 @@ public abstract class VariableType implements BuildFromXML, BuildToXML, HasDepen
 		return units;
 	}
 	
+	public boolean includedInXML() {
+		return xmlInclude;
+	}
+	
+	public void setIncludeInXML(boolean include) {
+		xmlInclude = include;
+	}
 	
 	
 }
