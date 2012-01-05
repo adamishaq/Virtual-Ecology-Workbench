@@ -83,4 +83,16 @@ public class CreateNode extends RuleNode {
 		}
 	}
 
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		super.acceptDependencyCheckVisitor(visitor);
+		
+		
+		expression.acceptDependencyCheckVisitor(visitor);
+		assignList.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
+	}
+
 }

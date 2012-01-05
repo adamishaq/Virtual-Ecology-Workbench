@@ -71,4 +71,14 @@ public class BinaryPrimitiveNode extends ExprNode {
 		return op + "(" + left + "," + right + ")";
 	}
 
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		
+		lExpr.acceptDependencyCheckVisitor(visitor);
+		rExpr.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
+	}
+
 }

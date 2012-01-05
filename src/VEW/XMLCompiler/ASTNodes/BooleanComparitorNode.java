@@ -87,4 +87,14 @@ public class BooleanComparitorNode extends BExprNode {
 		return left + op + right;
 	}
 
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		
+		rExpr.acceptDependencyCheckVisitor(visitor);
+		lExpr.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
+	}
+
 }

@@ -39,4 +39,14 @@ public class VarHistNode extends ExprNode {
 		return "varhist( " + id + " , " + exp + " )";
 	}
 
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		
+		identifier.acceptDependencyCheckVisitor(visitor);
+		expression.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
+	}
+
 }

@@ -54,7 +54,17 @@ public class AssignListNode extends ASTree {
 		genString = genString.substring(0, genString.length() - 1);
 		return genString;
 	}
-	
 
+	/**
+	 * Doesn't check the AssignNodes in the list.
+	 */
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		
+		visitor.visit(this);
+		
+	}
+	
+	
 
 }

@@ -86,5 +86,16 @@ public class BinaryFunctionNode extends RuleNode {
 		}
 		return func + "(" + id + "," + exp + ")";
 	}
+
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		super.acceptDependencyCheckVisitor(visitor);
+		
+		idArg.acceptDependencyCheckVisitor(visitor);
+		expArg.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
+	}
 	
 }

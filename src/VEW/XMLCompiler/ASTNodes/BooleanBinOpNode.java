@@ -64,4 +64,14 @@ public class BooleanBinOpNode extends BExprNode {
 		return  left + "\\;" + op + "\\;" + right;
 	}
 
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		
+		rBExpr.acceptDependencyCheckVisitor(visitor);
+		lBExpr.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
+	}
+
 }

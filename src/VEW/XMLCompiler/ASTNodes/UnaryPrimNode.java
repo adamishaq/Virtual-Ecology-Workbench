@@ -180,5 +180,15 @@ public class UnaryPrimNode extends ExprNode {
 		return func + "(" + arg + ")";
 	}
 
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		
+		argument.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
+	}
 
+
+	
+	
 }

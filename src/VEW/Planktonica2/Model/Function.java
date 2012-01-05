@@ -38,6 +38,7 @@ public class Function implements BuildFromXML, BuildToXML {
 		this.source_file_path = get_path(file_path);
 		this.availableStages = stages;
 		this.parent = parent;
+		this.calledIn = new ArrayList<Stage> (); 
 	}
 
 	public Function(String file_path, Catagory parent) {

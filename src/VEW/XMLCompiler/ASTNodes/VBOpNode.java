@@ -65,4 +65,13 @@ public class VBOpNode extends BExprNode {
 		return func + "(" + exp + ")";
 	}
 
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		
+		expression.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
+	}
+
 }

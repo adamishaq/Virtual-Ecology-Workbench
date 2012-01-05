@@ -27,5 +27,4 @@ public class Dependency<D extends HasDependency> {
 		return this.dependent2;
 	}
 
-	
 }

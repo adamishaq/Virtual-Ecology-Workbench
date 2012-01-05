@@ -55,4 +55,14 @@ public class UnaryFunctionExprNode extends RuleNode {
 		return func + "(???)";
 	}
 
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		super.acceptDependencyCheckVisitor(visitor);		
+		
+		expArg.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
+	}
+
 }

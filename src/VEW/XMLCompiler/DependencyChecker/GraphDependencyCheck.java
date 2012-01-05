@@ -63,44 +63,17 @@ public abstract class GraphDependencyCheck <D extends HasDependency> extends Dep
 	public void setDependencies(Collection<Dependency<D>> dependencies) {
 		super.setDependencies(dependencies);
 
-		ArrayList<D> dependants = fillDependents(dependencies);
+		DependencyGraphGenerator<D> graphGenerator = new DependencyGraphGenerator<D> ();
+		ArrayList<D> dependants = graphGenerator.fillDependents(dependencies);
 		if(dependants.isEmpty()){
 			this.representatives = new ArrayList<Representative<D>> ();
 			return;
 		}
 		
-		Representative<D> root = new Representative<D> (dependants.get(0));
-		this.representatives = root.createRepresentatives(dependants, dependencies);
+		this.representatives = graphGenerator.createRepresentatives(dependants, dependencies);
 	}
 	
-	/**
-	 * Traverses this.dependencies finding all the objects with dependencies associated.
-	 * @param dependencies the list of all dependencies in the system
-	 * 
-	 * @return an arraylist containing all the dependants
-	 */
-	private ArrayList<D> fillDependents(Collection<Dependency<D>> dependencies) {
-		
-		ArrayList<D> dependants = new ArrayList<D> ();
-		
-		for (Dependency<D> dependency : dependencies) {
-			
-			if (!dependants.contains(dependency.getDependent1())) {
-				
-				dependants.add(dependency.getDependent1());
-				
-			}
-			
-			if (!dependants.contains(dependency.getDependent2())) {
-				
-				dependants.add(dependency.getDependent2());
-				
-			}
-			
-		}
-		
-		return dependants;
-	}
+	
 	
 	
 	public void setRepresentatives(Collection<Representative<D>> reps) {

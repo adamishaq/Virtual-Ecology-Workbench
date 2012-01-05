@@ -42,5 +42,17 @@ public class IfRuleNode extends RuleNode {
 			result = rule.generateLatex();
 		return "if\\;(" + condition + ")\\;then\\;(" + result + ")";
 	}
+
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		super.acceptDependencyCheckVisitor(visitor);
+		
+		
+		conditionExpr.acceptDependencyCheckVisitor(visitor);
+		rule.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
+	}
 	
 }

@@ -6,9 +6,10 @@ import java.util.Iterator;
 
 import VEW.Common.XML.XMLTag;
 import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
+import VEW.XMLCompiler.DependencyChecker.HasDependency;
 
 
-public abstract class VariableType implements BuildFromXML, BuildToXML {
+public abstract class VariableType implements BuildFromXML, BuildToXML, HasDependency {
 
 	private String name;
 	private String desc;
@@ -172,6 +173,11 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 		tag.addTag(new XMLTag("unit", unitString));
 	}
 
+	
+
+	/*
+	 * Getters and setters
+	 */
 	public String getName() {
 		return name;
 	}
