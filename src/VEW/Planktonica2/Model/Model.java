@@ -13,19 +13,20 @@ public class Model implements BuildFromXML, BuildToXML {
 	private Collection<Chemical> chemicals;
 	private Collection<FunctionalGroup> functionalGroups;
 	
-	private XMLFile file;
+	private XMLFile oldFile;
+	private XMLFile newFile;
 	private XMLTag[] oldTags;
 
 	public Model (XMLFile f) {
 		AmbientVariableTables.destroyAmbientVariableTable();
 		this.functionalGroups = new ArrayList<FunctionalGroup>();
 		this.chemicals = new ArrayList<Chemical>();
-		
-		file = f;
+		oldFile = f;
+		newFile = (XMLFile) f.clone();
 	}
 	
 	public String getFilePath() {
-		String filepath = file.getFileName();
+		String filepath = oldFile.getFileName();
 		filepath = filepath.substring(0, filepath.lastIndexOf('\\'));
 		filepath += "\\";
 		return filepath;
@@ -35,7 +36,7 @@ public class Model implements BuildFromXML, BuildToXML {
 		BuildFromXML b = null;
 		
 		try {
-			b = build(file);
+			b = build(newFile);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new BackingStoreException (e);
@@ -51,7 +52,7 @@ public class Model implements BuildFromXML, BuildToXML {
 		XMLTag [] tags = tag.getTags(XMLTagEnum.CHEMICAL.xmlTag());
 
 		for(XMLTag t : tags) {
-			Chemical c = new Chemical (file.getFileName());
+			Chemical c = new Chemical (newFile.getFileName());
 			c.build(t);
 			chemicals.add(c);
 			t.removeFromParent();
@@ -60,12 +61,12 @@ public class Model implements BuildFromXML, BuildToXML {
 		tags = tag.getTags(XMLTagEnum.FUNCTIONAL_GROUP.xmlTag());
 
 		for(XMLTag t : tags) {
-			FunctionalGroup f = new FunctionalGroup (file.getFileName());
+			FunctionalGroup f = new FunctionalGroup (newFile.getFileName());
 			f.build(t);
 			functionalGroups.add(f);
 			t.removeFromParent();
 		}
-		oldTags = file.getTags();
+		oldTags = newFile.getTags();
 		return this;
 	}
 
@@ -107,14 +108,17 @@ public class Model implements BuildFromXML, BuildToXML {
 
 	@Override
 	public XMLTag buildToXML() throws XMLWriteBackException {
+		for (XMLTag child :  newFile.getTags()) {
+			child.removeFromParent();
+		}
 		for (XMLTag child : oldTags) {
 			child.removeFromParent();
 		}
-		file.addTags(oldTags);
+		newFile.addTags(oldTags);
 		XMLWriteBackException collectedExceptions = new XMLWriteBackException();
 		for (FunctionalGroup fGroup : functionalGroups) {
 			try {
-				file.addTag(fGroup.buildToXML());
+				newFile.addTag(fGroup.buildToXML());
 			}
 			catch (XMLWriteBackException ex) {
 				collectedExceptions.addCompilerException(ex.getCompilerExceptions());
@@ -122,7 +126,7 @@ public class Model implements BuildFromXML, BuildToXML {
 		}
 		for (Chemical chem : chemicals) {
 			try {
-				file.addTag(chem.buildToXML());
+				newFile.addTag(chem.buildToXML());
 			}
 			catch (XMLWriteBackException ex) {
 				collectedExceptions.addCompilerException(ex.getCompilerExceptions());
@@ -131,7 +135,7 @@ public class Model implements BuildFromXML, BuildToXML {
 		if (collectedExceptions.hasExceptions()) {
 			throw collectedExceptions;
 		}
-		return file;
+		return newFile;
 	}
 
 	

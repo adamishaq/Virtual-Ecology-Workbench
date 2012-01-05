@@ -37,7 +37,7 @@ public class EquationStringParser {
 		}
 		else if (ruleName.equals("\\pchange")) {
 			String[] args = splitArgs(argsString, 2);
-			rule = "pchange(" + parseStageString(args[0]) + "," + parseExpressionString(args[1]) + ")";
+			rule = "change(" + parseStageString(args[0]) + "," + parseExpressionString(args[1]) + ")";
 		}
 		else if (ruleName.equals("\\ingest")) {
 			String[] args = splitArgs(argsString, 3);
