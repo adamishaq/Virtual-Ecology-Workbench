@@ -1,7 +1,9 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.DisplayOptions;
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Type;
+import VEW.Planktonica2.Model.Unit;
 import VEW.Planktonica2.Model.UnitChecker;
 import VEW.Planktonica2.Model.VariableType;
 import VEW.Planktonica2.Model.VarietyType;
@@ -33,10 +35,17 @@ public class AssignNode extends RuleNode {
 		}
 		identifier.set_units(enclosingCategory);
 		expr.check(enclosingCategory, enclosingTree);
-		if (!UnitChecker.getUnitChecker().CheckUnitCompatability(identifier.getUnits(),
-				expr.getUnits())) {
-			enclosingTree.addWarning("Units of " + identifier.getName() + " not compatible with units of " +
-					"the expression on line " + line_number);
+		if (UnitChecker.getUnitChecker().CheckUnitCompatability(identifier.getUnits(),
+				expr.getUnits()) == 0) {
+			String warning = "Units of " + identifier.getName() + " (";
+			for (Unit u : identifier.getUnits())
+				warning += u.format();
+			warning += ") not compatible with units of " +
+			"the expression on line " + line_number + " (";
+			for (Unit u : expr.getUnits())
+				warning += u.format();
+			warning += ")";
+			enclosingTree.addWarning(warning);
 		}
 		checkTypeCompatibility(var.getVarType(), enclosingTree);
 		assignVar = var;
@@ -62,6 +71,13 @@ public class AssignNode extends RuleNode {
 
 	@Override
 	public String generateXML() {
+		if (DisplayOptions.getOptions().ATTEMPT_TYPE_SCALING) {
+			float scale = UnitChecker.getUnitChecker().CheckUnitCompatability(identifier.getUnits(),
+					expr.getUnits());
+			if (scale != 0 && scale != 1)
+				return "\\assign{" + identifier.generateXML() + "," +
+						"\\mul{" + scale + "," + expr.generateXML() + "}}";
+		}
 		return "\\assign{" + identifier.generateXML() + "," + expr.generateXML() + "}";
 	}
 
@@ -73,6 +89,12 @@ public class AssignNode extends RuleNode {
 		String ex = "???";
 		if (expr != null)
 			ex = expr.generateLatex();
+		if (DisplayOptions.getOptions().ATTEMPT_TYPE_SCALING) {
+			float scale = UnitChecker.getUnitChecker().CheckUnitCompatability(identifier.getUnits(),
+					expr.getUnits());
+			if (scale != 0 && scale != 1)
+				return id + " = " + scale + " * (" + ex + ")";
+		}
 		return id + " = " + ex;
 	}
 	

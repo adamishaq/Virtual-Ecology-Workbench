@@ -455,6 +455,7 @@ public class SyntaxHighlighter {
 	 */
 	private String getPreText(String text) {
 		boolean in_pre = false;
+		//text = text.replaceAll("</pre>\n   <pre>", "AAA");
 		char[] chars = text.toCharArray();
 		String plain_text = "";
 		for (int i = 0; i < chars.length; i++) {

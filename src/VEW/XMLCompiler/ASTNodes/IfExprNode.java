@@ -1,10 +1,8 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import java.util.ArrayList;
-
+import VEW.Planktonica2.DisplayOptions;
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Type;
-import VEW.Planktonica2.Model.Unit;
 import VEW.Planktonica2.Model.UnitChecker;
 import VEW.Planktonica2.Model.VarietyType;
 
@@ -33,11 +31,15 @@ public class IfExprNode extends ExprNode {
 		} catch (BACONCompilerException e) {
 			enclosingTree.addSemanticException(e);
 		} finally {
-			if (!UnitChecker.getUnitChecker().CheckUnitCompatability(thenExpr.getUnits(),
-					elseExpr.getUnits())) {
+			if (UnitChecker.getUnitChecker().CheckUnitCompatability(thenExpr.getUnits(),
+					elseExpr.getUnits()) == 0) {
 				enclosingTree.addWarning("Conditional returning two different unit types on line "
 					+ line_number);
 				this.units = UnitChecker.null_collection;
+			} else if (UnitChecker.getUnitChecker().CheckUnitCompatability(thenExpr.getUnits(),
+					elseExpr.getUnits()) != 0) { 
+				// Use units of then expr
+				this.units = thenExpr.getUnits();
 			} else {
 				this.units = UnitChecker.getUnitChecker().add_units(thenExpr.getUnits(), elseExpr.getUnits());
 			}
@@ -89,6 +91,14 @@ public class IfExprNode extends ExprNode {
 
 	@Override
 	public String generateXML() {
+		if (DisplayOptions.getOptions().ATTEMPT_TYPE_SCALING) {
+			float scale = UnitChecker.getUnitChecker().CheckUnitCompatability(thenExpr.getUnits(),
+					elseExpr.getUnits());
+			if (scale != 0 && scale != 1) {
+				return "\\conditional{" + conditionExpr.generateXML() + "," + thenExpr.generateXML()
+				 + ",\\mul{" + scale + "," + elseExpr.generateXML() + "}}";
+			}
+		}
 		return "\\conditional{" + conditionExpr.generateXML() + "," + thenExpr.generateXML()
 		 + "," + elseExpr.generateXML() + "}";
 	}
@@ -104,6 +114,14 @@ public class IfExprNode extends ExprNode {
 		String elseexp = "???";
 		if (elseExpr != null)
 			elseexp = elseExpr.generateLatex();
+		if (DisplayOptions.getOptions().ATTEMPT_TYPE_SCALING) {
+			float scale = UnitChecker.getUnitChecker().CheckUnitCompatability(thenExpr.getUnits(),
+					elseExpr.getUnits());
+			if (scale != 0 && scale != 1) {
+				return "if\\;(" + cond + ")\\;then\\;(" + then
+				 + ")\\;else\\;(" + scale + "*" + elseexp + ")";
+			}
+		}
 		return "if\\;(" + cond + ")\\;then\\;(" + then
 		 + ")\\;else\\;(" + elseexp + ")";
 	}

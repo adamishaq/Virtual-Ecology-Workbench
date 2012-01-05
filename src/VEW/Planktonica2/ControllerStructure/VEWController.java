@@ -26,6 +26,8 @@ import VEW.Planktonica2.Model.Chemical;
 import VEW.Planktonica2.Model.Function;
 import VEW.Planktonica2.Model.FunctionalGroup;
 import VEW.Planktonica2.Model.Model;
+import VEW.Planktonica2.Model.Unit;
+import VEW.Planktonica2.Model.UnitChecker;
 import VEW.Planktonica2.Model.VariableType;
 import VEW.Planktonica2.Model.XMLWriteBackException;
 import VEW.XMLCompiler.ANTLR.ANTLRParser;
@@ -622,7 +624,72 @@ public abstract class VEWController extends Observable {
 					// File has been altered...
 					return;
 				}
+			} else if (line.startsWith("Side Pane - ")) {
+				try {
+					line = line.substring("Side Pane - ".length(),line.length());
+					DisplayOptions.getOptions().SIDE_PANEL_SIZE = Integer.parseInt(line);
+				} catch (Exception e) {
+					// File has been altered...
+					return;
+				}
+			}  else if (line.startsWith("Convert Types - ")) {
+				if (line.endsWith("1")) {
+					// Attempt type conversions based on equivalence rules
+					DisplayOptions.getOptions().ATTEMPT_TYPE_CONVERSION = true;
+				} else {
+					DisplayOptions.getOptions().ATTEMPT_TYPE_CONVERSION = false;
+				}
+			} else if (line.startsWith("Scale Types - ")) {
+				if (line.endsWith("1")) {
+					// Attempt type conversions based on equivalence rules
+					DisplayOptions.getOptions().ATTEMPT_TYPE_SCALING = true;
+				} else {
+					DisplayOptions.getOptions().ATTEMPT_TYPE_SCALING = false;
+				}
+			} else if (line.startsWith("<unit>")) {
+				addUnitEquivalence(line);
 			}
+		}
+
+		private void addUnitEquivalence(String line) {
+			String units1 = line.substring("<unit>".length(), line.indexOf("</unit>"));
+			String units2 = line.substring(line.lastIndexOf("<unit>") + "<unit>".length(),
+					line.lastIndexOf("</unit>"));
+			String scale = line.substring(line.lastIndexOf("<scale>") + "<scale>".length(),
+					line.lastIndexOf("</scale>"));
+			//System.out.println(units1 + " ---" + scale + "--> " + units2);
+			if (units1 != null && units2 != null) {
+				ArrayList<Unit> first = parse_units(units1);
+				ArrayList<Unit> second = parse_units(units2);
+				float sf = Float.parseFloat(scale);
+				UnitChecker.getUnitChecker().add_equivalence(first, sf, second);
+			}
+		}
+
+		private ArrayList<Unit> parse_units(String units1) {
+			ArrayList<Unit> units = new ArrayList<Unit>();
+			String [] individualUnits = units1.split("(,)");
+			if (individualUnits.length % 3 == 0) {
+				String [] unit = new String [3];
+				int offset = 0;
+				for (int i = 0; i < individualUnits.length ; i++) {
+					unit[offset] = individualUnits[i];
+					if (offset >= 2) {
+						if (unit[0].equals("null")) {
+							unit[0] = "0";
+						} else if (unit[2].equals("null")) {
+							unit[2] = "0";
+						}
+						Unit u = new Unit (Integer.valueOf(unit[0]), unit[1], Integer.valueOf(unit[2]));
+						units.add(u);
+						offset = 0;
+						unit = new String [3];
+					} else {
+						offset++;
+					}
+				}				
+			}
+			return units;
 		}
 
 }

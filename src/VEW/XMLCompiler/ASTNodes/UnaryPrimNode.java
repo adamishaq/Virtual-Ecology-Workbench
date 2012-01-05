@@ -6,7 +6,6 @@ import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Type;
 import VEW.Planktonica2.Model.Unit;
 import VEW.Planktonica2.Model.UnitChecker;
-import VEW.Planktonica2.Model.VarietyType;
 
 public class UnaryPrimNode extends ExprNode {
 
@@ -93,7 +92,7 @@ public class UnaryPrimNode extends ExprNode {
 	private void check_depth_function(String name,ArrayList<Unit> units,ConstructedASTree enclosingTree) {
 		ArrayList<Unit> meters = new ArrayList<Unit>();
 		meters.add(new Unit(0,"m",1));
-		if(!UnitChecker.getUnitChecker().CheckUnitCompatability(this.argument.getUnits(),meters)) {
+		if(UnitChecker.getUnitChecker().CheckUnitCompatability(this.argument.getUnits(),meters) == 0) {
 			enclosingTree.addWarning("Argument of function " + name + " should be of type meters.");
 			this.units = UnitChecker.null_collection;
 		} else {
@@ -105,7 +104,7 @@ public class UnaryPrimNode extends ExprNode {
 		ArrayList<Unit> irrad = new ArrayList<Unit>();
 		irrad.add(new Unit(0,"W",1));
 		irrad.add(new Unit(0,"m",-2));
-		if(!UnitChecker.getUnitChecker().CheckUnitCompatability(this.argument.getUnits(),irrad)) {
+		if(UnitChecker.getUnitChecker().CheckUnitCompatability(this.argument.getUnits(),irrad) == 0) {
 			enclosingTree.addWarning("Argument of function " + name + " should be of type Wm^-2.");
 			this.units = UnitChecker.null_collection;
 		} else {

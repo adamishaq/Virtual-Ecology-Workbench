@@ -4,6 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -164,7 +168,9 @@ public class EditorPanel extends JPanel implements Observer {
 	
 	private void highlight_syntax() {
 		int pos = syntax.getCaret().getDot();
+		//System.out.println((syntax.getText()).replaceAll("\n", "\\\\\n"));
 		syntax.setText(syntax_highlighter.highlight(syntax.getText()));
+		//System.out.println((syntax.getText()).replaceAll("\n", "\\\\\n"));
 		syntax.getCaret().setDot(pos);
 	}
 	
@@ -263,6 +269,9 @@ public class EditorPanel extends JPanel implements Observer {
 		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
 		try {
 			ConstructedASTree ct = p.getAST();
+			if (ct == null || ct.getTree() == null)
+				return;
+			ct.getTree().check(controller.getCurrentlySelectedFunction().getParent(), ct);
 			if (ct.getTree() != null) {
 				String latex = "\\begin{array}{lr}";
 				latex += ct.getTree().generateLatex();
@@ -481,6 +490,11 @@ public class EditorPanel extends JPanel implements Observer {
 		return syntax.getSelectedText();
 	}
 	
+	public void paste(String s) {
+		syntax.replaceSelection(s);
+		highlight_syntax();
+	}
+	
 	public void switchEditorPanel() {
 		int currLocation = editorSplitPane.getDividerLocation();
 		if (editorSplitPane.getOrientation() == JSplitPane.HORIZONTAL_SPLIT) {
@@ -533,26 +547,35 @@ class PreviewListener implements ActionListener {
 class TypingListener implements KeyListener {
 
 	private EditorPanel parent;
-	private boolean ignore;
 	
 	public TypingListener(EditorPanel edit) {
 		parent = edit;
 	}
 	
 	@Override
-	public void keyPressed(KeyEvent e) {}
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_V && e.isControlDown()) {
+			e.consume();
+			Clipboard clipboard = 
+		        Toolkit.getDefaultToolkit().getSystemClipboard();
+			Transferable data = clipboard.getContents(clipboard);
+			if (data != null) {
+				try {
+					if (data.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+						String s = (String)(data.getTransferData(
+								DataFlavor.stringFlavor));
+						parent.paste(s);//.replaceSelection(s);
+					}
+				} catch (Exception ex) {}
+			}
+		}
+	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_SHIFT || e.isControlDown())
 			// Ignore them
 			return;
-		if (e.getKeyCode() == KeyEvent.VK_CONTROL)
-			ignore = true;
-		if (ignore) {
-			ignore = false;
-			return;
-		}
 		if (e.getKeyCode() == KeyEvent.VK_F1 && !parent.caret_in_comment()) {
 			String new_word = new StringBuffer(parent.word_before_caret()).reverse().toString();
 			parent.show_box(new_word);
