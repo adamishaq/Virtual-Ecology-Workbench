@@ -28,7 +28,7 @@ import VEW.XMLCompiler.DependencyChecker.OrderingAgent;
 public class FullModelTest {
 
 	private static final String SEPARATOR = File.separator;
-	private static final String MODELRESOURCE = "ModelTree"+SEPARATOR+"LERM-ES"+SEPARATOR+"4"+SEPARATOR;
+	private static final String MODELRESOURCE = "test"+ SEPARATOR + "resources" + SEPARATOR +"ModelTree"+SEPARATOR+"Test"+SEPARATOR+"5"+SEPARATOR;
 	private OrderingAgent o;
 	
 	@Before
