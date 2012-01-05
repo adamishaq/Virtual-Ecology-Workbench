@@ -24,7 +24,6 @@ import VEW.XMLCompiler.ASTNodes.NumNode;
 import VEW.XMLCompiler.ASTNodes.RuleNode;
 import VEW.XMLCompiler.ASTNodes.RuleSequenceNode;
 import VEW.XMLCompiler.ASTNodes.UnaryFunctionExprNode;
-import VEW.XMLCompiler.ASTNodes.UnaryFunctionRuleNode;
 import VEW.XMLCompiler.ASTNodes.UnaryPrimNode;
 import VEW.XMLCompiler.ASTNodes.VBOpNode;
 import VEW.XMLCompiler.ASTNodes.VOpNode;
@@ -217,14 +216,6 @@ public class ASTreeDependencyVisitor implements ASTreeVisitor {
 	 */
 	@Override
 	public void visit(UnaryFunctionExprNode unaryFunctionExprNode) {
-		return;
-	}
-
-	/* (non-Javadoc)
-	 * @see VEW.XMLCompiler.DependencyChecker.ASTreeVisitor#visit(VEW.XMLCompiler.ASTNodes.UnaryFunctionRuleNode)
-	 */
-	@Override
-	public void visit(UnaryFunctionRuleNode unaryFunctionRuleNode) {
 		return;
 	}
 

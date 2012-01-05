@@ -1,3 +1,0 @@
-"Vertical migration velocity":
-  V_m = (k_v * V_max * W_z * TimeStep)
-

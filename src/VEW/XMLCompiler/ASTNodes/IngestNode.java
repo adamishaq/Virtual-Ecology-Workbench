@@ -2,7 +2,9 @@ package VEW.XMLCompiler.ASTNodes;
 
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Chemical;
+import VEW.Planktonica2.Model.Type;
 import VEW.Planktonica2.Model.VarietyConcentration;
+import VEW.Planktonica2.Model.VarietyType;
 
 
 public class IngestNode extends RuleNode {
@@ -32,7 +34,29 @@ public class IngestNode extends RuleNode {
 		}
 		threshold.check(enclosingCategory, enclosingTree);
 		rate.check(enclosingCategory, enclosingTree);
-		//TODO: Check that if things are varieties that they link back to appropriate food set
+		Type threshType = threshold.getExprType();
+		Type rateType = rate.getExprType();
+		if (threshType instanceof VarietyType) {
+			VarietyType vThreshType = (VarietyType) threshType;
+			if (rateType instanceof VarietyType) {
+				VarietyType vRateType = (VarietyType) rateType;
+				if (!vRateType.checkLinkCompatible(vThreshType)) {
+					enclosingTree.addSemanticException(new SemanticCheckException("Threshold and rate arguments for ingest do" +
+							" not evaluate to the same variety link", line_number));
+				}
+			}
+			if (!vThreshType.checkLinkCompatible((VarietyType) foodSet.getVarType())) {
+				enclosingTree.addSemanticException(new SemanticCheckException("Threshold argument" +
+						" incompatible with given food set", line_number));
+			}
+		}
+		if (rateType instanceof VarietyType) {
+			VarietyType vRateType = (VarietyType) rateType;
+			if (!vRateType.checkLinkCompatible((VarietyType) foodSet.getVarType())) {
+				enclosingTree.addSemanticException(new SemanticCheckException("Rate argument" +
+						" incompatible with given food set", line_number));
+			}
+		}
 
 	}
 

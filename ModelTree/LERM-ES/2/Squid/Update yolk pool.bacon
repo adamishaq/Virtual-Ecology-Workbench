@@ -1,6 +1,0 @@
-"Yolk content":
-  Yolk_lipids = (if ((Yolk_lipids > 0.0)) then (if (((Yolk_lipids - (respiration * TimeStep)) >= 0.0)) then (Yolk_lipids - (respiration * TimeStep)) else 0.0) else 0.0)
-
-"Surplus cost":
-  R_surplus = (if ((Yolk_lipids > 0.0)) then (if (((Yolk_lipids - (respiration * TimeStep)) < 0.0)) then ((respiration * TimeStep) - Yolk_lipids) else 0.0) else 0.0)
-

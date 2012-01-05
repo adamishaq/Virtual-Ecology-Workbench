@@ -1,4 +1,0 @@
-"Convert to Kelvin": T_K = (Temp + 273)
-
-"Temperature function": T_function = exp((A_E * ((1 / T_K) - (1 / T_ref))))
-

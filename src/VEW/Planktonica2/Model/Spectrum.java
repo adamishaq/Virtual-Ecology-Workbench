@@ -123,6 +123,4 @@ public class Spectrum implements BuildFromXML, BuildToXML, Iterable<WaveLengthIn
 		return values.iterator();
 	}
 	
-	
-	
 }

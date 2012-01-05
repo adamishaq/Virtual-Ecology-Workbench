@@ -1,4 +1,0 @@
-"Update Silicon Pool": Silicate_Pool = 0.0
-
-"Silicate": release(Silicate_Conc,Silicate_Ingested)
-

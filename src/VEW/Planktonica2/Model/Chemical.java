@@ -112,15 +112,15 @@ public class Chemical extends Catagory {
 	
 	@Override
 	public XMLTag buildToXML() throws XMLWriteBackException {
-		super.buildToXML();
-		baseTag.setName("chemical");
-		baseTag.addTag("pigment", pigment);
+		XMLTag newTag = super.buildToXML();
+		newTag.setName("chemical");
+		newTag.addTag("pigment", pigment);
 		Iterator<Spectrum> spectrumIter = spectrum.iterator();
 		while (spectrumIter.hasNext()) {
 			Spectrum spectrum = spectrumIter.next();
-			baseTag.addTag(spectrum.buildToXML());
+			newTag.addTag(spectrum.buildToXML());
 		}
-		return baseTag;
+		return newTag;
 	}
 	
 	

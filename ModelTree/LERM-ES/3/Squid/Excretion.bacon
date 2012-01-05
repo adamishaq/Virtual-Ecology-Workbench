@@ -1,6 +1,0 @@
-"Excrete":
-  release(Ammonium_Conc,((C * TimeStep) + NProt_excess))
-
-"Silicate":
-  release(Silicate_Conc,Silicate_Ingested)
-

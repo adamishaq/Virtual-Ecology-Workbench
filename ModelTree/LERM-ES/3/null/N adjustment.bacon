@@ -1,8 +1,0 @@
-"N adjustment": if ((Excess_N > 0.0)) then uptake(Ammonium_Conc,Excess_N)
-
-"update Excess N": Excess_N = (Excess_N - Ammonium_Ingested)
-
-"Update depth": z = (z + 1)
-
-"Log Budget": NtoC_Pool = (NtoC_Pool + Ammonium_Ingested)
-

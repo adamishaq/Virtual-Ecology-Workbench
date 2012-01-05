@@ -1,9 +1,0 @@
-"Update non-nitrogenous C pool":
-  C_NN_Pool = (if ((Reproduce = 1)) then (C_NN_Pool - min((C_N_Pool - G_max),C_NN_Pool)) else C_NN_Pool)
-
-"Update proteins":
-  C_N_Pool = (if ((Reproduce = 1)) then (C_N_Pool - min((C_N_Pool - G_max),C_NN_Pool)) else C_N_Pool)
-
-"Update Ammonium":
-  Ammonium_Pool = (if ((Reproduce = 1)) then ((Ammonium_Pool - ((Q_N * G_min * min(Nauplii,800)) + NProt_excess + Cprot + A_PelletLoss)) + Ammonium_Ingested + A_Nitrate) else Ammonium_Pool)
-

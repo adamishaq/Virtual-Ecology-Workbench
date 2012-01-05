@@ -31,8 +31,9 @@ public class BinOpNode extends ExprNode {
 		Type rType = rExpr.getExprType();
 		try {
 			setExprType(checkCompatibility(lType, rType));
-		} catch (SemanticCheckException e) {
+		} catch (BACONCompilerException e) {
 			enclosingTree.addSemanticException(e);
+			setExprType(lType);
 		}
 		switch (operator) {
 		case PLUS     : 
@@ -57,12 +58,10 @@ public class BinOpNode extends ExprNode {
 			this.units = UnitChecker.getUnitChecker().multiply_units(rExpr.getUnits(), lExpr.getUnits());
 			break; 
 		case DIVIDE   :
-			this.units = UnitChecker.getUnitChecker().divide_units(rExpr.getUnits(), lExpr.getUnits());
+			this.units = UnitChecker.getUnitChecker().divide_units(lExpr.getUnits(), rExpr.getUnits());
 			break; 
 		case POWER    :
-			ArrayList<Unit> pow = new ArrayList<Unit>();
-			pow.add(new Unit(0,"dimensionless",1));
-			if (!UnitChecker.getUnitChecker().CheckUnitCompatability(rExpr.getUnits(),pow))
+			if (!UnitChecker.getUnitChecker().isDimensionless(rExpr.getUnits()))
 				enclosingTree.addWarning("Expression raised to power of expression with units on line " +
 						line_number);
 			if (rExpr instanceof NumNode) {
@@ -75,7 +74,7 @@ public class BinOpNode extends ExprNode {
 		}
 	}
 
-	private Type checkCompatibility(Type lType, Type rType) throws SemanticCheckException {
+	private Type checkCompatibility(Type lType, Type rType) throws BACONCompilerException {
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
 		if (lType instanceof VarietyType) {

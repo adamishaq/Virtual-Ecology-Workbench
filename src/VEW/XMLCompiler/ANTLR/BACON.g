@@ -13,6 +13,7 @@ tokens {
 	EXPR;
 	BEXPR;
 	NEG;
+	CHANGEASSIGN;
 }
 
 @header {
@@ -70,7 +71,7 @@ package VEW.XMLCompiler.ANTLR;
 
 // Rules
 RULENAME : ('"')(~'"')*('"');	
-COLON    : (':')(IGNORE)*(NEWLINE)?;
+COLON    : (':')(IGNORE)*;
 
 // Keywords
 // If statement:
@@ -86,6 +87,12 @@ CHANGE     : 'change';
 PCHANGE    : 'pchange';
 DIVIDE	   : 'divide';
 INTEGRATE  : 'integrate';
+
+//Change syntax
+BAR 	: '|';
+OTHERWISE 
+	: 'otherwise';
+TO	: 'to';
 
 // Creates Syntax
 CREATE	: 'create';
@@ -166,11 +173,13 @@ fragment LETTER : ('a'..'z'|'A'..'Z');
 VAR : (LETTER)(LETTER|DIGIT|'_')*;
 
 // Line Comments
-fragment COMMENT : ('//')(~'\n')*;  
+//fragment COMMENT : ('//')(~'\n')*;
+COMMENT : ('//')(~'\n')* {$channel=HIDDEN;};
 
 // Whitespace
-NEWLINE : (COMMENT|(('\n')(IGNORE)*))+;
-IGNORE 	: (' '| '\t'|'\r') {$channel=HIDDEN;};
+	
+//NEWLINE : (COMMENT|(('\n')(IGNORE)*))+;
+IGNORE 	: (' '| '\t'|'\r' | '\n') {$channel=HIDDEN;};
 
 // Unrecognised Symbol
 UNKNOWN	: (.);
@@ -179,7 +188,7 @@ UNKNOWN	: (.);
 
 
 rules
-	: (NEWLINE)? pair (NEWLINE pair)* (NEWLINE)? EOF -> ^(RULES pair pair*)
+	: pair (pair)* EOF -> ^(RULES pair pair*)
 	; 
 	
 pair
@@ -188,8 +197,8 @@ pair
 	;
 	
 ruleName
-	: RULENAME COLON (NEWLINE)? -> RULENAME
-	| VAR COLON (NEWLINE)? -> VAR
+	: RULENAME COLON -> RULENAME
+	| VAR COLON -> VAR
 	;
 
 rule
@@ -198,16 +207,26 @@ rule
 
 rule2
 	: assign
-	| IF bExpr (NEWLINE)? THEN (NEWLINE)? rule -> ^(IF bExpr rule)
+	| IF bExpr THEN rule -> ^(IF bExpr rule)
 	| UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^(UPTAKE VAR expr)
 	| RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^(RELEASE VAR expr)
 	| INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^(INGEST VAR expr expr)
-	| CHANGE LBRACKET VAR RBRACKET -> ^(CHANGE VAR)
-	| PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^(PCHANGE VAR expr)
+	//| CHANGE LBRACKET VAR RBRACKET -> ^(CHANGE VAR)
+	//| PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^(PCHANGE VAR expr)
+	| CHANGE LBRACKET expr RBRACKET changeExpr+ -> ^(CHANGE expr changeExpr+)
 	| DIVIDE LBRACKET expr RBRACKET -> ^(DIVIDE expr)
 	| CREATE LBRACKET VAR COMMA expr RBRACKET
-		((NEWLINE)? WITH LSQUARE assignList RSQUARE)? -> ^(CREATE VAR expr (assignList)?)
+		(WITH LSQUARE assignList RSQUARE)? -> ^(CREATE VAR expr (assignList)?)
 	| LBRACKET rule2 RBRACKET -> rule2
+	;
+
+changeExpr 
+	: BAR changeCond TO VAR -> ^(CHANGEASSIGN changeCond VAR)
+	;
+
+changeCond 
+	: OTHERWISE
+	| bExpr
 	;
 
 assign
@@ -215,7 +234,7 @@ assign
 	;
 
 assignList
-	: assign (NEWLINE)? (COMMA assign (NEWLINE)?)* -> ^(ASSIGNLIST assign (assign)*)
+	: assign (COMMA assign)* -> ^(ASSIGNLIST assign (assign)*)
 	;
 		
 expr

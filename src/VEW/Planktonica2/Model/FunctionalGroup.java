@@ -8,13 +8,10 @@ import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 import VEW.XMLCompiler.ASTNodes.SymbolTable;
 
 public class FunctionalGroup extends Catagory {
-	
 
-	public static final String predVarName = "S_t";
-	
 	private boolean invisible;
+	public static final String predVarName = "S_t";
 	private boolean predator;
-	
 	
 	private SymbolTable<Stage> stageTable;
 
@@ -194,9 +191,6 @@ public class FunctionalGroup extends Catagory {
 		return this;
 	}
 	
-	
-	
-
 	@Override
 	public XMLTag buildToXML() throws XMLWriteBackException {
 		super.buildToXML();
@@ -252,6 +246,19 @@ public class FunctionalGroup extends Catagory {
 		
 		return stageTable.keySet();
 	}
+
+	public void removeStage(String select) {
+		stageTable.remove(select);
+	}
+
+	public void renameStage(String name,String new_name) {
+		Stage s = stageTable.get(name);
+		if (s != null) {
+			stageTable.remove(name);
+			s.setName(new_name);
+			stageTable.put(new_name, s);
+		}
+	}
 	
 	public boolean isTopPredator() {
 		return this.predator;
@@ -297,8 +304,5 @@ public class FunctionalGroup extends Catagory {
 		
 	}
 	
-	
-
-
-	
 }
+

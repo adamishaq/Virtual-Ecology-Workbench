@@ -1,6 +1,0 @@
-"Direction of night-time swimming":
-  k_v_night = (if ((z > MLDepth)) then -(0.6) else 0.0)
-
-"Record direction":
-  Direction = (if ((visIrradAt(0.0) < 100)) then (if ((k_v_night > 0.0)) then 1 else -1) else -1)
-

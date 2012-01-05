@@ -1,3 +1,0 @@
-"Spawning date":
-  if ((d_year >= d_0)) then change(Egg)
-

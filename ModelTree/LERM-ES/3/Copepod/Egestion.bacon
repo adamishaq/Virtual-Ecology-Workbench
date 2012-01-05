@@ -1,6 +1,0 @@
-"N egestion":
-  E_N = ((1 - k_N) * (Ammonium_Ingested + Nitrate_Ingested))
-
-"Si egestion":
-  E_Si = Silicate_Ingested
-

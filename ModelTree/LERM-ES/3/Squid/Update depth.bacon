@@ -1,6 +1,0 @@
-"Update depth":
-  z_temp = max((if ((z <= MLDepth)) then (if ((visIrradAt(0.0) >= 100)) then min((rnd(MLDepth) + V_m),Depth_It) else (rnd(MLDepth) + V_m)) else (z + V_m)),0.0)
-
-"Z at current timestep":
-  z = (if ((ML < ML_max)) then z_temp else 450)
-

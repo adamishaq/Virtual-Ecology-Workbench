@@ -20,26 +20,27 @@ public class AssignNode extends RuleNode {
 	
 	@Override
 	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
+		if (isWithinConditional()) {
+			enclosingTree.addSemanticException(
+					new SemanticCheckException("Cannot assign to a variable within a conditional",line_number));
+		}
 		String idName = identifier.getName();
 		VariableType var = enclosingCategory.checkAssignableVariableTables(identifier.getName());
 		if (var == null) {
 			enclosingTree.addSemanticException(
 				new SemanticCheckException(idName + " is not an assignable variable",line_number));
-		} /*else if ((var instanceof VarietyLocal || var instanceof Local) && var.isAssignedTo()) {
-			enclosingTree.addSemanticException(
-				new SemanticCheckException(idName + " has already been assigned to in a previous rule",line_number));
-		}*/ else {
-			expr.check(enclosingCategory, enclosingTree);
-			checkTypeCompatibility(var.getVarType(), enclosingTree);
-			assignVar = var;
-			assignVar.setAssigned(true);
+			return;
 		}
 		identifier.set_units(enclosingCategory);
+		expr.check(enclosingCategory, enclosingTree);
 		if (!UnitChecker.getUnitChecker().CheckUnitCompatability(identifier.getUnits(),
 				expr.getUnits())) {
 			enclosingTree.addWarning("Units of " + identifier.getName() + " not compatible with units of " +
 					"the expression on line " + line_number);
 		}
+		checkTypeCompatibility(var.getVarType(), enclosingTree);
+		assignVar = var;
+		assignVar.setAssigned(true);
 	}
 	
 	private void checkTypeCompatibility(Type varType, ConstructedASTree enclosingTree) {

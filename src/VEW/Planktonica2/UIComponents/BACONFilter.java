@@ -3,6 +3,9 @@ package VEW.Planktonica2.UIComponents;
 import java.io.File;
 import javax.swing.filechooser.FileFilter;
 
+/**
+ * Filter for ".bacon" files, used with the standard <code>Java JFileChooser</code>
+ */
 public class BACONFilter extends FileFilter {
 
 	public BACONFilter() {

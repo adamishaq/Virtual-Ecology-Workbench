@@ -1,4 +1,0 @@
-"Update DW": DW = (Carbon_Pool * 12)
-
-"Update WW": WW = ((DW - 0.064) / 0.21)
-

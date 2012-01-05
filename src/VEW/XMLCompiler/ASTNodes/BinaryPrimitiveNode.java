@@ -3,6 +3,7 @@ package VEW.XMLCompiler.ASTNodes;
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Type;
 import VEW.Planktonica2.Model.UnitChecker;
+import VEW.Planktonica2.Model.VarietyType;
 
 
 public class BinaryPrimitiveNode extends ExprNode {
@@ -23,25 +24,16 @@ public class BinaryPrimitiveNode extends ExprNode {
 		//TODO this might be able to take variety arguments, :/
 		lExpr.check(enclosingCategory, enclosingTree);
 		rExpr.check(enclosingCategory, enclosingTree);
-		AmbientVariableTables varTables = AmbientVariableTables.getTables();
-		Type floatType = (Type) varTables.checkTypeTable("$float");
-		if (lExpr.getExprType() != floatType) {
-			enclosingTree.addSemanticException(
-					new SemanticCheckException("First argument does not evaluate to a float",line_number));
-			return;
+		if (rExpr.getExprType() instanceof VarietyType) {
+			setExprType(rExpr.getExprType());
 		}
-		if (rExpr.getExprType() != floatType) {
-			enclosingTree.addSemanticException(
-					new SemanticCheckException("Second argument does not evalute to a float",line_number));
-			return;
-		}
-		setExprType(floatType);
 		if (!UnitChecker.getUnitChecker().CheckUnitCompatability(rExpr.getUnits(), lExpr.getUnits())) {
 			enclosingTree.addWarning("Comparison of two different unit types on line " + line_number);
 			this.units = UnitChecker.null_collection;
 		} else {
 			this.units = UnitChecker.getUnitChecker().add_units(rExpr.getUnits(), lExpr.getUnits());
 		}
+		setExprType(lExpr.getExprType());
 	}
 
 	@Override

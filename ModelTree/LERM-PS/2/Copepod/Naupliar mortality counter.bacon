@@ -1,2 +1,0 @@
-"Count down to Naupliar mortality": Nauplius_counter = (Nauplius_counter + TimeStep)
-

@@ -141,13 +141,14 @@ public abstract class VariableType implements BuildFromXML, BuildToXML, HasDepen
 	}
 
 	public XMLTag buildToXML() throws XMLWriteBackException {
-		if (tag == null)
-			tag = new XMLTag("placeholder");
-		tag.addTag(new XMLTag("name", name));
+		XMLTag newTag = new XMLTag("placeholder");
+		if (tag != null)
+			newTag.addTags(newTag.getTags());
+		newTag.addTag(new XMLTag("name", name));
 		if (desc != null)
-			tag.addTag(new XMLTag("desc", desc));
+			newTag.addTag(new XMLTag("desc", desc));
 		if (value != null)
-			tag.addTag(new XMLTag("value", Float.toString(value)));
+			newTag.addTag(new XMLTag("value", Float.toString(value)));
 		if (hist != null)
 			tag.addTag(new XMLTag("hist", Integer.toString(hist)));
 		buildUnitXML(tag);
@@ -244,6 +245,19 @@ public abstract class VariableType implements BuildFromXML, BuildToXML, HasDepen
 	
 	public boolean isEditable() {
 		return editable;
+	}
+
+	public String get_formatted_units() {
+		String units = "";
+		for (Unit u : this.getUnits()) {
+			if (u.getName().equals("dimensionless") || u.getName().equals("null") || u.getExponent() == 0)
+				return "dimensionless";
+			String exp = "";
+			if (u.getExponent() != 1)
+				exp = "^{" + u.getExponent() + "}";
+			units += u.getName() + exp;
+		}
+		return units;
 	}
 	
 	

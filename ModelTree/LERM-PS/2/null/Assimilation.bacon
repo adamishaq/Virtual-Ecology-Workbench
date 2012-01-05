@@ -1,4 +1,0 @@
-"Potential rate of Ammonium assimilation": A_Ammonium = (k_N * Ammonium_Ingested)
-
-"Potential rate of Nitrate assimilation": A_Nitrate = (k_N * Nitrate_Ingested)
-

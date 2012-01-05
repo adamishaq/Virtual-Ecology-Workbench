@@ -1,6 +1,0 @@
-"Ingestion for each variety":
-  I_gv = min(((0.3 + (0.7 * (Temp / T_ref))) * (if ((P > P_minv)) then ((P - P_minv) * ((P - P_minv) / ((P - P_minv) + k_Iv)) * K_p) else 0.0)),(I_max40 / P_size))
-
-"Ingest":
-  ingest(P,P_minv,I_gv)
-

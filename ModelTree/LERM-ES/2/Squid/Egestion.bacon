@@ -1,3 +1,0 @@
-"Carapace removal":
-  create(Pellet,1) with [Carbon_Pool = ((Carbon_Ingested - (C_N_Ingested + C_NN_Ingested)) + (E_lipid + E_protein + Lip_excess)),Ammonium_Pool = (E_protein * Q_Nprot * TimeStep)]
-

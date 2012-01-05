@@ -10,26 +10,26 @@ import VEW.XMLCompiler.DependencyChecker.HasDependency;
 public class ConstructedASTree implements HasDependency {
 	
 	private ASTree tree;
-	private ArrayList<Exception> exceptions;
 	private ArrayList<String> warnings;
+	private ArrayList<BACONCompilerException> exceptions;
 	private List<XMLTag> tagList;
-	public ConstructedASTree(ASTree _tree, ArrayList<Exception> _excep) {
+	public ConstructedASTree(ASTree _tree, ArrayList<BACONCompilerException> _excep) {
 		tree = _tree;
-		exceptions = new ArrayList<Exception>(_excep);
 		warnings = new ArrayList<String>();
+		exceptions = new ArrayList<BACONCompilerException>(_excep);
 	}
 	
 	public ConstructedASTree(ASTree _tree) {
 		tree = _tree;
-		exceptions = new ArrayList<Exception>();
 		warnings = new ArrayList<String>();
+		exceptions = new ArrayList<BACONCompilerException>();
 	}
 	
 	public ASTree getTree() {
 		return tree;
 	}
 	
-	public ArrayList<Exception> getExceptions() {
+	public List<BACONCompilerException> getExceptions() {
 		return exceptions;
 	}
 	
@@ -37,7 +37,7 @@ public class ConstructedASTree implements HasDependency {
 		return warnings;
 	}
 	
-	public void addSemanticException(SemanticCheckException ex) {
+	public void addSemanticException(BACONCompilerException ex) {
 		exceptions.add(ex);
 	}
 	

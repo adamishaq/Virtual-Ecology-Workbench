@@ -53,7 +53,7 @@ public class FoodLinks {
 		foodSet1.setVarType(new VarietyType("float", floatType));
 		group.addToVarietyConcTable(foodSet1);
 		VarietyConcentration foodSet2 = new VarietyConcentration();
-		foodSet2.setName("foodset1");
+		foodSet2.setName("foodset2");
 		foodSet2.setVarType(new VarietyType("float", floatType));
 		group.addToVarietyConcTable(foodSet2);
 		VarietyVariable state1 = new VarietyVariable(group);

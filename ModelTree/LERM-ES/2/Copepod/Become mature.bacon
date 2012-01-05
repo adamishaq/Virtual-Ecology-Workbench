@@ -1,6 +1,0 @@
-"Reaching maturity":
-  A_r = (A_r + TimeStep)
-
-"Become mature":
-  if (((A_r = A_rep) and (C_N_Pool >= G_max))) then change(Mature)
-

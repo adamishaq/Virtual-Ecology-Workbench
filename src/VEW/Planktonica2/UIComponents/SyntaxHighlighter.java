@@ -2,19 +2,24 @@ package VEW.Planktonica2.UIComponents;
 
 import java.util.ArrayList;
 import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
+import VEW.XMLCompiler.ASTNodes.BACONCompilerException;
 import VEW.XMLCompiler.ASTNodes.TreeWalkerException;
 import VEW.XMLCompiler.ASTNodes.SemanticCheckException;
 
-
+/**
+ * This class takes text (as html) and adds tags to highlight the text
+ * appropriately.
+ *
+ */
 public class SyntaxHighlighter {
 
 	/* Colours used by default:
-	 * Comments ("green") = 33CC00
-	 * Keywords ("blue") = 3333FF
-	 * Incorrect Syntax ("red") = FF0000
-	 * Functions ("light purple") = 660066
-	 * Rule Names ("light blue") = 3399CC
-	 * Variables ("purple") = 660099
+	 * Comments (green) = 3F7F5F
+	 * Keywords (purple) = 8B1C62
+	 * Incorrect Syntax (red) = FF0000
+	 * Functions (purple) = 8B1C62
+	 * Rule Names (blue) = 0000C0
+	 * Variables (blue) = 0000C0
 	 * */
 	
 	// An array of all keywords to be recognised
@@ -23,21 +28,31 @@ public class SyntaxHighlighter {
 	private String[] variables;
 	private ArrayList<Exception> exceptions;
 	
-	// The colours to be used for syntax highlighting is hex form
-	private String keyword_colour = "8B1C62";//"3333FF";
-	private String comment_colour = "3F7F5F";//"33CC00";
+	// The colours to be used for syntax highlighting in hex form
+	private String keyword_colour = "8B1C62";
+	private String comment_colour = "3F7F5F";
 	private String incorrect_colour = "FF0000";
-	private String function_colour = "8B1C62";//"660066";
-	private String rule_colour = "0000C0";//"3399CC";
-	private String variable_colour = "0000C0";//"660099";
+	private String function_colour = "8B1C62";
+	private String rule_colour = "0000C0";
+	private String variable_colour = "0000C0";
 	
-	public SyntaxHighlighter(String [] _keywords,String[] _functions) {
+	/**
+	 * Create a new <code>SyntaxHighlighter</code> that does not use <code>BACON</code> as its base language.
+	 * @param keys - an array of Strings containing all the keywords of the language
+	 * @param funcs - an array of Strings containing all the function names
+	 * @param vars - an array of Strings containing all global variable names
+	 */
+	public SyntaxHighlighter(String [] keys,String[] funcs,String[] vars) {
 		// Set up a new SyntaxPane given a list of keywords and functions
-		this.keywords = _keywords;
-		this.functions = _functions;
+		this.keywords = keys;
+		this.functions = funcs;
+		this.variables = vars;
 		this.exceptions = new ArrayList<Exception>();
 	}
 	
+	/**
+	 * Creates a <code>SyntaxHighlighter</code> that uses standard <code>BACON</code> syntax
+	 */
 	public SyntaxHighlighter() {
 		// Set up a new SyntaxPane which uses default BACON keywords and functions
 		String[] keys = {"if","then","else","with"};
@@ -100,27 +115,59 @@ public class SyntaxHighlighter {
 		this.rule_colour = col;
 	}
 	
-	// Do all the syntax highlighting
-	public String highlight(String _text) {
-		_text = getPreText(_text);
-		String text = remove_highlight_tags(_text);
+	/**
+	 * Mark up an input text with <code>&lt;font&gt;</code> tags to mark syntax
+	 * @param text - The text to be highlighted (must be html)
+	 * @return - The input text with additional tags to highlight syntax
+	 */
+	public String highlight(String text) {
+		// Clear all <html>/<PRE> tags
+		text = getPreText(text);
+		// Remove any tags from previous highlightings
+		text = remove_highlight_tags(text);
 		// Highlight all keywords
-		for (int i = 0; i < keywords.length; i++) {
-			text = text.replaceAll(keywords[i], 
-					"<font color=#" + keyword_colour + ">" + keywords[i] + "</font>");
-		}
+		text = highlight_words(text,keywords,keyword_colour);
 		// Highlight all function names
-		for (int i = 0; i < functions.length; i++) {
-			text = text.replaceAll(functions[i], 
-					"<font color=#" + function_colour + ">" + functions[i] + "</font>");
-		}
+		text = highlight_words(text,functions,function_colour);
 		// Highlight all variable names
-		for (int i = 0; i < variables.length; i++) {
-			text = text.replaceAll(variables[i], 
-					"<font color=#" + variable_colour + ">" + variables[i] + "</font>");
-		}
+		text = highlight_words(text,variables,variable_colour);
 		// Highlight all rule names
+		text = highlight_rule_names(text);
+		// Remove all tags which are not full words
+		text = remove_non_word_tags(text);
+		// Highlight all comments
+		text = highlight_comments(text);
+		// Flag all error lines
+		text = highlight_errors(text);
+		return("<html><head></head><PRE>\n" + text + "</PRE></html>");
+	}
+
+	/**
+	 * Surrounds all instances of a word in a given text with <code>&lt;font&gt;</code> tags to
+	 * change the word colour
+	 * @param text - Text containing words to be highlighter
+	 * @param words - Array of Strings containing all words to highlight
+	 * @param colour - The colour (in String form) to highlight
+	 * @return - Text with all words marked up
+	 */
+	private String highlight_words(String text,String[] words,String colour) {
+		for (int i = 0; i < words.length; i++) {
+			text = text.replaceAll(words[i], 
+					"<font color=#" + colour + ">" + words[i] + "</font>");
+		}
+		return text;
+	}
+	
+	/**
+	 * Highlights all <code>BACON</code> rule names
+	 * @param text - Text to highlight
+	 * @return - Text with all rule names (ie. everything on a line before a colon) highlighted
+	 */
+	private String highlight_rule_names(String text) {
 		if (text.contains(":")) {
+			// This works by inserting a </font> tag just before the colon and then working
+			// backwards through the text until it finds a newline (or the start of the text)
+			// and adding in a token which will be replaced at the end by a <font> tag.
 			text = text.replaceAll(":", "</font>:");
 			char[] chars = text.toCharArray();
 			text = "";
@@ -130,22 +177,33 @@ public class SyntaxHighlighter {
 					colon_found = true;
 				} else if (colon_found && chars[i] == '\n') {
 					colon_found = false;
-					text += "%";
+					// This will be reversed into <%>
+					text += ">%<";
 				}
 				text += chars[i];
 			}
 			if (colon_found) {
-				text += "%";
+				text += ">%<";
 			}
+			// As the text was parsed backwards, it needs to be reversed
 			text = new StringBuffer(text).reverse().toString();
-			text = text.replaceAll("%","<font color=#" + rule_colour + ">");
+			text = text.replaceAll("<%>","<font color=#" + rule_colour + ">");
 		}
-		text = remove_non_word_tags(text);
-		// Highlight all comments
+		return text;
+	}
+	
+	/**
+	 * Highlights <code>BACON</code> line comments from the // to the next newline
+	 * @param text - Text containing comments
+	 * @return - Text with all comments highlighted
+	 */
+	private String highlight_comments(String text) {
 		if (text.contains("//")) {
 			char[] chars = text.toCharArray();
 			text = "";
 			boolean in_comment = false;
+			// Upon finding "//", search the text until the next '\n' is found and add
+			// a </font> tag
 			for (int i = 0; i < chars.length; i++) {
 				if (i < (chars.length - 1) && chars[i] == '/' && chars[i+1] == '/') {
 					in_comment = true;
@@ -158,24 +216,39 @@ public class SyntaxHighlighter {
 				}
 			}
 		}
-		// Flag all error lines
+		return text;
+	}
+	
+	/**
+	 * Highlights all error tokens in a given text
+	 * @param text - Text containing lines with errors
+	 * @return - Text with error tokens highlighted
+	 */
+	private String highlight_errors(String text) {
 		for(Exception e : exceptions) {
 			if (e instanceof TreeWalkerException) {
 				TreeWalkerException twe = (TreeWalkerException) e;
 				text = highlight_error(twe.getLine(),twe.getChar_pos(),text);
 			} else if (e instanceof SemanticCheckException) {
-				SemanticCheckException sce = (SemanticCheckException) e;
+				BACONCompilerException sce = (BACONCompilerException) e;
 				text = highlight_error(sce.getLine(),0,text);
 			}
 		}
+		// Remove highlighting within error tags
 		text = remove_inner_tags(text);
-		// Incorrect keywords should be highlighted
+		// Replace the tokens with actual font tags
 		text = text.replaceAll("<%>", "<font color=#" + incorrect_colour + ">");
 		text = text.replaceAll("</%>", "</font>");
-		return("<html><head></head><PRE>\n" + text + "</PRE></html>");
+		return text;
 	}
 	
-	// Flags a line of text containing an error
+	/**
+	 * Highlights a single error, given a line and a position in that line
+	 * @param line - Line with an error
+	 * @param char_pos - Actual position in the line of the error
+	 * @param text - Text containing the error
+	 * @return - Text with error highlighted
+	 */
 	private String highlight_error(int line, int char_pos, String text) {
 		String flagged_text = getPreText(text);
 		boolean ignore = false;
@@ -212,18 +285,28 @@ public class SyntaxHighlighter {
 		return flagged_text;
 	}
 	
-	// Add a flag to the list of error lines
+	/**
+	 * Adds a compiler exception to the list of stored errors to highlight
+	 * @param t - Exception to add
+	 */
 	public void flag_line(Exception t) {
 		this.exceptions.add(t);
 	}
 	
-	// Clear the flag list
+	/**
+	 * Removes all stored exceptions from the highlight list
+	 */
 	public void clear_flags() {
 		this.exceptions.clear();
 	}
 	
-	// Remove all highlighted words which are part of other words (must be called
-	// before comments are highlighted)
+	/**
+	 * Remove all highlighted words which are part of other words <br>
+	 * eg. <br>
+	 *   <code>cl&lt;font&gt;if&lt;/font&gt;f -> cliff</code>
+	 * @param tag_text - Text containing tags
+	 * @return - Text with incorrect highlighting removed
+	 */
 	private String remove_non_word_tags(String tag_text) {
 		tag_text = remove_nwt_forward(tag_text);
 		tag_text = remove_nwt_backward(tag_text);
@@ -283,7 +366,11 @@ public class SyntaxHighlighter {
 		return new StringBuffer(final_text).reverse().toString();
 	}
 	
-	// Remove all <font> tags inside other <font> tags
+	/**
+	 * Remove all <code>&lt;font&gt;</code> tags inside other <code>&lt;font&gt;</code> tags
+	 * @param tag_text
+	 * @return
+	 */
 	private String remove_inner_tags(String tag_text) {
 		String final_text = "";
 		char[] chars = tag_text.toCharArray();
@@ -320,7 +407,11 @@ public class SyntaxHighlighter {
 		return final_text;
 	}
 	
-	// Remove all syntax highlighting tags from the text
+	/**
+	 * Remove all syntax highlighting tags from the text
+	 * @param tag_text
+	 * @return
+	 */
 	private String remove_highlight_tags(String tag_text) {
 		String text = "";
 		char[] chars = tag_text.toCharArray();
@@ -341,38 +432,27 @@ public class SyntaxHighlighter {
 		return text;
 	}
 	
-	/*
-	private String remove_all_tags(String tag_text) {
-		String text = "";
-		char[] chars = tag_text.toCharArray();
-		boolean in_tag = false;
-		for (int i = 0; i < chars.length; i++) {
-			if (chars[i] == '<') {
-				// This is the start of a tag, so remove it
-				in_tag = true;
-			} else if (!in_tag) {
-				// Add the char to the text string
-				text += chars[i];
-			} else if (chars[i] == '>') {
-				// The tag has ended
-				in_tag = false;
-			}
-		}	
-		return text;
-	}
-	*/
-	
-	// Return the text without any HTML tags (for parsing, etc.)
+	/**
+	 * Return the text without any <code>HTML</code> tags (for parsing, etc.)
+	 * @param text - Text containing <code>HTML</code> tags
+	 * @return - Plaintext version of input text
+	 */
 	public String getPlainText(String text) {
-		//String plain_text = remove_all_tags(text);
 		String plain_text = getPreText(text);
 		plain_text = remove_highlight_tags(plain_text);
+		// Replace HTML escape sequences with actual characters
 		plain_text = plain_text.replaceAll("&quot;", "\"");
 		plain_text = plain_text.replaceAll("&lt;", "<");
 		plain_text = plain_text.replaceAll("&gt;", ">");
+		plain_text = plain_text.replaceAll("&percnt;", "%");
 		return plain_text;
 	}
 
+	/**
+	 * Get the text within the <code>&lt;html&gt;&lt;PRE&gt;&lt;/PRE&gt;&lt;/html&gt;</code> tags
+	 * @param text
+	 * @return - The text between the <code>&lt;PRE&gt;&lt;/PRE&gt;</code> tags
+	 */
 	private String getPreText(String text) {
 		boolean in_pre = false;
 		char[] chars = text.toCharArray();

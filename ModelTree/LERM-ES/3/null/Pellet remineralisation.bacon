@@ -1,8 +1,0 @@
-"N remin as T function": R_NTpellet = (4.2 * (2.95 ^ (((Temp + 273) - 283) / 10)))
-
-"Ammonium from pellet": release(Ammonium_Conc,(Ammonium_Pool * R_NTpellet * TimeStep))
-
-"Ammonium pool remin update": Ammonium_Pool = max((Ammonium_Pool - (Ammonium_Pool * R_NTpellet * TimeStep)),0.0)
-
-"Carbon pool remin update": Carbon_Pool = 0.0
-

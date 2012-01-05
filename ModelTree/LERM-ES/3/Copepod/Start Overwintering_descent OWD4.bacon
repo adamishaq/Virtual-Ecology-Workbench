@@ -1,6 +1,0 @@
-"Descent OWD4":
-  V_m = (1 * TimeStep)
-
-"Start overwintering OWD4 to OW4":
-  if ((z >= z_startOW)) then change(OW4)
-

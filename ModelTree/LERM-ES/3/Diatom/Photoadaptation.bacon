@@ -1,6 +1,0 @@
-"Chl to C ratio":
-  ChltoC_Pool = (if ((Carbon_Pool > 0.0)) then (Chlorophyll_Pool / Carbon_Pool) else 0.0)
-
-"N to C ratio":
-  NtoC_Pool = (if ((Carbon_Pool > 0.0)) then ((Ammonium_Pool + Nitrate_Pool) / Carbon_Pool) else 0.0)
-

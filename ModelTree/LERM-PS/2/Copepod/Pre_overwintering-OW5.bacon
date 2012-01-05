@@ -1,4 +1,0 @@
-"Pre-overwinter C4 into POW5": if ((C_N_Pool >= PreOW5)) then pchange(POW5,(if ((d_year <= 210)) then 0.3 else 0.5))
-
-"Do not pre-overwinter C4 - C5": if ((C_N_Pool >= C5_min)) then change(C5)
-

@@ -1,3 +1,0 @@
-"Update z of pellet":
-  z = (if ((z < MLDepth)) then (MLDepth + (10 * TimeStep)) else (z + (10 * TimeStep)))
-

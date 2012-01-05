@@ -1,4 +1,0 @@
-"N:C internal ratio": Q_N = ((Ammonium_Pool + (A_Ammonium * TimeStep)) / (Carbon_Pool + (Growth_net * TimeStep)))
-
-"Excess N for proteins": NProt_excess = (if (((C_NN_Pool >= (abs(Growth_net) * TimeStep)) and (Q_N > Q_Nmax))) then ((Carbon_Pool + (Growth_net * TimeStep)) * (Q_N - Q_Nmax)) else 0.0)
-

@@ -1,6 +1,0 @@
-"Direction of swimming":
-  k_v = (if ((visIrradAt(0.0) = VIRR_prev)) then (if ((visIrradAt(0.0) = 0.0)) then k_v_night else k_v_day) else (if ((visIrradAt(0.0) > VIRR_prev)) then (if ((visIrradAt(0.0) < 100)) then k_v_night else k_v_day) else (if ((visIrradAt(0.0) < 100)) then k_v_night else k_v_day)))
-
-"Irradiance previuos timestep":
-  VIRR_prev = Vis_Irrad
-

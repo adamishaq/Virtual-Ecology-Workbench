@@ -1,3 +1,0 @@
-"Basal metabolic cost":
-  R_bas = (r_bas * (C_N_Pool ^ 0.8) * (QR_10 ^ ((Temp - T_ref) / 10.0)))
-

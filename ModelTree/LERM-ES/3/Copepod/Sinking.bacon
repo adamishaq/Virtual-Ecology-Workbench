@@ -1,3 +1,0 @@
-"Sinking":
-  V_m = (100 * (S / S_max) * TimeStep)
-

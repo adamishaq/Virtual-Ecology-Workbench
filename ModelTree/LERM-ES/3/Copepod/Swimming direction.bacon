@@ -1,9 +1,0 @@
-"Daytime Kcalc":
-  kd_calc = (0.4 * (Vis_Irrad - I_t))
-
-"Swimming direction":
-  k_v_day = (if ((kd_calc < -1)) then -1 else (if ((kd_calc >= 1)) then 1 else kd_calc))
-
-"Swimming direction":
-  k_v = (if ((visIrradAt(0.0) > 0)) then k_v_day else k_v_night)
-

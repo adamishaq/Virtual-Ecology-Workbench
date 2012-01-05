@@ -1,6 +1,0 @@
-"Total excretion rate":
-  C = (NProt_excess + Cprot)
-
-"Excretion in the mesocosm":
-  release(Ammonium_Conc,C)
-

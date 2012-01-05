@@ -1,3 +1,0 @@
-"N5 to N6":
-  if ((C_N_Pool >= N6_min)) then change(N6)
-

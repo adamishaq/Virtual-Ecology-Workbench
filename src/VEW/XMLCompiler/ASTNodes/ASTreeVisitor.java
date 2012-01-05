@@ -37,8 +37,6 @@ public interface ASTreeVisitor {
 
 	public abstract void visit(UnaryFunctionExprNode unaryFunctionExprNode);
 
-	public abstract void visit(UnaryFunctionRuleNode unaryFunctionRuleNode);
-
 	public abstract void visit(UnaryPrimNode unaryPrimNode);
 
 	public abstract void visit(VarHistNode varHistNode);

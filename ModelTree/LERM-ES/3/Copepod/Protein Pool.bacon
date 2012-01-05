@@ -1,3 +1,0 @@
-"Excretion due to protein catabolism":
-  Cprot = (if (((Growth_net < 0.0) and (C_NN_Pool < (abs(Growth_net) * TimeStep)))) then (QnProt * abs(Growth_net) * TimeStep) else 0.0)
-

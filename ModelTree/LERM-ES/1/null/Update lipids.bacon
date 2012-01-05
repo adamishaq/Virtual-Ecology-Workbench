@@ -1,8 +1,0 @@
-"Temp budget of lipids": BudgCNNTemp = (0.0 + (A_lipid - ((((respiration * TimeStep) + R_surplus) / (En_lip * C_conv2)) * (1 - Q_PLused))))
-
-"Lipids in excess": Lip_excess = (if (((((C_NN_Pool + BudgCNNTemp) * 12) / DW) > Q_lipMax)) then (((((C_NN_Pool + BudgCNNTemp) * 12) / DW) - Q_lipMax) * DW) else 0.0)
-
-"Lipids budget": BudgCNN = (if ((Lip_excess > 0.0)) then (BudgCNNTemp - Lip_excess) else BudgCNNTemp)
-
-"Lipids": C_NN_Pool = max((C_NN_Pool + (if (((abs(BudgCNN) < C_NN_Pool) or (BudgCNN > 0.0))) then BudgCNN else 0.0)),0.0)
-

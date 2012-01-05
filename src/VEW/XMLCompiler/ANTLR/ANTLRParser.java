@@ -11,6 +11,7 @@ import org.antlr.runtime.tree.CommonTree;
 
 import VEW.XMLCompiler.ANTLR.BACONLexer;
 import VEW.XMLCompiler.ANTLR.BACONParser;
+import VEW.XMLCompiler.ANTLR.BACONParser.pair_return;
 import VEW.XMLCompiler.ANTLR.BACONParser.rules_return;
 import VEW.XMLCompiler.ASTNodes.*;
 
@@ -55,7 +56,6 @@ public class ANTLRParser {
         g = new BACONParser(tokens);
 	}
 	
-	
 	/**
 	 * Parses and semantically checks the given input and then generates the XML.
 	 * 
@@ -65,7 +65,7 @@ public class ANTLRParser {
 	 * @throws SemanticCheckException 
 	 */
 
-	public String generateXML () throws RecognitionException, SemanticCheckException {
+	public String generateXML () throws RecognitionException, BACONCompilerException {
 		ConstructedASTree ct = getAST();
 		ASTree t = ct.getTree();
 		if (ct.getExceptions().isEmpty()) {
@@ -87,6 +87,11 @@ public class ANTLRParser {
 		return new CommonTreeWalker(getAntlrAST()).constructASTree();
 	}
 	
+	public ConstructedASTree getPartialAST () throws RecognitionException {
+		CommonTree c = (CommonTree) runParserFromRule ().getTree();
+		return new CommonTreeWalker(c).constructASTree();
+	}
+	
 	/**
 	 * Parses the given file and returns the Object Tree that the tree returns.
 	 * 
@@ -106,6 +111,10 @@ public class ANTLRParser {
 	 */
 	private rules_return runParserFromEntryPoint () throws RecognitionException {
 		return g.rules();
+	}
+	
+	private pair_return runParserFromRule () throws RecognitionException {
+		return g.pair();
 	}
 	
 }

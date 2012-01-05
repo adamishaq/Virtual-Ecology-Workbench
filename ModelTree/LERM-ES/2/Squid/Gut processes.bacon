@@ -1,3 +1,0 @@
-"Gut volume":
-  V_gut = max((v_gut * ML),V_gut)
-

@@ -1,4 +1,0 @@
-"Nauplii dead": if ((Nauplius_counter >= 1)) then pchange(Dead,N_mp)
-
-"Become N3": if ((Nauplius_counter >= 1)) then change(N3)
-

@@ -1,2 +1,0 @@
-"Protein update": C_N_Pool = (if ((Growth_net >= 0.0)) then (C_N_Pool + ((1 - gamma) * (1 - alpha) * Growth_net * TimeStep)) else (if ((C_NN_Pool >= (abs(Growth_net) * TimeStep))) then C_N_Pool else (C_N_Pool + (Growth_net * TimeStep))))
-
