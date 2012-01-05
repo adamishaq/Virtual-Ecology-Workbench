@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g 2011-12-06 20:15:07
+// $ANTLR 3.4 C:\\Users\\David\\workspace\\Virtual-Ecology-Workbench\\src\\VEW\\XMLCompiler\\ANTLR\\BACON.g 2012-01-02 16:42:24
 
 package VEW.XMLCompiler.ANTLR;
 

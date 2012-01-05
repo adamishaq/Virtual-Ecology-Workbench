@@ -211,8 +211,8 @@ rule2
 	| UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^(UPTAKE VAR expr)
 	| RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^(RELEASE VAR expr)
 	| INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^(INGEST VAR expr expr)
-	//| CHANGE LBRACKET VAR RBRACKET -> ^(CHANGE VAR)
-	//| PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^(PCHANGE VAR expr)
+	| CHANGE LBRACKET VAR RBRACKET -> ^(CHANGE VAR)
+	| CHANGE LBRACKET VAR COMMA expr RBRACKET -> ^(CHANGE VAR expr)
 	| CHANGE LBRACKET expr RBRACKET changeExpr+ -> ^(CHANGE expr changeExpr+)
 	| DIVIDE LBRACKET expr RBRACKET -> ^(DIVIDE expr)
 	| CREATE LBRACKET VAR COMMA expr RBRACKET
@@ -246,7 +246,7 @@ expr2
 	;
 	
 expr3
-	: expr4 (options {greedy = true;} : highPrecMathOp^ expr4)*
+	: expr4 (options {greedy = true;} : highPrecMathOp^ expr3)?
 	;
 	
 

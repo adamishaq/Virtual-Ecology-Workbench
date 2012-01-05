@@ -1,7 +1,6 @@
 package VEW.XMLCompiler.ASTNodes;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.antlr.runtime.tree.CommonErrorNode;
@@ -111,14 +110,34 @@ public class CommonTreeWalker {
 					break;
 				}
 				case(BACONParser.CHANGE) : {
-					ExprNode propExpr = constructExprNode((CommonTree)tree.getChild(0));
-					Pair<BExprNode, IdNode> changeStat;
-					Collection<Pair<BExprNode, IdNode>> changeStatements = new ArrayList<Pair<BExprNode, IdNode>>();
-					for (int n = 1; n < tree.getChildCount(); n++) {
-						changeStat = constructChangeStatement((CommonTree)tree.getChild(n));
+					CommonTree firstChild = (CommonTree)tree.getChild(0);
+					if (firstChild.getToken().getType() == BACONParser.VAR) {
+						ExprNode propExpr;
+						IdNode stage;
+						if (tree.getChildCount() == 2) {
+							CommonTree secondChild = (CommonTree)tree.getChild(1);
+							propExpr = constructExprNode(secondChild);
+							stage = constructIdNode(firstChild);
+						}
+						else {
+							propExpr = new NumNode(1, token.getLine());
+							stage = constructIdNode(firstChild);
+						}
+						Pair<BExprNode, IdNode> changeStat = new Pair<BExprNode, IdNode>(null, stage);
+						ArrayList<Pair<BExprNode, IdNode>> changeStatements = new ArrayList<Pair<BExprNode, IdNode>>();
 						changeStatements.add(changeStat);
+						rule = new ChangeNode(propExpr, changeStatements);
 					}
-					rule = new ChangeNode(propExpr, changeStatements);
+					else {
+						ExprNode propExpr = constructExprNode(firstChild);
+						Pair<BExprNode, IdNode> changeStat;
+						ArrayList<Pair<BExprNode, IdNode>> changeStatements = new ArrayList<Pair<BExprNode, IdNode>>();
+						for (int n = 1; n < tree.getChildCount(); n++) {
+							changeStat = constructChangeStatement((CommonTree)tree.getChild(n));
+							changeStatements.add(changeStat);
+						}
+						rule = new ChangeNode(propExpr, changeStatements);
+					}
 					break;
 				}
 				case(BACONParser.UPTAKE) : {
