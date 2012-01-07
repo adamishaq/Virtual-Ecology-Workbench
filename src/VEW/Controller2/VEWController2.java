@@ -5,9 +5,12 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -19,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import VEW.Common.XML.XMLFile;
+import VEW.Planktonica2.DisplayOptions;
 import VEW.Planktonica2.Planktonica;
 import VEW.Planktonica2.SyntaxChecker;
 import VEW.Scenario2.ChemicalConservationDialog;
@@ -26,16 +30,20 @@ import VEW.Scenario2.ClosureEditor;
 import VEW.Scenario2.InitialConditionsPanel;
 import VEW.Scenario2.ScenarioPanel2;
 import VEW.Scenario2.VerticalDiffusionDialog;
-import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
 public class VEWController2 extends JFrame {
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
   JButton saveChanges = new JButton("Save Changes");
   JButton exitButton = new JButton("Exit");
   EventHandler eh = new EventHandler();
-  private ImageIcon greyLight = new ImageIcon("Data/Graphics/icons/vc_grey.gif");
-  private ImageIcon redLight = new ImageIcon("Data/Graphics/icons/vc_red.gif");  
-  private ImageIcon yellowLight = new ImageIcon("Data/Graphics/icons/vc_yellow.gif");  
-  private ImageIcon greenLight = new ImageIcon("Data/Graphics/icons/vc_green.gif");
+  private ImageIcon greyLight = new ImageIcon("Data/Graphics/icons/vc_grey.png");
+  private ImageIcon redLight = new ImageIcon("Data/Graphics/icons/vc_red_flat.png");  
+  private ImageIcon yellowLight = new ImageIcon("Data/Graphics/icons/vc_yellow_flat.png");  
+  private ImageIcon greenLight = new ImageIcon("Data/Graphics/icons/vc_green_flat.png");
   private JLabel modelLight, speciesLight, foodLight, initLight, pmLight, trackLight;
   private JLabel colInitLight, closureLight, chemRecycleLight, eventsLight, vddLight;
   private JLabel outputLight, runLight;
@@ -181,7 +189,6 @@ public class VEWController2 extends JFrame {
 	  saveChanges.setEnabled(false);
 	  updateLights();
 
-
 	  pack();
   }
   
@@ -253,12 +260,22 @@ public class VEWController2 extends JFrame {
     runLight.addMouseListener(eh);
     saveChanges.setEnabled(false);
     updateLights();
-    
-
+    this.addComponentListener(new FrameSizeChangeListener(this));
+    this.setPreferredSize(new Dimension(DisplayOptions.getOptions().FRAME_WIDTH,
+    		DisplayOptions.getOptions().FRAME_HEIGHT));
+    this.setLocation(DisplayOptions.getOptions().FRAME_X,
+    		DisplayOptions.getOptions().FRAME_Y);
+    this.setMinimumSize(new Dimension(590,440));
     pack();
+    if (DisplayOptions.getOptions().MAXIMISED) {
+		// The form should be maximised
+		this.setExtendedState(Frame.MAXIMIZED_BOTH);
+    }
   }   
   
-  public boolean isClickable(JLabel j) {
+  
+
+public boolean isClickable(JLabel j) {
     return ((j.getIcon()==greenLight) || (j.getIcon()==redLight)) ;
   }
   
@@ -323,6 +340,40 @@ public class VEWController2 extends JFrame {
     setVisible(false);
   }
     
+  public void update_location() {
+	  DisplayOptions.getOptions().FRAME_HEIGHT = this.getHeight();
+	  DisplayOptions.getOptions().FRAME_WIDTH = this.getWidth();
+	  DisplayOptions.getOptions().MAXIMISED = (this.getExtendedState() == JFrame.MAXIMIZED_BOTH);
+	  DisplayOptions.getOptions().FRAME_X = this.getX();
+	  DisplayOptions.getOptions().FRAME_Y = this.getY();
+	  DisplayOptions.getOptions().write_config();
+  }
+  
+  class FrameSizeChangeListener implements ComponentListener {
+		
+		VEWController2 parent;
+		
+		public FrameSizeChangeListener(VEWController2 parent) {
+			this.parent = parent;
+		}
+
+		@Override
+		public void componentHidden(ComponentEvent arg0) {}
+
+		@Override
+		public void componentMoved(ComponentEvent arg0) {
+			parent.update_location();
+		}
+
+		@Override
+		public void componentResized(ComponentEvent arg0) {
+			parent.update_location();
+		}
+
+		@Override
+		public void componentShown(ComponentEvent arg0) {}
+		
+	}
   
   class EventHandler implements ActionListener, MouseListener {
     public EventHandler() {}

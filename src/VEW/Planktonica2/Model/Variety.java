@@ -3,7 +3,7 @@ package VEW.Planktonica2.Model;
 import VEW.Common.XML.XMLTag;
 import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
-public class Variety extends VariableType {
+public abstract class Variety extends VariableType {
 	protected Catagory parentCatagory;
 	private VarietyConcentration linkConcentration;
 	
@@ -18,11 +18,15 @@ public class Variety extends VariableType {
 	
 	@Override
 	public BuildFromXML build (XMLTag tag) {
-		varBuild(tag);
+		super.build(tag);
 		String link = tag.getAttribute(XMLTagEnum.VARIETY_LINK.xmlTag());
-		linkConcentration = parentCatagory.checkVarietyConcTable(link);		
+		linkConcentration = parentCatagory.checkVarietyConcTable(link);
+		AmbientVariableTables tables = AmbientVariableTables.getTables();
+		Type floatType = (Type) tables.checkTypeTable("$float");
+		VarietyType varType = new VarietyType("float", floatType);
+		varType.setLink(linkConcentration);
+		setVarType(varType);
 		return this;
-		
 	}
 	
 	@Override
@@ -38,6 +42,8 @@ public class Variety extends VariableType {
 	}
 	
 	public void setLinkConcentration(VarietyConcentration linkConcentration) {
+		VarietyType varType = (VarietyType) getVarType();
+		varType.setLink(linkConcentration);
 		this.linkConcentration = linkConcentration;
 	}
 }

@@ -1,11 +1,7 @@
 package VEW.XMLCompiler.ASTNodes;
 
-public class SemanticCheckException extends Exception {
+public class SemanticCheckException extends BACONCompilerException {
 
-	private int line;
-	//private int char_pos;
-	private String message;
-	
 	/**
 	 * 
 	 */
@@ -22,14 +18,6 @@ public class SemanticCheckException extends Exception {
 	public SemanticCheckException(String msg, int _line) {
 		line = _line;
 		message = msg;
-	}
-
-	public int getLine() {
-		return line;
-	} 
-
-	public String getError() {
-		return message;
 	}
 	
 }

@@ -23,13 +23,17 @@ public class XMLWriteBackException extends Exception {
 	}
 	
 	public XMLWriteBackException() {
+		compilerExceptions = new ArrayList<CompilerException>();
 	}
 
 	public void addCompilerException(CompilerException ex) {
 		compilerExceptions.add(ex);
 	}
 	
-	public void addCompilerException(List<CompilerException> compilerExceptions) {
+	public void addCompilerException(List<CompilerException> compilerExceptions, String categoryName) {
+		for (CompilerException c : compilerExceptions) {
+			c.setErrorCategoryName(categoryName);
+		}
 		this.compilerExceptions.addAll(compilerExceptions);
 	}
 	

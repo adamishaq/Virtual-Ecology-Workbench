@@ -3,16 +3,15 @@ package VEW.Planktonica2.Model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-
 import VEW.Common.XML.XMLTag;
 import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 import VEW.XMLCompiler.ASTNodes.SymbolTable;
 
 public class FunctionalGroup extends Catagory {
-	
 
 	private boolean invisible;
-	
+	public static final String predVarName = "S_t";
+	private boolean predator;
 	
 	private SymbolTable<Stage> stageTable;
 
@@ -131,7 +130,7 @@ public class FunctionalGroup extends Catagory {
 		}
 		
 		// variables
-		tags = xmlTag.getTags(XMLTagEnum.VARIABLE.xmlTag());
+		tags = xmlTag.getTags(XMLTagEnum.STATE_VARIABLE.xmlTag());
 		
 		for (XMLTag t : tags) {
 			StateVariable v = new StateVariable();
@@ -180,6 +179,14 @@ public class FunctionalGroup extends Catagory {
 			t.removeFromParent();
 		}
 		
+		// predator
+		tags = xmlTag.getTags(XMLTagEnum.PREDATOR.xmlTag());
+		this.predator = tags != null && tags.length > 0 && tags[0].getValue().equals("true");
+		
+		if (predator) {
+			addPredatorSizeVariable();
+		}
+		
 		
 		return this;
 	}
@@ -194,6 +201,11 @@ public class FunctionalGroup extends Catagory {
 			Stage st = iter.next();
 			baseTag.addTag(st.buildToXML());
 		}
+		
+		if (predator) {
+			baseTag.addTag("predator", "true");
+		}
+		
 		return baseTag;
 	}
 
@@ -235,6 +247,62 @@ public class FunctionalGroup extends Catagory {
 		return stageTable.keySet();
 	}
 
+	public void removeStage(String select) {
+		stageTable.remove(select);
+	}
 
+	public void renameStage(String name,String new_name) {
+		Stage s = stageTable.get(name);
+		if (s != null) {
+			stageTable.remove(name);
+			s.setName(new_name);
+			stageTable.put(new_name, s);
+		}
+	}
+	
+	public boolean isTopPredator() {
+		return this.predator;
+	}
+	
+	public void setTopPredator(boolean b) {
+		this.predator = b;
+	
+		if (b) {
+			this.addPredatorSizeVariable();
+		} else {
+			this.removePredatorSizeVariable();
+		}
+		
+	}
+	
+	private void removePredatorSizeVariable() {
+		
+		this.removeFromTables(FunctionalGroup.predVarName);
+		
+	}
+
+
+	private void addPredatorSizeVariable() {
+		
+		if (this.stageTable.containsKey(FunctionalGroup.predVarName)) {
+			return;
+		}
+		
+		ArrayList<Unit> units = new ArrayList<Unit> ();
+		units.add(new Unit (-3, "m", 1));
+		
+		float value = 3;
+		Type t = AmbientVariableTables.getTables().checkTypeTable("$float");
+		
+		StateVariable sizePred = new StateVariable(FunctionalGroup.predVarName, "Size of predator", t, units, value, 1, false);
+		
+		sizePred.setCodeName("SysVars.getPredSize()");
+		
+		
+		this.addToStateVarTable(sizePred);
+		
+		
+	}
 	
 }
+

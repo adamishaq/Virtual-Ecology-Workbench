@@ -31,8 +31,9 @@ public class CreateNode extends RuleNode {
 	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
 		if (enclosingCategory instanceof Chemical) {
 			enclosingTree.addSemanticException(
-					new SemanticCheckException("Special functions cannot be called within chemical equations",
+					new SemanticCheckException("Create cannot be called within chemical equations",
 							line_number));
+			return;
 		}
 		FunctionalGroup group = (FunctionalGroup) enclosingCategory;
 		Stage stage = group.checkStageTable(identifier.getName());

@@ -15,10 +15,11 @@ public class BinaryFunctionNode extends RuleNode {
 	private IdNode idArg;
 	private ExprNode expArg;
 	
-	public BinaryFunctionNode(BinaryFunction function, IdNode idArg, ExprNode expArg) {
+	public BinaryFunctionNode(BinaryFunction function, IdNode idArg, ExprNode expArg, int line) {
 		this.binFunc = function;
 		this.idArg = idArg;
 		this.expArg = expArg;
+		this.line_number = line;
 	}
 	
 	@Override
@@ -26,36 +27,36 @@ public class BinaryFunctionNode extends RuleNode {
 		//Considering splitting this into three nodes
 		if (enclosingCategory instanceof Chemical) {
 			enclosingTree.addSemanticException(
-				new SemanticCheckException("Special functions cannot be called within chemical equations",line_number));
-		} else {
-			FunctionalGroup group = (FunctionalGroup) enclosingCategory;
-			expArg.check(enclosingCategory, enclosingTree);
-			Type expArgType = expArg.getExprType();
-			switch (binFunc) {
-				case UPTAKE : 
-				case RELEASE : {
-					AmbientVariableTables tables = AmbientVariableTables.getTables();
-					GlobalVariable chem = tables.checkChemicalTable(idArg.getName());
-					if (chem == null) {
-						enclosingTree.addSemanticException(
-								new SemanticCheckException(idArg.getName() + " is not a chemical concentration",line_number));
-					}
-					break;
+					new SemanticCheckException("Special functions cannot be called within chemical equations",line_number));
+			return;
+		}
+		FunctionalGroup group = (FunctionalGroup) enclosingCategory;
+		expArg.check(enclosingCategory, enclosingTree);
+		Type expArgType = expArg.getExprType();
+		switch (binFunc) {
+			case UPTAKE : 
+			case RELEASE : {
+				AmbientVariableTables tables = AmbientVariableTables.getTables();
+				GlobalVariable chem = tables.checkChemicalTable(idArg.getName());
+				if (chem == null) {
+					enclosingTree.addSemanticException(
+							new SemanticCheckException(idArg.getName() + " is not a chemical concentration",line_number));
 				}
-				case PCHANGE : {
-					Stage st = group.checkStageTable(idArg.getName());
-					if (st == null) {
-						enclosingTree.addSemanticException(
-								new SemanticCheckException(idArg.getName() + " is not a stage",line_number));
-					}
-				}
+				break;
 			}
-			if (expArgType instanceof VarietyType) {
-				enclosingTree.addSemanticException(
-						new SemanticCheckException("The expression must evaluate to a scalar value",line_number));
+			case PCHANGE : {
+				Stage st = group.checkStageTable(idArg.getName());
+				if (st == null) {
+					enclosingTree.addSemanticException(
+							new SemanticCheckException(idArg.getName() + " is not a stage",line_number));
+				}
 			}
 		}
-		
+		if (expArgType instanceof VarietyType) {
+			enclosingTree.addSemanticException(
+					new SemanticCheckException("The expression must evaluate to a scalar value",line_number));
+		}
+
 	}
 
 	@Override

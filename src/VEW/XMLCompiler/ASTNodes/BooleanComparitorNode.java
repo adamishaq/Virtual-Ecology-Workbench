@@ -12,10 +12,11 @@ public class BooleanComparitorNode extends BExprNode {
 	private ExprNode rExpr;
 	private ExprNode lExpr;
 	
-	public BooleanComparitorNode (ComparisonOperator comparitor, ExprNode lExpr, ExprNode rExpr) {
+	public BooleanComparitorNode (ComparisonOperator comparitor, ExprNode lExpr, ExprNode rExpr, int line) {
 		this.comparitor = comparitor;
 		this.rExpr = rExpr;
 		this.lExpr = lExpr;
+		this.line_number = line;
 	}
 
 	@Override
@@ -24,16 +25,31 @@ public class BooleanComparitorNode extends BExprNode {
 		lExpr.check(enclosingCategory, enclosingTree);
 		Type rExprType = rExpr.getExprType();
 		Type lExprType = lExpr.getExprType();
-		setBExprType(checkTypeCompatible(rExprType, lExprType));
+		try {
+			setBExprType(checkTypeCompatible(lExprType, rExprType));
+		} catch (BACONCompilerException e) {
+			enclosingTree.addSemanticException(e);
+			setBExprType(lExprType);
+		}
 
 	}
 
-	private Type checkTypeCompatible(Type rExprType, Type lExprType) {
-		//TODO some sort of tracking of origins of food sets
+	private Type checkTypeCompatible(Type rExprType, Type lExprType) throws BACONCompilerException {
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type boolType = (Type) tables.checkTypeTable("$boolean");
-		if (rExprType instanceof VarietyType || lExprType instanceof VarietyType) {
-			return new VarietyType("boolean", boolType);
+		if (lExprType instanceof VarietyType) {
+			VarietyType vlType = (VarietyType) lExprType;
+			if (rExprType instanceof VarietyType) {
+				VarietyType vrType = (VarietyType) rExprType;
+				if (!vlType.checkLinkCompatible(vrType)) {
+					throw new SemanticCheckException("Boolean expression has inconsistent variety links", line_number);
+				}
+			}
+			return new VarietyType("boolean", boolType, vlType.getLink());
+		}
+		if (rExprType instanceof VarietyType) {
+			VarietyType vrType = (VarietyType) rExprType;
+			return new VarietyType("boolean", boolType, vrType.getLink());
 		}
 		return boolType;
 	}

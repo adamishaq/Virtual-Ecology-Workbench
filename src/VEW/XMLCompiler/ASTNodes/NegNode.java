@@ -8,8 +8,9 @@ public class NegNode extends ExprNode {
 
 	private ExprNode negExpr;
 	
-	public NegNode(ExprNode negExpr) {
+	public NegNode(ExprNode negExpr, int line) {
 		this.negExpr = negExpr;
+		this.line_number = line;
 	}
 	
 	@Override
@@ -17,6 +18,7 @@ public class NegNode extends ExprNode {
 			ConstructedASTree enclosingTree) {
 		negExpr.check(enclosingCategory, enclosingTree);
 		setExprType(checkCompatibility(negExpr.getExprType()));
+		this.units = negExpr.getUnits();
 	}
 
 	private Type checkCompatibility(Type argType) {

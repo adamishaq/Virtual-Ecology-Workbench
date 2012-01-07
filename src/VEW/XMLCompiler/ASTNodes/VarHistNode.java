@@ -7,9 +7,10 @@ public class VarHistNode extends ExprNode {
 	private IdNode identifier;
 	private ExprNode expression;
 
-	public VarHistNode (IdNode identifier, ExprNode expression) {
+	public VarHistNode (IdNode identifier, ExprNode expression, int line) {
 		this.identifier = identifier;
 		this.expression = expression;
+		this.line_number = line;
 		
 	}
 	
@@ -22,7 +23,8 @@ public class VarHistNode extends ExprNode {
 		}
 		//TODO find out if expressions in varhist is valid
 		setExprType(expression.getExprType());
-
+		identifier.set_units(enclosingCategory);
+		units = identifier.getUnits();
 	}
 
 	@Override

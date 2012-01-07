@@ -107,6 +107,26 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		return varietyConcTable.get(conc);
 	}
 	
+
+	/**
+	 * Moves a given function by the offset in the functions list
+	 * @param func the func to move
+	 * @param offset (+ = down/ - = up (the list))
+	 */
+	public void moveFunctionIndex(Function func, int offset) {
+
+		if (func != null) {
+			int oldIndex = functions.indexOf(func) + offset;
+			if (oldIndex >= 0 && oldIndex < functions.size()) {
+				functions.remove(func);
+				functions.add(oldIndex, func);
+			}
+		} else {
+			System.err.println("Could not move func");
+		}
+
+
+	}
 	
 	
 	public void addToStateVarTable(StateVariable var) {
@@ -182,8 +202,10 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		return this.functions.get(functionNo);
 	}
 	
-	public void addFunction(String filepath, String name) {
-		this.functions.add(new Function(filepath,name,this));
+	public Function addFunction(String filepath, String name) {
+		Function f = new Function(filepath,name,this);
+		this.functions.add(f);
+		return f;
 	}
 	
 	public void removeFunction(Function f) {
@@ -198,8 +220,9 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		}
 		return all_vars;
 	}
+		
 	
-	public String[] get_params() {
+ 	public String[] get_params() {
 		Object[] vars = paramTable.keySet().toArray();
 		String [] all_vars = new String[vars.length];
 		for (int i = 0; i < all_vars.length; i++) {
@@ -207,7 +230,8 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		}
 		return all_vars;
 	}
-
+ 	
+ 	
 	public String[] get_local_vars() {
 		Object[] vars = localVarTable.keySet().toArray();
 		String [] all_vars = new String[vars.length];
@@ -225,7 +249,8 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		}
 		return all_vars;
 	}
-
+	
+	
 	public String[] get_variety_params() {
 		Object[] vars = varietyParamTable.keySet().toArray();
 		String [] all_vars = new String[vars.length];
@@ -260,29 +285,31 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 	
 	public XMLTag buildToXML() throws XMLWriteBackException{
 		XMLWriteBackException collectedExceptions = new XMLWriteBackException();
-		if (baseTag == null) {
-			baseTag = new XMLTag("placeholder");
+		XMLTag newTag = new XMLTag("placeholder");
+		if (baseTag != null) {
+			newTag.addTags(baseTag.getTags());
 		}
-		baseTag.addTag(new XMLTag("name", name));
+		newTag.addTag(new XMLTag("name", name));
 		for(Function f: functions) {
 			try {
-				baseTag.addTag(f.buildToXML());
+				newTag.addTag(f.buildToXML());
 			}
 			catch (XMLWriteBackException ex) {
-				collectedExceptions.addCompilerException(ex.getCompilerExceptions());
+				collectedExceptions.addCompilerException(ex.getCompilerExceptions(),this.name);
 			}
 		}
 		if (collectedExceptions.hasExceptions()) {
 			throw collectedExceptions;
 		}
-		buildVariableTableToXML(baseTag, stateVarTable);
-		buildVariableTableToXML(baseTag, paramTable);
-		buildVariableTableToXML(baseTag, localVarTable);
-		buildVariableTableToXML(baseTag, varietyStateTable);
-		buildVariableTableToXML(baseTag, varietyParamTable);
-		buildVariableTableToXML(baseTag, varietyConcTable);
-		buildVariableTableToXML(baseTag, varietyLocalTable);
-		return baseTag;
+		
+		buildVariableTableToXML(newTag, stateVarTable);
+		buildVariableTableToXML(newTag, paramTable);
+		buildVariableTableToXML(newTag, localVarTable);
+		buildVariableTableToXML(newTag, varietyStateTable);
+		buildVariableTableToXML(newTag, varietyParamTable);
+		buildVariableTableToXML(newTag, varietyConcTable);
+		buildVariableTableToXML(newTag, varietyLocalTable);
+		return newTag;
 	}
 	
 	private <V extends VariableType> void buildVariableTableToXML(XMLTag tag, SymbolTable<V> table) throws XMLWriteBackException {
@@ -298,4 +325,6 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 	public String getFilePath() {
 		return this.file_path;
 	}
+
+	
 }

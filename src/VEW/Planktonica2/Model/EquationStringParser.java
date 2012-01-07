@@ -14,7 +14,11 @@ public class EquationStringParser {
 	}
 	
 	public String parseEquationString() {
-		return parseRuleString(equationString);
+		try {
+			return parseRuleString(equationString);
+		} catch (Exception e) {
+			return "";
+		}
 		
 	}
 
@@ -25,14 +29,15 @@ public class EquationStringParser {
 		String argsString = extractArgs(ruleParts[1]);
 		if (ruleName.equals("\\assign")) {
 			String[] args = splitArgs(argsString, 2);
-			rule = parseVariableString(args[0]) + " = " + parseExpressionString(args[1]);
+			String assignString = parseExpressionString(args[1]);
+			rule = parseVariableString(args[0]) + " = " + stripBrackets(assignString);
 		}
 		else if (ruleName.equals("\\change")) {
 			rule = "change(" + parseStageString(argsString) + ")";
 		}
 		else if (ruleName.equals("\\ifthen")) {
 			String[] args = splitArgs(argsString, 2);
-			rule = "if (" + parseBExprString(args[0]) + ")" + " then " + parseRuleString(args[1]);
+			rule = "if " + parseBExprString(args[0]) + " then " + parseRuleString(args[1]);
 		}
 		else if (ruleName.equals("\\pchange")) {
 			String[] args = splitArgs(argsString, 2);
@@ -73,7 +78,7 @@ public class EquationStringParser {
 				String assignArgs = extractArgs(ruleParts[1]);
 				String[] argArray = splitArgs(assignArgs, 2);
 				assignListString += parseVariableString(argArray[0]) + " = " 
-									+ parseExpressionString(argArray[1]) + ",";
+									+ stripBrackets(parseExpressionString(argArray[1])) + ",";
 			}
 		}
 		return assignListString.substring(0, assignListString.length()-1);
@@ -158,8 +163,8 @@ public class EquationStringParser {
 		}
 		else if (exprName.equals("\\conditional")) {
 			String[] ifArgs = splitArgs(argString, 3);
-			exprCode = "(if (" + parseBExprString(ifArgs[0]) + ") then " + parseExpressionString(ifArgs[1]) +
-							" else " + parseExpressionString(ifArgs[2]) + ")";
+			exprCode = "if " + parseBExprString(ifArgs[0]) + " then " + parseExpressionString(ifArgs[1]) +
+							" else " + parseExpressionString(ifArgs[2]);
 		}
 		else if (exprName.equals("\\add")) {
 			exprCode = constructBinaryOperatorString(argString, "+");
@@ -212,11 +217,12 @@ public class EquationStringParser {
 		String[] minArgs = splitAllArgs(argString);
 		for (int n = minArgs.length-2; n >= 0; n--) {
 			if (n == minArgs.length-2) {
-				exprCode = function + "(" + parseExpressionString(minArgs[n]) + "," +
-											parseExpressionString(minArgs[n+1]) + ")";
+				exprCode = function + "(" + stripBrackets(parseExpressionString(minArgs[n])) + "," +
+											stripBrackets(parseExpressionString(minArgs[n+1])) + ")";
 			}
 			else {
-				exprCode = function + "(" + parseExpressionString(minArgs[n]) + "," + exprCode + ")";
+				exprCode = function + "(" + stripBrackets(parseExpressionString(minArgs[n])) +
+							"," + exprCode + ")";
 			}
 		}
 		return exprCode;
@@ -279,5 +285,11 @@ public class EquationStringParser {
 			rest = StringTools.RHS(rest, splitIndex);
 		}
 		return argList.toArray(new String[0]);
+	}
+	
+	private String stripBrackets(String str) {
+		if (str.length() > 0 && str.charAt(0) == '(' && str.charAt(str.length() - 1) == ')')
+			return str.substring(1, str.length() - 1);
+		return str;
 	}
 }

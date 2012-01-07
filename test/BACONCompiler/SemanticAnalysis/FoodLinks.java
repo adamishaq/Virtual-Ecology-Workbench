@@ -36,9 +36,9 @@ public class FoodLinks {
 		state2.setVarType(new VarietyType("float", floatType));
 		state2.setLinkConcentration(foodSet);
 		group.addToVarietyStateTable(state2);
-		IdNode id1 = new IdNode("state1");
-		IdNode id2 = new IdNode("state2");
-		BinOpNode binOp = new BinOpNode(MathematicalOperator.MULTIPLY, id1, id2);
+		IdNode id1 = new IdNode("state1",0);
+		IdNode id2 = new IdNode("state2",0);
+		BinOpNode binOp = new BinOpNode(MathematicalOperator.MULTIPLY, id1, id2,0);
 		ConstructedASTree constr = new ConstructedASTree(binOp);
 		binOp.check(group, constr);
 	}
@@ -53,7 +53,7 @@ public class FoodLinks {
 		foodSet1.setVarType(new VarietyType("float", floatType));
 		group.addToVarietyConcTable(foodSet1);
 		VarietyConcentration foodSet2 = new VarietyConcentration();
-		foodSet2.setName("foodset1");
+		foodSet2.setName("foodset2");
 		foodSet2.setVarType(new VarietyType("float", floatType));
 		group.addToVarietyConcTable(foodSet2);
 		VarietyVariable state1 = new VarietyVariable(group);
@@ -66,9 +66,9 @@ public class FoodLinks {
 		state2.setVarType(new VarietyType("float", floatType));
 		state2.setLinkConcentration(foodSet2);
 		group.addToVarietyStateTable(state2);
-		IdNode id1 = new IdNode("state1");
-		IdNode id2 = new IdNode("state2");
-		BinOpNode binOp = new BinOpNode(MathematicalOperator.MULTIPLY, id1, id2);
+		IdNode id1 = new IdNode("state1",0);
+		IdNode id2 = new IdNode("state2",0);
+		BinOpNode binOp = new BinOpNode(MathematicalOperator.MULTIPLY, id1, id2,0);
 		ConstructedASTree constr = new ConstructedASTree(binOp);
 		binOp.check(group, constr);
 		if (!constr.hasExceptions())

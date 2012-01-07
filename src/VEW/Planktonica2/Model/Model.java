@@ -1,7 +1,9 @@
+
 package VEW.Planktonica2.Model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.NoSuchElementException;
 import java.util.prefs.BackingStoreException;
 
 import VEW.Common.XML.XMLFile;
@@ -10,10 +12,11 @@ import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
 public class Model implements BuildFromXML, BuildToXML {
 
-	private Collection<Chemical> chemicals;
-	private Collection<FunctionalGroup> functionalGroups;
+	private ArrayList<Chemical> chemicals;
+	private ArrayList<FunctionalGroup> functionalGroups;
 	
 	private XMLFile file;
+	private XMLTag[] oldTags;
 
 	public Model (XMLFile f) {
 		AmbientVariableTables.destroyAmbientVariableTable();
@@ -64,11 +67,41 @@ public class Model implements BuildFromXML, BuildToXML {
 			functionalGroups.add(f);
 			t.removeFromParent();
 		}
-
+		oldTags = file.getTags();
 		return this;
 	}
 
-
+	/**
+	 * Moves a given catagory by the offset in the respective list
+	 * @param catagory the catagory to move
+	 * @param offset (+ = down/ - = up (the list))
+	 */
+	public void moveCatagory(Catagory catagory, int offset) {
+		
+		if (catagory == null)
+			return;
+		if (functionalGroups.contains(catagory)) {
+			
+			int oldIndex = functionalGroups.indexOf(catagory) + offset;
+			if (oldIndex >= 0 && oldIndex < functionalGroups.size()) {
+				functionalGroups.remove(catagory);
+				functionalGroups.add(oldIndex, (FunctionalGroup) catagory);
+			}
+			
+			
+		} else if (chemicals.contains(catagory)) {
+			
+			int oldIndex = chemicals.indexOf(catagory) + offset;
+			if (oldIndex >= 0 && oldIndex < chemicals.size()) {
+				chemicals.remove(catagory);
+				chemicals.add(oldIndex, (Chemical) catagory);
+			}
+			
+		} else {
+			throw new NoSuchElementException("There is no catagory in the model with name: " + catagory.getName() + ".");
+		}
+		
+	}
 	
 	/**
 	 * Checks the validity of the current data in the controller.
@@ -126,13 +159,17 @@ public class Model implements BuildFromXML, BuildToXML {
 
 	@Override
 	public XMLTag buildToXML() throws XMLWriteBackException {
+		for (XMLTag child : oldTags) {
+			child.removeFromParent();
+		}
+		file.addTags(oldTags);
 		XMLWriteBackException collectedExceptions = new XMLWriteBackException();
 		for (FunctionalGroup fGroup : functionalGroups) {
 			try {
 				file.addTag(fGroup.buildToXML());
 			}
 			catch (XMLWriteBackException ex) {
-				collectedExceptions.addCompilerException(ex.getCompilerExceptions());
+				collectedExceptions.addCompilerException(ex.getCompilerExceptions(),fGroup.getName());
 			}
 		}
 		for (Chemical chem : chemicals) {
@@ -140,7 +177,7 @@ public class Model implements BuildFromXML, BuildToXML {
 				file.addTag(chem.buildToXML());
 			}
 			catch (XMLWriteBackException ex) {
-				collectedExceptions.addCompilerException(ex.getCompilerExceptions());
+				collectedExceptions.addCompilerException(ex.getCompilerExceptions(),chem.getName());
 			}
 		}
 		if (collectedExceptions.hasExceptions()) {
@@ -152,3 +189,4 @@ public class Model implements BuildFromXML, BuildToXML {
 	
 	
 }
+

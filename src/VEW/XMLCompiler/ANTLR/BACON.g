@@ -13,6 +13,7 @@ tokens {
 	EXPR;
 	BEXPR;
 	NEG;
+	CHANGEASSIGN;
 }
 
 @header {
@@ -28,33 +29,6 @@ protected Object recoverFromMismatchedToken(IntStream input, int ttype, BitSet f
               throws RecognitionException
 {
 	RecognitionException e = null;
-	/*
-	// if next token is what we are looking for then "delete" this token
-	if ( mismatchIsUnwantedToken(input, ttype) ) {
-		e = new UnwantedTokenException(ttype, input);
-		
-		System.err.println("recoverFromMismatchedToken deleting "+
-		((TokenStream)input).LT(1)+
-		" since "+((TokenStream)input).LT(2)+" is what we want");
-		
-		beginResync();
-		input.consume(); // simply delete extra token
-		endResync();
-		reportError(e);  // report after consuming so AW sees the token in the exception
-		// we want to return the token we're actually matching
-		Object matchedSymbol = getCurrentInputSymbol(input);
-		input.consume(); // move past ttype token as if all were ok
-		return matchedSymbol;
-	}
-	// can't recover with single token deletion, try insertion
-	if ( mismatchIsMissingToken(input, follow) ) {
-		Object inserted = getMissingSymbol(input, e, ttype, follow);
-		e = new MissingTokenException(ttype, input, inserted);
-		reportError(e);  // report after inserting so AW sees the token in the exception
-		return inserted;
-	}
-	 // even that didn't work; must throw the exception
-	 */
 	e = new MismatchedTokenException(ttype, input);
 	throw e;
 }
@@ -97,7 +71,7 @@ package VEW.XMLCompiler.ANTLR;
 
 // Rules
 RULENAME : ('"')(~'"')*('"');	
-COLON    : (':')(IGNORE)*(NEWLINE)?;
+COLON    : (':')(IGNORE)*;
 
 // Keywords
 // If statement:
@@ -113,6 +87,12 @@ CHANGE     : 'change';
 PCHANGE    : 'pchange';
 DIVIDE	   : 'divide';
 INTEGRATE  : 'integrate';
+
+//Change syntax
+BAR 	: '|';
+OTHERWISE 
+	: 'otherwise';
+TO	: 'to';
 
 // Creates Syntax
 CREATE	: 'create';
@@ -193,11 +173,13 @@ fragment LETTER : ('a'..'z'|'A'..'Z');
 VAR : (LETTER)(LETTER|DIGIT|'_')*;
 
 // Line Comments
-fragment COMMENT : ('//')(~'\n')*;  
+//fragment COMMENT : ('//')(~'\n')*;
+COMMENT : ('//')(~'\n')* {$channel=HIDDEN;};
 
 // Whitespace
-NEWLINE : (COMMENT|(('\n')(IGNORE)*))+;
-IGNORE 	: (' '| '\t'|'\r') {$channel=HIDDEN;};
+	
+//NEWLINE : (COMMENT|(('\n')(IGNORE)*))+;
+IGNORE 	: (' '| '\t'|'\r' | '\n') {$channel=HIDDEN;};
 
 // Unrecognised Symbol
 UNKNOWN	: (.);
@@ -206,7 +188,7 @@ UNKNOWN	: (.);
 
 
 rules
-	: (NEWLINE)? pair (NEWLINE pair)* (NEWLINE)? -> ^(RULES pair pair*)
+	: pair (pair)* EOF -> ^(RULES pair pair*)
 	; 
 	
 pair
@@ -215,8 +197,8 @@ pair
 	;
 	
 ruleName
-	: RULENAME COLON (NEWLINE)? -> RULENAME
-	| VAR COLON (NEWLINE)? -> VAR
+	: RULENAME COLON -> RULENAME
+	| VAR COLON -> VAR
 	;
 
 rule
@@ -225,16 +207,26 @@ rule
 
 rule2
 	: assign
-	| IF bExpr (NEWLINE)? THEN (NEWLINE)? rule -> ^(IF bExpr rule)
+	| IF bExpr THEN rule -> ^(IF bExpr rule)
 	| UPTAKE LBRACKET VAR COMMA expr RBRACKET -> ^(UPTAKE VAR expr)
 	| RELEASE LBRACKET VAR COMMA expr RBRACKET -> ^(RELEASE VAR expr)
 	| INGEST LBRACKET VAR COMMA expr COMMA expr RBRACKET -> ^(INGEST VAR expr expr)
-	| CHANGE LBRACKET VAR RBRACKET -> ^(CHANGE VAR)
-	| PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^(PCHANGE VAR expr)
+	//| CHANGE LBRACKET VAR RBRACKET -> ^(CHANGE VAR)
+	//| PCHANGE LBRACKET VAR COMMA expr RBRACKET -> ^(PCHANGE VAR expr)
+	| CHANGE LBRACKET expr RBRACKET changeExpr+ -> ^(CHANGE expr changeExpr+)
 	| DIVIDE LBRACKET expr RBRACKET -> ^(DIVIDE expr)
 	| CREATE LBRACKET VAR COMMA expr RBRACKET
-		((NEWLINE)? WITH LSQUARE assignList RSQUARE)? -> ^(CREATE VAR expr (assignList)?)
+		(WITH LSQUARE assignList RSQUARE)? -> ^(CREATE VAR expr (assignList)?)
 	| LBRACKET rule2 RBRACKET -> rule2
+	;
+
+changeExpr 
+	: BAR changeCond TO VAR -> ^(CHANGEASSIGN changeCond VAR)
+	;
+
+changeCond 
+	: OTHERWISE
+	| bExpr
 	;
 
 assign
@@ -242,7 +234,7 @@ assign
 	;
 
 assignList
-	: assign (NEWLINE)? (COMMA assign (NEWLINE)?)* -> ^(ASSIGNLIST assign (assign)*)
+	: assign (COMMA assign)* -> ^(ASSIGNLIST assign (assign)*)
 	;
 		
 expr

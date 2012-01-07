@@ -18,6 +18,13 @@ public class Stage implements BuildFromXML, BuildToXML {
 		closure = null;
 	}
 	
+	public Stage(String stageName) {
+		name = stageName;
+		comment = "";
+		closure = null;
+		log = null;
+	}
+
 	@Override
 	public BuildFromXML build(XMLTag tag) {
 		baseTag = tag;
@@ -87,18 +94,19 @@ public class Stage implements BuildFromXML, BuildToXML {
 
 	@Override
 	public XMLTag buildToXML() throws XMLWriteBackException {
-		if (baseTag == null) {
-			baseTag = new XMLTag("stage");
+		XMLTag newTag = new XMLTag("stage");
+		if (baseTag != null) {
+			newTag.addTags(baseTag.getTags());
 		}
 		if (log != null)
-			baseTag.setAttribute("log", Boolean.toString(log));
+			newTag.setAttribute("log", Boolean.toString(log));
 		if (closure != null)
-			baseTag.setAttribute("closure", Boolean.toString(closure));
+			newTag.setAttribute("closure", Boolean.toString(closure));
 		if (name != null)
-			baseTag.addTag("name", name);
+			newTag.addTag("name", name);
 		if (comment != null)
-			baseTag.addTag("comment", comment);
-		return baseTag;
+			newTag.addTag("comment", comment);
+		return newTag;
 	}
 
 	

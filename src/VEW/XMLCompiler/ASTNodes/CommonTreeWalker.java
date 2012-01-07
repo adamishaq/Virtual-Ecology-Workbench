@@ -1,6 +1,7 @@
 package VEW.XMLCompiler.ASTNodes;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.antlr.runtime.tree.CommonErrorNode;
@@ -10,6 +11,7 @@ import org.antlr.runtime.MismatchedTokenException;
 import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.Token;
 
+import VEW.Common.Pair;
 import VEW.XMLCompiler.ANTLR.BACONParser;
 
 //Or CommonEnt... At least according to Mike
@@ -21,7 +23,7 @@ import VEW.XMLCompiler.ANTLR.BACONParser;
  */
 public class CommonTreeWalker {
 	
-	private ArrayList<Exception> exceptions;
+	private ArrayList<BACONCompilerException> exceptions;
 	
 	private CommonTree antlrTree;
 	
@@ -31,7 +33,7 @@ public class CommonTreeWalker {
 	 */
 	public CommonTreeWalker(CommonTree antlrTree) {
 		this.antlrTree = antlrTree;
-		exceptions = new ArrayList<Exception>();
+		exceptions = new ArrayList<BACONCompilerException>();
 	}
 	
 	/**
@@ -43,6 +45,9 @@ public class CommonTreeWalker {
 	public ConstructedASTree constructASTree() {
 		RuleSequenceNode constructedTree = null;
 		// needs to be removed if ASTrees are not constructed from a base
+		if (!checkNode(antlrTree)) {
+			return new ConstructedASTree(null, exceptions);
+		}
 		List<?> childRules = antlrTree.getChildren();
 		RuleSequenceNode currentSeq = null;
 		for (Object c : childRules) {
@@ -106,8 +111,14 @@ public class CommonTreeWalker {
 					break;
 				}
 				case(BACONParser.CHANGE) : {
-					IdNode id = constructIdNode((CommonTree)tree.getChild(0));
-					rule = new UnaryFunctionRuleNode(UnaryRuleFunction.CHANGE, id);
+					ExprNode propExpr = constructExprNode((CommonTree)tree.getChild(0));
+					Pair<BExprNode, IdNode> changeStat;
+					Collection<Pair<BExprNode, IdNode>> changeStatements = new ArrayList<Pair<BExprNode, IdNode>>();
+					for (int n = 1; n < tree.getChildCount(); n++) {
+						changeStat = constructChangeStatement((CommonTree)tree.getChild(n));
+						changeStatements.add(changeStat);
+					}
+					rule = new ChangeNode(propExpr, changeStatements);
 					break;
 				}
 				case(BACONParser.UPTAKE) : {
@@ -118,10 +129,10 @@ public class CommonTreeWalker {
 					rule = constructBinFuncNode(BinaryFunction.RELEASE, tree);
 					break;
 				}
-				case(BACONParser.PCHANGE) : {
+				/*case(BACONParser.PCHANGE) : {
 					rule = constructBinFuncNode(BinaryFunction.PCHANGE, tree);
 					break;
-				}
+				}*/
 				case(BACONParser.INGEST) : {
 					IdNode var = constructIdNode((CommonTree)tree.getChild(0));
 					ExprNode thresholdExpr = constructExprNode((CommonTree)tree.getChild(1));
@@ -145,7 +156,20 @@ public class CommonTreeWalker {
 		}
 		return rule;
 	}
-	
+
+	private Pair<BExprNode, IdNode> constructChangeStatement(CommonTree tree) {
+		if (!checkNode(tree)) {
+			return null;
+		}
+		CommonTree bexpr = (CommonTree) tree.getChild(0);
+		BExprNode bExprNode = null;
+		if (bexpr.getToken().getType() != BACONParser.OTHERWISE) {
+			bExprNode = constructBExprNode((CommonTree)tree.getChild(0));
+		}
+		return new Pair<BExprNode, IdNode>(bExprNode, 
+					constructIdNode((CommonTree)tree.getChild(1)));
+	}
+
 	private RuleNode constructSubRuleNode(CommonTree tree) {
 		if (!checkNode(tree)) {
 			return null;
@@ -159,7 +183,7 @@ public class CommonTreeWalker {
 		}
 		IdNode id = constructIdNode((CommonTree)tree.getChild(0));
 		ExprNode expr = constructExprNode((CommonTree)tree.getChild(1));
-		return new AssignNode(id, expr);
+		return new AssignNode(id, expr,tree.getLine());
 	}
 
 	private AssignListNode constructAssignListNode(CommonTree tree) {
@@ -180,7 +204,7 @@ public class CommonTreeWalker {
 		}
 		IdNode id = constructIdNode((CommonTree)tree.getChild(0));
 		ExprNode expr = constructExprNode((CommonTree)tree.getChild(1));
-		return new BinaryFunctionNode(binFunc, id, expr);
+		return new BinaryFunctionNode(binFunc, id, expr,tree.getLine());
 	}
 
 	private BExprNode constructBExprNode(CommonTree tree) {
@@ -253,7 +277,7 @@ public class CommonTreeWalker {
 		}
 		ExprNode lExpr = constructExprNode((CommonTree)tree.getChild(0));
 		ExprNode rExpr = constructExprNode((CommonTree)tree.getChild(1));
-		return new BooleanComparitorNode(comp, lExpr, rExpr);
+		return new BooleanComparitorNode(comp, lExpr, rExpr,tree.getLine());
 	}
 	
 	private BooleanBinOpNode constructBooleanBinOpNode(BooleanBinOperator binOp, CommonTree tree) {
@@ -262,7 +286,7 @@ public class CommonTreeWalker {
 		}
 		BExprNode lBExpr = constructBExprNode((CommonTree)tree.getChild(0));
 		BExprNode rBExpr = constructBExprNode((CommonTree)tree.getChild(1));
-		return new BooleanBinOpNode(binOp, lBExpr, rBExpr);
+		return new BooleanBinOpNode(binOp, lBExpr, rBExpr,tree.getLine());
 	}
 	
 	private VBOpNode constructVBOpNode(VBoolOperator vBOp, CommonTree tree) {
@@ -270,7 +294,7 @@ public class CommonTreeWalker {
 			return null;
 		}
 		BExprNode bExpr = constructBExprNode((CommonTree)tree.getChild(0));
-		return new VBOpNode(vBOp, bExpr);
+		return new VBOpNode(vBOp, bExpr,tree.getLine());
 	}
 
 	private ExprNode constructExprNode(CommonTree tree) {
@@ -284,7 +308,7 @@ public class CommonTreeWalker {
 		UnaryPrimitive uPrim = SymbolSet.getUnaryPrimitiveOp(tokenType);
 		if (uPrim != null) {
 			ExprNode primExpr = constructExprNode((CommonTree)tree.getChild(0));
-			return new UnaryPrimNode(uPrim, primExpr);
+			return new UnaryPrimNode(uPrim, primExpr,tree.getLine());
 		}
 		
 		switch (tokenType) {
@@ -310,14 +334,14 @@ public class CommonTreeWalker {
 			}
 			case(BACONParser.NEG) : {
 				ExprNode negExpr = constructExprNode((CommonTree)tree.getChild(0));
-				expr = new NegNode(negExpr);
+				expr = new NegNode(negExpr,tree.getLine());
 				break;
 			}
 			case(BACONParser.IF) : {
 				BExprNode ifCondNode = constructBExprNode((CommonTree)tree.getChild(0));
 				ExprNode thenExpr = constructExprNode((CommonTree)tree.getChild(1));
 				ExprNode elseExpr = constructExprNode((CommonTree)tree.getChild(2));
-				expr = new IfExprNode(ifCondNode, thenExpr, elseExpr);
+				expr = new IfExprNode(ifCondNode, thenExpr, elseExpr,tree.getLine());
 				break;
 			}
 			case(BACONParser.VAR) : {
@@ -339,7 +363,7 @@ public class CommonTreeWalker {
 			case(BACONParser.VARHIST) : {
 				IdNode id = constructIdNode((CommonTree)tree.getChild(0));
 				ExprNode histExpr = constructExprNode((CommonTree)tree.getChild(1));
-				expr = new VarHistNode(id, histExpr);
+				expr = new VarHistNode(id, histExpr,tree.getLine());
 				break;
 			}
 			case(BACONParser.VAVERAGE) : {
@@ -365,7 +389,7 @@ public class CommonTreeWalker {
 		if (checkNode(tree)) {
 			ExprNode lExpr = constructExprNode((CommonTree)tree.getChild(0));
 			ExprNode rExpr = constructExprNode((CommonTree)tree.getChild(1));
-			return new BinOpNode(op, lExpr, rExpr);
+			return new BinOpNode(op, lExpr, rExpr,tree.getLine());
 		}
 		return null;
 	}
@@ -374,7 +398,7 @@ public class CommonTreeWalker {
 		if (checkNode(tree)) {
 			ExprNode lExpr = constructExprNode((CommonTree)tree.getChild(0));
 			ExprNode rExpr = constructExprNode((CommonTree)tree.getChild(1));
-			return new BinaryPrimitiveNode(prim, lExpr, rExpr);
+			return new BinaryPrimitiveNode(prim, lExpr, rExpr,tree.getLine());
 		}
 		return null;
 	}
@@ -382,14 +406,14 @@ public class CommonTreeWalker {
 	private VOpNode constructVBOpNode(VOperator vOp, CommonTree tree) {
 		if (checkNode(tree)) {
 			ExprNode expr = constructExprNode((CommonTree)tree.getChild(0));
-			return new VOpNode(vOp, expr);
+			return new VOpNode(vOp, expr,tree.getLine());
 		}
 		return null;
 	}
 
 	private IdNode constructIdNode(CommonTree tree) {
 		if (checkNode(tree)) {
-			return new IdNode(tree.getToken().getText());
+			return new IdNode(tree.getToken().getText(),tree.getLine());
 		}
 		return null;
 	}
@@ -398,7 +422,7 @@ public class CommonTreeWalker {
 		if (checkNode(tree)) {
 			String numString = tree.getToken().getText();
 			try {
-				return new NumNode(Float.parseFloat(numString));
+				return new NumNode(Float.parseFloat(numString),tree.getLine());
 			}
 			catch (NumberFormatException n) {
 				// TODO - is this reachable?
@@ -433,9 +457,6 @@ public class CommonTreeWalker {
 					String error_message = "";
 					if (m.token.getText().equals("<EOF>"))
 						error_message = "Unexpected end of input on line " + cen.trappedException.line + ".";
-					else if (m.token.getText().contains("\n")) {
-						error_message = "Unexpected newline on line " + cen.trappedException.line + ".";
-					}
 					else
 						error_message = "Unexpected '" + m.token.getText() + "' found on line " +
 						cen.trappedException.line + ".";
@@ -451,7 +472,7 @@ public class CommonTreeWalker {
 		return true;
 	}
 	
-	public void add_exception(Exception e) {
+	public void add_exception(BACONCompilerException e) {
 		exceptions.add(e);
 	}
 

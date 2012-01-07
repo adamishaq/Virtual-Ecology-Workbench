@@ -326,8 +326,5 @@ public class Function implements BuildFromXML, BuildToXML {
 	public Catagory getParent() {
 		return parent;
 	}
-
-	
-	
 	
 }
