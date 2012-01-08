@@ -46,6 +46,7 @@ public class DisplayOptionsDialog extends JDialog {
 	public DisplayOptionsDialog(EditorPanel parent) {
 		super();
 		
+		// Set up this dialog
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		this.setTitle("Options");
@@ -55,6 +56,7 @@ public class DisplayOptionsDialog extends JDialog {
 		
 		JTabbedPane option_tabs = new JTabbedPane();
 		
+		// Create the display panel and add it to the display tab
 		JPanel display = new JPanel(new GridBagLayout());
 		GridBagConstraints l_c = new GridBagConstraints();
 		l_c.fill = GridBagConstraints.HORIZONTAL;
@@ -71,12 +73,13 @@ public class DisplayOptionsDialog extends JDialog {
 		display.add(layout_horizontal,l_c);
 		l_c.gridx = 1;
 		display.add(layout_vertical,l_c);
-		// Make the two button mutually exclusive
+		// Make the two buttons mutually exclusive
 		ButtonGroup group = new ButtonGroup();
 	    group.add(layout_horizontal);
 	    group.add(layout_vertical);
 		option_tabs.add("Display",display);
 		
+		// Create the latex panel and add it to the latex tab
 		JPanel latex = new JPanel(new GridBagLayout());
 		l_c.gridx = 0;
 		l_c.gridy = 0;
@@ -93,6 +96,7 @@ public class DisplayOptionsDialog extends JDialog {
 		latex.add(source_doc,l_c);
 		option_tabs.add("LaTeX",latex);
 		
+		// Create the units panel and add it to the units tab
 		JPanel units = new JPanel(new GridBagLayout());
 		l_c.gridx = 0;
 		l_c.gridy = 0;
@@ -129,6 +133,7 @@ public class DisplayOptionsDialog extends JDialog {
 		c.fill = GridBagConstraints.BOTH;
 		this.add(option_tabs,c);
 		
+		// Add the two button on the bottom of the dialog
 		JPanel buttons = new JPanel();
 		JButton apply = new JButton("Apply");
 		apply.addActionListener(new ApplyListener(this));
