@@ -80,7 +80,7 @@ public class UnitChecker {
 			if (second_array.size() == 0)
 				return false;
 			float scale = check_equivalences(leftover_array,expandUnits(second_array));
-			System.out.println("Scale LHS by " + scale);
+			//System.out.println("Scale LHS by " + scale);
 			return (scale != 0);
 		}
 		return (second_array.size() == 0);

@@ -3,6 +3,7 @@ package VEW.Planktonica2.Model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.prefs.BackingStoreException;
 
@@ -18,6 +19,8 @@ public class Model implements BuildFromXML, BuildToXML {
 	private XMLFile oldFile;
 	private XMLFile newFile;
 	private XMLTag[] oldTags;
+	
+	private List<String> warnings;
 
 	public Model (XMLFile f) {
 		AmbientVariableTables.destroyAmbientVariableTable();
@@ -25,6 +28,7 @@ public class Model implements BuildFromXML, BuildToXML {
 		this.chemicals = new ArrayList<Chemical>();
 		oldFile = f;
 		newFile = (XMLFile) f.clone();
+		warnings = new ArrayList<String>();
 	}
 	
 	public String getFilePath() {
@@ -172,6 +176,8 @@ public class Model implements BuildFromXML, BuildToXML {
 		for (FunctionalGroup fGroup : functionalGroups) {
 			try {
 				newFile.addTag(fGroup.buildToXML());
+				warnings.addAll(fGroup.getWarnings());
+				fGroup.clearWarnings();
 			}
 			catch (XMLWriteBackException ex) {
 				collectedExceptions.addCompilerException(ex.getCompilerExceptions(),fGroup.getName());
@@ -180,6 +186,8 @@ public class Model implements BuildFromXML, BuildToXML {
 		for (Chemical chem : chemicals) {
 			try {
 				newFile.addTag(chem.buildToXML());
+				warnings.addAll(chem.getWarnings());
+				chem.clearWarnings();
 			}
 			catch (XMLWriteBackException ex) {
 				collectedExceptions.addCompilerException(ex.getCompilerExceptions(),chem.getName());
@@ -189,6 +197,14 @@ public class Model implements BuildFromXML, BuildToXML {
 			throw collectedExceptions;
 		}
 		return newFile;
+	}
+	
+	public List<String> getWarnings() {
+		return warnings;
+	}
+	
+	public void clearWarnings() {
+		warnings = new ArrayList<String>();
 	}
 
 	

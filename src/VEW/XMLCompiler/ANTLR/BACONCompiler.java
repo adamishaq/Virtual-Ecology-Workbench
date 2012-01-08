@@ -34,6 +34,9 @@ public class BACONCompiler {
 		if (tree.hasExceptions()) {
 			throw new CompilerException(function, tree.getExceptions());
 		}
+		if (tree.hasWarnings()) {
+			function.addWarnings(tree.getWarnings());
+		}
 		return tree.compileTree();
 	}
 

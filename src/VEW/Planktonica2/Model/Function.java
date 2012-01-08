@@ -31,6 +31,8 @@ public class Function implements BuildFromXML, BuildToXML {
 	
 	private String source_file_path;
 	
+	
+	private List<String> warnings;
 	private XMLTag baseTag;
 
 	
@@ -38,13 +40,15 @@ public class Function implements BuildFromXML, BuildToXML {
 		this.source_file_path = get_path(file_path);
 		this.availableStages = stages;
 		this.parent = parent;
-		this.calledIn = new ArrayList<Stage> (); 
+		this.calledIn = new ArrayList<Stage> ();
+		this.warnings = new ArrayList<String>();
 	}
 
 	public Function(String file_path, Catagory parent) {
 		this.source_file_path = get_path(file_path);
 		this.availableStages = null;
 		this.parent = parent;
+		this.warnings = new ArrayList<String>();
 	}
 
 	public Function(String file_path, String name, Catagory parent) {
@@ -54,6 +58,7 @@ public class Function implements BuildFromXML, BuildToXML {
 		this.name = name;
 		this.calledIn = new ArrayList<Stage>();
 		this.availableStages = new ArrayList<Stage>();
+		this.warnings = new ArrayList<String>();
 	}
 	
 	@Override
@@ -78,7 +83,6 @@ public class Function implements BuildFromXML, BuildToXML {
 					calledIn.add(s);
 					t.removeFromParent();
 				}
-				//TODO: if stage does not exist thrown an exception
 			}
 		}	
 		
@@ -269,18 +273,20 @@ public class Function implements BuildFromXML, BuildToXML {
 		List<XMLTag> equationTags;
 		try {
 			equationTags = compileFunction();
-			for (XMLTag eqTag : equationTags) {
-				newTag.addTag(eqTag);
-			}
-			if (archiveName != null)
-				newTag.addTag(new XMLTag("archivename", archiveName));
-			if (comment != null)
-				newTag.addTag(new XMLTag("comment", comment));
-			if (author != null)
-				newTag.addTag(new XMLTag("author", author));
 		} catch (CompilerException e) {
 			throw new XMLWriteBackException(e);
 		}
+		for (XMLTag eqTag : equationTags) {
+			newTag.addTag(eqTag);
+		}
+		if (archiveName != null)
+			newTag.addTag(new XMLTag("archivename", archiveName));
+		if (comment != null)
+			newTag.addTag(new XMLTag("comment", comment));
+		if (author != null)
+			newTag.addTag(new XMLTag("author", author));
+		parent.addWarnings(warnings);
+		warnings = new ArrayList<String>();
 		return newTag;
 	}
 
@@ -329,4 +335,7 @@ public class Function implements BuildFromXML, BuildToXML {
 		return parent;
 	}
 	
+	public void addWarnings(List<String> warnings) {
+		this.warnings.addAll(warnings);
+	}
 }

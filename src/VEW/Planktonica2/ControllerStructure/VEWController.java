@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 
+import VEW.Common.Pair;
 import VEW.Common.XML.XMLFile;
 import VEW.Common.XML.XMLTag;
 import VEW.Planktonica2.Display;
@@ -136,12 +137,14 @@ public abstract class VEWController extends Observable {
 	public abstract Collection<Catagory> getCatagories();
 
 	
-	public Collection<String> writeBackToXMLFile() {
+	public Pair<ArrayList<String>, ArrayList<String>> writeBackToXMLFile() {
 		XMLTag tag = null;
 		ArrayList<String> exceptions = new ArrayList<String>();
+		ArrayList<String> warnings = new ArrayList<String>();
+		Pair<ArrayList<String>, ArrayList<String>> results = 
+				new Pair<ArrayList<String>, ArrayList<String>>(exceptions, warnings);
 		try {
 			tag = model.buildToXML();
-			//TODO make sure multiple compiler errors are collated
 		}
 		catch (XMLWriteBackException ex) {
 			for (CompilerException cex : ex.getCompilerExceptions()) {
@@ -150,18 +153,17 @@ public abstract class VEWController extends Observable {
 							+ ": " + fex.getError());
 				}
 			}
-			return exceptions;
+			return results;
 		}
 		if (!(tag instanceof XMLFile)) {
 			exceptions.add("The method was not constructed with a proper XMLFile.");
-			return exceptions;
+			return results;
 		}
+		warnings.addAll(model.getWarnings());
+		model.clearWarnings();
 		XMLFile xmlFile = (XMLFile) tag;
-		//String fileName = xmlFile.getFileName();
-		//String newName = fileName.substring(0, fileName.lastIndexOf('\\') + 1) + "testFile.xml";
-		//xmlFile.setFileName(newName);
 		xmlFile.write();
-		return exceptions;
+		return results;
 	}
 
 
