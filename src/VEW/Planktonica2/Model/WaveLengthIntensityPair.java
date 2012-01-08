@@ -27,6 +27,11 @@ public class WaveLengthIntensityPair {
 		this.intensity = intensity;
 	}
 	
+	public WaveLengthIntensityPair(WaveLengthIntensityPair w) {
+		this.wavelengthIndex = w.getWavelengthIndex();
+		this.intensity = w.getIntensity();
+	}
+
 	/**
 	 * Sets the wavelength to a given index of wavelength.
 	 * @param index the index in the WaveLengthIntensityPair.wavelengths array of the wavelength

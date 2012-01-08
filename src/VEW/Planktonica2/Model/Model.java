@@ -1,6 +1,13 @@
 
 package VEW.Planktonica2.Model;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.NoSuchElementException;
@@ -184,6 +191,91 @@ public class Model implements BuildFromXML, BuildToXML {
 			throw collectedExceptions;
 		}
 		return file;
+	}
+
+	public void copy_chemical(Chemical new_chem, Chemical selected) {
+		// Create copies of all variables and add them to the appropriate tables
+		String[] vars = selected.get_local_vars();
+		for (int i = 0; i < vars.length; i++) {
+			Local l = selected.checkLocalVarTable(vars[i]);
+			if (l != null)
+				new_chem.addToLocalTable(new Local(l));
+		}
+		vars = selected.get_params();
+		for (int i = 0; i < vars.length; i++) {
+			Parameter p = selected.checkParameterTable(vars[i]);
+			if (p != null)
+				new_chem.addToParamTable(new Parameter(p));
+		}
+		vars = selected.get_state_vars();
+		for (int i = 0; i < vars.length; i++) {
+			StateVariable s = selected.checkStateVariableTable(vars[i]);
+			if (s != null)
+				new_chem.addToStateVarTable(new StateVariable(s));
+		}
+		vars = selected.get_variety_concs();
+		for (int i = 0; i < vars.length; i++) {
+			VarietyConcentration v = selected.checkVarietyConcTable(vars[i]);
+			if (v != null)
+				new_chem.addToVarietyConcTable(new VarietyConcentration(v));
+		}
+		vars = selected.get_variety_locals();
+		for (int i = 0; i < vars.length; i++) {
+			VarietyLocal v = selected.checkVarietyLocalTable(vars[i]);
+			if (v != null)
+				new_chem.addToVarietyLocalTable(new VarietyLocal(v));
+		}
+		vars = selected.get_variety_params();
+		for (int i = 0; i < vars.length; i++) {
+			VarietyParameter v = selected.checkVarietyParamTable(vars[i]);
+			if (v != null)
+				new_chem.addToVarietyParamTable(new VarietyParameter(v));
+		}
+		vars = selected.get_variety_states();
+		for (int i = 0; i < vars.length; i++) {
+			VarietyVariable v = selected.checkVarietyStateTable(vars[i]);
+			if (v != null)
+				new_chem.addToVarietyStateTable(new VarietyVariable(v));
+		}
+		
+		Collection<Spectrum> specs = new ArrayList<Spectrum>();
+		for (Spectrum s : selected.getSpectrum()) {
+			specs.add(new Spectrum(s));
+		}
+		new_chem.setSpectrum(specs);
+		new_chem.baseTag = selected.baseTag;
+		new_chem.setValue(selected.getValue());
+		new_chem.setPigment(selected.hasPigment());
+		for (Function f : selected.getFunctions()) {
+			Function new_func = new_chem.addFunction(this.getFilePath(),f.getName());
+			String file_path = f.getSource_code();
+			file_path += f.getParent().getName() + "\\" + f.getName() + ".bacon";
+			FileInputStream fstream;
+			try {
+				fstream = new FileInputStream(file_path);
+				DataInputStream in = new DataInputStream(fstream);
+				BufferedReader br = new BufferedReader(new InputStreamReader(in));
+				String source = "", line = "";
+				while ((line = br.readLine()) != null)   {
+					source += (line + "\n"); 
+				}
+				in.close();
+				file_path = f.getSource_code() + new_func.getParent().getName();
+				File parentDirectory = new File(file_path);
+				if (!parentDirectory.exists()) {
+					parentDirectory.mkdir();
+				}
+				file_path += "\\" + new_func.getName() + ".bacon";
+				FileOutputStream fostream = new FileOutputStream(file_path);
+				PrintStream out = new PrintStream(fostream);
+				out.print(source);
+				out.close();
+			} catch (Exception e) {
+				//System.out.println(e.getMessage());
+			}
+		}
+		
+		this.addChemical(new_chem);
 	}
 
 	

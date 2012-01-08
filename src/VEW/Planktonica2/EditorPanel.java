@@ -405,9 +405,10 @@ public class EditorPanel extends JPanel implements Observer {
 		        	"Choose a name for the imported function",
 		            "Import Function", 1);
 		    if (name != null) {
-		    	controller.addFunction(this,name);
-		    	open_source_file(fpath,true);
-		    	this.save();
+		    	if (controller.addFunction(this,name)) {
+		    		open_source_file(fpath,true);
+		    		this.save();
+		    	}
 		    }
         }
 	}
@@ -466,6 +467,8 @@ public class EditorPanel extends JPanel implements Observer {
 		this.syntax.setText("<html><PRE></PRE></html>");
 		this.preview.setVisible(false);
 		this.error_log.setText("<html><PRE></PRE></html>");
+		this.syntax_highlighter.clear_flags();
+		this.auto_complete.new_word();
 	}
 	
 	public String get_error_at_caret() {

@@ -14,6 +14,19 @@ public class Spectrum implements BuildFromXML, BuildToXML, Iterable<WaveLengthIn
 	private boolean hasPigment;
 	
 
+	public Spectrum(Spectrum s) {
+		this.name = s.getName();
+		ArrayList<WaveLengthIntensityPair> vals = new ArrayList<WaveLengthIntensityPair>();
+		for (WaveLengthIntensityPair w : s.values) {
+			vals.add(new WaveLengthIntensityPair(w));
+		}
+		this.values = vals;
+		this.baseTag = s.baseTag;
+		this.hasPigment = s.hasPigment;
+	}
+
+	public Spectrum() {}
+
 	@Override
 	public BuildFromXML build(XMLTag tag) {
 		baseTag = tag;

@@ -230,14 +230,14 @@ public abstract class VEWController extends Observable {
 	
 	public abstract void addCategoryToModel(String name);
 
-	public void addFunction(Component display, String name) {
+	public boolean addFunction(Component display, String name) {
 		if (this.getSelectedCatagory() == null || !validate_name(display,name))
-			return;
+			return false;
 		// Check name uniqueness
 		for (Function f : this.getSelectedCatagory().getFunctions()) {
 			if (f.getName().equals(name)) {
 				JOptionPane.showMessageDialog(display, "A function with that name already exists");
-				return;
+				return false;
 			}
 		}
 		Catagory c = (Catagory) this.getSelectedCatagory();
@@ -245,6 +245,7 @@ public abstract class VEWController extends Observable {
 		addSourceFile(model.getFilePath() + c.getName() + "\\", name);
 		this.setChanged();
 		this.notifyObservers(new NewFunctionEvent(c,f));
+		return true;
 	}
 
 	private void addSourceFile(String parentPath, String name) {
