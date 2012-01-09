@@ -318,6 +318,8 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		}
 		if (units.isEmpty())
 			units.add(new Unit(0,"dimensionless",1));
+		current_units.clear();
+		unit_list.setText("");
 		switch (current_selection) {
 		case GROUPVAR :
 			StateVariable v = new StateVariable();
@@ -393,6 +395,11 @@ public class VariableEditorPanel extends JPanel implements Observer {
 				vc.setUnits(units);
 				current_category.addToVarietyConcTable(vc);
 				this.current_variable = vc;
+				// Add the food set to the available list
+				DefaultComboBoxModel model = (DefaultComboBoxModel) link_combo.getModel();
+				int index = model.getSize();
+				this.food_sets.put(vc.getName(), index);
+				model.addElement(vc.getName());
 				return vc;
 			}
 			break;
@@ -441,12 +448,21 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			JOptionPane.showMessageDialog(this, "This is a built-in variable and cannot be edited");
 			return;
 		}
+		if (v instanceof VarietyConcentration && current_selection != VarType.FOODSET && food_set_used(v))
+			return;
 		// Remove the previous version of the variable and add a new one
 		if (v != null) {
 			v = current_category.removeFromTables(v.getName());
+			if (v instanceof VarietyConcentration) {
+				int index = this.food_sets.get(v.getName());
+				this.food_sets.remove(v.getName());
+				DefaultComboBoxModel model = (DefaultComboBoxModel) link_combo.getModel();
+				model.removeElementAt(index);
+			}
 			if (v != null) {
 				construct_variable();
 				controller.updateVariableDisplay();
+				this.update_food_sets(controller.getSelectedCatagory().get_variety_concs());
 			}
 		}
 	}
@@ -684,6 +700,44 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			"Confirm delete", JOptionPane.YES_NO_OPTION, 1, null, null, 1);
 		if (choice == 1)
 			return;
+		if (v instanceof VarietyConcentration && food_set_used(v))
+			return;
 		controller.delete_variable(v);
+		if (v instanceof VarietyConcentration) {
+			this.update_food_sets(controller.getSelectedCatagory().get_variety_concs());
+		}
+	}
+
+	private boolean food_set_used(VariableType v) {
+		String variables = "";
+		boolean found = false;
+		Catagory c = controller.getSelectedCatagory();
+		for (String s : c.get_variety_locals()) {
+			VarietyLocal vl = c.checkVarietyLocalTable(s);
+			if (vl.getLinkConcentration().equals(v)) {
+				variables += vl.getName() + ",";
+				found = true;
+			}
+		}
+		for (String s : c.get_variety_params()) {
+			VarietyParameter vp = c.checkVarietyParamTable(s);
+			if (vp.getLinkConcentration().equals(v)) {
+				variables += vp.getName() + ",";
+				found = true;
+			}
+		}
+		for (String s : c.get_variety_states()) {
+			VarietyVariable vv = c.checkVarietyStateTable(s);
+			if (vv.getLinkConcentration().equals(v)) {
+				variables += vv.getName() + ",";
+				found = true;
+			}
+		}
+		if (found) {
+			variables = variables.substring(0,variables.length()-1);
+			JOptionPane.showMessageDialog(this, "Cannot remove this food set as it is used by the following" +
+					" variables: " + variables);
+		}
+		return found;
 	}
 }
