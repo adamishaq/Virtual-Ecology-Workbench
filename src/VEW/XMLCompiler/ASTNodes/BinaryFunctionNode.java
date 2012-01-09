@@ -65,7 +65,7 @@ public class BinaryFunctionNode extends RuleNode {
 		switch (binFunc) {
 		case UPTAKE  : func = "uptake"; break;
 		case RELEASE : func = "release"; break;
-		case PCHANGE : return "\\pchange{" + idArg.generateXML() + "," + expArg.generateXML() + "}";
+		case PCHANGE : return "\\pchange{\\stage{" + idArg.getName() + "}," + expArg.generateXML() + "}";
 		}
 		return "\\" + func + "{" + expArg.generateXML() + "," + idArg.generateXML() + "}";
 	}
@@ -85,6 +85,17 @@ public class BinaryFunctionNode extends RuleNode {
 		case PCHANGE : return "pchange(" + id + "," + exp + ")";
 		}
 		return func + "(" + id + "," + exp + ")";
+	}
+
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		super.acceptDependencyCheckVisitor(visitor);
+		
+		idArg.acceptDependencyCheckVisitor(visitor);
+		expArg.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
 	}
 	
 }

@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 
+import VEW.Common.Pair;
 import VEW.Common.XML.XMLFile;
 import VEW.Common.XML.XMLTag;
 import VEW.Planktonica2.Display;
@@ -138,12 +139,14 @@ public abstract class VEWController extends Observable {
 	public abstract Collection<Catagory> getCatagories();
 
 	
-	public Collection<String> writeBackToXMLFile() {
+	public Pair<ArrayList<String>, ArrayList<String>> writeBackToXMLFile() {
 		XMLTag tag = null;
 		ArrayList<String> exceptions = new ArrayList<String>();
+		ArrayList<String> warnings = new ArrayList<String>();
+		Pair<ArrayList<String>, ArrayList<String>> results = 
+				new Pair<ArrayList<String>, ArrayList<String>>(exceptions, warnings);
 		try {
 			tag = model.buildToXML();
-			//TODO make sure multiple compiler errors are collated
 		}
 		catch (XMLWriteBackException ex) {
 			for (CompilerException cex : ex.getCompilerExceptions()) {
@@ -152,17 +155,17 @@ public abstract class VEWController extends Observable {
 							+ ": " + fex.getError());
 				}
 			}
-			return exceptions;
+			return results;
 		}
 		if (!(tag instanceof XMLFile)) {
-			//TODO something has gone really wrong
+			exceptions.add("The method was not constructed with a proper XMLFile.");
+			return results;
 		}
+		warnings.addAll(model.getWarnings());
+		model.clearWarnings();
 		XMLFile xmlFile = (XMLFile) tag;
-		String fileName = xmlFile.getFileName();
-		String newName = fileName.substring(0, fileName.lastIndexOf('\\') + 1) + "testFile.xml";
-		xmlFile.setFileName(newName);
 		xmlFile.write();
-		return exceptions;
+		return results;
 	}
 
 
@@ -263,7 +266,7 @@ public abstract class VEWController extends Observable {
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Failed to write sourcecode to file.");
 			e.printStackTrace();
 		}
 	}
@@ -301,19 +304,16 @@ public abstract class VEWController extends Observable {
 			Function f = this.getCurrentlySelectedFunction();
 			if (f == null)
 				return;
-			try {
-				File del = new File(f.getSource_code() + "\\" + f.getParent().getName() 
-						+ "\\" + f.getName() + ".bacon");
-				del.delete();
-			} catch (Exception e) {
-				// TODO: Auto-generated catch block
-			} finally {
-				this.getSelectedCatagory().removeFunction(f);
-				this.setChanged();
-				Catagory c = this.getSelectedCatagory();
-				this.notifyObservers(new DeleteFunctionEvent(c,f));
-				this.setSelectedFunction(null);
-			}
+
+			File del = new File(f.getSource_code() + "\\" + f.getParent().getName() 
+					+ "\\" + f.getName() + ".bacon");
+			del.delete();
+
+			this.getSelectedCatagory().removeFunction(f);
+			this.setChanged();
+			this.notifyObservers(new UpdateCategoryEvent(this.getSelectedCatagory()));
+			this.setSelectedFunction(null);
+
 		} else if (this.getSelectedCatagory() != null) {
 			// User has a functional group/chemical selected
 			// Check the user really wants to delete the category

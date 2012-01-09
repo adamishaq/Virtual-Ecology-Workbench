@@ -6,9 +6,10 @@ import java.util.Iterator;
 
 import VEW.Common.XML.XMLTag;
 import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
+import VEW.XMLCompiler.DependencyChecker.HasDependency;
 
 
-public abstract class VariableType implements BuildFromXML, BuildToXML {
+public abstract class VariableType implements BuildFromXML, BuildToXML, HasDependency {
 
 	private String name;
 	private String desc;
@@ -19,6 +20,7 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 	private boolean assignedTo;
 	private boolean readFrom;
 	private boolean editable;
+	private boolean xmlInclude;
 	protected XMLTag tag;
 	
 	public VariableType() {
@@ -44,6 +46,7 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 		this.editable = editable;
 		this.value = value;
 		this.hist = hist;
+		xmlInclude = true;
 	}
 	
 	
@@ -149,10 +152,10 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 		if (value != null)
 			newTag.addTag(new XMLTag("value", Float.toString(value)));
 		if (hist != null)
-			tag.addTag(new XMLTag("hist", Integer.toString(hist)));
-		buildUnitXML(tag);
-		tag.setName(this.getVariableClassName());
-		return tag;
+			newTag.addTag(new XMLTag("hist", Integer.toString(hist)));
+		buildUnitXML(newTag);
+		newTag.setName(this.getVariableClassName());
+		return newTag;
 	}
 	
 	/**
@@ -173,6 +176,11 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 		tag.addTag(new XMLTag("unit", unitString));
 	}
 
+	
+
+	/*
+	 * Getters and setters
+	 */
 	public String getName() {
 		return name;
 	}
@@ -254,6 +262,13 @@ public abstract class VariableType implements BuildFromXML, BuildToXML {
 		return units;
 	}
 	
+	public boolean includedInXML() {
+		return xmlInclude;
+	}
+	
+	public void setIncludeInXML(boolean include) {
+		xmlInclude = include;
+	}
 	
 	
 }

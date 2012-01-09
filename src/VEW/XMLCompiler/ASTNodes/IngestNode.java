@@ -79,5 +79,18 @@ public class IngestNode extends RuleNode {
 			rp = rate.generateLatex();
 		return " ingest(" + id + "," + thresh + " , " + rp + ")";
 	}
+
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		super.acceptDependencyCheckVisitor(visitor);		
+		
+		identifier.acceptDependencyCheckVisitor(visitor);
+		threshold.acceptDependencyCheckVisitor(visitor);
+		rate.acceptDependencyCheckVisitor(visitor);
+		
+		visitor.visit(this);
+		
+	}
 	
 }

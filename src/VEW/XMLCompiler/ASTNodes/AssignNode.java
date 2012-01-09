@@ -101,4 +101,18 @@ public class AssignNode extends RuleNode {
 	public VariableType getAssignVar() {
 		return assignVar;
 	}
+
+	
+	/**
+	 * Doesnt' check the IdNode identifier.
+	 * This can be done by the visitor in the visitor class.
+	 */
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		super.acceptDependencyCheckVisitor(visitor);
+		
+		expr.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
+	}
 }

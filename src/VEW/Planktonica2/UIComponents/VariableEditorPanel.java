@@ -320,11 +320,14 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			units.add(new Unit(0,"dimensionless",1));
 		current_units.clear();
 		unit_list.setText("");
+		String desc = var_desc.getText();
+		// All of these things screw with the XML...
+		desc = desc.replaceAll("<", "%ltag").replaceAll(">", "%rtag").replaceAll("&", "");
 		switch (current_selection) {
 		case GROUPVAR :
 			StateVariable v = new StateVariable();
 			v.setName(var_name.getText());
-			v.setDesc(var_desc.getText());
+			v.setDesc(desc);
 			v.setHist(Integer.parseInt(h_size.getText()));
 			v.setValue(Float.parseFloat(i_val.getText()));
 			v.setUnits(units);
@@ -334,7 +337,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		case GROUPPARAM :
 			Parameter p = new Parameter();
 			p.setName(var_name.getText());
-			p.setDesc(var_desc.getText());
+			p.setDesc(desc);
 			p.setValue(Float.parseFloat(i_val.getText()));
 			p.setUnits(units);
 			current_category.addToParamTable(p);
@@ -343,7 +346,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		case LOCALVAR :
 			Local l = new Local();
 			l.setName(var_name.getText());
-			l.setDesc(var_desc.getText());
+			l.setDesc(desc);
 			l.setUnits(units);
 			current_category.addToLocalTable(l);
 			this.current_variable = l;
@@ -353,7 +356,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			if (this.current_category instanceof FunctionalGroup) {
 				VarietyParameter vp = new VarietyParameter((FunctionalGroup) this.current_category);
 				vp.setName(var_name.getText());
-				vp.setDesc(var_desc.getText());
+				vp.setDesc(desc);
 				vp.setValue(Float.parseFloat(i_val.getText()));
 				vp.setUnits(units);
 				// Check the food set link actually exists
@@ -371,7 +374,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			if (this.current_category instanceof FunctionalGroup) {
 				VarietyVariable vv = new VarietyVariable((FunctionalGroup) this.current_category);
 				vv.setName(var_name.getText());
-				vv.setDesc(var_desc.getText());
+				vv.setDesc(desc);
 				vv.setHist(Integer.parseInt(h_size.getText()));
 				vv.setValue(Float.parseFloat(i_val.getText()));
 				vv.setUnits(units);
@@ -391,7 +394,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			if (this.current_category instanceof FunctionalGroup) {
 				VarietyConcentration vc = new VarietyConcentration();
 				vc.setName(var_name.getText());
-				vc.setDesc(var_desc.getText());
+				vc.setDesc(desc);
 				vc.setUnits(units);
 				current_category.addToVarietyConcTable(vc);
 				this.current_variable = vc;
@@ -408,7 +411,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			if (this.current_category instanceof FunctionalGroup) {
 				VarietyLocal vl = new VarietyLocal((FunctionalGroup) this.current_category);
 				vl.setName(var_name.getText());
-				vl.setDesc(var_desc.getText());
+				vl.setDesc(desc);
 				vl.setUnits(units);
 				// Check the food set link actually exists
 				VarietyConcentration vc =
@@ -534,7 +537,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		// Fill in the variable name and description
 		var_name.setText(v.getName());
 		var_name.setCaretPosition(0);
-		var_desc.setText(v.getDesc());
+		var_desc.setText(v.getDesc().replaceAll("%ltag", "<").replaceAll("%rtag", ">"));
 		var_desc.setCaretPosition(0);
 		current_units.clear();
 		// Display the units of the variable

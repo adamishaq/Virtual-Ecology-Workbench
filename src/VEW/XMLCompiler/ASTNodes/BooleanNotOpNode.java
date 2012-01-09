@@ -28,4 +28,15 @@ public class BooleanNotOpNode extends BExprNode {
 		else
 			return " \\sim ???";
 	}
+
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		
+		expression.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
+	}
+
+	
 }

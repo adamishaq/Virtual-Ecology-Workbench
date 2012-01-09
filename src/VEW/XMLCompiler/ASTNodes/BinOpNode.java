@@ -170,4 +170,14 @@ public class BinOpNode extends ExprNode {
 		return left + func + right;
 	}
 
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		
+		lExpr.acceptDependencyCheckVisitor(visitor);
+		rExpr.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
+	}
+	
 }

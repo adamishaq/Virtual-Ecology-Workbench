@@ -21,7 +21,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -35,6 +36,7 @@ import javax.swing.JTextPane;
 
 import org.antlr.runtime.RecognitionException;
 
+import VEW.Common.Pair;
 import VEW.Planktonica2.ControllerStructure.SourcePath;
 import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.Planktonica2.UIComponents.AutocompleteBox;
@@ -184,7 +186,9 @@ public class EditorPanel extends JPanel implements Observer {
 		// Save the source file
 		if (!this.save())
 			return;
-		Collection<String> exceptions = controller.writeBackToXMLFile();
+		Pair<ArrayList<String>, ArrayList<String>> results = controller.writeBackToXMLFile();
+		List<String> exceptions = results.getFirst();
+		List<String> warnings = results.getSecond();
 		if (!exceptions.isEmpty()) {
 			String errors = "<html><PRE>Compilation errors occurred:\n";
 			errors += "<font color=#FF0000>";
@@ -194,7 +198,18 @@ public class EditorPanel extends JPanel implements Observer {
 			errors += "</font>";
 			errors += "\nCompilation aborted!</PRE></html>";
 			error_log.setText(errors);
-		} else {
+		}
+		else {
+			if (!warnings.isEmpty()){
+				String warningStr = "<html><PRE>Compilation warnings occurred:\n";
+				warningStr += "<font color=#FF9900>";
+				for (String s : warnings) {
+					warningStr += s + "\n";
+				}
+				warningStr += "</font>\nCompilation succeeded!</PRE></html>";
+				error_log.setText(warningStr);
+				return;
+			}
 			error_log.setText("<html><PRE>Compilation succeeded!</PRE></html>");
 		}
 	}
@@ -518,12 +533,32 @@ public class EditorPanel extends JPanel implements Observer {
 		DisplayOptions.getOptions().write_config();
 	}
 
+//<<<<<<< HEAD
+/*	public void actionPerformed(ActionEvent event) {
+		int choice = file_chooser.showSaveDialog(parent);
+        if (choice == JFileChooser.APPROVE_OPTION) {
+            File file = file_chooser.getSelectedFile();
+            String fpath = file.getAbsolutePath() + ".bacon";
+            // check for overwrites, extensions etc.
+            try {
+    			FileOutputStream fstream = new FileOutputStream(fpath);
+    			PrintStream out = new PrintStream(fstream);
+    			out.print(syntax_highlighter.getPlainText(syntax.getText()));
+    			out.close();
+    		} catch (Exception e) {
+    			System.out.println("Save failed!");
+    		}
+        }
+		
+*/		
+//=======
 class EditorPaneChangeListener implements PropertyChangeListener {
 	
 	EditorPanel parent;
 	
 	public EditorPaneChangeListener(EditorPanel parent) {
 		this.parent = parent;
+//>>>>>>> master
 	}
 	
 	@Override

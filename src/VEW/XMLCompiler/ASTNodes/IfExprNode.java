@@ -126,4 +126,15 @@ public class IfExprNode extends ExprNode {
 		 + ")\\;else\\;(" + elseexp + ")";
 	}
 
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		
+		conditionExpr.acceptDependencyCheckVisitor(visitor);
+		thenExpr.acceptDependencyCheckVisitor(visitor);
+		elseExpr.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
+	}
+
 }

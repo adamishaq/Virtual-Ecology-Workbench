@@ -67,4 +67,13 @@ public class VOpNode  extends ExprNode {
 		return func + "(" + exp + ")";
 	}
 
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		
+		expression.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
+	}
+
 }

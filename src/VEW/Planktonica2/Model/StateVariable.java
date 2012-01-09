@@ -64,7 +64,6 @@ public class StateVariable extends VariableType {
 	
 	@Override
 	protected String getVariableClassName() {
-		// TODO Auto-generated method stub
 		return "variable";
 	}
 }

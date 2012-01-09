@@ -40,4 +40,13 @@ public class NegNode extends ExprNode {
 		return "-(" + negExpr.generateLatex() + ")";
 	}
 
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		
+		negExpr.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
+	}
+
 }

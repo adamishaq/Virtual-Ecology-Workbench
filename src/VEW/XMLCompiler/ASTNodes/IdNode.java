@@ -44,7 +44,7 @@ public class IdNode extends ExprNode {
 		if (v == null) {
 			units = UnitChecker.null_collection;
 		} else {
-			var = (VariableType) v;
+			var = v;
 			units = var.getUnits();
 		}
 	}
@@ -77,6 +77,17 @@ public class IdNode extends ExprNode {
 	
 	public String getName() {
 		return name;
+	}
+
+	public VariableType getVariableType() {
+		return this.var;
+	}
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		
+		visitor.visit(this);
+		
 	}
 
 }

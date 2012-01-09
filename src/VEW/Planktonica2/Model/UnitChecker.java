@@ -264,7 +264,6 @@ public class UnitChecker {
 			if (second_array.size() == 0)
 				return 0;
 			scale = check_equivalences(leftover_array,expandUnits(second_array));
-			//System.out.println("Scale LHS by " + scale);
 			return scale;
 		}
 		return (second_array.size() == 0 ? scale : 0);

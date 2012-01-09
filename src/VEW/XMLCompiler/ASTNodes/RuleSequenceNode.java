@@ -94,5 +94,16 @@ public class RuleSequenceNode extends ASTree {
 		return name;
 	}
 	
-
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		
+		rule.acceptDependencyCheckVisitor(visitor);
+		if(seq != null) {
+			seq.acceptDependencyCheckVisitor(visitor);
+		}
+		visitor.visit(this);
+		
+	}
+	
 }

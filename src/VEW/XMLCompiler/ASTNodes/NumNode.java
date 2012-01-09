@@ -37,4 +37,10 @@ public class NumNode extends ExprNode {
 		return " " + value + " ";
 	}
 
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		visitor.visit(this);
+	}
+
 }

@@ -5,8 +5,9 @@ import java.util.List;
 
 import VEW.Common.XML.XMLTag;
 import VEW.Planktonica2.Model.Catagory;
+import VEW.XMLCompiler.DependencyChecker.HasDependency;
 
-public class ConstructedASTree {
+public class ConstructedASTree implements HasDependency {
 	
 	private ASTree tree;
 	private ArrayList<String> warnings;
@@ -79,6 +80,7 @@ public class ConstructedASTree {
 		return tagList;
 	}
 	
-	
-
+	public void checkASTree(ASTreeVisitor v) {
+		this.getTree().acceptDependencyCheckVisitor(v);
+	}
 }

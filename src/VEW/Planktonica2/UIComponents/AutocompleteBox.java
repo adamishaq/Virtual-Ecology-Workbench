@@ -524,7 +524,7 @@ public class AutocompleteBox {
 				} else if (this.parent.getCurrent_catagory() != null) {
 					VariableType v = this.parent.getCurrent_catagory().checkAllVariableTables(name);
 					if (v != null) {
-						text += v.getDesc() + "\n";
+						text += v.getDesc().replaceAll("%ltag", "<").replaceAll("%rtag", ">") + "\n";
 						text += "<b>Units:</b>";
 						for (Unit u : v.getUnits()) {
 							text += u.format();

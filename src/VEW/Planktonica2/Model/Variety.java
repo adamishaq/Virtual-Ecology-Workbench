@@ -1,5 +1,7 @@
 package VEW.Planktonica2.Model;
 
+import java.util.Collection;
+
 import VEW.Common.XML.XMLTag;
 import VEW.XMLCompiler.ASTNodes.AmbientVariableTables;
 
@@ -16,6 +18,15 @@ public abstract class Variety extends VariableType {
 	}
 
 	
+	
+	public Variety(String name, String desc, Type type, Collection<Unit> units,
+			Float value, Integer hist, boolean editable, VarietyConcentration link) {
+		super(name, desc, type, units, value, hist, editable);
+		linkConcentration = link;
+	}
+
+
+
 	@Override
 	public BuildFromXML build (XMLTag tag) {
 		super.build(tag);
