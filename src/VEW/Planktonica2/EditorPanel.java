@@ -243,6 +243,7 @@ public class EditorPanel extends JPanel implements Observer {
 	}
 	
 	public void check() {
+		//System.out.println(syntax.getText());
 		if (this.current_source == null)
 			return;
 		syntax_highlighter.clear_flags();

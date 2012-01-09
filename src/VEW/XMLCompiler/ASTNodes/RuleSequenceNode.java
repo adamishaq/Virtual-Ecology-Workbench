@@ -38,6 +38,8 @@ public class RuleSequenceNode extends ASTree {
 	
 	@Override
 	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
+		if (rule == null)
+			return;
 		rule.check(enclosingCategory, enclosingTree);
 		if (seq != null) {
 			seq.check(enclosingCategory, enclosingTree);
