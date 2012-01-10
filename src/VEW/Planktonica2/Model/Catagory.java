@@ -136,6 +136,10 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		stateVarTable.put(var.getName(), var);
 	}
 	
+	public void addToStateVarTable(String name, StateVariable var) {
+		stateVarTable.put(name, var);
+	}
+	
 	public StateVariable checkStateVariableTable(String varName) {
 		return stateVarTable.get(varName);
 	}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import VEW.Planktonica2.DisplayOptions;
 import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.GlobalVariable;
 import VEW.Planktonica2.Model.Unit;
 import VEW.Planktonica2.Model.UnitChecker;
 import VEW.Planktonica2.Model.VariableType;
@@ -51,9 +52,19 @@ public class IdNode extends ExprNode {
 	
 	@Override
 	public String generateXML() {
-		String var = name.replaceAll("FullIrradiance", "Full Irradiance");
+		String var = "";
+		if (this.var instanceof GlobalVariable) {
+			GlobalVariable gVar = (GlobalVariable) this.var;
+			if (gVar.getWriteBackName() != null) {
+				var = gVar.getWriteBackName();
+			}
+		}
+		else {
+			var = this.var.getName();
+		}
+		var = var.replaceAll("FullIrradiance", "Full Irradiance");
 		var = var.replace("VisibleIrradiance", "Visible Irradiance");
-		return "\\var{" + name + "}";
+		return "\\var{" + var + "}";
 	}
 	
 	@Override

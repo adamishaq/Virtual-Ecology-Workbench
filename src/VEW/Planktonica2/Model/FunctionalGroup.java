@@ -74,17 +74,20 @@ public class FunctionalGroup extends Catagory {
 		Collection<Unit> units = new ArrayList<Unit>();
 		units.add(new Unit(0, "mol", 1));
 		Type floatType = tables.checkTypeTable("$float");
-		String varName = chemName + "_Ingested";
+		String refName = chemName + "_Ingested";
+		String varName = chemName + "$Ingested";
 		String varDescription = chemName + " incoming pool";
 		StateVariable chemVar = new StateVariable(varName, varDescription,
 													floatType, units, null, null, false);
 		chemVar.setIncludeInXML(false);
-		stateVarTable.put(varName, chemVar);
-		varName = chemName + "_Pool";
+		stateVarTable.put(refName, chemVar);
+		
+		refName = chemName + "_Pool";
+		varName = chemName + "$Pool";
 		varDescription = chemName + " internal pool";
 		chemVar = new StateVariable(varName, varDescription, floatType, units, null, null, false);
 		chemVar.setIncludeInXML(false);
-		stateVarTable.put(varName, chemVar);
+		stateVarTable.put(refName, chemVar);
 	}
 	
 	@Override

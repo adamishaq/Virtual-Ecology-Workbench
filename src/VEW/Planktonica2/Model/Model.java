@@ -133,13 +133,15 @@ public class Model implements BuildFromXML, BuildToXML {
 		Type floatType = (Type) AmbientVariableTables.getTables().checkTypeTable("$float");
 		ArrayList<Unit> units = new ArrayList<Unit>();
 		units.add(new Unit(0, "mol", 1));
-		StateVariable pool = new StateVariable(name + "_Pool", name + " internal pool", floatType,
+		StateVariable pool = new StateVariable(name + "$Pool", name + " internal pool", floatType,
 				units, new Float(0), 0, false);
-		StateVariable ingested = new StateVariable(name + "_Ingested", name + " incoming pool",
+		pool.setIncludeInXML(false);
+		StateVariable ingested = new StateVariable(name + "$Ingested", name + " incoming pool",
 				floatType, units, new Float(0), 0, false);
+		ingested.setIncludeInXML(false);
 		for (FunctionalGroup f : this.getFunctionalGroups()) {
-			f.addToStateVarTable(pool);
-			f.addToStateVarTable(ingested);
+			f.addToStateVarTable(name + "_Pool", pool);
+			f.addToStateVarTable(name + "_Ingested", ingested);
 		}
 	}
 	
