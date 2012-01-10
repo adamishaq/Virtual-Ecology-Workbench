@@ -139,7 +139,7 @@ public class UnitPanel extends JPanel {
 	}
 	
 	public void clear_units() {
-		this.current_units.clear();
+		this.current_units = new ArrayList<Unit>();
 		display_units();
 	}
 	

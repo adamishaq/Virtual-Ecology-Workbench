@@ -53,8 +53,9 @@ public class Planktonica extends JPanel {
 			jd.dispose();
 		}
 		
-	    funcView = new FunctionalDisplay(new FunctionalGroupController(m), catTab.getSize());
-	    chemView = new ChemicalDisplay(new ChemicalController(m), catTab.getSize());
+		FunctionalGroupController funcController = new FunctionalGroupController(m);
+	    funcView = new FunctionalDisplay(funcController, catTab.getSize());
+	    chemView = new ChemicalDisplay(new ChemicalController(m,funcController), catTab.getSize());
 	    initialiseGUI();
 	    parent.pack();
 	}
@@ -67,8 +68,9 @@ public class Planktonica extends JPanel {
 			System.err.println(e);
 		}
 		
-	    funcView = new FunctionalDisplay(new FunctionalGroupController(m), catTab.getSize());
-	    chemView = new ChemicalDisplay(new ChemicalController(m), catTab.getSize());
+		FunctionalGroupController funcController = new FunctionalGroupController(m);
+	    funcView = new FunctionalDisplay(funcController, catTab.getSize());
+	    chemView = new ChemicalDisplay(new ChemicalController(m,funcController), catTab.getSize());
 	    initialiseGUI();
 	}
 	

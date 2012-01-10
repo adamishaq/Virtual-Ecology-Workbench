@@ -535,7 +535,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 	public void display(VariableType v) {
 		this.current_variable = v;
 		// Fill in the variable name and description
-		var_name.setText(v.getName());
+		var_name.setText(v.getName().replaceAll("\\$", "_"));
 		var_name.setCaretPosition(0);
 		var_desc.setText(v.getDesc().replaceAll("%ltag", "<").replaceAll("%rtag", ">"));
 		var_desc.setCaretPosition(0);
@@ -696,6 +696,8 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			return;
 		VariableType v = current_category.checkAllVariableTables(var_name.getText());
 		if (v == null)
+			return;
+		if (!v.isEditable())
 			return;
 		// Check the user really wants to delete this variable
 		int choice = JOptionPane.showOptionDialog(this, "Are you sure you want to delete the variable "

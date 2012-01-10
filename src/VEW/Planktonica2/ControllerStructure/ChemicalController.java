@@ -18,10 +18,12 @@ public class ChemicalController extends VEWController {
 	Collection<Chemical> chemicals;
 	
 	Chemical selectedChemical;
+
+	private FunctionalGroupController funcController;
 	
-	public ChemicalController(Model m) {
+	public ChemicalController(Model m,FunctionalGroupController f) {
 		super(m);
-		
+		this.funcController = f;
 		chemicals = model.getChemicals();
 		
 	}
@@ -80,6 +82,7 @@ public class ChemicalController extends VEWController {
 		model.copy_chemical(c,this.selectedChemical);
 		this.setChanged();
 		this.notifyObservers(new NewCategoryEvent(c));
+		this.funcController.updateVariableDisplay();
 		
 	}
 	
@@ -123,6 +126,27 @@ public class ChemicalController extends VEWController {
 		model.addChemical(c);
 		this.setChanged();
 		this.notifyObservers(new NewCategoryEvent(c));
+		// The variable display may need to be updated to reflect new chemical pools
+		this.funcController.updateVariableDisplay();
+	}
+	
+	@Override
+	public void rename_chemical(Chemical c, String name) {
+		Chemical newchem = new Chemical(name,c.getFilePath());
+		newchem.setFunctions(c.getFunctions());
+		newchem.setSpectrum(c.getSpectrum());
+		newchem.setPigment(c.hasPigment());
+		newchem.setValue(c.getValue());
+		model.removeChemical(c);
+		model.addChemical(newchem);
+		this.setChanged();
+		this.notifyObservers(new NewCategoryEvent(c));
+		this.funcController.updateVariableDisplay();
+	}
+	
+	@Override
+	public void chemical_delete() {
+		this.funcController.updateVariableDisplay();
 	}
 	
 }

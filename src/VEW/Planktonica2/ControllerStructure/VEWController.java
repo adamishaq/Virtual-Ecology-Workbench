@@ -271,17 +271,7 @@ public abstract class VEWController extends Observable {
 		}
 	}
 
-	public void rename_chemical(Chemical c, String name) {
-		Chemical newchem = new Chemical(name,c.getFilePath());
-		newchem.setFunctions(c.getFunctions());
-		newchem.setSpectrum(c.getSpectrum());
-		newchem.setPigment(c.hasPigment());
-		newchem.setValue(c.getValue());
-		model.removeChemical(c);
-		model.addChemical(newchem);
-		this.setChanged();
-		this.notifyObservers(new NewCategoryEvent(c));
-	}
+	public void rename_chemical(Chemical c, String name) {}
 	
 	public Collection<String> get_chemical_names() {
 		ArrayList<String> names = new ArrayList<String>();
@@ -341,6 +331,7 @@ public abstract class VEWController extends Observable {
 			} finally {
 				if (i instanceof Chemical) {
 					model.removeChemical((Chemical)i);
+					chemical_delete();
 				} else {
 					model.removeFunctionalGroup((FunctionalGroup)i);
 				}
@@ -351,6 +342,8 @@ public abstract class VEWController extends Observable {
 		}
 	}
 
+	public void chemical_delete() {}
+	
 	public void deleteFunction(Display d) {
 		// Check the user really wants to delete this function
 		int choice = JOptionPane.showOptionDialog(d, "Are you sure you want to delete this function?",
