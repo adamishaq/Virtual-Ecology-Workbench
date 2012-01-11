@@ -22,6 +22,8 @@ public class IfExprNode extends ExprNode {
 	
 	@Override
 	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
+		//if (conditionExpr == null)
+			//return;
 		conditionExpr.check(enclosingCategory, enclosingTree);
 		thenExpr.check(enclosingCategory, enclosingTree);
 		elseExpr.check(enclosingCategory, enclosingTree);
@@ -30,6 +32,7 @@ public class IfExprNode extends ExprNode {
 												conditionExpr.getBExprType()));
 		} catch (BACONCompilerException e) {
 			enclosingTree.addSemanticException(e);
+			setExprType(thenExpr.getExprType());
 		} finally {
 			if (UnitChecker.getUnitChecker().CheckUnitCompatability(thenExpr.getUnits(),
 					elseExpr.getUnits()) == 0) {
@@ -37,13 +40,12 @@ public class IfExprNode extends ExprNode {
 					+ line_number);
 				this.units = UnitChecker.null_collection;
 			} else if (UnitChecker.getUnitChecker().CheckUnitCompatability(thenExpr.getUnits(),
-					elseExpr.getUnits()) != 0) { 
+					elseExpr.getUnits()) == 1) { 
+				this.units = UnitChecker.getUnitChecker().add_units(thenExpr.getUnits(), elseExpr.getUnits());
+			} else {
 				// Use units of then expr
 				this.units = thenExpr.getUnits();
-			} else {
-				this.units = UnitChecker.getUnitChecker().add_units(thenExpr.getUnits(), elseExpr.getUnits());
 			}
-			setExprType(thenExpr.getExprType());
 		}
 	}
 	
