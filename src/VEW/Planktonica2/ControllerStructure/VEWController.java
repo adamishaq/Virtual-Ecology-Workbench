@@ -433,7 +433,7 @@ public abstract class VEWController extends Observable {
 				for (String s : fg.get_params()) {
 					VariableType v = fg.checkParameterTable(s);
 					if (v != null) {
-						latex += "\t\t" + v.getName() + " & " + v.getDesc() + " & $" 
+						latex += "\t\t$" + v.getName() + "$ & $" + v.getDesc().replaceAll(" ", "\\;") + "$ & $" 
 							+ v.getValue() + "$ & $" + v.get_formatted_units() + "$ \\\\ \\hline \n";
 					}
 				}
@@ -449,7 +449,7 @@ public abstract class VEWController extends Observable {
 	}
 
 	private String source_latex(Function f) {
-		String latex = f.getName() + " \\\\ \n";
+		String latex = f.getName().replaceAll("_", "\\_") + " \\\\ \n";
 		String fpath = f.getSource_code() + "\\" + f.getParent().getName() 
 			+ "\\" + f.getName() + ".bacon";
 		try {
@@ -472,7 +472,7 @@ public abstract class VEWController extends Observable {
 			ANTLRParser p = new ANTLRParser (file_text);
 			ConstructedASTree ct = p.getAST();
 			if (ct.getTree() != null) 
-				latex += "$" + ct.getTree().generateLatex() + "$ \n";
+				latex += "$" + ct.getTree().generateLatex() + "$ \n\n";
 		} catch (Exception e) {
 			latex += "{\\if Source not found} \\\\ \n";
 		}
@@ -480,6 +480,8 @@ public abstract class VEWController extends Observable {
 	}
 	
 	public boolean validate_name(Component display, String name) {
+		if (name == null)
+			return false;
 		// Check it contains no disallowed characters
 		char[] chars = name.toCharArray();
 		for (int i = 0; i < chars.length; i++) {
