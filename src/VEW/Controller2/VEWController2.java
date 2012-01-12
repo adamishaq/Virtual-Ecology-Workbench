@@ -25,6 +25,8 @@ import VEW.Common.XML.XMLFile;
 import VEW.Planktonica2.DisplayOptions;
 import VEW.Planktonica2.Planktonica;
 import VEW.Planktonica2.SyntaxChecker;
+import VEW.Planktonica2.Model.Function;
+import VEW.Planktonica2.Model.XMLWriteBackException;
 import VEW.Scenario2.ChemicalConservationDialog;
 import VEW.Scenario2.ClosureEditor;
 import VEW.Scenario2.InitialConditionsPanel;
@@ -304,6 +306,17 @@ public boolean isClickable(JLabel j) {
       sp2.leavePage();
       return true;
     } else if (lastPage==modelLight) {
+      Function.COMPILEFULLY = false;
+      try {
+		XMLFile file = (XMLFile) p.getModel().buildToXML();
+		file.write();
+      } 
+      catch (XMLWriteBackException e) {
+    	e.printStackTrace();
+      }
+      
+      Function.COMPILEFULLY = true;
+      
       sc.setVisible(true);
       return true;
     } else if (lastPage==initLight) {

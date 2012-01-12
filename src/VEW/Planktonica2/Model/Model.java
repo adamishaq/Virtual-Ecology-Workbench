@@ -180,7 +180,6 @@ public class Model implements BuildFromXML, BuildToXML {
 		for (XMLTag child : oldTags) {
 			child.removeFromParent();
 		}
-		newFile.addTags(oldTags);
 		XMLWriteBackException collectedExceptions = new XMLWriteBackException();
 		for (FunctionalGroup fGroup : functionalGroups) {
 			try {
@@ -205,7 +204,16 @@ public class Model implements BuildFromXML, BuildToXML {
 		if (collectedExceptions.hasExceptions()) {
 			throw collectedExceptions;
 		}
-		return newFile;
+		XMLTag[] functionalTags = oldFile.getTags(XMLTagEnum.FUNCTIONAL_GROUP.xmlTag());
+		for (XMLTag tag: functionalTags) {
+			oldFile.removeChild(tag);
+		}
+		XMLTag[] chemicalTags = oldFile.getTags(XMLTagEnum.CHEMICAL.xmlTag());
+		for (XMLTag tag: chemicalTags) {
+			oldFile.removeChild(tag);
+		}
+		oldFile.addTags(newFile.getTags());
+		return oldFile;
 	}
 
 	public void copy_chemical(Chemical new_chem, Chemical selected) {

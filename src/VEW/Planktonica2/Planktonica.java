@@ -12,6 +12,7 @@ import VEW.Controller2.VEWController2;
 
 import VEW.Planktonica2.ControllerStructure.ChemicalController;
 import VEW.Planktonica2.ControllerStructure.FunctionalGroupController;
+import VEW.Planktonica2.Model.Function;
 import VEW.Planktonica2.Model.Model;
 /**
  * VEW Planktonica display for editing functional groups and chemicals, based on MVC OO design principle
@@ -34,6 +35,7 @@ public class Planktonica extends JPanel {
 	public VEWController2 vc2;
 	public XMLFile xmlFile;
 	private JFrame parent;
+	private Model currentModel;
 
 	  
 	/**
@@ -45,6 +47,8 @@ public class Planktonica extends JPanel {
 		vc2 = jd;
 	    parent = jd;
 	    Model m = new Model(xmlFile);
+	    currentModel = m;
+	    this.xmlFile = xmlFile;
 		try {
 			m.buildFromFile();
 		} catch (BackingStoreException e) {
@@ -61,6 +65,7 @@ public class Planktonica extends JPanel {
 	}
 	
 	public Planktonica (XMLFile xmlFile) {
+		this.xmlFile = xmlFile;
 	    Model m = new Model(xmlFile);
 		try {
 			m.buildFromFile();
@@ -87,8 +92,12 @@ public class Planktonica extends JPanel {
 
 
   public boolean greenLight(boolean fix) {
-	  
+	Function.COMPILEFULLY = true;
 	return true;
+  }
+  
+  public Model getModel() {
+	  return currentModel;
   }
 
 

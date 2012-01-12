@@ -12,6 +12,7 @@ public class IngestNode extends RuleNode {
 	private IdNode identifier;
 	private ExprNode threshold;
 	private ExprNode rate;
+	private VarietyConcentration foodSet;
 	
 	public IngestNode(IdNode _identifier, ExprNode _threshold, ExprNode _rate) {
 		this.identifier = _identifier;
@@ -32,6 +33,7 @@ public class IngestNode extends RuleNode {
 			enclosingTree.addSemanticException(
 					new SemanticCheckException(identifier.getName() + " is not a known food set",line_number));
 		}
+		this.foodSet = foodSet;
 		threshold.check(enclosingCategory, enclosingTree);
 		rate.check(enclosingCategory, enclosingTree);
 		Type threshType = threshold.getExprType();
@@ -62,7 +64,7 @@ public class IngestNode extends RuleNode {
 
 	@Override
 	public String generateXML() {
-		return "\\ingest{" + identifier.generateXML() + "," + threshold.generateXML() + ","
+		return "\\ingest{\\var{" + foodSet.getName() + "}," + threshold.generateXML() + ","
 		  	+ rate.generateXML() + "}";
 	}
 

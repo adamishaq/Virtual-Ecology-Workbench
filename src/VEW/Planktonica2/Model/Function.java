@@ -31,7 +31,7 @@ public class Function implements BuildFromXML, BuildToXML {
 	
 	private String source_file_path;
 	
-	
+	public static boolean COMPILEFULLY = true;
 	private List<String> warnings;
 	private XMLTag baseTag;
 
@@ -273,11 +273,13 @@ public class Function implements BuildFromXML, BuildToXML {
 		List<XMLTag> equationTags;
 		try {
 			equationTags = compileFunction();
+			for (XMLTag eqTag : equationTags) {
+				newTag.addTag(eqTag);
+			}
 		} catch (CompilerException e) {
-			throw new XMLWriteBackException(e);
-		}
-		for (XMLTag eqTag : equationTags) {
-			newTag.addTag(eqTag);
+			if (COMPILEFULLY) {
+				throw new XMLWriteBackException(e);
+			}
 		}
 		if (archiveName != null)
 			newTag.addTag(new XMLTag("archivename", archiveName));

@@ -14,6 +14,7 @@ public class CreateNode extends RuleNode {
 	private IdNode identifier;
 	private ExprNode expression;
 	private AssignListNode assignList;
+	private Stage creationStage;
 
 	public CreateNode (IdNode identifier, ExprNode expression) {
 		this.identifier = identifier;
@@ -41,6 +42,7 @@ public class CreateNode extends RuleNode {
 			enclosingTree.addSemanticException(
 					new SemanticCheckException(identifier.getName() + " is not a valid stage",line_number));
 		}
+		creationStage = stage;
 		expression.check(enclosingCategory, enclosingTree);
 		Type numExprType = expression.getExprType();
 		if (numExprType instanceof VarietyType) {
@@ -58,10 +60,10 @@ public class CreateNode extends RuleNode {
 	@Override
 	public String generateXML() {
 		if (assignList != null) {
-			return "\\create{" + identifier.generateXML() + "," 
+			return "\\create{\\stage{" + creationStage.getName() + "}," 
 			 + expression.generateXML() + "," + assignList.generateXML() + "}";
 		} else {
-			return "\\create{" + identifier.generateXML() + "," 
+			return "\\create{\\stage{" + creationStage.getName() + "}," 
 			 + expression.generateXML() + "}";
 		}
 	}

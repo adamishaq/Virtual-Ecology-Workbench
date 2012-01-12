@@ -266,7 +266,7 @@ public class UnitChecker {
 			scale = check_equivalences(leftover_array,expandUnits(second_array));
 			return scale;
 		}
-		return (second_array.size() == 0 ? scale : 0);
+		return ((second_array.size() == 0) ? scale : 0);
 	}
 
 	private float check_equivalences(ArrayList<Unit> leftover_array,
