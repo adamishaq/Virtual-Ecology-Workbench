@@ -36,9 +36,11 @@ public class AssignListNode extends ASTree {
 	public String generateXML() {
 		String genString = "";
 		for (AssignNode a : assignList) {
-			genString += "\\set{" + a.generateXML() + "},";
+			String assignString = a.generateXML().replace("\\assign{", "");
+			assignString = assignString.substring(0, assignString.length() - 1);
+			genString += "\\set{" + assignString + "},";
 		}
-		return genString;
+		return genString.substring(0, genString.length() - 1);
 	}
 	
 	@Override

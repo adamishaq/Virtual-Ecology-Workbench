@@ -58,6 +58,9 @@ public class IdNode extends ExprNode {
 			if (gVar.getWriteBackName() != null) {
 				var = gVar.getWriteBackName();
 			}
+			else {
+				var = this.var.getName();
+			}
 		}
 		else {
 			var = this.var.getName();
