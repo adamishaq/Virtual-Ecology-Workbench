@@ -268,7 +268,8 @@ public class EditorPanel extends JPanel implements Observer {
 				error_log.setText(errors);
 			}
 			String latex = "\\begin{array}{lr}";
-			latex += ct.getTree().generateLatex();
+			if (ct.getTree() != null)
+				latex += ct.getTree().generateLatex();
 			latex += "\\end{array}";
 			preview.setVisible(true);
 			preview.update_preview(latex);
