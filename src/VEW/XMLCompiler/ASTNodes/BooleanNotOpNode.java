@@ -2,9 +2,14 @@ package VEW.XMLCompiler.ASTNodes;
 
 import VEW.Planktonica2.Model.Catagory;
 
+/**
+ * An AST node representing a boolean not expression
+ * @author David Coulden
+ *
+ */
 public class BooleanNotOpNode extends BExprNode {
 
-	private BExprNode expression;
+	private BExprNode expression; //The boolean expression being negated
 
 	public BooleanNotOpNode (BExprNode expression) {
 		this.expression = expression;

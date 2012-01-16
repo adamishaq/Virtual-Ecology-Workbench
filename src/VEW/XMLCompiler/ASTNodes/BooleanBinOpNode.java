@@ -8,9 +8,9 @@ import VEW.Planktonica2.Model.VarietyType;
 
 public class BooleanBinOpNode extends BExprNode {
 
-	private BooleanBinOperator booleanOp;
-	private BExprNode rBExpr;
-	private BExprNode lBExpr;
+	private BooleanBinOperator booleanOp; //The type of boolean operator
+	private BExprNode rBExpr; //The right expression being operated on
+	private BExprNode lBExpr; //The left expression being operated on
 	
 	public BooleanBinOpNode(BooleanBinOperator booleanOp, BExprNode lBExpr, BExprNode rBExpr, int line) {
 		this.booleanOp = booleanOp;
@@ -33,6 +33,13 @@ public class BooleanBinOpNode extends BExprNode {
 		}
 	}
 	
+	/**
+	 * Checks that the type of the right expression is compatible with the type of the left expression
+	 * @param lType
+	 * @param rType
+	 * @return The type the expression will evaluate to
+	 * @throws BACONCompilerException
+	 */
 	private Type checkTypeCompatible(Type rBExprType, Type lBExprType) throws BACONCompilerException {
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type boolType = (Type) tables.checkTypeTable("$boolean");

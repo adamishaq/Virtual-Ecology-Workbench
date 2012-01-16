@@ -261,17 +261,18 @@ public class EditorPanel extends JPanel implements Observer {
 				} else {
 					error_log.setText("<html><PRE>Check succeeded!</PRE></html>");
 				}
-				String latex = "\\begin{array}{lr}";
-				latex += ct.getTree().generateLatex();
-				latex += "\\end{array}";
-				preview.setVisible(true);
-				preview.update_preview(latex);
 			} else {
 				String errors = "<html><PRE>Errors in source file:\n";
 				errors = format_errors(ct, errors);
 				errors += "</PRE></html>";
 				error_log.setText(errors);
 			}
+			String latex = "\\begin{array}{lr}";
+			if (ct.getTree() != null)
+				latex += ct.getTree().generateLatex();
+			latex += "\\end{array}";
+			preview.setVisible(true);
+			preview.update_preview(latex);
 			highlight_syntax();
 		} catch (RecognitionException e) {
 			System.out.println("RECOGNITION EXCEPTION");
@@ -626,7 +627,7 @@ class TypingListener implements KeyListener {
 		}
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			// Parse text and check for errors
-			parent.preview();
+			parent.check();
 		} else if (e.getKeyCode() != KeyEvent.VK_BACK_SPACE && e.getKeyCode() != KeyEvent.VK_UP
 				&& e.getKeyCode() != KeyEvent.VK_DOWN && e.getKeyCode() != KeyEvent.VK_RIGHT
 				&& e.getKeyCode() != KeyEvent.VK_LEFT) {

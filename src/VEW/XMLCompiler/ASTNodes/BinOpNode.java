@@ -7,12 +7,16 @@ import VEW.Planktonica2.Model.UnitChecker;
 import VEW.Planktonica2.Model.VarietyType;
 
 
-
+/**
+ * An AST node representing a binary operator
+ * @author David Coulden
+ *
+ */
 public class BinOpNode extends ExprNode {
 	
-	private MathematicalOperator operator;
-	private ExprNode lExpr;
-	private ExprNode rExpr;
+	private MathematicalOperator operator; //Type of binary operator
+	private ExprNode lExpr; //Left expression
+	private ExprNode rExpr; //Right expression
 	
 	public BinOpNode (MathematicalOperator operator, ExprNode lExpr, ExprNode rExpr, int line) {
 		this.operator = operator;
@@ -33,6 +37,8 @@ public class BinOpNode extends ExprNode {
 			enclosingTree.addSemanticException(e);
 			setExprType(lType);
 		}
+		
+		//Different cases for different operators as each has various unit effects
 		switch (operator) {
 		case PLUS     : 
 			if (UnitChecker.getUnitChecker().CheckUnitCompatability(rExpr.getUnits(),
@@ -80,6 +86,13 @@ public class BinOpNode extends ExprNode {
 		}
 	}
 
+	/**
+	 * Checks that the type of the right expression is compatible with the type of the left expression
+	 * @param lType
+	 * @param rType
+	 * @return The type the expression will evaluate to
+	 * @throws BACONCompilerException
+	 */
 	private Type checkCompatibility(Type lType, Type rType) throws BACONCompilerException {
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");

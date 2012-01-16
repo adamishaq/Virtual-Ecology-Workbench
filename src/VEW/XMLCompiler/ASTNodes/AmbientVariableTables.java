@@ -9,13 +9,16 @@ import java.util.Collection;
 
 public class AmbientVariableTables {
 
-	private static AmbientVariableTables tables;
-	private SymbolTable<Type> typeTable;
-	private SymbolTable<GlobalVariable> physicsVarTable;
-	private SymbolTable<GlobalVariable> waterColumnVarTable;
-	private SymbolTable<GlobalVariable> chemicalTable;
-	private SymbolTable<GlobalVariable> systemVarTable;
+	private static AmbientVariableTables tables; //Reference to the singleton instance
+	private SymbolTable<Type> typeTable; //Stores the type indentifiers
+	private SymbolTable<GlobalVariable> physicsVarTable; //Stores physics variables
+	private SymbolTable<GlobalVariable> waterColumnVarTable; //Stores water column variables
+	private SymbolTable<GlobalVariable> chemicalTable; //Stores chemical concentration varibles
+	private SymbolTable<GlobalVariable> systemVarTable; //Stores system variables
 	
+	/**
+	 * Initialises all the variable tables with the existing global variables
+	 */
 	private AmbientVariableTables() {
 		initialiseTypeTable();
 		initialisePhysicsVarTable();
@@ -95,7 +98,11 @@ public class AmbientVariableTables {
 				new GlobalVariable("VisibleIrradiance", "Visible Irradiance", floatType, units, null, null, false));		
 	}
 	
-	
+	/**
+	 * Checks all the variable tables and the type table for the string key
+	 * @param key The key to search for
+	 * @return The object if found
+	 */
 	public Object checkAllTables(String key) {
 		Object obj = checkTypeTable(key);
 		if (obj != null)
@@ -104,6 +111,11 @@ public class AmbientVariableTables {
 		return obj;
 	}
 	
+	/**
+	 * Checks all global variable tables for the string key
+	 * @param key The key to search for
+	 * @return The global variable if found
+	 */
 	public GlobalVariable checkGlobalVariableTables(String key) {
 		GlobalVariable obj = checkPhysicsTable(key);
 		if (obj != null)
@@ -138,6 +150,10 @@ public class AmbientVariableTables {
 		return chemicalTable.get(key);
 	}
 	
+	/**
+	 * Adds a new chemical to the chemical concentration variable table
+	 * @param chemicalName The name of the chemical to add
+	 */
 	public void addChemical(String chemicalName) {
 		Type floatType = (Type) typeTable.get("$float");
 		String description = "The concentration of " + chemicalName + " in solution";
@@ -148,10 +164,19 @@ public class AmbientVariableTables {
 		chemicalTable.put(chemicalName + "_Conc", chemicalVar);
 	}
 	
+	/**
+	 * Removes a chemical from the chemical concentration variable table
+	 * @param chemicalName The name of the chemical to remove
+	 * @return The removed chemical if found
+	 */
 	public GlobalVariable removeChemical(String chemicalName) {
 		return chemicalTable.remove(chemicalName + "_Conc");
 	}
 
+	/**
+	 * Returns the singleton instance, if it has not been intialised it is initialised and returned.
+	 * @return The singleton instance of this class
+	 */
 	public static AmbientVariableTables getTables() {
 		if (tables == null) {
 			tables = new AmbientVariableTables();
@@ -159,6 +184,9 @@ public class AmbientVariableTables {
 		return tables;
 	}
 	
+	/**
+	 * Resets the variable tables
+	 */
 	public void destroyVariableTables() {
 		chemicalTable = null;
 		physicsVarTable = null;
@@ -168,12 +196,19 @@ public class AmbientVariableTables {
 		tables = null;
 	}
 	
+	/**
+	 * Resets the singleton so it can be reused with new tables
+	 */
 	public static void destroyAmbientVariableTable() {
 		if (tables != null) {
 			tables.destroyVariableTables();
 		}
 	}
 	
+	/**
+	 * Retrieves names of all stored variables
+	 * @return An array of all variable names
+	 */
 	public String[] getAllVariableNames() {
 		Object[] sys_vars = systemVarTable.keySet().toArray();
 		Object[] water_vars = waterColumnVarTable.keySet().toArray();
@@ -201,6 +236,10 @@ public class AmbientVariableTables {
 		return all_vars;
 	}
 	
+	/**
+	 * Recieves the base chemical names of all chemical concentration variables in the chemical table
+	 * @return A collection of strings representing the chemical names
+	 */
 	public Collection<String> retrieveChemicalBaseNames() {
 		Collection<String> chemicalBaseNames = new ArrayList<String>(); 
 		Collection<GlobalVariable> chemicalVars = chemicalTable.values();

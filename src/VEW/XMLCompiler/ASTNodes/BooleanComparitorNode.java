@@ -5,12 +5,16 @@ import VEW.Planktonica2.Model.Type;
 import VEW.Planktonica2.Model.VarietyType;
 
 
-
+/**
+ * The AST node representing a boolean comparison between two expressions
+ * @author David Coulden
+ *
+ */
 public class BooleanComparitorNode extends BExprNode {
 	
-	private ComparisonOperator comparitor;
-	private ExprNode rExpr;
-	private ExprNode lExpr;
+	private ComparisonOperator comparitor; //The type of comparitor
+	private ExprNode rExpr; //The right expression being operated on
+	private ExprNode lExpr; //The left expression being operated on
 	
 	public BooleanComparitorNode (ComparisonOperator comparitor, ExprNode lExpr, ExprNode rExpr, int line) {
 		this.comparitor = comparitor;
@@ -33,7 +37,14 @@ public class BooleanComparitorNode extends BExprNode {
 		}
 
 	}
-
+	
+	/**
+	 * Checks that the type of the right expression is compatible with the type of the left expression
+	 * @param lType
+	 * @param rType
+	 * @return The type the expression will evaluate to
+	 * @throws BACONCompilerException
+	 */
 	private Type checkTypeCompatible(Type rExprType, Type lExprType) throws BACONCompilerException {
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type boolType = (Type) tables.checkTypeTable("$boolean");

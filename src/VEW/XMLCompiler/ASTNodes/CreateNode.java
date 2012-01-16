@@ -8,13 +8,17 @@ import VEW.Planktonica2.Model.Type;
 import VEW.Planktonica2.Model.VarietyType;
 
 
-
+/**
+ * An AST node that represents a create statement
+ * @author David Coulden
+ *
+ */
 public class CreateNode extends RuleNode {
 
-	private IdNode identifier;
-	private ExprNode expression;
-	private AssignListNode assignList;
-	private Stage creationStage;
+	private IdNode identifier; //The create stage identifier
+	private ExprNode expression; //The create expression
+	private AssignListNode assignList; //The create assign list
+	private Stage creationStage; //The representation of the create stage
 
 	public CreateNode (IdNode identifier, ExprNode expression) {
 		this.identifier = identifier;

@@ -6,12 +6,16 @@ import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.UnitChecker;
 import VEW.Planktonica2.Model.VarietyType;
 
-
+/**
+ * This AST node represents a binary primitive such as min or max
+ * @author David Coulden
+ *
+ */
 public class BinaryPrimitiveNode extends ExprNode {
 
-	private BinaryPrimitive prim;
-	private ExprNode lExpr;
-	private ExprNode rExpr;
+	private BinaryPrimitive prim; //The type of primitive
+	private ExprNode lExpr; //The first expression argument
+	private ExprNode rExpr; //The left expression argument
 
 	public BinaryPrimitiveNode(BinaryPrimitive prim, ExprNode lExpr, ExprNode rExpr, int line) {
 		this.prim = prim;
@@ -22,11 +26,14 @@ public class BinaryPrimitiveNode extends ExprNode {
 	
 	@Override
 	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
-		//TODO this might be able to take variety arguments, :/
 		lExpr.check(enclosingCategory, enclosingTree);
 		rExpr.check(enclosingCategory, enclosingTree);
+		//Finds the appropriate expression evaluation type
 		if (rExpr.getExprType() instanceof VarietyType) {
 			setExprType(rExpr.getExprType());
+		}
+		else {
+			setExprType(lExpr.getExprType());
 		}
 		if (UnitChecker.getUnitChecker().CheckUnitCompatability(rExpr.getUnits(), lExpr.getUnits()) == 0) {
 			enclosingTree.addWarning("Comparison of two different unit types on line " + line_number);
@@ -38,7 +45,6 @@ public class BinaryPrimitiveNode extends ExprNode {
 		} else {
 			this.units = UnitChecker.getUnitChecker().add_units(rExpr.getUnits(), lExpr.getUnits());
 		}
-		setExprType(lExpr.getExprType());
 	}
 
 	@Override
