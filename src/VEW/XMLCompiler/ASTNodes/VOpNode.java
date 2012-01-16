@@ -5,10 +5,15 @@ import VEW.Planktonica2.Model.Chemical;
 import VEW.Planktonica2.Model.Type;
 import VEW.Planktonica2.Model.VarietyType;
 
+/**
+ * An AST node representing a variety operation
+ * @author David Coulden
+ *
+ */
 public class VOpNode  extends ExprNode {
 
-	private VOperator vop;
-	private ExprNode expression;
+	private VOperator vop; //The type of variety operation
+	private ExprNode expression; //The expression being operated upon
 	
 	public VOpNode(VOperator _vop, ExprNode _expression, int line) {
 		this.vop = _vop;
@@ -25,6 +30,7 @@ public class VOpNode  extends ExprNode {
 			return;
 		}
 		expression.check(enclosingCategory, enclosingTree);
+		//Variety operators only take expressions that evaluate to varieties
 		Type exprType = expression.getExprType();
 		if (!(exprType instanceof VarietyType)) {
 			enclosingTree.addSemanticException(

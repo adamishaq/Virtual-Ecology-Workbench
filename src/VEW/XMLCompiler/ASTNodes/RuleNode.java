@@ -1,7 +1,11 @@
 package VEW.XMLCompiler.ASTNodes;
 
 import VEW.XMLCompiler.DependencyChecker.HasDependency;
-
+/**
+ * A subclass of ASTree that represents any AST node that could be considered a single statement.
+ * @author David Coulden
+ *
+ */
 public abstract class RuleNode extends ASTree implements  HasDependency {
 
 	private boolean insideConditional = false;

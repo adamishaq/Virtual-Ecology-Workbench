@@ -5,11 +5,15 @@ import VEW.Planktonica2.Model.Chemical;
 import VEW.Planktonica2.Model.Type;
 import VEW.Planktonica2.Model.VarietyType;
 
-
+/**
+ * An AST node that represents a unary function thats only argument is an expression
+ * @author David Coulden
+ *
+ */
 public class UnaryFunctionExprNode extends RuleNode {
 
-	private UnaryExprFunction function;
-	private ExprNode expArg;
+	private UnaryExprFunction function; //The type of unary function
+	private ExprNode expArg; //The expression argument
 
 	public UnaryFunctionExprNode(UnaryExprFunction function, ExprNode expArg) {
 		this.function = function;
@@ -18,8 +22,7 @@ public class UnaryFunctionExprNode extends RuleNode {
 	
 	@Override
 	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
-		//This may need to change if any more unaryFunctions with expr args are added
-		//Im considering changing this into a Divide node
+		//Currently assumes divide as the only unary function, could be extended for further functions
 		if (enclosingCategory instanceof Chemical) {
 			enclosingTree.addSemanticException(
 					new SemanticCheckException("Divide cannot be called within chemical equations",

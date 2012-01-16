@@ -2,10 +2,15 @@ package VEW.XMLCompiler.ASTNodes;
 
 import VEW.Planktonica2.Model.Catagory;
 
+/**
+ * An AST node representing a variable history expression
+ * @author David Coulden
+ *
+ */
 public class VarHistNode extends ExprNode {
 
-	private IdNode identifier;
-	private ExprNode expression;
+	private IdNode identifier; //The indentifier for the variable whose history is being examined
+	private ExprNode expression; //The expression evaluating to the number of steps to look back
 
 	public VarHistNode (IdNode identifier, ExprNode expression, int line) {
 		this.identifier = identifier;

@@ -4,9 +4,14 @@ import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Type;
 import VEW.Planktonica2.Model.VarietyType;
 
+/**
+ * An AST node representing an negation expression
+ * @author David Coulden
+ *
+ */
 public class NegNode extends ExprNode {
 
-	private ExprNode negExpr;
+	private ExprNode negExpr; //Expression being negated
 	
 	public NegNode(ExprNode negExpr, int line) {
 		this.negExpr = negExpr;

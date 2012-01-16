@@ -6,7 +6,11 @@ import VEW.Planktonica2.Model.Type;
 import VEW.Planktonica2.Model.UnitChecker;
 import VEW.Planktonica2.Model.VarietyType;
 
-
+/**
+ * An AST node representing an if-then-else expression
+ * @author David Coulden
+ *
+ */
 public class IfExprNode extends ExprNode {
 
 	private BExprNode conditionExpr;
@@ -22,12 +26,11 @@ public class IfExprNode extends ExprNode {
 	
 	@Override
 	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
-		//if (conditionExpr == null)
-			//return;
 		conditionExpr.check(enclosingCategory, enclosingTree);
 		thenExpr.check(enclosingCategory, enclosingTree);
 		elseExpr.check(enclosingCategory, enclosingTree);
 		try {
+			//Check whether then and else types are compatible and find their resultant type
 			setExprType(checkCompatibility(thenExpr.getExprType(), elseExpr.getExprType(),
 												conditionExpr.getBExprType()));
 		} catch (BACONCompilerException e) {

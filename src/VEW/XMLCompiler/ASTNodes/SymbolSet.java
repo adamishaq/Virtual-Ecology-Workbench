@@ -10,7 +10,7 @@ import VEW.XMLCompiler.ANTLR.BACONParser;
  * 
  * Has methods for efficiently accessing and grouping said internal tokens and returning them as our internal Enums
  * 
- * @author David
+ * @author David Coulden
  *
  */
 public class SymbolSet {

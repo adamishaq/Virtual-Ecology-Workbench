@@ -6,13 +6,17 @@ import VEW.Planktonica2.Model.Type;
 import VEW.Planktonica2.Model.VarietyConcentration;
 import VEW.Planktonica2.Model.VarietyType;
 
-
+/**
+ * An AST node representing an ingest statement
+ * @author David Coulden
+ *
+ */
 public class IngestNode extends RuleNode {
 	
-	private IdNode identifier;
+	private IdNode identifier; //The identifier representing the foodset to ingest
 	private ExprNode threshold;
 	private ExprNode rate;
-	private VarietyConcentration foodSet;
+	private VarietyConcentration foodSet; //Representation of the food set with given identifier
 	
 	public IngestNode(IdNode _identifier, ExprNode _threshold, ExprNode _rate) {
 		this.identifier = _identifier;
