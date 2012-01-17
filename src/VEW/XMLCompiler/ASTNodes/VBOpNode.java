@@ -5,10 +5,15 @@ import VEW.Planktonica2.Model.Chemical;
 import VEW.Planktonica2.Model.Type;
 import VEW.Planktonica2.Model.VarietyType;
 
+/**
+ * An AST node that represents a boolean variety expression
+ * @author David Coulden
+ *
+ */
 public class VBOpNode extends BExprNode {
 	
-	private VBoolOperator vop;
-	private BExprNode expression;
+	private VBoolOperator vop; //The type of boolean variety operator
+	private BExprNode expression; //The boolean variety expression being operated on
 	
 	public VBOpNode(VBoolOperator _vop, BExprNode _expression, int line) {
 		this.vop = _vop;
@@ -63,6 +68,15 @@ public class VBOpNode extends BExprNode {
 		case SOME : func = " some "; break;
 		}
 		return func + "(" + exp + ")";
+	}
+
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		
+		expression.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
 	}
 
 }

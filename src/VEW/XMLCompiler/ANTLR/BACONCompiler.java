@@ -22,7 +22,6 @@ public class BACONCompiler {
 	
 	public List<XMLTag> compile() throws CompilerException{
 		ANTLRParser parser = new ANTLRParser(code);
-		ConstructedASTree tree = null;
 		try {
 			 tree = parser.getAST();
 		} catch (RecognitionException e) {
@@ -34,6 +33,9 @@ public class BACONCompiler {
 		tree.checkTree(function.getParent());
 		if (tree.hasExceptions()) {
 			throw new CompilerException(function, tree.getExceptions());
+		}
+		if (tree.hasWarnings()) {
+			function.addWarnings(tree.getWarnings());
 		}
 		return tree.compileTree();
 	}

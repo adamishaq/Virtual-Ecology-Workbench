@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -201,7 +203,8 @@ public abstract class Display extends JSplitPane implements Observer {
 		constructRightPanel(rightPanel);
 		
 		
-		this.setDividerLocation(170);
+		this.setDividerLocation(DisplayOptions.getOptions().SIDE_PANEL_SIZE);
+		this.addPropertyChangeListener(new DisplayChangeListener(this));
 		this.setLeftComponent(leftPanel);
 		this.setRightComponent(rightPanel);
 		
@@ -516,6 +519,10 @@ public abstract class Display extends JSplitPane implements Observer {
 		}
 		DefaultTreeModel t = (DefaultTreeModel) this.tree.getModel();
 		DefaultMutableTreeNode new_cat = new DefaultMutableTreeNode(newCategory);
+		for (Function f : newCategory.getFunctions()) {
+			DefaultMutableTreeNode func = new DefaultMutableTreeNode(f);
+			new_cat.add(func);
+		}
 		t.insertNodeInto(new_cat, this.rootNode, rootNode.getChildCount());
 		this.tree.setRootVisible(true);
 		this.tree.expandRow(0);
@@ -721,4 +728,24 @@ public abstract class Display extends JSplitPane implements Observer {
 			}
 		}
 	}
+	
+	public void update_panel_size() {
+		DisplayOptions.getOptions().SIDE_PANEL_SIZE = this.getDividerLocation();
+		DisplayOptions.getOptions().write_config();
+	}
+
+class DisplayChangeListener implements PropertyChangeListener {
+	
+	Display parent;
+	
+	public DisplayChangeListener(Display parent) {
+		this.parent = parent;
+	}
+	
+	@Override
+	public void propertyChange(PropertyChangeEvent arg0) {
+		parent.update_panel_size();
+	}
+	
+}
 }

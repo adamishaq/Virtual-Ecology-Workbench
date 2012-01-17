@@ -3,7 +3,7 @@ package VEW.XMLCompiler.ASTNodes;
 public class BACONCompilerException extends Exception {
 
 	/**
-	 * 
+	 * An exception that represents any problem occuring during compilation
 	 */
 	private static final long serialVersionUID = 1L;
 	protected int line;

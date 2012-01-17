@@ -8,12 +8,17 @@ import VEW.Planktonica2.Model.Type;
 import VEW.Planktonica2.Model.VarietyType;
 
 
-
+/**
+ * An AST node that represents a create statement
+ * @author David Coulden
+ *
+ */
 public class CreateNode extends RuleNode {
 
-	private IdNode identifier;
-	private ExprNode expression;
-	private AssignListNode assignList;
+	private IdNode identifier; //The create stage identifier
+	private ExprNode expression; //The create expression
+	private AssignListNode assignList; //The create assign list
+	private Stage creationStage; //The representation of the create stage
 
 	public CreateNode (IdNode identifier, ExprNode expression) {
 		this.identifier = identifier;
@@ -41,6 +46,7 @@ public class CreateNode extends RuleNode {
 			enclosingTree.addSemanticException(
 					new SemanticCheckException(identifier.getName() + " is not a valid stage",line_number));
 		}
+		creationStage = stage;
 		expression.check(enclosingCategory, enclosingTree);
 		Type numExprType = expression.getExprType();
 		if (numExprType instanceof VarietyType) {
@@ -48,19 +54,20 @@ public class CreateNode extends RuleNode {
 					new SemanticCheckException("The expression for number of offspring must evaluate to a scalar",
 							line_number));
 		}
-		//TODO assign list checking may need to be more complex, not sure yet
-		if (assignList != null)
+		
+		if (assignList != null) {
 			assignList.check(enclosingCategory, enclosingTree);
+		}
 
 	}
 
 	@Override
 	public String generateXML() {
 		if (assignList != null) {
-			return "\\create{" + identifier.generateXML() + "," 
+			return "\\create{\\stage{" + creationStage.getName() + "}," 
 			 + expression.generateXML() + "," + assignList.generateXML() + "}";
 		} else {
-			return "\\create{" + identifier.generateXML() + "," 
+			return "\\create{\\stage{" + creationStage.getName() + "}," 
 			 + expression.generateXML() + "}";
 		}
 	}
@@ -80,6 +87,18 @@ public class CreateNode extends RuleNode {
 			return "create(" + id + "," 
 			 + exp + ")";
 		}
+	}
+
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		super.acceptDependencyCheckVisitor(visitor);
+		
+		
+		expression.acceptDependencyCheckVisitor(visitor);
+		assignList.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
 	}
 
 }

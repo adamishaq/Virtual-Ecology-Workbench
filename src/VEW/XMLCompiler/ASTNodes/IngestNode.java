@@ -6,12 +6,17 @@ import VEW.Planktonica2.Model.Type;
 import VEW.Planktonica2.Model.VarietyConcentration;
 import VEW.Planktonica2.Model.VarietyType;
 
-
+/**
+ * An AST node representing an ingest statement
+ * @author David Coulden
+ *
+ */
 public class IngestNode extends RuleNode {
 	
-	private IdNode identifier;
+	private IdNode identifier; //The identifier representing the foodset to ingest
 	private ExprNode threshold;
 	private ExprNode rate;
+	private VarietyConcentration foodSet; //Representation of the food set with given identifier
 	
 	public IngestNode(IdNode _identifier, ExprNode _threshold, ExprNode _rate) {
 		this.identifier = _identifier;
@@ -32,6 +37,7 @@ public class IngestNode extends RuleNode {
 			enclosingTree.addSemanticException(
 					new SemanticCheckException(identifier.getName() + " is not a known food set",line_number));
 		}
+		this.foodSet = foodSet;
 		threshold.check(enclosingCategory, enclosingTree);
 		rate.check(enclosingCategory, enclosingTree);
 		Type threshType = threshold.getExprType();
@@ -62,7 +68,7 @@ public class IngestNode extends RuleNode {
 
 	@Override
 	public String generateXML() {
-		return "\\ingest{" + identifier.generateXML() + "," + threshold.generateXML() + ","
+		return "\\ingest{\\var{" + foodSet.getName() + "}," + threshold.generateXML() + ","
 		  	+ rate.generateXML() + "}";
 	}
 
@@ -78,6 +84,19 @@ public class IngestNode extends RuleNode {
 		if (rate != null)
 			rp = rate.generateLatex();
 		return " ingest(" + id + "," + thresh + " , " + rp + ")";
+	}
+
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		super.acceptDependencyCheckVisitor(visitor);		
+		
+		identifier.acceptDependencyCheckVisitor(visitor);
+		threshold.acceptDependencyCheckVisitor(visitor);
+		rate.acceptDependencyCheckVisitor(visitor);
+		
+		visitor.visit(this);
+		
 	}
 	
 }

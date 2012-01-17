@@ -41,7 +41,7 @@ public class EquationStringParser {
 		}
 		else if (ruleName.equals("\\pchange")) {
 			String[] args = splitArgs(argsString, 2);
-			rule = "pchange(" + parseStageString(args[0]) + "," + parseExpressionString(args[1]) + ")";
+			rule = "change(" + parseStageString(args[0]) + "," + parseExpressionString(args[1]) + ")";
 		}
 		else if (ruleName.equals("\\ingest")) {
 			String[] args = splitArgs(argsString, 3);
@@ -96,7 +96,7 @@ public class EquationStringParser {
 			bexprCode = constructBooleanOperatorString(argString, "or");
 		}
 		else if (bexprName.equals("\\not")) {
-			bexprCode = "not(" + parseBExprString(argString) + ")";
+			bexprCode = "not(" + stripBrackets(parseBExprString(argString)) + ")";
 		}
 		else if (bexprName.equals("\\equal")) {
 			bexprCode = parseBComparitorString(argString, "=");
@@ -176,7 +176,7 @@ public class EquationStringParser {
 			exprCode = constructBinaryOperatorString(argString, "-");
 		}
 		else if (exprName.equals("\\minus")) {
-			exprCode = "-(" + parseExpressionString(argString) + ")";
+			exprCode = "-(" + stripBrackets(parseExpressionString(argString)) + ")";
 		}
 		else if (exprName.equals("\\div")) {
 			exprCode = constructBinaryOperatorString(argString, "/");

@@ -4,11 +4,15 @@ import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Type;
 import VEW.Planktonica2.Model.VarietyType;
 
-
+/**
+ * An AST node representing an if then statement
+ * @author David Coulden
+ *
+ */
 public class IfRuleNode extends RuleNode {
 	
 	private BExprNode conditionExpr;
-	private RuleNode rule;
+	private RuleNode rule; //The rule within the conditional
 	
 	public IfRuleNode(BExprNode conditionExpr, RuleNode rule) {
 		this.conditionExpr = conditionExpr;
@@ -41,6 +45,18 @@ public class IfRuleNode extends RuleNode {
 		if (rule != null)
 			result = rule.generateLatex();
 		return "if\\;(" + condition + ")\\;then\\;(" + result + ")";
+	}
+
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		super.acceptDependencyCheckVisitor(visitor);
+		
+		
+		conditionExpr.acceptDependencyCheckVisitor(visitor);
+		rule.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
 	}
 	
 }

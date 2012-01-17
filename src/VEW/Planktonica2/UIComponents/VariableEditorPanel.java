@@ -318,11 +318,16 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		}
 		if (units.isEmpty())
 			units.add(new Unit(0,"dimensionless",1));
+		current_units.clear();
+		unit_list.setText("");
+		String desc = var_desc.getText();
+		// All of these things screw with the XML...
+		desc = desc.replaceAll("<", "%ltag").replaceAll(">", "%rtag").replaceAll("&", "");
 		switch (current_selection) {
 		case GROUPVAR :
 			StateVariable v = new StateVariable();
 			v.setName(var_name.getText());
-			v.setDesc(var_desc.getText());
+			v.setDesc(desc);
 			v.setHist(Integer.parseInt(h_size.getText()));
 			v.setValue(Float.parseFloat(i_val.getText()));
 			v.setUnits(units);
@@ -332,7 +337,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		case GROUPPARAM :
 			Parameter p = new Parameter();
 			p.setName(var_name.getText());
-			p.setDesc(var_desc.getText());
+			p.setDesc(desc);
 			p.setValue(Float.parseFloat(i_val.getText()));
 			p.setUnits(units);
 			current_category.addToParamTable(p);
@@ -341,7 +346,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		case LOCALVAR :
 			Local l = new Local();
 			l.setName(var_name.getText());
-			l.setDesc(var_desc.getText());
+			l.setDesc(desc);
 			l.setUnits(units);
 			current_category.addToLocalTable(l);
 			this.current_variable = l;
@@ -351,7 +356,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			if (this.current_category instanceof FunctionalGroup) {
 				VarietyParameter vp = new VarietyParameter((FunctionalGroup) this.current_category);
 				vp.setName(var_name.getText());
-				vp.setDesc(var_desc.getText());
+				vp.setDesc(desc);
 				vp.setValue(Float.parseFloat(i_val.getText()));
 				vp.setUnits(units);
 				// Check the food set link actually exists
@@ -369,7 +374,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			if (this.current_category instanceof FunctionalGroup) {
 				VarietyVariable vv = new VarietyVariable((FunctionalGroup) this.current_category);
 				vv.setName(var_name.getText());
-				vv.setDesc(var_desc.getText());
+				vv.setDesc(desc);
 				vv.setHist(Integer.parseInt(h_size.getText()));
 				vv.setValue(Float.parseFloat(i_val.getText()));
 				vv.setUnits(units);
@@ -389,10 +394,15 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			if (this.current_category instanceof FunctionalGroup) {
 				VarietyConcentration vc = new VarietyConcentration();
 				vc.setName(var_name.getText());
-				vc.setDesc(var_desc.getText());
+				vc.setDesc(desc);
 				vc.setUnits(units);
 				current_category.addToVarietyConcTable(vc);
 				this.current_variable = vc;
+				// Add the food set to the available list
+				DefaultComboBoxModel model = (DefaultComboBoxModel) link_combo.getModel();
+				int index = model.getSize();
+				this.food_sets.put(vc.getName(), index);
+				model.addElement(vc.getName());
 				return vc;
 			}
 			break;
@@ -401,7 +411,7 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			if (this.current_category instanceof FunctionalGroup) {
 				VarietyLocal vl = new VarietyLocal((FunctionalGroup) this.current_category);
 				vl.setName(var_name.getText());
-				vl.setDesc(var_desc.getText());
+				vl.setDesc(desc);
 				vl.setUnits(units);
 				// Check the food set link actually exists
 				VarietyConcentration vc =
@@ -441,12 +451,21 @@ public class VariableEditorPanel extends JPanel implements Observer {
 			JOptionPane.showMessageDialog(this, "This is a built-in variable and cannot be edited");
 			return;
 		}
+		if (v instanceof VarietyConcentration && current_selection != VarType.FOODSET && food_set_used(v))
+			return;
 		// Remove the previous version of the variable and add a new one
 		if (v != null) {
 			v = current_category.removeFromTables(v.getName());
+			if (v instanceof VarietyConcentration) {
+				int index = this.food_sets.get(v.getName());
+				this.food_sets.remove(v.getName());
+				DefaultComboBoxModel model = (DefaultComboBoxModel) link_combo.getModel();
+				model.removeElementAt(index);
+			}
 			if (v != null) {
 				construct_variable();
 				controller.updateVariableDisplay();
+				this.update_food_sets(controller.getSelectedCatagory().get_variety_concs());
 			}
 		}
 	}
@@ -516,9 +535,9 @@ public class VariableEditorPanel extends JPanel implements Observer {
 	public void display(VariableType v) {
 		this.current_variable = v;
 		// Fill in the variable name and description
-		var_name.setText(v.getName());
+		var_name.setText(v.getName().replaceAll("\\$", "_"));
 		var_name.setCaretPosition(0);
-		var_desc.setText(v.getDesc());
+		var_desc.setText(v.getDesc().replaceAll("%ltag", "<").replaceAll("%rtag", ">"));
 		var_desc.setCaretPosition(0);
 		current_units.clear();
 		// Display the units of the variable
@@ -678,12 +697,52 @@ public class VariableEditorPanel extends JPanel implements Observer {
 		VariableType v = current_category.checkAllVariableTables(var_name.getText());
 		if (v == null)
 			return;
+		if (!v.isEditable())
+			return;
 		// Check the user really wants to delete this variable
 		int choice = JOptionPane.showOptionDialog(this, "Are you sure you want to delete the variable "
 				+ v.getName() + "?",
 			"Confirm delete", JOptionPane.YES_NO_OPTION, 1, null, null, 1);
 		if (choice == 1)
 			return;
+		if (v instanceof VarietyConcentration && food_set_used(v))
+			return;
 		controller.delete_variable(v);
+		if (v instanceof VarietyConcentration) {
+			this.update_food_sets(controller.getSelectedCatagory().get_variety_concs());
+		}
+	}
+
+	private boolean food_set_used(VariableType v) {
+		String variables = "";
+		boolean found = false;
+		Catagory c = controller.getSelectedCatagory();
+		for (String s : c.get_variety_locals()) {
+			VarietyLocal vl = c.checkVarietyLocalTable(s);
+			if (vl.getLinkConcentration().equals(v)) {
+				variables += vl.getName() + ",";
+				found = true;
+			}
+		}
+		for (String s : c.get_variety_params()) {
+			VarietyParameter vp = c.checkVarietyParamTable(s);
+			if (vp.getLinkConcentration().equals(v)) {
+				variables += vp.getName() + ",";
+				found = true;
+			}
+		}
+		for (String s : c.get_variety_states()) {
+			VarietyVariable vv = c.checkVarietyStateTable(s);
+			if (vv.getLinkConcentration().equals(v)) {
+				variables += vv.getName() + ",";
+				found = true;
+			}
+		}
+		if (found) {
+			variables = variables.substring(0,variables.length()-1);
+			JOptionPane.showMessageDialog(this, "Cannot remove this food set as it is used by the following" +
+					" variables: " + variables);
+		}
+		return found;
 	}
 }

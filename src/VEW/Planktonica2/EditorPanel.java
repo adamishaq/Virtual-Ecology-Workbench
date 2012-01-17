@@ -4,6 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -17,7 +21,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -31,6 +36,7 @@ import javax.swing.JTextPane;
 
 import org.antlr.runtime.RecognitionException;
 
+import VEW.Common.Pair;
 import VEW.Planktonica2.ControllerStructure.SourcePath;
 import VEW.Planktonica2.ControllerStructure.VEWController;
 import VEW.Planktonica2.UIComponents.AutocompleteBox;
@@ -164,7 +170,9 @@ public class EditorPanel extends JPanel implements Observer {
 	
 	private void highlight_syntax() {
 		int pos = syntax.getCaret().getDot();
+		//System.out.println((syntax.getText()).replaceAll("\n", "\\\\\n"));
 		syntax.setText(syntax_highlighter.highlight(syntax.getText()));
+		//System.out.println((syntax.getText()).replaceAll("\n", "\\\\\n"));
 		syntax.getCaret().setDot(pos);
 	}
 	
@@ -178,7 +186,9 @@ public class EditorPanel extends JPanel implements Observer {
 		// Save the source file
 		if (!this.save())
 			return;
-		Collection<String> exceptions = controller.writeBackToXMLFile();
+		Pair<ArrayList<String>, ArrayList<String>> results = controller.writeBackToXMLFile();
+		List<String> exceptions = results.getFirst();
+		List<String> warnings = results.getSecond();
 		if (!exceptions.isEmpty()) {
 			String errors = "<html><PRE>Compilation errors occurred:\n";
 			errors += "<font color=#FF0000>";
@@ -188,7 +198,18 @@ public class EditorPanel extends JPanel implements Observer {
 			errors += "</font>";
 			errors += "\nCompilation aborted!</PRE></html>";
 			error_log.setText(errors);
-		} else {
+		}
+		else {
+			if (!warnings.isEmpty()){
+				String warningStr = "<html><PRE>Compilation warnings occurred:\n";
+				warningStr += "<font color=#FF9900>";
+				for (String s : warnings) {
+					warningStr += s + "\n";
+				}
+				warningStr += "</font>\nCompilation succeeded!</PRE></html>";
+				error_log.setText(warningStr);
+				return;
+			}
 			error_log.setText("<html><PRE>Compilation succeeded!</PRE></html>");
 		}
 	}
@@ -222,6 +243,7 @@ public class EditorPanel extends JPanel implements Observer {
 	}
 	
 	public void check() {
+		//System.out.println(syntax.getText());
 		if (this.current_source == null)
 			return;
 		syntax_highlighter.clear_flags();
@@ -239,17 +261,18 @@ public class EditorPanel extends JPanel implements Observer {
 				} else {
 					error_log.setText("<html><PRE>Check succeeded!</PRE></html>");
 				}
-				String latex = "\\begin{array}{lr}";
-				latex += ct.getTree().generateLatex();
-				latex += "\\end{array}";
-				preview.setVisible(true);
-				preview.update_preview(latex);
 			} else {
 				String errors = "<html><PRE>Errors in source file:\n";
 				errors = format_errors(ct, errors);
 				errors += "</PRE></html>";
 				error_log.setText(errors);
 			}
+			String latex = "\\begin{array}{lr}";
+			if (ct.getTree() != null)
+				latex += ct.getTree().generateLatex();
+			latex += "\\end{array}";
+			preview.setVisible(true);
+			preview.update_preview(latex);
 			highlight_syntax();
 		} catch (RecognitionException e) {
 			System.out.println("RECOGNITION EXCEPTION");
@@ -263,6 +286,9 @@ public class EditorPanel extends JPanel implements Observer {
 		ANTLRParser p = new ANTLRParser (syntax_highlighter.getPlainText(syntax.getText()));
 		try {
 			ConstructedASTree ct = p.getAST();
+			if (ct == null || ct.getTree() == null)
+				return;
+			ct.getTree().check(controller.getCurrentlySelectedFunction().getParent(), ct);
 			if (ct.getTree() != null) {
 				String latex = "\\begin{array}{lr}";
 				latex += ct.getTree().generateLatex();
@@ -396,9 +422,10 @@ public class EditorPanel extends JPanel implements Observer {
 		        	"Choose a name for the imported function",
 		            "Import Function", 1);
 		    if (name != null) {
-		    	controller.addFunction(this,name);
-		    	open_source_file(fpath,true);
-		    	this.save();
+		    	if (controller.addFunction(this,name)) {
+		    		open_source_file(fpath,true);
+		    		this.save();
+		    	}
 		    }
         }
 	}
@@ -457,6 +484,8 @@ public class EditorPanel extends JPanel implements Observer {
 		this.syntax.setText("<html><PRE></PRE></html>");
 		this.preview.setVisible(false);
 		this.error_log.setText("<html><PRE></PRE></html>");
+		this.syntax_highlighter.clear_flags();
+		this.auto_complete.new_word();
 	}
 	
 	public String get_error_at_caret() {
@@ -481,6 +510,11 @@ public class EditorPanel extends JPanel implements Observer {
 		return syntax.getSelectedText();
 	}
 	
+	public void paste(String s) {
+		syntax.replaceSelection(s);
+		highlight_syntax();
+	}
+	
 	public void switchEditorPanel() {
 		int currLocation = editorSplitPane.getDividerLocation();
 		if (editorSplitPane.getOrientation() == JSplitPane.HORIZONTAL_SPLIT) {
@@ -501,12 +535,32 @@ public class EditorPanel extends JPanel implements Observer {
 		DisplayOptions.getOptions().write_config();
 	}
 
+//<<<<<<< HEAD
+/*	public void actionPerformed(ActionEvent event) {
+		int choice = file_chooser.showSaveDialog(parent);
+        if (choice == JFileChooser.APPROVE_OPTION) {
+            File file = file_chooser.getSelectedFile();
+            String fpath = file.getAbsolutePath() + ".bacon";
+            // check for overwrites, extensions etc.
+            try {
+    			FileOutputStream fstream = new FileOutputStream(fpath);
+    			PrintStream out = new PrintStream(fstream);
+    			out.print(syntax_highlighter.getPlainText(syntax.getText()));
+    			out.close();
+    		} catch (Exception e) {
+    			System.out.println("Save failed!");
+    		}
+        }
+		
+*/		
+//=======
 class EditorPaneChangeListener implements PropertyChangeListener {
 	
 	EditorPanel parent;
 	
 	public EditorPaneChangeListener(EditorPanel parent) {
 		this.parent = parent;
+//>>>>>>> master
 	}
 	
 	@Override
@@ -533,26 +587,35 @@ class PreviewListener implements ActionListener {
 class TypingListener implements KeyListener {
 
 	private EditorPanel parent;
-	private boolean ignore;
 	
 	public TypingListener(EditorPanel edit) {
 		parent = edit;
 	}
 	
 	@Override
-	public void keyPressed(KeyEvent e) {}
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_V && e.isControlDown()) {
+			e.consume();
+			Clipboard clipboard = 
+		        Toolkit.getDefaultToolkit().getSystemClipboard();
+			Transferable data = clipboard.getContents(clipboard);
+			if (data != null) {
+				try {
+					if (data.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+						String s = (String)(data.getTransferData(
+								DataFlavor.stringFlavor));
+						parent.paste(s);//.replaceSelection(s);
+					}
+				} catch (Exception ex) {}
+			}
+		}
+	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_SHIFT || e.isControlDown())
 			// Ignore them
 			return;
-		if (e.getKeyCode() == KeyEvent.VK_CONTROL)
-			ignore = true;
-		if (ignore) {
-			ignore = false;
-			return;
-		}
 		if (e.getKeyCode() == KeyEvent.VK_F1 && !parent.caret_in_comment()) {
 			String new_word = new StringBuffer(parent.word_before_caret()).reverse().toString();
 			parent.show_box(new_word);
@@ -564,7 +627,7 @@ class TypingListener implements KeyListener {
 		}
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			// Parse text and check for errors
-			parent.preview();
+			parent.check();
 		} else if (e.getKeyCode() != KeyEvent.VK_BACK_SPACE && e.getKeyCode() != KeyEvent.VK_UP
 				&& e.getKeyCode() != KeyEvent.VK_DOWN && e.getKeyCode() != KeyEvent.VK_RIGHT
 				&& e.getKeyCode() != KeyEvent.VK_LEFT) {

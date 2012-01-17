@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Unit;
 
-
+/**
+ * An AST node representing a float
+ * @author David Coulden
+ *
+ */
 public class NumNode extends ExprNode {
 
 	private float value;
@@ -35,6 +39,12 @@ public class NumNode extends ExprNode {
 	@Override
 	public String generateLatex() {
 		return " " + value + " ";
+	}
+
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		visitor.visit(this);
 	}
 
 }

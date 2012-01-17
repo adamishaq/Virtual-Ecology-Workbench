@@ -28,19 +28,19 @@ public class TestUnits {
 		Collection<Unit> meter = new ArrayList<Unit>();
 		meter.add(meters);
 		// Check two units that should be compatible
-		if(!UnitChecker.getUnitChecker().CheckUnitCompatability(sec1, sec2))
+		if(UnitChecker.getUnitChecker().CheckUnitCompatability(sec1, sec2) != 1)
 			fail("seconds ^1 should be compatible with seconds ^1");
 		// Check two units with the same name but different exponents
-		if(UnitChecker.getUnitChecker().CheckUnitCompatability(sec1, sec3))
+		if(UnitChecker.getUnitChecker().CheckUnitCompatability(sec1, sec3) != 0)
 			fail("seconds ^1 should not be compatible with seconds ^2");
 		// Check two units with different names
-		if(UnitChecker.getUnitChecker().CheckUnitCompatability(sec1, meter))
+		if(UnitChecker.getUnitChecker().CheckUnitCompatability(sec1, meter) != 0)
 			fail("seconds ^1 should not be compatible with meters ^1");
 		// Check all units match null and dimensionless
-		if (!UnitChecker.getUnitChecker().CheckUnitCompatability(UnitChecker.null_collection, sec1)
-			|| !UnitChecker.getUnitChecker().CheckUnitCompatability(UnitChecker.null_collection, meter)
-			|| !UnitChecker.getUnitChecker().CheckUnitCompatability(UnitChecker.dimensionless_collection, sec1)
-			|| !UnitChecker.getUnitChecker().CheckUnitCompatability(UnitChecker.dimensionless_collection, meter)) {
+		if (UnitChecker.getUnitChecker().CheckUnitCompatability(UnitChecker.null_collection, sec1) != 1
+			|| UnitChecker.getUnitChecker().CheckUnitCompatability(UnitChecker.null_collection, meter) != 1
+			|| UnitChecker.getUnitChecker().CheckUnitCompatability(UnitChecker.dimensionless_collection, sec1) != 1
+			|| UnitChecker.getUnitChecker().CheckUnitCompatability(UnitChecker.dimensionless_collection, meter) != 1) {
 			fail("all units should be compatible with null and dimensionless");
 		}
 	}
@@ -65,12 +65,12 @@ public class TestUnits {
 		sec4.add(meters);
 		// Check basic multiplication of units
 		Collection<Unit> test = UnitChecker.getUnitChecker().multiply_units(sec1, sec2);
-		if(!UnitChecker.getUnitChecker().CheckUnitCompatability(test, sec3))
+		if(UnitChecker.getUnitChecker().CheckUnitCompatability(test, sec3) != 1)
 			fail("(seconds ^1  * seconds ^1) should be compatible with seconds ^2");
 		// Check complex multiplication of units
 		Collection<Unit> test2 = UnitChecker.getUnitChecker().multiply_units(sec3, meter);
 		test = UnitChecker.getUnitChecker().multiply_units(test, test2);
-		if(!UnitChecker.getUnitChecker().CheckUnitCompatability(test, sec4))
+		if(UnitChecker.getUnitChecker().CheckUnitCompatability(test, sec4) != 1)
 			fail("Both results should be sec^4 * meters");
 	}
 	
@@ -94,14 +94,14 @@ public class TestUnits {
 		sec4.add(meters);
 		// Check division of units
 		Collection<Unit> test = UnitChecker.getUnitChecker().divide_units(sec3, sec2);
-		if(!UnitChecker.getUnitChecker().CheckUnitCompatability(test, sec1))
+		if(UnitChecker.getUnitChecker().CheckUnitCompatability(test, sec1) != 1)
 			fail("(seconds ^2  / seconds ^1) should be compatible with seconds ^1");
 		// Check complex division of units
 		test = UnitChecker.getUnitChecker().divide_units(sec4, sec1);
 		test = UnitChecker.getUnitChecker().divide_units(test, sec1);
 		test = UnitChecker.getUnitChecker().divide_units(test, sec1);
 		test = UnitChecker.getUnitChecker().divide_units(test, sec1);
-		if(!UnitChecker.getUnitChecker().CheckUnitCompatability(test, meter))
+		if(UnitChecker.getUnitChecker().CheckUnitCompatability(test, meter) != 1)
 			fail("Complex divide failed");
 	}
 	

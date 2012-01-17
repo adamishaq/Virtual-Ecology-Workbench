@@ -205,7 +205,7 @@ public class SyntaxHighlighter {
 			// Upon finding "//", search the text until the next '\n' is found and add
 			// a </font> tag
 			for (int i = 0; i < chars.length; i++) {
-				if (i < (chars.length - 1) && chars[i] == '/' && chars[i+1] == '/') {
+				if (!in_comment && i < (chars.length - 1) && chars[i] == '/' && chars[i+1] == '/') {
 					in_comment = true;
 					text += "<font color=#" + comment_colour + ">/";
 				} else if (in_comment && chars[i] == '\n') {
@@ -215,6 +215,8 @@ public class SyntaxHighlighter {
 					text += chars[i];
 				}
 			}
+			if (in_comment)
+				text += "</font>";
 		}
 		return text;
 	}
@@ -455,6 +457,7 @@ public class SyntaxHighlighter {
 	 */
 	private String getPreText(String text) {
 		boolean in_pre = false;
+		//text = text.replaceAll("</pre>\n   <pre>", "AAA");
 		char[] chars = text.toCharArray();
 		String plain_text = "";
 		for (int i = 0; i < chars.length; i++) {

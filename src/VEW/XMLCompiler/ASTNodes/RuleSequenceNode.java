@@ -2,12 +2,16 @@ package VEW.XMLCompiler.ASTNodes;
 
 import VEW.Planktonica2.DisplayOptions;
 import VEW.Planktonica2.Model.Catagory;
-
+/**
+ * An AST node representing a sequence of rules
+ * @author David Coulden
+ *
+ */
 public class RuleSequenceNode extends ASTree {
 	
-	private String ruleName;
-	private RuleNode rule;
-	private RuleSequenceNode seq;
+	private String ruleName; //Current rule name
+	private RuleNode rule; //Current rule
+	private RuleSequenceNode seq; //Other rules
 
 	public RuleSequenceNode(RuleNode rNode) {
 		this.rule = rNode;
@@ -38,6 +42,8 @@ public class RuleSequenceNode extends ASTree {
 	
 	@Override
 	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
+		if (rule == null)
+			return;
 		rule.check(enclosingCategory, enclosingTree);
 		if (seq != null) {
 			seq.check(enclosingCategory, enclosingTree);
@@ -50,6 +56,7 @@ public class RuleSequenceNode extends ASTree {
 		if (ruleName != null) {
 			name = ruleName;
 		}
+		//Uses ':' to seperate rule names and equations and ';' to seperate rules
 		if (seq != null) {
 			return name + ":" + rule.generateXML() 
 				+ ";" + seq.generateXML();
@@ -94,5 +101,16 @@ public class RuleSequenceNode extends ASTree {
 		return name;
 	}
 	
-
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		
+		rule.acceptDependencyCheckVisitor(visitor);
+		if(seq != null) {
+			seq.acceptDependencyCheckVisitor(visitor);
+		}
+		visitor.visit(this);
+		
+	}
+	
 }

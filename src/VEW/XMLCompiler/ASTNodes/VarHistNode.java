@@ -2,10 +2,15 @@ package VEW.XMLCompiler.ASTNodes;
 
 import VEW.Planktonica2.Model.Catagory;
 
+/**
+ * An AST node representing a variable history expression
+ * @author David Coulden
+ *
+ */
 public class VarHistNode extends ExprNode {
 
-	private IdNode identifier;
-	private ExprNode expression;
+	private IdNode identifier; //The indentifier for the variable whose history is being examined
+	private ExprNode expression; //The expression evaluating to the number of steps to look back
 
 	public VarHistNode (IdNode identifier, ExprNode expression, int line) {
 		this.identifier = identifier;
@@ -18,10 +23,6 @@ public class VarHistNode extends ExprNode {
 	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
 		identifier.check(enclosingCategory, enclosingTree);
 		expression.check(enclosingCategory, enclosingTree);
-		if (expression instanceof NumNode) {
-			//TODO some checking for variables out of history ranges
-		}
-		//TODO find out if expressions in varhist is valid
 		setExprType(expression.getExprType());
 		identifier.set_units(enclosingCategory);
 		units = identifier.getUnits();
@@ -41,6 +42,16 @@ public class VarHistNode extends ExprNode {
 		if (expression != null)
 			exp = expression.generateLatex();
 		return "varhist( " + id + " , " + exp + " )";
+	}
+
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		
+		identifier.acceptDependencyCheckVisitor(visitor);
+		expression.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
 	}
 
 }

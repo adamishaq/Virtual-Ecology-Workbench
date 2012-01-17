@@ -1,5 +1,11 @@
 package VEW.XMLCompiler.ASTNodes;
 
+/**
+ * An exception representing a problem when parsing the ANTLR common tree, generally indicates a parse
+ * error being detected
+ * @author David Coulden
+ *
+ */
 public class TreeWalkerException extends BACONCompilerException {
 
 	private int char_pos;

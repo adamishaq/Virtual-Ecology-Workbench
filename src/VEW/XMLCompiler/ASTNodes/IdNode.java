@@ -4,14 +4,20 @@ import java.util.ArrayList;
 
 import VEW.Planktonica2.DisplayOptions;
 import VEW.Planktonica2.Model.Catagory;
+import VEW.Planktonica2.Model.GlobalVariable;
 import VEW.Planktonica2.Model.Unit;
 import VEW.Planktonica2.Model.UnitChecker;
 import VEW.Planktonica2.Model.VariableType;
 
+/**
+ * An AST node that represents an identifier
+ * @author David Coulden
+ *
+ */
 public class IdNode extends ExprNode {
 	
-	private String name;
-	private VariableType var;
+	private String name; //Name of the identifier
+	private VariableType var; //Variable structure if the identifier is a variable
 	
 	public IdNode(String name, int line) {
 		this.name = name;
@@ -26,12 +32,7 @@ public class IdNode extends ExprNode {
 					line_number));
 			units = new ArrayList<Unit>();
 			units.add(new Unit(0,"dimensionless",1));
-		}/*
-		else if ((v instanceof Local || v instanceof VarietyLocal) && !v.isAssignedTo()) {
-			enclosingTree.addSemanticException(
-					new SemanticCheckException("Local variable " + name + " has not been assigned to before reading",
-					line_number));
-		}*/
+		}
 		else {
 			var = (VariableType) v;
 			exprType = var.getVarType();
@@ -44,16 +45,30 @@ public class IdNode extends ExprNode {
 		if (v == null) {
 			units = UnitChecker.null_collection;
 		} else {
-			var = (VariableType) v;
+			var = v;
 			units = var.getUnits();
 		}
 	}
 	
 	@Override
 	public String generateXML() {
-		String var = name.replaceAll("FullIrradiance", "Full Irradiance");
+		String var = "";
+		if (this.var instanceof GlobalVariable) {
+			GlobalVariable gVar = (GlobalVariable) this.var;
+			if (gVar.getWriteBackName() != null) {
+				var = gVar.getWriteBackName();
+			}
+			else {
+				var = this.var.getName();
+			}
+		}
+		else {
+			var = this.var.getName();
+		}
+		//Is required to solve backwards compatibility problems
+		var = var.replaceAll("FullIrradiance", "Full Irradiance");
 		var = var.replace("VisibleIrradiance", "Visible Irradiance");
-		return "\\var{" + name + "}";
+		return "\\var{" + var + "}";
 	}
 	
 	@Override
@@ -77,6 +92,17 @@ public class IdNode extends ExprNode {
 	
 	public String getName() {
 		return name;
+	}
+
+	public VariableType getVariableType() {
+		return this.var;
+	}
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		
+		visitor.visit(this);
+		
 	}
 
 }

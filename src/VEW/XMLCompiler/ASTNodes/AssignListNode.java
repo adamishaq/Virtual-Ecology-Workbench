@@ -5,10 +5,14 @@ import java.util.Collection;
 
 import VEW.Planktonica2.Model.Catagory;
 
-
+/**
+ * AST Node that represents the assign list construct used within create statements
+ * @author David Coulden
+ *
+ */
 public class AssignListNode extends ASTree {
 
-	private Collection<AssignNode> assignList;
+	private Collection<AssignNode> assignList; //The list of assigns comprising this node
 
 	
 	public AssignListNode() {
@@ -36,9 +40,12 @@ public class AssignListNode extends ASTree {
 	public String generateXML() {
 		String genString = "";
 		for (AssignNode a : assignList) {
-			genString += "\\set{" + a.generateXML() + "},";
+			String assignString = a.generateXML().replace("\\assign{", "");
+			assignString = assignString.substring(0, assignString.length() - 1);
+			genString += "\\set{" + assignString + "},";
 		}
-		return genString;
+		// Trim off the last comma
+		return genString.substring(0, genString.length() - 1);
 	}
 	
 	@Override
@@ -54,7 +61,17 @@ public class AssignListNode extends ASTree {
 		genString = genString.substring(0, genString.length() - 1);
 		return genString;
 	}
-	
 
+	/**
+	 * Doesn't check the AssignNodes in the list.
+	 */
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		
+		visitor.visit(this);
+		
+	}
+	
+	
 
 }

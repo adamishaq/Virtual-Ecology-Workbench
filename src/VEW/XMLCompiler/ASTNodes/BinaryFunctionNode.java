@@ -8,12 +8,17 @@ import VEW.Planktonica2.Model.Stage;
 import VEW.Planktonica2.Model.Type;
 import VEW.Planktonica2.Model.VarietyType;
 
-
+/**
+ * A AST node that represents a binary function, where the first argument is a variable and second
+ * argument is an expression.
+ * @author David Coulden
+ *
+ */
 public class BinaryFunctionNode extends RuleNode {
 
-	private BinaryFunction binFunc;
-	private IdNode idArg;
-	private ExprNode expArg;
+	private BinaryFunction binFunc; //The type of binary function
+	private IdNode idArg; //The variable argument
+	private ExprNode expArg; //The expression argument
 	
 	public BinaryFunctionNode(BinaryFunction function, IdNode idArg, ExprNode expArg, int line) {
 		this.binFunc = function;
@@ -24,7 +29,6 @@ public class BinaryFunctionNode extends RuleNode {
 	
 	@Override
 	public void check(Catagory enclosingCategory, ConstructedASTree enclosingTree) {
-		//Considering splitting this into three nodes
 		if (enclosingCategory instanceof Chemical) {
 			enclosingTree.addSemanticException(
 					new SemanticCheckException("Special functions cannot be called within chemical equations",line_number));
@@ -33,6 +37,7 @@ public class BinaryFunctionNode extends RuleNode {
 		FunctionalGroup group = (FunctionalGroup) enclosingCategory;
 		expArg.check(enclosingCategory, enclosingTree);
 		Type expArgType = expArg.getExprType();
+		//Different behaviour based on each type of binary function
 		switch (binFunc) {
 			case UPTAKE : 
 			case RELEASE : {
@@ -65,9 +70,9 @@ public class BinaryFunctionNode extends RuleNode {
 		switch (binFunc) {
 		case UPTAKE  : func = "uptake"; break;
 		case RELEASE : func = "release"; break;
-		case PCHANGE : return "\\pchange{" + idArg.generateXML() + "," + expArg.generateXML() + "}";
+		case PCHANGE : return "\\pchange{\\stage{" + idArg.getName() + "}," + expArg.generateXML() + "}";
 		}
-		return "\\" + func + "{" + expArg.generateXML() + "," + idArg.generateXML() + "}";
+		return "\\" + func + "{" + expArg.generateXML() + ",\\var{" + idArg.getName().replace('_', '$') + "}}";
 	}
 
 	@Override
@@ -85,6 +90,17 @@ public class BinaryFunctionNode extends RuleNode {
 		case PCHANGE : return "pchange(" + id + "," + exp + ")";
 		}
 		return func + "(" + id + "," + exp + ")";
+	}
+
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		super.acceptDependencyCheckVisitor(visitor);
+		
+		idArg.acceptDependencyCheckVisitor(visitor);
+		expArg.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
 	}
 	
 }

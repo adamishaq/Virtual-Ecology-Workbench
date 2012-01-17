@@ -1,20 +1,22 @@
 package VEW.XMLCompiler.ASTNodes;
 
-import java.util.ArrayList;
-
+import VEW.Planktonica2.DisplayOptions;
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Type;
-import VEW.Planktonica2.Model.Unit;
 import VEW.Planktonica2.Model.UnitChecker;
 import VEW.Planktonica2.Model.VarietyType;
 
 
-
+/**
+ * An AST node representing a binary operator
+ * @author David Coulden
+ *
+ */
 public class BinOpNode extends ExprNode {
 	
-	private MathematicalOperator operator;
-	private ExprNode lExpr;
-	private ExprNode rExpr;
+	private MathematicalOperator operator; //Type of binary operator
+	private ExprNode lExpr; //Left expression
+	private ExprNode rExpr; //Right expression
 	
 	public BinOpNode (MathematicalOperator operator, ExprNode lExpr, ExprNode rExpr, int line) {
 		this.operator = operator;
@@ -35,21 +37,31 @@ public class BinOpNode extends ExprNode {
 			enclosingTree.addSemanticException(e);
 			setExprType(lType);
 		}
+		
+		//Different cases for different operators as each has various unit effects
 		switch (operator) {
 		case PLUS     : 
-			if (!UnitChecker.getUnitChecker().CheckUnitCompatability(rExpr.getUnits(),
-				lExpr.getUnits())) {
+			if (UnitChecker.getUnitChecker().CheckUnitCompatability(rExpr.getUnits(),
+				lExpr.getUnits()) == 0) {
 				enclosingTree.addWarning("Addition of two different unit types on line " + line_number);
 				units = UnitChecker.null_collection;
+			} else if (UnitChecker.getUnitChecker().CheckUnitCompatability(rExpr.getUnits(),
+					lExpr.getUnits()) != 1) {
+				// Use the units of the LHS
+				this.units = lExpr.getUnits();
 			} else {
 				this.units = UnitChecker.getUnitChecker().add_units(rExpr.getUnits(), lExpr.getUnits());
 			}
 			break;
 		case MINUS    :
-			if (!UnitChecker.getUnitChecker().CheckUnitCompatability(rExpr.getUnits(),
-				lExpr.getUnits())) {
+			if (UnitChecker.getUnitChecker().CheckUnitCompatability(rExpr.getUnits(),
+				lExpr.getUnits()) == 0) {
 				enclosingTree.addWarning("Subtraction of two different unit types on line " + line_number);
 				this.units = UnitChecker.null_collection;
+			} else if (UnitChecker.getUnitChecker().CheckUnitCompatability(rExpr.getUnits(),
+					lExpr.getUnits()) != 1) {
+				// Use the units of the LHS
+				this.units = lExpr.getUnits();
 			} else {
 				this.units = UnitChecker.getUnitChecker().add_units(rExpr.getUnits(), lExpr.getUnits());
 			}
@@ -74,6 +86,13 @@ public class BinOpNode extends ExprNode {
 		}
 	}
 
+	/**
+	 * Checks that the type of the right expression is compatible with the type of the left expression
+	 * @param lType
+	 * @param rType
+	 * @return The type the expression will evaluate to
+	 * @throws BACONCompilerException
+	 */
 	private Type checkCompatibility(Type lType, Type rType) throws BACONCompilerException {
 		AmbientVariableTables tables = AmbientVariableTables.getTables();
 		Type floatType = (Type) tables.checkTypeTable("$float");
@@ -99,8 +118,28 @@ public class BinOpNode extends ExprNode {
 	public String generateXML() {
 		String op = "";
 		switch (operator) {
-		case PLUS     : op = "add"; break; 
-		case MINUS    : op = "sub"; break; 
+		case PLUS     : 
+			op = "add"; 
+			if (DisplayOptions.getOptions().ATTEMPT_TYPE_SCALING) {
+				float scale = UnitChecker.getUnitChecker().CheckUnitCompatability(lExpr.getUnits(),
+						rExpr.getUnits());
+				if (scale != 0 && scale != 1) {
+					return "\\" + op + "{" + lExpr.generateXML() + "," +
+					"\\mul{" + scale + "," + rExpr.generateXML() + "}}";
+				}
+			}
+			break; 
+		case MINUS    : 
+			op = "sub";
+			if (DisplayOptions.getOptions().ATTEMPT_TYPE_SCALING) {
+				float scale = UnitChecker.getUnitChecker().CheckUnitCompatability(lExpr.getUnits(),
+						rExpr.getUnits());
+				if (scale != 0 && scale != 1) {
+					return "\\" + op + "{" + lExpr.generateXML() + "," +
+					"\\mul{" + scale + "," + rExpr.generateXML() + "}}";
+				}
+			}
+			break; 
 		case MULTIPLY : op = "mul"; break; 
 		case DIVIDE   : op = "div"; break; 
 		case POWER    : op = "pow"; break; 
@@ -117,8 +156,26 @@ public class BinOpNode extends ExprNode {
 		if (rExpr != null)
 			right = rExpr.generateLatex();
 		switch (operator) {
-		case PLUS     : func  = "+"; break;
-		case MINUS    : func  = "-"; break;
+		case PLUS     : 
+			func  = "+";
+			if (DisplayOptions.getOptions().ATTEMPT_TYPE_SCALING) {
+				float scale = UnitChecker.getUnitChecker().CheckUnitCompatability(lExpr.getUnits(),
+						rExpr.getUnits());
+				if (scale != 0 && scale != 1) {
+					return left + " + " + "(" + scale + " * " + right + ")";
+				}
+			}
+			break;
+		case MINUS    :
+		func  = "-";
+		if (DisplayOptions.getOptions().ATTEMPT_TYPE_SCALING) {
+			float scale = UnitChecker.getUnitChecker().CheckUnitCompatability(lExpr.getUnits(),
+					rExpr.getUnits());
+			if (scale != 0 && scale != 1) {
+				return left + " - " + "(" + scale + " * " + right + ")";
+			}
+		}
+		break;
 		case MULTIPLY : func  = "*"; break;
 		case DIVIDE   : return "\\frac {" + left + "} {" + right + "}";
 		case POWER    : return left + "^ {" + right + "}";
@@ -126,4 +183,14 @@ public class BinOpNode extends ExprNode {
 		return left + func + right;
 	}
 
+	
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		
+		lExpr.acceptDependencyCheckVisitor(visitor);
+		rExpr.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
+	}
+	
 }

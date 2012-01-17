@@ -40,9 +40,13 @@ public class DisplayOptionsDialog extends JDialog {
 	JCheckBox preview_names = new JCheckBox();
 	JCheckBox source_doc = new JCheckBox();
 	
+	JCheckBox convert_types = new JCheckBox();
+	JCheckBox scale_types = new JCheckBox();
+	
 	public DisplayOptionsDialog(EditorPanel parent) {
 		super();
 		
+		// Set up this dialog
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		this.setTitle("Options");
@@ -52,14 +56,12 @@ public class DisplayOptionsDialog extends JDialog {
 		
 		JTabbedPane option_tabs = new JTabbedPane();
 		
+		// Create the display panel and add it to the display tab
 		JPanel display = new JPanel(new GridBagLayout());
 		GridBagConstraints l_c = new GridBagConstraints();
+		l_c.fill = GridBagConstraints.HORIZONTAL;
 		l_c.gridx = 0;
 		l_c.gridy = 0;
-		maximised.setSelected(DisplayOptions.getOptions().MAXIMISED);
-		maximised.setText("Maximise on startup");
-		//display.add(maximised,l_c);
-		l_c.gridy = 1;
 		if (DisplayOptions.getOptions().LAYOUT_VERTICAL) {
 			layout_preview.setIcon(vertical);
 		} else {
@@ -71,12 +73,13 @@ public class DisplayOptionsDialog extends JDialog {
 		display.add(layout_horizontal,l_c);
 		l_c.gridx = 1;
 		display.add(layout_vertical,l_c);
-		// Make the two button mutually exclusive
+		// Make the two buttons mutually exclusive
 		ButtonGroup group = new ButtonGroup();
 	    group.add(layout_horizontal);
 	    group.add(layout_vertical);
 		option_tabs.add("Display",display);
 		
+		// Create the latex panel and add it to the latex tab
 		JPanel latex = new JPanel(new GridBagLayout());
 		l_c.gridx = 0;
 		l_c.gridy = 0;
@@ -93,6 +96,35 @@ public class DisplayOptionsDialog extends JDialog {
 		latex.add(source_doc,l_c);
 		option_tabs.add("LaTeX",latex);
 		
+		// Create the units panel and add it to the units tab
+		JPanel units = new JPanel(new GridBagLayout());
+		l_c.gridx = 0;
+		l_c.gridy = 0;
+		convert_types.setSelected(DisplayOptions.getOptions().ATTEMPT_TYPE_CONVERSION);
+		convert_types.setText("Attempt type conversion");
+		convert_types.addChangeListener(new UnitChangeListener(this));
+		units.add(convert_types,l_c);
+		l_c.gridy = 1;
+		scale_types.setEnabled(DisplayOptions.getOptions().ATTEMPT_TYPE_CONVERSION);
+		scale_types.setSelected(DisplayOptions.getOptions().ATTEMPT_TYPE_CONVERSION
+				&& DisplayOptions.getOptions().ATTEMPT_TYPE_SCALING);
+		scale_types.setText("Attempt type scaling");
+		units.add(scale_types,l_c);
+		l_c.gridy = 2;
+		JButton edit_equivalences = new JButton("Edit Equivalences");
+		edit_equivalences.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				UnitEquivalencesDialog d = new UnitEquivalencesDialog();
+				d.setAlwaysOnTop(true);
+				d.setLocationRelativeTo(null);
+				d.setResizable(false);
+				d.setVisible(true);
+			}
+		});
+		units.add(edit_equivalences,l_c);
+		option_tabs.add("Units",units);
+		
 		c.weightx = 1;
 		c.weighty = 1;
 		c.gridheight = 3;
@@ -101,6 +133,7 @@ public class DisplayOptionsDialog extends JDialog {
 		c.fill = GridBagConstraints.BOTH;
 		this.add(option_tabs,c);
 		
+		// Add the two button on the bottom of the dialog
 		JPanel buttons = new JPanel();
 		JButton apply = new JButton("Apply");
 		apply.addActionListener(new ApplyListener(this));
@@ -122,6 +155,9 @@ public class DisplayOptionsDialog extends JDialog {
 		DisplayOptions.getOptions().PREVIEW_UNITS = preview_units.isSelected();
 		DisplayOptions.getOptions().PREVIEW_RULE_NAMES = preview_names.isSelected();
 		DisplayOptions.getOptions().SOURCE_IN_LATEX = source_doc.isSelected();
+		DisplayOptions.getOptions().ATTEMPT_TYPE_CONVERSION = convert_types.isSelected();
+		DisplayOptions.getOptions().ATTEMPT_TYPE_SCALING 
+			= convert_types.isSelected() && scale_types.isSelected();
 		parent.apply_options();
 		// Update the config file
 		DisplayOptions.getOptions().write_config();
@@ -154,6 +190,30 @@ public class DisplayOptionsDialog extends JDialog {
 		}
 	}
 	
+	public class UnitChangeListener implements ChangeListener {
+
+		private DisplayOptionsDialog parent;
+			
+			public UnitChangeListener(DisplayOptionsDialog parent) {
+				this.parent = parent;
+			}
+
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				parent.update_units();
+			}
+			
+		}
+	
+	public void update_units() {
+		if (convert_types.isSelected()){
+			scale_types.setEnabled(true);
+		} else {
+			scale_types.setSelected(false);
+			scale_types.setEnabled(false);
+		}
+	}
+	
 	public class ApplyListener implements ActionListener {
 
 		private DisplayOptionsDialog parent;
@@ -181,5 +241,5 @@ public class DisplayOptionsDialog extends JDialog {
 			}
 			
 		}
-
+	
 }

@@ -1,16 +1,23 @@
 package VEW.XMLCompiler.ASTNodes;
 
+import VEW.Planktonica2.DisplayOptions;
 import VEW.Planktonica2.Model.Catagory;
 import VEW.Planktonica2.Model.Type;
+import VEW.Planktonica2.Model.Unit;
 import VEW.Planktonica2.Model.UnitChecker;
 import VEW.Planktonica2.Model.VariableType;
 import VEW.Planktonica2.Model.VarietyType;
 
+/**
+ * The AST node that represents an assignment
+ * @author David Coulden
+ *
+ */
 public class AssignNode extends RuleNode {
 
-	private IdNode identifier;
-	private ExprNode expr;
-	private VariableType assignVar;
+	private IdNode identifier; //Represents the variable being assigned to
+	private ExprNode expr; //The expression being assigned
+	private VariableType assignVar; //The variable representation of the assign variable
 	
 	public AssignNode(IdNode identifier, ExprNode expr, int line) {
 		this.line_number = line;
@@ -32,12 +39,22 @@ public class AssignNode extends RuleNode {
 			return;
 		}
 		identifier.set_units(enclosingCategory);
+		//Checks child expression
 		expr.check(enclosingCategory, enclosingTree);
-		if (!UnitChecker.getUnitChecker().CheckUnitCompatability(identifier.getUnits(),
-				expr.getUnits())) {
-			enclosingTree.addWarning("Units of " + identifier.getName() + " not compatible with units of " +
-					"the expression on line " + line_number);
+		//Checks whether units 
+		if (UnitChecker.getUnitChecker().CheckUnitCompatability(identifier.getUnits(),
+				expr.getUnits()) == 0) {
+			String warning = "Units of " + identifier.getName() + " (";
+			for (Unit u : identifier.getUnits())
+				warning += u.format();
+			warning += ") not compatible with units of " +
+			"the expression on line " + line_number + " (";
+			for (Unit u : expr.getUnits())
+				warning += u.format();
+			warning += ")";
+			enclosingTree.addWarning(warning);
 		}
+		//Checks that the assignment is correctly typed
 		checkTypeCompatibility(var.getVarType(), enclosingTree);
 		assignVar = var;
 		assignVar.setAssigned(true);
@@ -62,6 +79,13 @@ public class AssignNode extends RuleNode {
 
 	@Override
 	public String generateXML() {
+		if (DisplayOptions.getOptions().ATTEMPT_TYPE_SCALING) {
+			float scale = UnitChecker.getUnitChecker().CheckUnitCompatability(identifier.getUnits(),
+					expr.getUnits());
+			if (scale != 0 && scale != 1)
+				return "\\assign{" + identifier.generateXML() + "," +
+						"\\mul{" + scale + "," + expr.generateXML() + "}}";
+		}
 		return "\\assign{" + identifier.generateXML() + "," + expr.generateXML() + "}";
 	}
 
@@ -73,10 +97,30 @@ public class AssignNode extends RuleNode {
 		String ex = "???";
 		if (expr != null)
 			ex = expr.generateLatex();
+		if (DisplayOptions.getOptions().ATTEMPT_TYPE_SCALING) {
+			float scale = UnitChecker.getUnitChecker().CheckUnitCompatability(identifier.getUnits(),
+					expr.getUnits());
+			if (scale != 0 && scale != 1)
+				return id + " = " + scale + " * (" + ex + ")";
+		}
 		return id + " = " + ex;
 	}
 	
 	public VariableType getAssignVar() {
 		return assignVar;
+	}
+
+	
+	/**
+	 * Doesnt' check the IdNode identifier.
+	 * This can be done by the visitor in the visitor class.
+	 */
+	@Override
+	public void acceptDependencyCheckVisitor(ASTreeVisitor visitor) {
+		super.acceptDependencyCheckVisitor(visitor);
+		
+		expr.acceptDependencyCheckVisitor(visitor);
+		visitor.visit(this);
+		
 	}
 }

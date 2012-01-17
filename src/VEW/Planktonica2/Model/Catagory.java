@@ -3,6 +3,7 @@ package VEW.Planktonica2.Model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import VEW.Common.XML.XMLTag;
 import VEW.Planktonica2.ControllerStructure.SelectableItem;
@@ -24,12 +25,14 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 	protected SymbolTable<VarietyConcentration> varietyConcTable;
 	protected SymbolTable<VarietyLocal> varietyLocalTable;
 	
+	protected ArrayList<String> warnings;
+	
 	protected XMLTag baseTag;
 	
 	public Catagory() {
 		
 		functions = new ArrayList<Function>();
-		
+		warnings = new ArrayList<String>();
 		initialiseTables();
 	}
 
@@ -131,6 +134,10 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 	
 	public void addToStateVarTable(StateVariable var) {
 		stateVarTable.put(var.getName(), var);
+	}
+	
+	public void addToStateVarTable(String name, StateVariable var) {
+		stateVarTable.put(name, var);
 	}
 	
 	public StateVariable checkStateVariableTable(String varName) {
@@ -317,7 +324,8 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 		Iterator<V> iter = vals.iterator();
 		while(iter.hasNext()) {
 			V var = iter.next();
-			tag.addTag(var.buildToXML());
+			if (var.includedInXML())
+				tag.addTag(var.buildToXML());
 		}
 		
 	}
@@ -325,6 +333,17 @@ public abstract class Catagory implements SelectableItem, BuildFromXML, BuildToX
 	public String getFilePath() {
 		return this.file_path;
 	}
+	
+	public void addWarnings(List<String> warnings) {
+		this.warnings.addAll(warnings);
+	}
 
+	public List<String> getWarnings() {
+		return warnings;
+	}
+	
+	public void clearWarnings() {
+		warnings = new ArrayList<String>();
+	}
 	
 }
